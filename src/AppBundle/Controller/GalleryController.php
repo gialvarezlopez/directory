@@ -28,7 +28,7 @@ class GalleryController extends Controller
         $galleries = $em->getRepository('AppBundle:Gallery')->findBy( array("usr"=> $userId) );
 
 
-        return $this->render('gallery/index.html.twig', array(
+        return $this->render('app/gallery/index.html.twig', array(
             'galleries' => $galleries,
         ));
     }

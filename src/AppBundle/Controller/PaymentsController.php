@@ -99,7 +99,7 @@ class PaymentsController extends Controller
 
         $pendingDays = $result;
 
-        return $this->render('payments/checkIn.html.twig', array(
+        return $this->render('app/payments/checkIn.html.twig', array(
             "processors"=> $processors,
             "pricing" => $pricing,
             "pendingDays" =>$pendingDays,
@@ -113,7 +113,7 @@ class PaymentsController extends Controller
 
         //$currentPays = $em->getRepository('AppBundle:Payer')->findBy( array("usr"=> $userId) );
         $pays = $em->getRepository('AppBundle:Payer')->findBy( array("usr"=> $userId,"payActive"=>1), array('payId' => 'DESC') );
-        return $this->render('payments/info.html.twig', array( "pays"=>$pays) );
+        return $this->render('app/payments/info.html.twig', array( "pays"=>$pays) );
 
     }
 

@@ -31,7 +31,7 @@ class MedicalDetailController extends Controller
         }else{
             return $this->redirectToRoute('medicaldetail_edit', array('id' => $oMedical->getMdId()));
         }
-        return $this->render('medicaldetail/index.html.twig', array(
+        return $this->render('app/medicaldetail/index.html.twig', array(
             //'medicalDetails' => $medicalDetails,
         ));
     }
@@ -92,7 +92,7 @@ class MedicalDetailController extends Controller
             return $this->redirectToRoute('medicaldetail_edit', array('id' => $medicalDetail->getMdId()));
         }
 
-        return $this->render('medicaldetail/new.html.twig', array(
+        return $this->render('app/medicaldetail/new.html.twig', array(
             'medicalDetail' => $medicalDetail,
             'form' => $form->createView(),
         ));
@@ -106,7 +106,7 @@ class MedicalDetailController extends Controller
     {
         $deleteForm = $this->createDeleteForm($medicalDetail);
 
-        return $this->render('medicaldetail/show.html.twig', array(
+        return $this->render('app/medicaldetail/show.html.twig', array(
             'medicalDetail' => $medicalDetail,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -166,7 +166,7 @@ class MedicalDetailController extends Controller
 
         //$image_repo = $em->getRepository("AppBundle:MedicalDetailType")->findOneBy( array( "usr"=> $userId));
         // ( $this->getSpecialities() );
-        return $this->render('medicaldetail/edit.html.twig', array(
+        return $this->render('app/medicaldetail/edit.html.twig', array(
             'medicalDetail' => $medicalDetail,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

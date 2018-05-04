@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             //new KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle(),
+            new WebBundle\WebBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

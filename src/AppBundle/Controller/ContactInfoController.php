@@ -111,7 +111,7 @@ class ContactInfoController extends Controller
         //$em->getRepository('AppBundle:City')->findBy( array("usr"=>$userId ) );
 
 
-        return $this->render('contactinfo/new.html.twig', array(
+        return $this->render('app/contactinfo/new.html.twig', array(
             //'contactInfo' => $contactInfo,
             //'form' => $form->createView(),
             'countries' => $countries,
@@ -279,7 +279,7 @@ class ContactInfoController extends Controller
             return $this->redirectToRoute('contactinfo_edit', array('id' => $contactInfo->getCouId()));
         }
 
-        return $this->render('contactinfo/edit.html.twig', array(
+        return $this->render('app/contactinfo/edit.html.twig', array(
             'contactInfo' => $contactInfo,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

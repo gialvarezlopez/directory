@@ -57,7 +57,7 @@ class UserController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
 
-        return $this->render('user/login.html.twig', array(
+        return $this->render('app/user/login.html.twig', array(
             'error' => $error,
             "last_username"=> $lastUsername,
             "urlGoogle"=>$urlGoogle,
@@ -157,7 +157,7 @@ class UserController extends Controller
 			//return $this->redirectToRoute("lips_login");
 		}
 
-        return $this->render('user/register.html.twig', array(
+        return $this->render('app/user/register.html.twig', array(
             //'error' => $error,
             //"last_username"=> $lastUsername
             "form" => $form->createView(),
@@ -187,7 +187,7 @@ class UserController extends Controller
                 ->setBody(
                     $this->renderView(
                         // templates/emails/registration.html.twig
-                        'emails/registration.html.twig',
+                        'app/emails/registration.html.twig',
                         array('token' => $token)
                     ),
                     'text/html'
