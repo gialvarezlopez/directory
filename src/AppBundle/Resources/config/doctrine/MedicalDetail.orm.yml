@@ -1,0 +1,116 @@
+AppBundle\Entity\MedicalDetail:
+    type: entity
+    table: medical_detail
+    indexes:
+        fk_medical_detail_user1_idx:
+            columns:
+                - usr_id
+    id:
+        mdId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: md_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        mdProfileImage:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: md_profile_image
+        mdProfileDescription:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: md_profile_description
+        mdAcademicTraining:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: md_academic_training
+        mdProfessionalExperience:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: md_professional_experience
+        mdCoursesSeminars:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: md_courses_seminars
+        mdAditionalInformation:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: md_aditional_information
+        mdFirstName:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: md_first_name
+        mdMiddleName:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: md_middle_name
+        mdFirstSurname:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: md_first_surname
+        mdSecondSurname:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: md_second_surname
+        mdActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: md_active
+        mdCreated:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: md_created
+        mdUpdated:
+            type: datetime
+            nullable: true
+            column: md_updated
+    manyToOne:
+        usr:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usr_id:
+                    referencedColumnName: usr_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

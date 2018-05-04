@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SocialNetwork list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Snid</th>
+                <th>Sntype</th>
+                <th>Snkey</th>
+                <th>Snactive</th>
+                <th>Sncreated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for socialNetwork in socialNetworks %}
+            <tr>
+                <td><a href="{{ path('socialnetwork_show', { 'id': socialNetwork.snId }) }}">{{ socialNetwork.snId }}</a></td>
+                <td>{{ socialNetwork.snType }}</td>
+                <td>{{ socialNetwork.snKey }}</td>
+                <td>{% if socialNetwork.snActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if socialNetwork.snCreated %}{{ socialNetwork.snCreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('socialnetwork_show', { 'id': socialNetwork.snId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('socialnetwork_edit', { 'id': socialNetwork.snId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('socialnetwork_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

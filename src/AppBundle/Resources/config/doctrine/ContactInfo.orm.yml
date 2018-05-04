@@ -1,0 +1,97 @@
+AppBundle\Entity\ContactInfo:
+    type: entity
+    table: contact_info
+    indexes:
+        fk_contact_info_user1_idx:
+            columns:
+                - usr_id
+        FK_contact_info_citi:
+            columns:
+                - cit_id
+    id:
+        ciId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ci_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        ciPhone1:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: ci_phone1
+        ciPhone2:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: ci_phone2
+        ciAddress:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: ci_address
+        ciLat:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: ci_lat
+        ciLng:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: ci_lng
+        ciActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: ci_active
+        ciSchedule:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: ci_schedule
+        ciCreated:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: ci_created
+    manyToOne:
+        cit:
+            targetEntity: City
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cit_id:
+                    referencedColumnName: cit_id
+            orphanRemoval: false
+        usr:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usr_id:
+                    referencedColumnName: usr_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

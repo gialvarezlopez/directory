@@ -1,0 +1,80 @@
+#weekly_container{
+	position: relative;
+}
+#weekly_days{
+	width: 40px;
+	position: absolute;
+	left: 0px;
+	font-size: 11px;
+}
+.weekly_day_label,
+.weekly_day_hour_label{
+	
+	display: block;
+	border: solid 1px #ccc; 
+	padding: 7px 5px;
+	font-size: 11px;
+	text-align: center;
+}
+.weekly_head_hour,
+.weekly_day_hour_label{
+	width: 40px;
+	display: block;
+	text-align: center;
+}
+
+.weekly_head_hour{
+	font-size: 11px;
+	text-align: center;
+	cursor: pointer;
+	background: #5bc0de; /*#5cb85c;*/ /* #449D44;*/
+	
+	border-left: solid 1px #46b8da;
+	border-right: solid 1px #46b8da;
+	color: #fff;
+}
+.weekly_head_hour:hover{
+	background: #68c40b;
+}
+
+.weekly_column_hour{
+	width: 40px;
+	display: inline-block;
+
+}
+
+#weekly_scroll{
+	width: 100%;
+	overflow-x: scroll;
+	clear: both;
+	height:230px;
+    overflow-x:auto;
+    position: absolute;
+}
+#weekly_schedule{}
+#weekly_schedule .active
+{
+	background: #68c40b;
+	color: #fff;
+}
+.weekly_day_hour_label:hover{
+	background: #deffbc; /* #68c40b;*/
+	color: #68c40b;
+	cursor: pointer;
+	color: #68c40b !important;
+}
+.weekly_day_hour_label
+{
+	background: #F3F5F6;
+}
+
+.weekly_day_hour_label:hover:before,	
+#weekly_schedule .active:before
+{
+	content:'\2713';
+	/*color:white;*/
+}
+
+#weekly_scroll{
+	position: relative;
+}

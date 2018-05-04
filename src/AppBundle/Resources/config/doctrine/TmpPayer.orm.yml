@@ -1,0 +1,32 @@
+AppBundle\Entity\TmpPayer:
+    type: entity
+    table: tmp_payer
+    id:
+        tmpId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: tmp_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        tmpGatewayIdToken:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: tmp_gateway_id_token
+        tmpCreated:
+            type: datetime
+            nullable: true
+            column: tmp_created
+        tmpCompleted:
+            type: smallint
+            nullable: true
+            options:
+                unsigned: false
+            column: tmp_completed
+    lifecycleCallbacks: {  }

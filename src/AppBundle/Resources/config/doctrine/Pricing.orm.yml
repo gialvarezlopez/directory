@@ -1,0 +1,48 @@
+AppBundle\Entity\Pricing:
+    type: entity
+    table: pricing
+    id:
+        prId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: pr_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        prPlan:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: pr_plan
+        prMonths:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: pr_months
+        prPrice:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: pr_price
+        prDescription:
+            type: string
+            nullable: true
+            length: 250
+            options:
+                fixed: false
+            column: pr_description
+        prActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: pr_active
+    lifecycleCallbacks: {  }

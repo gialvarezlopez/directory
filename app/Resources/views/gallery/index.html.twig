@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block title_page %}
+    EMR || Consulta Médica
+{% endblock %}
+
+{% block breadcrumb %}
+    {# {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }} #}
+{% endblock %} 
+
+{% block submenutop %}
+    {# {{ include('EmrBundle:consulta:_submenu.html.twig' )  }} #}
+{% endblock %} 
+
+
+
+{% block header %}
+        <h1>My Images Gallery</h1>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="file-loading">
+    <input id="images" name="images[]" type="file" multiple accept="image">
+</div>
+
+{#
+    <table>
+        <thead>
+            <tr>
+                <th>Gaid</th>
+                <th>Ganame</th>
+                <th>Gadescription</th>
+                <th>Gaactive</th>
+                <th>Gacreated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for gallery in galleries %}
+            <tr>
+                <td><a href="{{ path('gallery_show', { 'id': gallery.gaId }) }}">{{ gallery.gaId }}</a></td>
+                <td>{{ gallery.gaName }}</td>
+                <td>{{ gallery.gaDescription }}</td>
+                <td>{% if gallery.gaActive %}Yes{% else %}No{% endif %}</td>
+                <td>{% if gallery.gaCreated %}{{ gallery.gaCreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('gallery_show', { 'id': gallery.gaId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('gallery_edit', { 'id': gallery.gaId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('gallery_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+    #}
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        //$(document).on("ready", function(){
+        $(function () {
+            // initialize with defaults
+
+            var krajeeGetCount = function(id) {
+                var cnt = $('#' + id).fileinput('getFilesCount');
+                return cnt === 0 ? 'You have no files remaining.' :
+                    'You have ' +  cnt + ' file' + (cnt > 1 ? 's' : '') + ' remaining.';
+            };
+           $("#images").fileinput({
+                theme: "explorer-fa",
+                uploadUrl: "{{ path('gallery_new') }}",
+                allowedFileExtensions: ['jpg', 'png', 'gif'],
+                overwriteInitial: false,
+                maxFileSize: 5120,
+                maxFileCount: 8,
+                initialPreviewAsData: true,
+                validateInitialCount: true,
+                
+                //dragIcon: false,
+                initialPreview: [
+                    {% for gallery in galleries %}
+                        "{{ asset('uploads/'~gallery.gaName) }}",
+                    {% endfor %}
+                    //"https://picsum.photos/1920/1080?image=101",
+                ],
+                initialPreviewConfig: [
+                    {% for gallery in galleries %}
+                        { caption: "", size: 329892, width: "120px", url: "{{ path('gallery_delete',{id:gallery.gaId}) }}", key: "{{ gallery.gaName }}"},
+                    {% endfor %}
+                    //{caption: "picture-1.jpg", size: 329892, width: "120px", url: "/site/file-delete", key: 101},
+                ],
+                initialPreviewDownloadUrl: "{{ asset('uploads/')}}"+'{key}' //'https://picsum.photos/1920/1080?image={key}' // the key will be dynamically replaced
+                /*
+                uploadExtraData: function() {
+                    return {
+                        userid: $("#userid").val(),
+                        username: $("#username").val()
+                    };
+                }
+                */ 
+            }).on('filebeforedelete', function() {
+                    return new Promise(function(resolve, reject) {
+                        $.confirm({
+                            title: 'Confirmation!',
+                            content: 'Are you sure you want to delete this file?',
+                            type: 'red',
+                            buttons: {   
+                                ok: {
+                                    btnClass: 'btn-primary text-white',
+                                    keys: ['enter'],
+                                    action: function(){
+                                        resolve();
+                                    }
+                                },
+                                cancel: function(){
+                                    //$.alert('File deletion was aborted! ' + krajeeGetCount('images'));
+                                }
+                            }
+                        });
+                    });
+                }).on('filedeleted', function() {
+                    setTimeout(function() {
+                        $.alert('File deletion was successful! ' + krajeeGetCount('images'));
+                    }, 900);
+                });
+            /*.on('filebatchuploadcomplete', function(event, files, extra) {
+                    //location.reload();
+                    //$("#images").fileinput("upload");
+                    console.log('File batch upload complete');
+                });
+                */
+        });
+    </script>
+{% endblock %}        

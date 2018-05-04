@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title_page %}
+    EMR || Consulta Médica
+{% endblock %}
+
+{% block breadcrumb %}
+    {# {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }} #}
+{% endblock %} 
+
+{% block submenutop %}
+    {# {{ include('EmrBundle:consulta:_submenu.html.twig' )  }} #}
+{% endblock %} 
+
+
+
+{% block header %}
+        <h1>You must pay to be published on the website</h1>
+{% endblock %}
+
+{% block content %}
+    
+    <style>
+        .labelOptPayment{
+            cursor: pointer !important;
+        }
+    </style>
+    
+    {% if pendingDays.days > 0 %}
+        <div class="alert alert-info">
+            <i class="fa fa-check-circle" aria-hidden="true"></i> 
+            You have <span class="label label-success">{{ pendingDays.licences }}</span> 
+            {% if pendingDays.licences > 1 %}
+                <a href="{{ path('payments_info') }}" class="alert-link">transactions</a>
+                actives
+            {% else %}
+                <a href="{{ path('payments_info') }}" class="alert-link">transaction</a>
+                active
+            {% endif %}
+            
+             with a total of <span class="label label-success">{{ pendingDays.days }}
+                {% if pendingDays.days >= 2 %}
+                    days
+                {% else %}
+                    day 
+                {% endif %}
+                
+                </span>
+                &nbsp;to be published on the website
+            
+        </div>
+    {% endif %}
+    <div class="box  ">
+        <div class="box-header">
+            <h3 class="box-title">
+                {# <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/logotipo_paypal_tarjetas.jpg" border="0" alt="" /> #}
+
+                {% if processors|length > 1 %}
+                    Select one Paymet Gateway 
+                {% endif %}
+
+                <ul class="list-unstyled list-inline">
+                
+                    {% for processor in processors %}
+                        <li>
+                            {% if processors|length == 1 %}
+                                <label for="{{ processor.ppId }}" class=""><input type="radio" name="optionPayment" class="optionPayment minimal" id="{{ processor.ppId }}" value="{{ processor.ppId }}" checked="true"> 
+                                    {% if processor.ppUrlLogo != "" %}
+                                        <img src="{{ processor.ppUrlLogo }}" alt="{{ processor.ppName }}">
+                                    {% else %}
+                                        {{ processor.ppName }}
+                                    {% endif %}
+                                </label>
+                            {% else %}
+                                <label for="{{ processor.ppId }}" class="labelOptPayment"><input type="radio" name="optionPayment" class="optionPayment minimal" id="{{ processor.ppId }}" value="{{ processor.ppId }}" > 
+                                    {% if processor.ppUrlLogo != "" %}
+                                        <img src="{{ processor.ppUrlLogo }}" alt="{{ processor.ppName }}">
+                                    {% else %}
+                                        {{ processor.ppName }}
+                                    {% endif %}
+                                <label>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </lu>
+            </h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body pad">
+            <h4>Our plans methods</h4><hr>
+            <table class="table table-striped">
+                <thead class="">
+                    <tr>
+                        <th>Select an Option</th>
+                        <th>Plan</th>
+                        <th>Months</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>        
+                    {% for value in pricing %}
+                        <tr>
+                            <td>
+                                {% if value.prId == 1 %}  
+                                    <input type="radio" name="optionPricing" class="optionPricing minimal" id="" value="{{ value.prId }}" checked="true">
+                                {% else %}
+                                    <input type="radio" name="optionPricing" class="optionPricing minimal" id="" value="{{ value.prId }}" >
+                                {% endif %}
+                            </td>
+                            <td>{{ value.prPlan }}</td>
+                            <td>{{ value.prMonths }}</td>
+                            <td>$ {{ value.prPrice|number_format(2, '.', ',') }}</td>
+                            <td>{{ value.prDescription }}</td>
+                        </tr>
+                    {% endfor %}    
+                </tbody>
+            </table>
+            <hr>
+            <button class="btn btn-primary" id="btnPay"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>                
+        </div>
+    </div>
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        //$(document).on("ready", function(){
+        $(function () {
+           //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass   : 'iradio_minimal-blue'
+            });
+
+            $("#btnPay").on("click",function(){
+                var optPayment = $(".optionPayment:checked").val();
+                var optPricing = $(".optionPricing:checked").val();
+                if( optPayment == undefined )
+                {
+                    $.alert({
+                        icon: 'fa fa-warning',
+                        title: 'Alert!',
+                        type: "red",
+                        content: 'Select a payment method!',
+                    });
+                    return false;
+                }
+
+                if( optPricing == undefined )
+                {
+                    $.alert({
+                        icon: 'fa fa-warning',
+                        title: 'Alert!',
+                        type: "red",
+                        content: 'Select one plan to pay!',
+                    });
+                    return false;
+                }
+
+               $("#holder_loading").show(); 
+                window.location = "{{ path('payments_validation') }}?payment_gateway="+optPayment+"&pricing="+optPricing;
+            });
+        });
+    </script>    
+{% endblock %}

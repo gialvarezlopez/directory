@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>SocialNetwork</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Snid</th>
+                <td>{{ socialNetwork.snId }}</td>
+            </tr>
+            <tr>
+                <th>Sntype</th>
+                <td>{{ socialNetwork.snType }}</td>
+            </tr>
+            <tr>
+                <th>Snkey</th>
+                <td>{{ socialNetwork.snKey }}</td>
+            </tr>
+            <tr>
+                <th>Snactive</th>
+                <td>{% if socialNetwork.snActive %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Sncreated</th>
+                <td>{% if socialNetwork.snCreated %}{{ socialNetwork.snCreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('socialnetwork_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('socialnetwork_edit', { 'id': socialNetwork.snId }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

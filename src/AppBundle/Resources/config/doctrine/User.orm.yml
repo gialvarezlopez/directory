@@ -1,0 +1,106 @@
+AppBundle\Entity\User:
+    type: entity
+    table: user
+    indexes:
+        fk_user_service_type1_idx:
+            columns:
+                - st_id
+        fk_user_country1_idx:
+            columns:
+                - cou_id
+    uniqueConstraints:
+        usr_email:
+            columns:
+                - usr_email
+    id:
+        usrId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: usr_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        usrUsername:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: usr_username
+        usrPassword:
+            type: string
+            nullable: false
+            length: 75
+            options:
+                fixed: false
+            column: usr_password
+        usrEmail:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: usr_email
+        usrRole:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+            column: usr_role
+        usrEstatus:
+            type: boolean
+            nullable: true
+            options:
+                default: '0'
+            column: usr_estatus
+        usrTokenConfirmation:
+            type: string
+            nullable: true
+            length: 250
+            options:
+                fixed: false
+            column: usr_token_confirmation
+        usrCreated:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: usr_created
+        usrUpdated:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: usr_updated
+        usrActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: usr_active
+    manyToOne:
+        cou:
+            targetEntity: Country
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cou_id:
+                    referencedColumnName: cou_id
+            orphanRemoval: false
+        st:
+            targetEntity: ServiceType
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                st_id:
+                    referencedColumnName: st_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

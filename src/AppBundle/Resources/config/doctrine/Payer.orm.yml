@@ -1,0 +1,110 @@
+AppBundle\Entity\Payer:
+    type: entity
+    table: payer
+    indexes:
+        fk_payer_user1_idx:
+            columns:
+                - usr_id
+        fk_payer_pricing1_idx:
+            columns:
+                - pr_id
+        fk_payer_payment_processor1_idx:
+            columns:
+                - pp_id
+    id:
+        payId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: pay_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        payMoneyPaid:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            column: pay_money_paid
+        payGatewayIdPayer:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: pay_gateway_id_payer
+        payGatewayIdTransaction:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: pay_gateway_id_transaction
+        payGatewayIdToken:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: pay_gateway_id_token
+        payHttpGatewayParsedResponse:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: pay_http_gateway_parsed_response
+        payIsPaid:
+            type: boolean
+            nullable: true
+            column: pay_is_paid
+        payActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: pay_active
+        payDeadline:
+            type: date
+            nullable: true
+            column: pay_deadline
+        payCreated:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: pay_created
+    manyToOne:
+        pp:
+            targetEntity: PaymentProcessor
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                pp_id:
+                    referencedColumnName: pp_id
+            orphanRemoval: false
+        pr:
+            targetEntity: Pricing
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                pr_id:
+                    referencedColumnName: pr_id
+            orphanRemoval: false
+        usr:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usr_id:
+                    referencedColumnName: usr_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

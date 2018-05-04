@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pricing list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Prid</th>
+                <th>Prplan</th>
+                <th>Prmonths</th>
+                <th>Prprice</th>
+                <th>Prdescription</th>
+                <th>Practive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pricing in pricings %}
+            <tr>
+                <td><a href="{{ path('pricing_show', { 'id': pricing.prId }) }}">{{ pricing.prId }}</a></td>
+                <td>{{ pricing.prPlan }}</td>
+                <td>{{ pricing.prMonths }}</td>
+                <td>{{ pricing.prPrice }}</td>
+                <td>{{ pricing.prDescription }}</td>
+                <td>{% if pricing.prActive %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('pricing_show', { 'id': pricing.prId }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pricing_edit', { 'id': pricing.prId }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pricing_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

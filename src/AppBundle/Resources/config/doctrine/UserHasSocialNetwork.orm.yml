@@ -1,0 +1,56 @@
+AppBundle\Entity\UserHasSocialNetwork:
+    type: entity
+    table: user_has_social_network
+    indexes:
+        fk_user_has_social_network_user1_idx:
+            columns:
+                - usr_id
+        fk_user_has_social_network_social_network1_idx:
+            columns:
+                - sn_id
+    id:
+        usnId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: usn_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        usnLink:
+            type: string
+            nullable: true
+            length: 250
+            options:
+                fixed: false
+            column: usn_link
+        usnActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: usn_active
+    manyToOne:
+        sn:
+            targetEntity: SocialNetwork
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sn_id:
+                    referencedColumnName: sn_id
+            orphanRemoval: false
+        usr:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usr_id:
+                    referencedColumnName: usr_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

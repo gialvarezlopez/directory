@@ -1,0 +1,54 @@
+<form>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8">
+                                {#
+                                <input id="geocomplete" type="text" placeholder="Type in an address" value="" style="width:350px" class="form-control"/>
+                                <input id="find" type="button" value="Buscar" />
+                                #}
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="geocomplete" type="text" placeholder="Type in an address" value=""  class="form-control">
+                                    <span class="input-group-btn">
+                                      {# <button class="btn btn-default" type="button">Go!</button> #}
+                                      <input id="find" type="button" value="Search" class="btn btn-primary"/>
+                                    </span>
+                                </div><!-- /input-group -->
+                                
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <input name="formatted_address" type="text" value="" class="form-control" placeholder="formatted address">
+                            </div>
+                        </div>
+                        <hr>
+                        <fieldset>
+                          {#
+                          <div style="display:block">  
+                            <label>Latitude</label>
+                            <input name="lat" type="text" value="" id="lat">
+
+                            <label>Longitude</label>
+                            <input name="lng" type="text" value="" id="lng">
+                          </div>
+                          #}
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="input-group">
+                                  <span class="input-group-addon" id="sizing-addon1"><label>Latitude</label></span>
+                                  <input type="text" class="form-control" name="lat" value="{{ contactInfo[0].ciLat }}" id="lat" placeholder="Latitude">
+                                </div><!-- /input-group -->
+                              </div><!-- /.col-lg-6 -->
+                              <div class="col-lg-6">
+                                <div class="input-group">
+                                  <span class="input-group-addon" id="sizing-addon1"><label>Longitude</label></span>
+                                  <input type="text" class="form-control" name="lng"  value="{{ contactInfo[0].ciLng }}" id="lng" placeholder="Longitude">
+                                </div><!-- /input-group -->
+                              </div><!-- /.col-lg-6 -->
+                            </div><!-- /.row -->
+                        </fieldset>
+
+                        {# <a id="reset" href="#" style="display:none;">Resetear Marker</a> #}
+                        <hr>
+                      </form>
+                    <div id="dvMap" style="width:100%; height: 500px" class="dvMap"></div>
+                    {#
+                    <button type="button" class="btn btn-success" id="btn-set-location" data-dismiss="modal"><i class="fa fa-map-marker" aria-hidden="true"></i> Ubicar establecimiento</button>
+                    #}

@@ -1,0 +1,62 @@
+AppBundle\Entity\Gallery:
+    type: entity
+    table: gallery
+    indexes:
+        fk_gallery_user_idx:
+            columns:
+                - usr_id
+    id:
+        gaId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ga_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        gaName:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: ga_name
+        gaDescription:
+            type: string
+            nullable: true
+            length: 250
+            options:
+                fixed: false
+            column: ga_description
+        gaActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: ga_active
+        gaOrder:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ga_order
+        gaCreated:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: ga_created
+    manyToOne:
+        usr:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                usr_id:
+                    referencedColumnName: usr_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

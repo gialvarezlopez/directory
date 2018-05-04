@@ -1,0 +1,46 @@
+app_homepage:
+    path:   /
+    defaults: { _controller: AppBundle:Payments:checkIn }
+
+app_medicaldetail:
+    resource: "@AppBundle/Resources/config/routing/medicaldetail.yml"
+    prefix:   /medicaldetail
+
+app_contactinfo:
+        resource: "@AppBundle/Resources/config/routing/contactinfo.yml"
+        prefix:   /contactinfo
+
+app_gallery:
+        resource: "@AppBundle/Resources/config/routing/gallery.yml"
+        prefix:   /gallery
+
+app_pricing:
+        resource: "@AppBundle/Resources/config/routing/pricing.yml"
+        prefix:   /pricing
+        
+app_socialnetwork:
+        resource: "@AppBundle/Resources/config/routing/socialnetwork.yml"
+        prefix:   /socialnetwork
+
+#app_speciality:
+#        resource: "@AppBundle/Resources/config/routing/speciality.yml"
+#        prefix:   /speciality
+
+app_payments:
+        resource: "@AppBundle/Resources/config/routing/payments.yml"
+        prefix:   /payments        
+        
+register:
+        path: /register
+        defaults: { _controller: "AppBundle:User:register" }        
+login:
+        path: /login
+        defaults: { _controller: "AppBundle:User:login" }
+         
+login_check:
+        path: /login_check
+logout:
+        path: /logout
+
+               
+

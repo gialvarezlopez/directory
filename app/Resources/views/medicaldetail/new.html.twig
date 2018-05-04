@@ -1,0 +1,335 @@
+{% extends 'base.html.twig' %}
+
+{% block title_page %}
+    EMR || Consulta Médica
+{% endblock %}
+
+{% block breadcrumb %}
+    {# {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }} #}
+{% endblock %} 
+
+{% block submenutop %}
+    {# {{ include('EmrBundle:consulta:_submenu.html.twig' )  }} #}
+{% endblock %} 
+
+
+
+{% block header %}
+        <h1>Medic Profile</h1>
+{% endblock %}
+
+{% block content %}
+        {#}
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" value="Create" />
+        {{ form_end(form) }}
+        #}
+        {{form_start(form,{'enctype':'multipart/form-date'})}}
+            <div class="">
+                <div class="">
+                    <div class="box  {# collapsed-box #}">
+                        <div class="box-header">
+                            <h3 class="box-title">Personal Info :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-default  btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="box box-success">
+                                        <div class="box-header with-border">
+                                        <h3 class="box-title">Full name</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="form_error">{{ form_errors(form.mdFirstName)}}</div>
+                                                            <label for="" class=" control-label">First Name : <span class="text-danger">*</span></label>
+                                                        <div class="">{{ form_widget(form.mdFirstName,  { 'attr': {'class': 'form-control'} } ) }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="form_error">{{ form_errors(form.mdMiddleName)}}</div>
+                                                            <label for="" class=" control-label">Middle Name : </label>
+                                                        <div class="">{{ form_widget(form.mdMiddleName,  { 'attr': {'class': 'form-control'} } ) }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="form_error">{{ form_errors(form.mdFirstSurname)}}</div>
+                                                            <label for="" class=" control-label">First Surname : <span class="text-danger">*</span></label>
+                                                        <div class="">{{ form_widget(form.mdFirstSurname,  { 'attr': {'class': 'form-control'} } ) }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="form_error">{{ form_errors(form.mdSecondSurname)}}</div>
+                                                            <label for="" class=" control-label">Second Surname : </label>
+                                                        <div class="">{{ form_widget(form.mdSecondSurname,  { 'attr': {'class': 'form-control'} } ) }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="box box-success">
+                                        <div class="box-header with-border">
+                                        <h3 class="box-title">Specialities :</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(form.extraSpeciality)}}</div>
+                                                <div class="input-groupx">
+                                                    <small id="emailHelp" class="form-text text-muted">Add one by one separate it by comma or press enter</small>
+                                                    {{ form_widget(form.extraSpeciality,  { 'attr': {'class': 'form-tag form-control'} } ) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="box box-success">
+                                        <div class="box-header with-border">
+                                        <h3 class="box-title">Profile Image :</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div id="image-holder"><img src="{{ asset('bundles/app/images/logo.svg') }}" alt="Profile Image" class="img-thumbnail"/></div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="form-group">
+                                                        <div class="form_error">{{ form_errors(form.mdProfileImage)}}</div>
+                                                            
+                                                        <div class="">{{ form_widget(form.mdProfileImage,  { 'attr': {'class': 'form-control'} } ) }}</div>
+                                                    </div>
+                                                    <div class="col-lg-3"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="box box-info collapsed-box">
+                        <div class="box-header">
+                            <h3 class="box-title">Academic Training :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-plus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="form-group">
+                                <div class="form_error">{{ form_errors(form.mdAcademicTraining)}}</div>
+                                
+                                <div class="">{{ form_widget(form.mdAcademicTraining,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="box box-info collapsed-box">
+                        <div class="box-header">
+                            <h3 class="box-title">Professional Experience :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-plus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="form-group">
+                                <div class="form_error">{{ form_errors(form.mdProfessionalExperience)}}</div>
+                                
+                                <div class="">{{ form_widget(form.mdProfessionalExperience,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="box box-info collapsed-box">
+                        <div class="box-header">
+                            <h3 class="box-title">Courses/Seminars :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-plus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="form-group">
+                                <div class="form_error">{{ form_errors(form.mdCoursesSeminars)}}</div>
+                                
+                                <div class="">{{ form_widget(form.mdCoursesSeminars,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="box box-info collapsed-box">
+                        <div class="box-header">
+                            <h3 class="box-title">Profile Description :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-plus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="form-group">
+                                <div class="form_error">{{ form_errors(form.mdProfileDescription)}}</div>
+                                
+                                <div class="">{{ form_widget(form.mdProfileDescription,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <div class="row">
+                
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="box box-info collapsed-box">
+                        <div class="box-header">
+                            <h3 class="box-title">Aditional Information :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-plus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="form-group">
+                                <div class="form_error">{{ form_errors(form.mdAditionalInformation)}}</div>
+                                
+                                <div class="">{{ form_widget(form.mdAditionalInformation,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="form_error">{{ form_errors(form.mdActive)}}</div>
+                        <label>
+                            {{ form_widget(form.mdActive,  { 'attr': {'class': ''} } ) }} Active this Information
+                        </label>
+                         
+                    </div>
+                </div>
+             </div>
+             <div class="row">
+                <div class="col-lg-12">
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <input type="submit" value="Create" class="btn bg-navy"/>
+                    {{ form_end(form) }}
+                </div>
+             </div>
+                    
+        {{form_end(form)}}
+        {#
+        <form action="{{ path('ajuste_set_update') }}" method="POST" enctype="multipart/form-data" id="form_setting" name="form_setting">
+        </form>
+        #}
+
+   
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        $(function () {
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                //CKEDITOR.replace('medical_detail_mdProfessionalExperience')
+                //bootstrap WYSIHTML5 - text editor
+            $('textarea').not('.form-tag').wysihtml5();
+            $('.form-tag').tagEditor({placeholder: 'Enter specialities...'});
+            //======================================================
+            //Image
+            //======================================================
+            $("#medical_detail_mdProfileImage").on('change', function () {
+                //Get count of selected files
+                var countFiles = $(this)[0].files.length;
+
+                var imgPath = $(this)[0].value;
+                var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+                var image_holder = $("#image-holder");
+                image_holder.empty();
+
+                if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+                    if (typeof (FileReader) != "undefined") {
+
+                        //loop for each file selected for uploaded.
+                        for (var i = 0; i < countFiles; i++) {
+
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                $("<img/>", {
+                                    "src": e.target.result,
+                                        "class": "thumb-image img-thumbnail"
+                                }).appendTo(image_holder);
+                            }
+
+                            image_holder.show();
+                            reader.readAsDataURL($(this)[0].files[i]);
+                        }
+
+                    } else {
+                        alert("This browser does not support FileReader.");
+                    }
+                } else {
+                    alert("Please select only images");
+                }
+            });
+        })
+    </script> 
+{% endblock %}
+

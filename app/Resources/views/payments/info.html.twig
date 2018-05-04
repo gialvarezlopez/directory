@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title_page %}
+    MD || Payment Information
+{% endblock %}
+
+{% block breadcrumb %}
+    {# {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }} #}
+{% endblock %} 
+
+{% block submenutop %}
+    {# {{ include('EmrBundle:consulta:_submenu.html.twig' )  }} #}
+{% endblock %} 
+
+
+
+{% block header %}
+        <h1>Information about your pay</h1>
+{% endblock %}
+
+{% block content %}
+
+    {#  Check the notifications #}
+    {% set created = 0 %}
+    {% for message in app.session.flashbag().get("success") %}
+        <div class="alert alert-success"><i class="fa fa-check-circle-o" aria-hidden="true"></i> {{message}}</div>
+    {% endfor %}
+    {% for message in app.session.flashbag().get("error") %}
+        <div class="alert alert-danger"><i class="fa fa-times" aria-hidden="true"></i> {{message}} </div>
+    {% endfor %}
+    {# End notifications #}
+    <div class="box  ">
+        <div class="box-header">
+            <h3 class="box-title">
+                {# <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/logotipo_paypal_tarjetas.jpg" border="0" alt="" /> #}
+                
+            </h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body pad">
+            {% if pays|length == 0 %}
+                <div class="alert alert-warning">You don't have any payment done</div>
+                
+            {% else %}
+                <h4><i class="fa fa-id-card-o" aria-hidden="true"></i> My payments history</h4><hr>
+                <table class="table table-striped">
+                    <thead class="">
+                        <tr>
+                            <th><i class="fa fa-money" aria-hidden="true"></i> Amount Paid</th>
+                            <th><i class="fa fa-handshake-o" aria-hidden="true"></i> Plan</th>
+                            <th><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Payment Gateway</th>
+                            <th><i class="fa fa-calendar" aria-hidden="true"></i> starting date</th>
+                            <th><i class="fa fa-calendar" aria-hidden="true"></i> Expiration Date</th>
+                            <th><i class="fa fa-calendar-minus-o" aria-hidden="true"></i> Remaining days</th>
+                            <th><i class="fa fa-exchange" aria-hidden="true"></i> Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>        
+                        {% for pay in pays %}
+                            <tr>
+                                <td>US$ {{ pay.payMoneyPaid|number_format(2, '.', ',') }}</td>
+                                <td>{{ pay.pr.prPlan }} </td>
+                                <td>{{ pay.pp.ppName }} </td>
+                                <td>{{ pay.payCreated|date("\n l jS F Y")  }}</td>
+                                <td>{{ pay.payDeadLine|date("\n l jS F Y")  }}</td>
+                                <td>
+                                    
+                                    {#
+                                    {% set diferencia = date( pay.payCreated|date("Y-m-d") ).diff( date('now') ) %}
+                                    {% set diasRestantes = diferencia.days %}
+                                   
+                                    {% if diasRestantes != 0 %}
+                                        {% set diferencia = date( pay.payDeadLine|date("Y-m-d") ).diff(date( pay.payCreated|date("Y-m-d") )) %}
+                                        {% set diasRestantes = diferencia.days %}
+                                    {% else %}
+                                        {% set diasRestantes = 0 %}  
+                                    {% endif %}
+                                    #}
+
+                                    {% if "now"|date('Y-m-d') >= pay.payCreated|date('Y-m-d') %}
+                                        {# ya paso #}
+                                        {% set diferencia = date( pay.payDeadLine|date("Y-m-d") ).diff( date('now') ) %} 
+                                        {% set diasRestantes = diferencia.days %} 
+                                      
+                                    {% else %}
+                                        {% set diferencia = date( pay.payDeadLine|date("Y-m-d") ).diff(date( pay.payCreated|date("Y-m-d") )) %} 
+                                        {% set diasRestantes = diferencia.days %} 
+                                    {% endif %}
+
+
+                                    {# {% set diferencia = date( pay.payDeadLine|date("Y-m-d") ).diff(date( pay.payCreated|date("Y-m-d") )) %} #}
+                                    {#
+                                    {% set diferencia = date( pay.payDeadLine|date("Y-m-d") ).diff(date( pay.payCreated|date("Y-m-d") )) %} 
+                                    {% set diasRestantes = diferencia.days %} 
+                                    #}
+                                    {% if diasRestantes == 1 %}
+                                        1 Day
+                                    {% else %}
+                                    {{ diasRestantes }} Days
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if diasRestantes == 0 %}
+                                        <span class="label label-danger">Expired</span>
+                                    {% elseif diasRestantes < 1 %}
+                                        <span class="label label-warning">license will expire soon</span>
+                                    {% else %}
+                                        <span class="label label-success">Active</span>
+                                    {% endif %}
+                                </td>
+                            </tr>    
+                        {% endfor %}    
+                    </tbody>
+                </table>
+            {% endif %}
+            <hr>
+            <a class="btn btn-primary" href="{{path('payments_checkIn')}}"><i class="fa fa-money" aria-hidden="true"></i> Check Pay</a>
+            <hr>                
+        </div>
+    </div>
+
+    
+
+    
+    
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        //$(document).on("ready", function(){
+        $(function () {
+            
+            
+        });
+    </script>    
+{% endblock %}

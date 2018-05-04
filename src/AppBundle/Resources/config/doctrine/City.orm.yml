@@ -1,0 +1,43 @@
+AppBundle\Entity\City:
+    type: entity
+    table: city
+    indexes:
+        FK_citi_state:
+            columns:
+                - sta_id
+    id:
+        citId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: cit_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        citName:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: cit_name
+        citActive:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: cit_active
+    manyToOne:
+        sta:
+            targetEntity: State
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sta_id:
+                    referencedColumnName: sta_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

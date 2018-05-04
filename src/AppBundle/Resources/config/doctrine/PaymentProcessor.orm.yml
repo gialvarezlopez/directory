@@ -1,0 +1,42 @@
+AppBundle\Entity\PaymentProcessor:
+    type: entity
+    table: payment_processor
+    id:
+        ppId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: pp_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        ppName:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: pp_name
+        ppKey:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: pp_key
+        ppUrlLogo:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: pp_url_logo
+        ppActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: pp_active
+    lifecycleCallbacks: {  }

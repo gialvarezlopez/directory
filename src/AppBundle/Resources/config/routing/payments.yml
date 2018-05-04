@@ -1,0 +1,23 @@
+payments_review:
+    path:   /review
+    defaults: { _controller: "AppBundle:Payments:review" }
+
+payments_checkIn:
+    path:   /checkIn
+    defaults: { _controller: "AppBundle:Payments:checkIn" } 
+
+payments_validation:
+    path:   /validation
+    defaults: { _controller: "AppBundle:Payments:validation" }        
+
+payments_info:
+    path:   /info
+    defaults: { _controller: "AppBundle:Payments:info" } 
+
+payments_paymentSuccess:
+    path:   /paymentSuccess
+    defaults: { _controller: "AppBundle:Payments:paymentSuccess" } 
+    
+payments_paymentCancel:
+    path:   /paymentCancel
+    defaults: { _controller: "AppBundle:Payments:paymentCancel" }     

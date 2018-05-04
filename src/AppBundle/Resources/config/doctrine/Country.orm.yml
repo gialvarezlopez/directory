@@ -1,0 +1,28 @@
+AppBundle\Entity\Country:
+    type: entity
+    table: country
+    id:
+        couId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: cou_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        couName:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: cou_name
+        couActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: cou_active
+    lifecycleCallbacks: {  }

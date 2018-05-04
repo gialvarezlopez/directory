@@ -1,0 +1,972 @@
+{% extends 'base.html.twig' %}
+
+{% block title_page %}
+    EMR || Consulta Médica
+{% endblock %}
+
+{% block breadcrumb %}
+    {# {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }} #}
+{% endblock %} 
+
+{% block submenutop %}
+    {# {{ include('EmrBundle:consulta:_submenu.html.twig' )  }} #}
+{% endblock %} 
+
+
+
+{% block header %}
+        <h1>Contact Info creation</h1>
+{% endblock %}
+
+{% block content %}
+    
+
+    {#}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+    #}
+    {# {{form_start(form,{'enctype':'multipart/form-date'})}} #}
+    {# <form id="form"> #}
+    
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div class="box box-info {# collapsed-box #}">
+                        <div class="box-header">
+                            <h3 class="box-title">Personal Info :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error">{# {{ form_errors(form.ciAddress)}} #}</div>
+                                                    <label for="" class=" control-label">Country : <span class="text-danger">*</span></label>
+                                                    <div class="">
+                                                        <select class="form-control select2" id="countries">
+                                                            <option></option>
+                                                            {% for country in countries %}
+                                                                {% if country_selected == country.couId %}
+                                                                    <option value="{{ country.couId }}" selected="selected">{{ country.couName }}</option>
+                                                                {% else %}
+                                                                    <option value="{{ country.couId }}">{{ country.couName }}</option>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error"></div>
+                                                    <label for="" class=" control-label">State : <span class="text-danger">*</span></label>
+                                                    <div class="">
+                                                        <div class="">
+                                                            <select class="form-control select2" id="states">
+                                                                {% for state in states %}
+                                                                    {% if state_selected == state.staId %}
+                                                                        <option value="{{ state.staId }}" selected="selected">{{ state.staName }}</option>
+                                                                    {% else %}
+                                                                        <option value="{{ state.staId }}">{{ state.staName }}</option>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Citi : <span class="text-danger">*</span></label>
+                                                    <div class="">
+                                                        <div class="">
+                                                        <select class="form-control select2" id="cities">
+                                                            {% for city in cities %}
+                                                                    {% if city_selected == city.citId %}
+                                                                        <option value="{{ city.citId }}" selected="selected">{{ city.citName }}</option>
+                                                                    {% else %}
+                                                                        <option value="{{ city.citId }}">{{ city.citName }}</option>
+                                                                    {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Address : </label>
+                                                <div class=""><input type="text" class="form-control" id="address" name="address" value="{{ contactInfo[0].ciAddress }}">{# {{ form_widget(form.ciAddress,  { 'attr': {'class': 'form-control'} } ) }} #}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Phone number 1 : </label>
+                                                <div class=""><input type="text" class="form-control" id="phone1" name="phone1" value="{{ contactInfo[0].ciPhone1 }}"> {# {{ form_widget(form.ciPhone1,  { 'attr': {'class': 'form-control'} } ) }} #}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="form_error"></div>
+                                                    <label for="" class=" control-label">Phone number 2 : </label>
+                                                <div class=""><input type="text" class="form-control" id="phone2" name="phone2" value="{{ contactInfo[0].ciPhone2 }}"> {# {{ form_widget(form.ciPhone2,  { 'attr': {'class': 'form-control'} } ) }} #}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-info {# collapsed-box #}">
+                        <div class="box-header">
+                            <h3 class="box-title">My Schedule :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div id="scheduleWeekly"></div>
+                        </div>
+                     </div>
+                    
+                     <div class="box box-info {# collapsed-box #}">
+                        <div class="box-header">
+                            <h3 class="box-title">Email/Social Network/Website:
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                     <div><label for="" class=" control-label">Type:</label></div>
+                                    <select class="form-control" id="social-network-list">
+                                            {% for socialNetwork in socialNetworks %}                
+                                                <option value="{{ socialNetwork.snId }}" data-type="{{ socialNetwork.snKey }}" >{{ socialNetwork.snType }}</option>                    
+                                            {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-lg-8 col-md-6 col-sm-12">
+                                    <div><label for="" class=" control-label" id="labelParameterSN">Url:</label></div>
+                                
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="valueParameterSN" placeholder="">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" id="btn-add-social-network">Add</button>
+                                        </span>
+                                    </div><!-- /input-group -->
+
+                                </div>
+                            </div>
+
+                            <div id="socialList">
+                                <hr>
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="table-social-network" style="display: table;">
+                                        <tbody>
+                                            {% for network in networkSelected %}
+                                                <tr id="{{ network.sn.snId }}">
+                                                    <td>{{ network.sn.snType }}</td>
+                                                    <td>{{ network.usnLink }}</td>
+                                                    <td><button class="btn btn-danger btn-sm removeNetwork">x</button></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody> 
+                                    </table>
+                                </div>
+                            </div>                                    
+                        </div>
+                     </div> 
+                       
+                    
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div class="box box-info {# collapsed-box #}">
+                        <div class="box-header">
+                            <h3 class="box-title">Find My Place :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            {{ include('contactinfo/map.html.twig' )  }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+    {#</form>#}        
+    {# {{form_end(form)}} #}
+            
+    <ul class="list-unstyled list-inline">
+        {#
+        <li>
+            <a class="btn btn-info" href="{{ path('contactinfo_index') }}">Back to the list</a>
+        </li>
+        #}
+        <li>
+            <button class="btn bg-navy" id="save"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button
+        </li>
+    </ul>
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        //$(document).on("ready", function(){
+        $(function () {
+            
+            $("#scheduleWeekly").weekly({
+					hour_format: 12,
+					//start_from: "09:00 AM" 
+			});
+
+            //=====================================
+			//Set the schedule if exists
+			//=====================================
+			{% for key,value in schedule %}
+				{% for hour in value %}
+				    $(".{{ key }}").each(function () {
+						if ($(this).closest(".weekly_column_hour").data("weeklyhour") == "{{ hour }}")
+						{
+									$(this).addClass("active");
+					    }
+					});
+			    {% endfor %} 
+			{% endfor %}
+
+            $('.select2').select2({
+                placeholder: 'Select an option',
+                //theme: "classic"
+            });
+
+            //$("#coutries").change(function(){
+            $("#countries").on("change", function(e){    
+                $("#holder_loading").show();
+                $('#states').empty();
+                $('#cities').empty();
+                var id = $(this).val();
+                //alert(id);
+                if( id == undefined){
+                    return false;
+                }
+                $.ajax({
+                    method: "GET",
+                    url: "{{ url('contactinfo_dropdown') }}",
+                    dataType: 'json',
+                    data: {
+                            id: id, dropdown:"state"
+                    },
+                    success: function(data)
+                    {
+                        if(data.hasOwnProperty("response") && data.response === "success")
+                        {
+                            if(data.hasOwnProperty("posts"))
+                            {
+                                //http://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try/3710226
+                                if (/^[\],:{}\s]*$/.test(data.posts.replace(/\\["\\\/bfnrtu]/g, '@').
+                                        replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                                        replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
+                                {
+                                    var posts = JSON.parse(data.posts);
+                                    if(posts.length > 0)
+                                    {
+                                        //var html = "";
+                                        $("#states").append('<option value=""></option>');
+                                        for(d in posts)
+                                        {
+                                            //html += "<p>" + (posts[d].staName) + "</p>";
+                                            //console.log(JSON.stringify(posts[d].staName));
+                                            //var newOption = new Option(posts[d].staName, posts[d].staId, false, false);
+                                            //$('#states').append(newOption).trigger('change');
+                                            $("#states").append('<option value="'+posts[d].staId+'">'+posts[d].staName+'</option>');
+                                        }
+                                        //$("body").append(html);
+                                        $("#states").select2({placeholder: 'Select a state',});
+
+                                    }
+                                }
+                                else
+                                {
+                                    console.log("INVALID JSON STRING");
+                                }
+                            }
+                            else
+                            {
+                                console.log("POSTS NOT FOUND");
+                            }
+                        }
+                        $("#holder_loading").hide();
+                    },
+                    error: function(jqXHR, exception)
+                    {
+                        if(jqXHR.status === 405)
+                        {
+                            console.error("METHOD NOT ALLOWED!");
+                        }
+                    }
+                });
+
+            
+            });
+
+            //$("#states").change(function(){
+            $("#states").on("change", function(e){ 
+                $('#cities').empty();
+                var id = $(this).val();
+                $("#holder_loading").show();
+                if( id == undefined){
+                    return false;
+                }
+                $.ajax({
+                    method: "GET",
+                    url: "{{ url('contactinfo_dropdown') }}",
+                    dataType: 'json',
+                    data: {
+                            id: id, dropdown:"city"
+                    },
+                    success: function(data)
+                    {
+                        if(data.hasOwnProperty("response") && data.response === "success")
+                        {
+                            if(data.hasOwnProperty("posts"))
+                            {
+                                //http://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try/3710226
+                                if (/^[\],:{}\s]*$/.test(data.posts.replace(/\\["\\\/bfnrtu]/g, '@').
+                                        replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                                        replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
+                                {
+                                    var posts = JSON.parse(data.posts);
+                                    if(posts.length > 0)
+                                    {
+                                        //var html = "";
+                                        $("#cities").append('<option value=""></option>');
+                                        for(d in posts)
+                                        {
+                                            //html += "<p>" + (posts[d].staName) + "</p>";
+                                            //console.log(JSON.stringify(posts[d].staName));
+                                            //var newOption = new Option(posts[d].citName, posts[d].citId, false, false);
+                                            //$('#cities').append(newOption).trigger('change');
+                                            $("#cities").append('<option value="'+posts[d].citId+'">'+posts[d].citName+'</option>');
+                                        }
+                                        //$("body").append(html);
+                                        $("#cities").select2({placeholder: 'Select a city',});
+                                    }
+                                }
+                                else
+                                {
+                                    console.log("INVALID JSON STRING");
+                                }
+                            }
+                            else
+                            {
+                                console.log("POSTS NOT FOUND");
+                            }
+                        }
+                        $("#holder_loading").hide();
+                    },
+                    error: function(jqXHR, exception)
+                    {
+                        if(jqXHR.status === 405)
+                        {
+                            console.error("METHOD NOT ALLOWED!");
+                        }
+                    }
+                });
+            });
+
+
+            //Check if alreaye exsist a country selected
+            
+
+            $("#save").on("click",function(){
+                saveFormAjax();
+            });
+
+           
+            //=====================================================
+            //Social network
+            //=====================================================
+            
+            $("#btn-add-social-network").on("click", function () {
+				var url = $("#valueParameterSN").val();
+				var social_net_id = $("#social-network-list").val();
+				var txt = $("#social-network-list option:selected").text();
+				if ($.trim(url) != "")
+				{
+                    var type =  $.trim($('#social-network-list').find(':selected').data('type'));
+                    if(type == "email"){
+                        if( !validEmail(url) ){
+                            $.alert({
+                                icon: 'fa fa-warning',
+                                title: 'Alert!',
+                                type: "red",
+                                content: 'Your email address is invalid!',
+                            });
+                            return false;
+                        }
+                    }else{
+                        /*
+                        if( !isValidUrl(url) ){
+                            alert("Url is invalid");
+                            return false;
+                        }
+                        */
+                    }
+
+					var rowCount = $('#table-social-network >tbody >tr').length;
+					if (rowCount == 0)
+					{
+					    $("#table-social-network").show();
+					}
+					var tr = "<tr id='" + social_net_id + "'><td>" + txt + "</td><td>" + url + "</td><td><button class='btn btn-danger btn-sm removeNetwork'>x</button></td></tr>";
+					$("#table-social-network").append(tr);
+					$("#valueParameterSN").val("");
+                    $("#valueParameterSN").focus();
+				}else{
+                    $("#valueParameterSN").focus();
+                }
+			});
+
+            function validEmail(parameter)
+            {
+                
+                var caract = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
+                if (caract.test(parameter) == false){
+                        //alert("Enter a valid email");
+                        return false;
+                }else{
+                    return true;
+                }
+                
+            }
+
+            function isValidUrl(url,obligatory,ftp)
+            {
+                // Si no se especifica el paramatro "obligatory", interpretamos
+                // que no es obligatorio
+                if(obligatory==undefined)
+                    obligatory=0;
+                // Si no se especifica el parametro "ftp", interpretamos que la
+                // direccion no puede ser una direccion a un servidor ftp
+                if(ftp==undefined)
+                    ftp=0;
+            
+                if(url=="" && obligatory==0)
+                    return true;
+            
+                if(ftp)
+                    var pattern = /^(http|https|ftp)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi;
+                else
+                    var pattern = /^(http|https)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi;
+            
+                if(url.match(pattern))
+                    return true;
+                else
+                    return false;
+            }
+
+            $("body").on("click", ".removeNetwork", function () {
+
+				$(this).closest("tr").remove();
+
+				var rowCount = $('#table-social-network >tbody >tr').length;
+				if (rowCount == 0)
+				{
+					$("#table-social-network").hide();
+				} else
+				{
+				    $("#table-social-network").show();
+				}
+			});
+
+
+			if ($('#table-social-network >tbody >tr').length == 0)
+			{
+			    $("#table-social-network").hide();
+			}
+
+
+            //=====================================================
+            //Google maps
+            //=====================================================
+            var map
+            if( 1 )
+            {
+                var markers = [];
+                var uniqueId = 1;
+                var lat = "13.684978";
+                var lon = "-89.263635";
+                /*
+                window.onload = function () {
+                   //var lat = 13.684978;
+                   // var lon = -89.263635;
+                    if( $.trim($("#appbundle_cliente_cliUbicacionLat").val() ) != "" && $("#appbundle_cliente_cliUbicacionLat").val() != 0 )
+                    {
+                        lat = $("#appbundle_cliente_cliUbicacionLat").val();
+                    }
+                        
+                    if( $.trim($("#appbundle_cliente_cliUbicacionLon").val() ) != "" && $("#appbundle_cliente_cliUbicacionLon").val() !=0 )
+                    {
+                        lon = $("#appbundle_cliente_cliUbicacionLon").val();
+                        
+                    }
+                    var mapOptions = {
+                        center: new google.maps.LatLng(lat, lon),
+                        zoom: 11,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        draggable: true,
+                    };
+                     map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+
+                    //Attach click event handler to the map.
+                    google.maps.event.addListener(map, 'click', function (e) {
+
+                        //Determine the location where the user has clicked.
+                        var location = e.latLng;
+
+                        //Create a marker and placed it on the map.
+                        var marker = new google.maps.Marker({
+                            position: location,
+                            map: map,
+                            draggable: true,
+                        });
+
+                        //Set unique id
+                        marker.id = uniqueId;
+                        uniqueId++;
+
+                        //Attach click event handler to the marker.
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            var content = '<div style="margin-bottom: 5px;">Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng();
+                            content += "</div><input type = 'button' value = 'Eliminar ubicación' onclick = '' id='btn-delete-map' class='btn btn-danger'/>";
+                            var infoWindow = new google.maps.InfoWindow({
+                                content: content
+                            });
+                            infoWindow.open(map, marker);
+                            
+                            
+                        });
+                        //console.log(location.lat()+" - "+location.lng() );
+                        lat = location.lat();
+                        lon = location.lng();
+                        //Add marker to the array.
+                        DeleteMarker();
+                        markers.push(marker);
+                        //markers = marker;
+                    });
+                };
+                */
+                
+                
+                
+                $("body").on("click","#btn-delete-map", function(){
+                    DeleteMarker();
+                });
+                function DeleteMarker() {
+                    //Find and remove the marker from the Array
+                    for (var i = 0; i < markers.length; i++) {
+                        //if (markers[i].id == id) {
+                            //Remove the marker from Map                   
+                            markers[i].setMap(null);
+
+                            //Remove the marker from array.
+                            markers.splice(i, 1);
+                            //return;
+                        //}
+                    }
+                    
+                };
+                /*
+                $('#modalMap').on('shown.bs.modal', function () {
+                    google.maps.event.trigger(map, 'resize');
+                })
+                */
+                google.maps.event.trigger(map, 'resize');
+                
+            }
+            
+            //==========================================================================================
+            var lat = 13.794185;
+            var long = -88.89652999999998;
+            if( $.trim($("#lat").val() ) != "" && $("#lat").val() != 0 )
+            {
+                lat = $("#lat").val();
+            }
+                        
+            if( $.trim($("#lng").val() ) != "" && $("#lng").val() !=0 )
+            {
+                long = $("#lng").val();
+                        
+            }
+            var setloc = new google.maps.LatLng(lat, long);
+           // $('#modalMap').on('shown.bs.modal', function () {
+ 
+                var latInput = $("#lat").val();
+                var lonInput = $("#lng").val();
+                if( latInput != "" )
+                {
+                    $("input[name=lat]").val(latInput);
+                    $("#geocomplete").val("");
+                }
+                
+                if( lonInput != "" )
+                {
+                    $("input[name=lng]").val(lonInput);
+                    $("#geocomplete").val("");
+                }    
+                
+                var map = $("#geocomplete").geocomplete({
+                            map: ".dvMap",
+                            details: "form",
+                            location: setloc,
+                            markerOptions: {
+                              draggable: true,
+                              //disableDefaultUI: false,
+                            },
+                            mapOptions: {
+                                zoom: 11,
+                                scrollwheel: false,
+                                mapTypeId: "roadmap"
+                            },
+
+                });
+
+                $("#geocomplete").bind("geocode:dragged", function(event, latLng){
+                    $("input[name=lat]").val(latLng.lat());
+                    $("input[name=lng]").val(latLng.lng());
+                    $("#reset").show();
+                });
+
+
+                $("#geocomplete").geocomplete({
+                    map: ".dvMap"
+                  }).bind("geocode:clicked", function(event, latLng){
+                        $("#lat").val(latLng.lat());
+                        $("#lng").val(latLng.lng());            
+                  });
+
+
+                $("#reset").click(function(){
+                    $("#geocomplete").geocomplete("resetMarker");
+                    $("#reset").hide();
+                    return false;
+                });
+
+                $("#find").click(function(){
+                    $("#geocomplete").trigger("geocode");
+                }).click();
+            
+           // });
+            
+            //==========================================================================================
+            /*
+            //var map;
+            var myLatlng = {lat: lat, lng: lon};
+            var geo = false;
+           
+            $("#find_btn").click(function (){ //user click on button
+                DeleteMarker();
+
+                if ("geolocation" in navigator){
+                        navigator.geolocation.getCurrentPosition(show_location, show_error, {timeout:1000, enableHighAccuracy: true}); //position request
+                    }else{
+                        console.log("Browser doesn't support geolocation!");
+                }
+            }); 
+
+            //Success Callback
+            function show_location(position){
+                
+                
+                
+                //markers = [];
+
+                
+                infoWindow = new google.maps.InfoWindow({map: map});
+                //DeleteMarker();
+                var pos = {lat: position.coords.latitude, lng: position.coords.longitude};
+                infoWindow.setPosition(pos);
+                //infoWindow.setContent('User Location found.');
+                
+                
+                map.setCenter(pos);
+                
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    //title:"Hello World!",
+                    draggable: true,
+                });
+                
+                infoWindow.close(map, marker);
+                // To add the marker to the map, call setMap();
+                marker.setMap(map);
+                
+                infoWindow.close(map, marker);
+                
+                lat = position.coords.latitude;
+                lon = position.coords.longitude;
+                geo = true;
+                
+                markers.push(marker);
+            }
+
+            //Error Callback
+            function show_error(error){
+               switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("Permission denied by user.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Location position unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        //alert("Request timeout.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        alert("Unknown error.");
+                        break;
+                }
+            }
+            
+            
+            $("#btn-set-location").on("click", function(){
+                    
+                    //alert();
+
+                     var lat = $("input[name=lat]").val();
+                     var lon = $("input[name=lng]").val();
+                     
+                     $("#appbundle_cliente_cliUbicacionLat").val(lat);
+                     $("#appbundle_cliente_cliUbicacionLon").val(lon);
+                    
+                });
+    */
+            //https://developers.google.com/maps/documentation/javascript/examples/map-geolocation?hl=es-419
+            //https://www.sanwebe.com/2016/04/get-current-location-of-user-using-jquery
+            updateSn();
+            getSn();
+
+            
+                
+
+            function updateSn(){
+                $("#social-network-list").change(function(){
+                     
+                    getSn();  
+                });
+            }
+
+            function getSn(){
+                var opt = $.trim( $( "#social-network-list option:selected" ).text());
+                //var type = $(this).data('type');
+                var type =  $.trim($('#social-network-list').find(':selected').data('type'));
+                //var capacityValue = $('#social-network-list').find(':selected').data('type');
+                var prefix = "Your ";
+                if( type != "email"){
+                    prefix = "Add url to "
+                }
+                $("#labelParameterSN").html(prefix+opt);   
+                $("#valueParameterSN").attr("placeholder", prefix+opt);
+            }    
+
+            function saveFormAjax() {
+				var address = $("#address").val();
+				var phone1 = $("#phone1").val();
+                var phone2 = $("#phone2").val();
+                var lat = $("#lat").val();
+                var lng = $("#lng").val();
+                var city = $("#cities").val();
+                var country = $("#countries").val();
+                var state = $("#states").val();
+				//var email = $("#email").val();
+				//var typeImage = $('input[name=radioTypeImage]:checked').val();
+
+				var social_network = [];
+				$("#table-social-network tbody tr").each(function () {
+				    var trId = $(this).attr("id");
+					var txt = $("#" + trId).find("td").eq(1).text();
+					var td = {"id": trId, "url": txt};
+					social_network.push(td);
+				});
+
+				//=====================================
+				//Schedule
+				//=====================================
+				var schedule = {};
+				$(".weekly_day_label").each(function () {
+					var day = $(this).data("weeklyday");
+					var hoursList = [];
+					$("." + day).each(function () {
+					    if ($(this).hasClass("active"))
+						{
+						    var hour = $(this).closest(".weekly_column_hour").data("weeklyhour");
+							hoursList.push(hour);
+						}
+					});
+				    schedule[day] = hoursList;
+				});
+
+                var mandatory = "";
+                if( address == "")
+                {
+                    mandatory = "address";
+                }
+                if( city == 0)
+                {
+                    mandatory = "city";
+                }
+                
+                if( state == 0)
+                {
+                    mandatory = "state";
+                }
+                if( country == 0)
+                {
+                    mandatory = "country";
+                }
+
+                //console.log(country);
+
+                if(mandatory != "")
+                {
+                    $.alert({
+                        icon: 'glyphicon glyphicon-exclamation-sign',
+                        title: 'Info',
+                        type: "blue",
+                        content: 'The field '+mandatory+" is required",
+                    });
+                    return false;
+                }
+
+                //var mandatori = ["address", ]
+				
+                //var formData = new FormData($("#formulario")[0]);
+					//var input_titulo = "Mi titulo de prueba";
+					//formData.append("titulo", input_titulo);
+				/*
+                formData.append("address", address);
+				formData.append("phone1", phone1);
+                formData.append("phone2", phone2);
+                formData.append("lat", lat);
+                formData.append("lng", lng);
+				formData.append("schedule", JSON.stringify(schedule));
+				formData.append("social_network", JSON.stringify(social_network));
+                */
+				var routeShow = "{{ path('contactinfo_saveDataContactInfo') }}"
+				$("#holder_loading").show();
+				$.ajax({
+						type: "POST",
+						//contentType: false,
+						//processData: false,
+						url: routeShow,
+						data: {
+						    address: address,phone1: phone1,
+						    phone2:phone2,
+						    lat: lat, lng: lng,schedule: JSON.stringify(schedule),
+						    social_network: JSON.stringify(social_network), city: city
+						},
+						 
+						error: function (data) {
+							$("#holder_loading").hide();
+							$.confirm({
+								icon: 'fa fa-remove',
+								title: 'Error!',
+								content: 'An error occurred while trying to send the request',
+								type: 'red',
+								typeAnimated: true,
+								buttons: {
+									tryAgain: {
+										text: 'Try again',
+										btnClass: 'btn-red',
+										action: function () {
+											saveFormAjax();
+										}
+									},
+									close: function () {
+									}
+								}
+							});
+
+						},
+						success: function (data) {
+
+
+							//console.log(data.length);
+
+
+							if (data > 0)
+							{
+
+								//$('form[name$=appbundle_paciente]')[0].reset();
+								//var routeShow = " {# {{ path('perfil_show') }} #}" //routeShow.replace("PLACEHOLDER", data);
+								//window.location.assign(routeShow);
+								$("#holder_loading").hide();
+                                $.alert({
+                                    icon: 'fa fa-address-card-o',
+                                    title: 'Success',
+                                    type: "green",
+                                    content: 'The information was saved!',
+                                });
+
+
+								//$("body").find(".cropper-container").remove();
+								//$(".img-preview").empty();
+								//$(".currentPicture").html("<img src='"+img+"' class='img-thumbnail'>");
+
+								//$("#appbundle_paciente_pacMun").append($('<option>', {value: 100000, text: 'new option'}));
+							} else
+							{
+								$("#holder_loading").hide();
+								var infoError = (data);
+								$.alert({
+									icon: 'glyphicon glyphicon-exclamation-sign',
+									title: 'Info!',
+									content: 'An error occurred while trying to save the information <br>' + infoError,
+									type: 'blue',
+									typeAnimated: true,
+								});
+							}
+
+
+
+						}
+					});
+				}
+            
+        });
+    </script>    
+{% endblock %}

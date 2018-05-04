@@ -1,0 +1,28 @@
+AppBundle\Entity\ServiceType:
+    type: entity
+    table: service_type
+    id:
+        stId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: st_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        stName:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: st_name
+        stActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: st_active
+    lifecycleCallbacks: {  }
