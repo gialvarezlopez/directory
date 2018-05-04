@@ -1,0 +1,194 @@
+@charset "utf-8";
+
+/*
+Theme Name: ElemoListing - Directory & Listings HTML Template.
+Author: WMD Team
+Version:1.0
+*/
+
+body {
+	font-family:'Roboto', sans-serif;
+	margin:0px;
+	padding:0px;
+	overflow-x:hidden;
+	color:#555555;
+}
+
+a, a:visited {
+	-webkit-transition:background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out, outline .2s ease;
+	-moz-transition:background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out, outline .2s ease;
+	-ms-transition:background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out, outline .2s ease;
+	-o-transition:background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out, outline .2s ease;
+	transition:background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out, outline .2s ease;
+	color:#38ccff;
+}
+a:hover, a:focus { text-decoration:none; }
+
+.nav.nav-list-custom > li > a { padding:5px 10px; }
+
+
+
+/*---------- Top ---------- */
+
+#top {
+  background: rgba(0, 0, 0, 0) url("../images/bg_image.jpg") repeat fixed 0 0 / cover ;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2) inset, 0 -3px 7px rgba(0, 0, 0, 0.2) inset;
+  color: #ffffff;
+  margin-bottom: 60px;
+  padding: 60px 20px;
+  position: relative;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075);
+}
+#top h1 {
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+#top p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+
+/*---------- content ---------- */
+
+#content .alert {
+  background: #eee none repeat scroll 0 0;
+  padding: 30px;
+}
+#content .alert p {
+	font-weight:400;
+}
+#content .alert h4 {
+  font-size: 21px;
+  margin: 0 0 18px;
+}
+.heading_padding {
+  background: #111 none repeat scroll 0 0;
+  color: #ffffff;
+  padding: 10px 20px;
+  margin:0 auto 15px;
+}
+.sub_headding {
+  padding: 40px 0px 0;
+  margin:0 auto 15px;
+}
+.sub_headding h4 {
+  background: #cccccc none repeat scroll 0 0;
+  margin: 10px auto 15px;
+  padding: 11px 20px;
+}
+.heading_padding h3 {
+	margin:0px;
+}
+.nav-list.nav-list-custom li {
+  list-style: outside none none;
+  margin: 0 0 8px;
+}
+.nav-list.nav-list-custom li a {
+	color:#222;
+}
+.nav-list.nav-list-custom li a:hover, .nav li ul li a:hover, .nav li ul li.active a {
+	color:#38ccff;	
+}
+.nav li ul li a {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px;
+}
+.nav li ul {
+	padding:0px;
+}
+.nav li ul li {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	padding-left:30px;
+	list-style-position:inside;
+}
+
+	
+	
+
+
+/*---------- Navigation ---------- */
+
+#navigation .nav {
+	width:262.5px;
+	border:1px solid #e9e9e9;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	background:#111;
+}
+#navigation .nav.affix { top:40px; }
+.nav > li > a {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 15px;
+  position: relative;
+}
+.nav > li > a:hover, .nav li.active a {
+	background:#38ccff;	
+}
+
+
+
+
+/*---------- Footer ---------- */
+
+#footer {
+	color:#c9c9c9;
+	text-align:center;
+	background-color:#111;
+	padding:30px 20px;
+	-moz-box-shadow:inset 0px 3px 5px #2a2a2a;
+	-webkit-box-shadow:inset 0px 3px 5px #2a2a2a;
+	box-shadow:inset 0px 3px 5px #2a2a2a;
+}
+	#footer a:link, #footer a:visited { color:#FFF; }
+	#footer a:hover { color:#c0c0c0; }
+
+
+	
+@media (min-width:980px) and (max-width:1199px) {
+	
+	#navigation .nav { width:212.5px; }
+	
+}
+
+@media (min-width:768px) and (max-width:979px) {
+	
+	#navigation .nav { width:157.5px; }
+	
+}
+
+@media (max-width:767px) {
+	
+	#navigation { margin-bottom:40px; }
+	#navigation .nav { width:auto; }
+	#navigation .nav.affix {
+		position:static;
+		top:auto;
+	}
+	
+}
+
+.footer_top {
+	background:#111;
+	text-align:center;
+	margin:80px auto 0;
+}
+.footer_top p {
+	color:#fff;
+	font-size:24px;
+	margin:0 auto;
+	padding:40px 0;
+}

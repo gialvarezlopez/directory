@@ -1,0 +1,839 @@
+/*
+Theme Name: ElemoListing
+Author: WMD
+Version:1.0
+*/
+
+/*===========================
+ =  Table of CSS
+ 
+ 	1. Dashbord
+		1.1. Dashbord-Nav
+		1.2. Dashbord-Title
+		1.3. Dashbord-List-Box
+		1.4. Dashboard-Breadcrumbs
+		1.5. Dashboard-Header-Nav
+	2. Responsive CSS
+	
+========================================*/
+
+/*-----------------
+	1. Dashbord
+-----------------------*/
+.dashboard_container .navbar.navbar-default {
+  background: #111111 none repeat scroll 0 0;
+  border: 0 none;
+}
+.dashboard_container .navbar-header {
+  background: #232323 none repeat scroll 0 0;
+  padding: 0 30px;
+  margin-left:-30px;
+  width: 260px;
+}
+#dashboard {
+	background-color:#f7f7f7;
+	min-height:100vh;
+	display:flex;
+	flex-wrap:wrap;
+	padding-top:80px;
+}
+.dashboard-content, .dashboard-nav {
+	flex:1;
+}
+.dashboard-content {
+	padding:40px 45px;
+	padding-bottom:0;
+	position:relative;
+	z-index:10;
+	height:100%;
+	margin-left:260px;
+}
+#dashboard .copyrights {
+	padding:40px 0;
+	margin:0;
+	display:block;
+	text-align:left;
+	border:none;
+}
+
+
+/*-------------------
+	1.1. Dashbord-Nav
+---------------------------*/
+.dashboard-nav {
+	background-color:#232323;
+	display:block;
+	box-shadow:0px 0px 12px 0px rgba(0,0,0,0.12);
+	position:fixed;
+	min-height:100vh;
+	min-width:260px;
+	max-width:260px;
+	z-index:11;
+	padding:50px 0 25px 0;
+}
+#dashboard-responsive-nav-trigger {
+  color: #ffffff;
+  cursor: pointer;
+  display: none;
+  float: right;
+  font-size: 30px;
+  margin: 20px auto;
+}
+.dashboard-nav ul {
+	list-style:none;
+	padding:0;
+	margin:0 0 45px;
+}
+.dashboard-nav ul li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid rgba(0, 0, 0, 0);
+  color: #eeeeee;
+  display: block;
+  font-size: 15px;
+  line-height: 24px;
+  margin: 0 auto;
+  transition: all 0.3s ease 0s;
+}
+.dashboard-nav ul li a {
+	color:#eee;
+	display:block;
+	padding:16px 27px;
+	transition:0.3s;
+	cursor:pointer;
+}
+.dashboard-nav ul li a:hover {
+	color:#fff;
+}
+.dashboard-nav ul li span.nav-tag {
+	background-color:rgba(255,255,255,0.2);
+	font-family:"Open Sans";
+	font-weight:600;
+	display:inline-block;
+	font-size:11px;
+	line-height:20px;
+	color:#fff;
+	padding:0;
+	padding:0 7px;
+	box-sizing:border-box;
+	text-align:center;
+	min-width:20px;
+	height:20px;
+	letter-spacing:-0.5px;
+	text-align:center;
+	border-radius:50px;
+	margin-left:4px;
+}
+.dashboard-nav ul li span.nav-tag.messages {
+	top:-2px;
+	position:relative;
+}
+.dashboard-nav ul li span.nav-tag.messages, .dashboard-nav ul li span.nav-tag.green {
+	background-color:#38ccff;
+}
+.dashboard-nav ul li span.nav-tag.yellow {
+	background-color:#b9be1c;
+}
+.dashboard-nav ul li span.nav-tag.red {
+	background-color:#ee3535;
+}
+.dashboard-nav ul li ul {
+  line-height: 0;
+  margin: 0 auto 20px;
+  padding: 0;
+  transition: all 0.2s ease 0s;
+}
+.dashboard-nav ul li.active ul {
+	visibility:visible;
+	padding:0 0 15px 0;
+	line-height:24px;
+	opacity:1;
+	max-height:300px;
+}
+.dashboard-nav ul li ul li {
+	color:#eee;
+	background-color:transparent;
+	border:none;
+	padding-left:54px;
+	position:relative;
+	margin:0;
+}
+.dashboard-nav ul li ul li a {
+	padding:7px 0;
+}
+.dashboard-nav ul li ul li:hover {
+	color:#fff;
+	border:none;
+	background-color:transparent;
+}
+.dashboard-nav ul li a:after {
+	font-family:"FontAwesome";
+	content:'\f107';
+	right:27px;
+	font-size:16px;
+	position:absolute;
+	transition:0.2s;
+	color:rgba(255,255,255,0.5);
+}
+.dashboard-nav ul li.active a:after {
+	transform:rotate(180deg);
+}
+.dashboard-nav ul li ul:before, .dashboard-nav ul li a:only-child:after {
+	content:'';
+	display:none;
+}
+.dashboard-nav ul li ul li:hover a {
+	padding-left:4px;
+}
+.dashboard-nav ul li.active, .dashboard-nav ul li:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left-color: #38ccff;
+  color: #ffffff;
+}
+.dashboard-nav li .fa {
+  background: #333 none repeat scroll 0 0;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 13px;
+  height: 26px;
+  line-height: 26px;
+  margin: 0 3px 0 0;
+  text-align: center;
+  width: 26px;
+}
+.dashboard-info-box {
+  overflow: hidden;
+  padding: 20px 0 0;
+}
+.dashboard-info {
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 3px;
+  color: #111111;
+  float: left;
+  height: 150px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  overflow: hidden;
+  padding: 17px;
+  position: relative;
+  text-align: center;
+  transition: all 0.3s ease 0s;
+  width: 150px;
+}
+.dashboard-info h4 {
+	font-size:40px;
+}
+.dashboard-info span {
+  color: #555555;
+}
+.dashboard-info:hover {
+	transform:translateY(-4px);
+}
+.color-1 {
+	border-color:#38ccff;
+}
+.color-2 {
+	border-color:#b9be1c;
+}
+.color-3 {
+	border-color:#ed1721;
+}
+.color-4 {
+	border-color:#025480;
+}
+.color-5 {
+	border-color:#ffae00;
+}
+.color-6 {
+	border-color:#4f17ed;
+}
+
+
+
+/*-----------------------
+	1.2. Dashbord-Title
+-----------------------------*/
+#dashboard #titlebar {
+	padding:0;
+	margin:0 0 20px 0;
+	display:block;
+	background-color:transparent;
+	background:transparent;
+}
+#dashboard #titlebar h2 {
+	font-size:30px;
+	line-height:38px;
+}
+#dashboard .pagination ul li a, #dashboard .pagination-next-prev ul li a {
+	background-color:transparent;
+}
+#dashboard .pagination ul li a.current-page, #dashboard .pagination .current, #dashboard .pagination ul li a:hover, #dashboard .pagination-next-prev ul li a:hover {
+	background-color:#fff;
+}
+
+/*--------------------------
+	1.3. Dashbord-List-Box
+---------------------------------*/
+.dashboard-list-box {
+	margin:30px 0 0 0;
+	box-shadow:0 0 12px 0 rgba(0,0,0,0.06);
+	border-radius:4px;
+}
+.dashboard-list-box .button {
+	padding:6px 15px;
+	line-height:20px;
+	font-size:13px;
+	font-weight:600;
+	margin:0;
+}
+.button.active {
+	background:#38ccff;
+	color:#fff;	
+}
+.dashboard-list-box .button.gray:before {
+	display:none;
+}
+.dashboard-list-box .button.gray {
+	background-color:#e9e9e9;
+	color:#666;
+}
+.red {
+	background-color:#ee3535;	
+	color:#fff;
+}
+.red:hover {
+	color:#fff;
+	background:#d32626;
+}
+.dashboard-list-box .button.gray:hover {
+	background-color:#38ccff;
+	color:#fff;
+}
+.dashboard-list-box h4 {
+	font-size:16px;
+	font-weight:600;
+	margin:0;
+	padding:25px 30px;
+	color:#333;
+	background-color:#fff;
+	display:block;
+	border-bottom:1px solid #eaeaea;
+	border-radius:4px 4px 0 0;
+}
+.dashboard-list-box h4.gray {
+	background-color:#fbfbfb
+}
+.dashboard-list-box ul {
+	list-style:none;
+	padding:0;
+	margin:0;
+	background-color:#fff;
+	border-radius:0 0 4px 4px;
+}
+.dashboard-list-box ul li {
+	padding:23px 30px;
+	border-bottom:1px solid #eaeaea;
+	transition:0.3s;
+	position:relative;
+	margin:0 auto;
+}
+.dashboard-list-box.with-icons ul li {
+	padding-left:87px;
+}
+.dashboard-list-box ul li:last-child {
+	border:none;
+}
+.dashboard-list-box ul li:hover {
+	background-color:#fbfbfb;
+}
+.dashboard-list-box .numerical-rating {
+	margin:0 3px;
+}
+.dashboard-list-box ul li i.list-box-icon {
+	height:38px;
+	width:38px;
+	color:#777;
+	text-align:center;
+	line-height:37px;
+	border-radius:50%;
+	transition:0.3s;
+	display:inline-block;
+	background-color:#eee;
+	position:absolute;
+	top:50%;
+	transform:translateY(-50%);
+	left:30px;
+}
+.dashboard-list-box ul li:hover i.list-box-icon {
+	background-color:#eaeaea;
+}
+.dashboard-list-box-static {
+	padding:30px;
+	background-color:#fff;
+}
+.dashboard-list-box-static .button {
+	padding:12px 20px;
+	font-size:15px;
+	margin-bottom:3px;
+}
+a.close-list-item {
+	position:absolute;
+	top:50%;
+	transform:translateY(-50%);
+	right:10px;
+	opacity:0;
+	padding:4px;
+	color:#ea2828;
+	transition:0.3s;
+}
+.dashboard-list-box ul li:hover a.close-list-item {
+	opacity:1;
+}
+.dashboard-list-box ul ul {
+	background-color:transparent;
+}
+.dashboard-list-box ul ul li:nth-last-child(2n+1) {
+	background-color:transparent;
+}
+.dashboard-list-box ul ul li {
+	padding:0;
+	border:none;
+	transition:0.3s;
+	background-color:transparent;
+	display:inline-block;
+}
+.dashboard-list-box ul ul li:hover {
+	background-color:transparent;
+}
+.dashboard-list-box .chosen-container .chosen-results li {
+	border:none;
+}
+.buttons-to-right, .dashboard-list-box .button.to-right {
+	position:absolute;
+	right:30px;
+	top:50%;
+	transform:translate3d(0, -49%, 0);
+	-webkit-transform:translate3d(0, -49%, 0);
+	 -o-transform:translate3d(0, -49%, 0);
+	  -moz-transform:translate3d(0, -50%, 0);
+	transition:0.4s;
+	box-shadow:0px 0px 10px 15px #fbfbfb;
+}
+.buttons-to-right {
+	box-shadow:none;
+}
+.buttons-to-right .button {
+  display: block;
+  margin: 8px 0;
+}
+.dashboard-list-box .button i {
+	padding-right:2px;
+	position:relative;
+	margin:0px;
+}
+.dashboard-list-box .button i.fa-remove {
+	padding-right:1px;
+}
+.list-box-listing {
+	display:flex;
+	padding:5px 0;
+	position:relative;
+}
+.list-box-listing-img {
+	flex:1;
+	max-width:150px;
+	position:relative;
+}
+.list-box-listing-img a {
+	width:100%;
+	height:100%;
+	display:inline-block;
+	overflow:hidden;
+	position:relative;
+	z-index:10;
+}
+.list-box-listing-img a:before {
+	content:"";
+	height:100%;
+	width:100%;
+	display:block;
+	position:absolute;
+	top:0;
+	right:0;
+	background-color:rgba(22,22,22,0.2);
+	border-radius:4px;
+	z-index:11;
+}
+.list-box-listing-img a img {
+	object-fit:cover;
+	height:100%;
+	width:100%;
+	border-radius:4px;
+}
+.list-box-listing-content {
+	flex:1;
+	padding-left:25px;
+}
+.list-box-listing-content .inner {
+	position:relative;
+	vertical-align:top;
+	padding-right:100px;
+}
+.list-box-listing-content .inner h3 {
+	font-size:18px;
+	bottom:-2px;
+	position:relative;
+	font-weight:500;
+	margin:0;
+	line-height:27px;
+}
+.list-box-listing-content .inner span {
+	font-size:15px;
+	font-weight:300;
+	display:inline-block;
+}
+.list-box-listing-content .inner .numerical-rating, .list-box-listing-content .inner .star-rating {
+	margin:5px 0 0 0;
+	display:block;
+}
+.review_img {
+  left: 22px;
+  position: absolute;
+  width: 80px;
+}
+.review_comments {
+  color: #666666;
+  padding: 0 0 0 100px;
+}
+span.date {
+  color: #888888;
+  display: block;
+  font-weight: 300;
+  margin: 0;
+  text-align: left;
+  font-size:14px;
+}
+.review_comments p {
+  font-size: 15px;
+  line-height: 23px;
+}
+.review_comments .comment-by {
+  font-size: 20px;
+  font-weight: bold;
+}
+.review_comments .comment-by span, .review_comments .comment-by a {
+	font-weight:normal;
+}
+.review_comments .listing_review_info .fa {
+	margin:0px;
+}
+.review_comments .listing_review_info {
+	background:none;
+	display:inline-block;
+	padding:0px;
+	margin:0 auto 0 10px;
+	vertical-align:middle;
+}
+.review_comments .listing_review_info p {
+	margin:0 auto;
+}
+.dashboard-nav .dropdown-menu {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  box-shadow: none;
+  float: none;
+  padding: 0;
+  position: relative;
+}
+.dashboard-nav .dropdown-menu > li > a:focus, 
+.dashboard-nav .dropdown-menu > li > a:hover {
+  background-color: transparent;
+  color: #fff;
+}
+.notification p {
+	line-height:20px;
+}
+.add_listing_info {
+  background-color: #ffffff;
+  padding: 25px 30px;
+  margin:20px auto 0;
+  box-shadow:0 0 12px 0 rgba(0, 0, 0, 0.06);
+  border-radius:4px;
+}
+.add_listing_info h3 {
+	font-weight:300;
+	margin:0 auto 20px;
+	border-bottom:#eee solid 1px;
+	padding-bottom:20px;
+}
+.add_listing_info .label-title {
+	margin:0 auto 8px;
+	color:#111;
+	font-size:17px;
+	font-weight:400;
+}
+.add_listing_info .label-title span {
+	color:#bbbcbc;
+}
+.add_listing_info .form-control {
+	background:#fff;
+	border:#ccc solid 1px;
+}
+.add_listing_info .form-group {
+	margin:0 auto 20px;
+}
+.add_listing_info .form-control:focus, 
+.add_listing_info form input:focus, 
+.add_listing_info form textarea:focus, 
+.add_listing_info form select:focus {
+  box-shadow: none;
+  outline:none;
+}
+.add_listing_info .checkbox {
+	margin-top:10px;
+}
+.add_listing_info .checkbox p {
+	margin:0 auto 8px;
+}
+
+
+/*--------------------------------
+	1.4. Dashboard-Breadcrumbs
+----------------------------------------*/
+#breadcrumbs {
+	position:absolute;
+	right:15px;
+	display:inline-block;
+	font-size:15px;
+	font-weight:400;
+	color:#888;
+	top:50%;
+	-webkit-transform:translateY(-50%);
+	-moz-transform:translateY(-50%);
+	-ms-transform:translateY(-50%);
+	transform:translateY(-50%);
+}
+#breadcrumbs ul {
+	margin:0;
+}
+#breadcrumbs ul li a {
+	-webkit-transition:all 0.2s ease-in-out;
+	-moz-transition:all 0.2s ease-in-out;
+	-o-transition:all 0.2s ease-in-out;
+	-ms-transition:all 0.2s ease-in-out;
+	transition:all 0.2s ease-in-out;
+	color:#888;
+}
+#breadcrumbs ul li a:hover {
+	color:#666
+}
+#breadcrumbs ul li {
+	display:inline-block;
+	list-style:none;
+	margin:0 0 0 10px;
+}
+#breadcrumbs ul li:first-child:before {
+	display:none;
+}
+#breadcrumbs ul li:before {
+	content:"\f105";
+	font-family:"FontAwesome";
+	color:#a0a0a0;
+	font-size:14px;
+	margin-right:15px;
+}
+
+/*--------------------------------
+	1.5. Dashboard-Header-Nav
+-------------------------------------*/
+.user_nav {
+  display: inline-block;
+  position: relative;
+}
+.user_nav .dropdown {
+  padding: 17px 20px;
+}
+.dropdown #dLabel {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 50%;
+  color: #111111;
+  cursor: pointer;
+  display: block;
+  font-size: 23px;
+  height: 50px;
+  line-height: 24px;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  width: 50px;
+}
+.dropdown-menu {
+  border: 0 none;
+  margin: 0 auto;
+  padding: 0;
+}
+.dropdown-menu > li  {
+	margin:0 auto;
+}
+.dropdown-menu > li > a {
+  font-size: 15px;
+  padding: 7px 20px;
+}
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+  background-color: #38ccff;
+}
+.user_info li span {
+  font-weight: bold;
+}
+.user_image {
+  background: #ffffff none repeat scroll 0 0;
+  border-bottom: 1px solid #eeeeee;
+  padding: 20px 30px;
+  position:relative;
+}
+.user_image > img, .review_img img {
+  border-radius: 50%;
+}
+
+
+
+/*------------------------------
+	2. Responsive CSS
+----------------------------------*/
+@media (min-width:768px) and (max-width:991px) {
+.dashboard_container .navbar-header {
+  padding: 3px 30px;
+  width: 227px;
+}
+.dashboard-nav {
+  max-width: 240px;
+  min-width: 220px;
+  padding: 30px 0 25px;
+}
+#breadcrumbs ul li a {
+	font-size:14px;
+}
+.dashboard-nav ul li a {
+  font-size: 14px;
+  padding: 13px 27px;
+}
+.dashboard-content {
+  margin-left: 220px;
+  padding: 20px 30px 0;
+}
+.dashboard-list-box ul li {
+  padding: 20px;
+}
+.buttons-to-right, .dashboard-list-box .button.to-right {
+  right: 20px;
+}
+
+	
+}
+
+@media (max-width:767px) {
+.dashboard_container .logo {
+  float: left;
+}
+#dashboard-responsive-nav-trigger {
+	display:block;
+}
+.dashboard-nav {
+  max-width: inherit;
+  min-height: inherit;
+  min-width: 100%;
+  padding: 0;
+  position:relative;
+  display:none;
+}	
+.dashboard-nav ul, #breadcrumbs ul {
+	margin:0 auto;
+	padding:0px;
+}
+#breadcrumbs {
+  display: block;
+  position: relative;
+  right: 0;
+  top: inherit;
+  transform: inherit;
+}
+#breadcrumbs ul li {
+	margin:0 auto;
+}
+#breadcrumbs ul li a {
+  font-size: 14px;
+}
+.dashboard-content {
+  height: 100%;
+  margin-left: 0;
+  padding: 15px 15px 0;
+}	
+#dashboard {
+  display: block;
+  flex-wrap: inherit;
+  min-height: inherit;
+}
+.dashboard-list-box {
+  margin: 10px 0 0;
+}
+.dashboard_container .navbar-header {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  margin-left: 0;
+  padding: 0;
+  width: 100%;
+}
+.dashboard-list-box ul li {
+  padding: 15px;
+}
+.add_listing_info h3 {
+  font-size: 28px;
+}
+
+
+}
+
+
+@media (max-width:600px) {
+.list-box-listing {
+  display: block;
+}
+.list-box-listing-img {
+  flex: inherit;
+}
+.list-box-listing-content {
+  flex: inherit;
+  padding-left: 0;
+}
+.list-box-listing-content .inner {
+  padding-right: 0;
+}
+.buttons-to-right, .dashboard-list-box .button.to-right {
+  position: relative;
+  right: 0;
+  top: 0;
+  transform: inherit;
+  overflow:hidden;
+}
+.buttons-to-right .button {
+  float: left;
+  margin: 8px 8px 0 0;
+}
+.review_img {
+  left: 15px;
+  width: 40px;
+}	
+.review_comments {
+  padding: 0 0 0 60px;
+}
+.review_comments p {
+  font-size: 14px;
+  line-height: 22px;
+}
+.review_comments .comment-by {
+  font-size: 16px;
+}
+.add_listing_info h3 {
+  font-size: 25px;
+}
+
+
+}

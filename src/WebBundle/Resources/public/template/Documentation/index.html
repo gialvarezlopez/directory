@@ -1,0 +1,1031 @@
+	<!DOCTYPE HTML>
+<html lang="en"><head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>ElemoListing - Directory & Listings HTML Template</title>
+	<!--Bootstrap -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
+    <!--Custome Style -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <!--shCoreDefault Style -->
+    <link rel="stylesheet" href="assets/css/shCoreDefault.css" type="text/css">
+    <!--FontAwesome Font Style -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+
+</head>
+<body data-spy="scroll" data-target="#navigation">
+    
+    <header id="top">
+    	<div class="container">
+        	<h1><img src="assets/images/logo.png" alt="image"></h1>
+			 <h3>Directory & Listings HTML Template</h3>
+            <p>This Documentation make you easier to customize the look of the template as you want.</p>  
+		</div>
+	</header>
+    
+    <div class="container">
+    	<div class="row">
+            <div class="col-sm-3" id="navigation">
+                <ul class="nav nav-list">
+                    <li><a href="#html"><i class="fa fa-chevron-right"></i> HTML Structure</a>
+                    	<ul>
+                          	<li><a href="#sitelogo">Site Logo</a></li>
+                            <li><a href="#navigations">Navigation</a></li>
+                            <li><a href="#sectionheading">Section Heading</a></li>
+                            <li><a href="#bgcolor">Section Background Color</a></li>
+                          
+                         </ul>
+                    </li>
+                    <li><a href="#header_elements"><i class="fa fa-chevron-right"></i> Header Elements </a></li>
+                    <li><a href="#footer_elements"><i class="fa fa-chevron-right"></i> Footer Elements </a></li>
+                    <li><a href="#fontawesome"><i class="fa fa-chevron-right"></i> FontAwesome Icon Packs </a></li>
+                    <li><a href="#multi-color"><i class="fa fa-chevron-right"></i> Multi Color Option </a></li>
+                    <li><a href="#googlefont"><i class="fa fa-chevron-right"></i> Google Font </a></li>
+                    <li><a href="#map"><i class="fa fa-chevron-right"></i> Map Element</a></li>
+                    <li><a href="#css"><i class="fa fa-chevron-right"></i> CSS Structure</a></li>
+                    <li><a href="#scripts"><i class="fa fa-chevron-right"></i> Scripts</a></li>
+                    <li><a href="#image"><i class="fa fa-chevron-right"></i> Image Files</a></li>
+                    <li><a href="#credits"><i class="fa fa-chevron-right"></i> Credits</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9" id="content">
+                <div class="alert">
+                <h4>Thank you very much for purchasing. <br>
+					ElemoListing - Directory & Listings HTML Template</h4>
+                
+                </div>
+                
+                <div id="html" class="heading_padding">
+	                <h3>HTML Structure</h3>
+                </div>
+                <hr />
+                <p>This template uses the <strong>1170 grid system (12 columns)</strong> which will help streamline any customization you wish to make. If you're unfamiliar with the 1170 grid system, be sure to read about it <strong><a href="http://getbootstrap.com/examples/grid/" target="_blank">here!</a></strong></p>
+                <p>The main structure of this site is wrapped in a <strong>'container'</strong> div. Inside of that div you will find each major section of the site given an appropritae grid size all equalling 12 columns in length. For example, the <strong>'#about_app'</strong> element has a class of <strong>'col-sm-8'</strong> and the <strong>'#app_images'</strong> element has a class of <strong>'col-sm-4'</strong>. The total columns equals <strong>12 columns</strong>.</p>
+                <pre class="brush: js; ruler: true; first-line: 1;">
+                &lt;section class="section-padding"&gt;
+                    &lt;div class="container"&gt;	
+                        &lt;div class="row"&gt;
+                            &lt;div id="about_us" class="col-sm-8"&gt;&lt;/div&gt;
+                            &lt;div id="about_info" class="col-sm-4"&gt;&lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/section&gt;
+                </pre>
+                <div class="info"><p><span class="label label-warning">Note:</span> If you want to add padding in section use <strong>class="section-padding"</strong>  
+                80px padding top & 80px padding bottom added in section. You don't need padding remove <strong>class="section-padding".</strong> </p></div>
+                
+                
+                
+                <div id="sitelogo" class="sub_headding">
+	                <h4>Site Logo</h4>
+                </div>
+                <p>You can change the main site logo with change this code:</p>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[2]">
+                &lt;div class="logo"&gt;
+                    &lt;a href="index.html"&gt;&lt;img src="assets/images/logo.png" alt="Logo" /&gt;&lt;/a&gt;
+                &lt;/div&gt;
+                </pre>
+                
+                
+                <div id="navigations" class="sub_headding">
+	                <h4>Main Navigation</h4>
+                </div>
+                <p>You can change the main site navigation with change this code:</p>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[2,3,4]">
+                &lt;ul class="nav navbar-nav"&gt;
+                    &lt;li class="active"&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/li&gt;
+                    ....
+                    &lt;li &gt;&lt;a href="#"&gt;Contact Us&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                </pre>
+                
+                
+                <div id="sectionheading" class="sub_headding">
+                	<h4>Section Heading</h4>
+                </div>
+                <p>Use this code for section heading.</p>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[ 2,3,4, 5, 6]">
+                	&lt;section class="section-padding"&gt;
+                        &lt;div class="container"&gt;	
+                            &lt;div class="section-header text-center"&gt;
+                                &lt;h2>Our Services&lt;/h2&gt;
+                                &lt;p>Lorem Ipsum is simply dummy text.&lt;/p&gt;
+                            &lt;/div&gt;
+                         &lt;/div&gt;
+                    &lt;/section&gt;
+                </pre>
+                
+                
+                <div id="bgcolor" class="sub_headding">
+                	<h4>Section Background Color</h4>
+                </div>
+               
+               <pre class="brush: js; ruler: true; first-line: 1 highlight:[1];">
+                    &lt;section class="primary-bg"&gt;
+                        &lt;div class="container"&gt;	
+                            ......
+                        &lt;/div&gt;
+                    &lt;/section&gt;
+                </pre>
+                <div class="info"><p><span class="label label-warning">Note:</span> If you want to blue background color in section use <strong>class="primary-bg"</strong>
+                &nbsp;&nbsp;<span style="background:#38ccff; display:inline-block; vertical-align:middle; width:30px; height:20px;"></span>
+                	</p>
+                 </div>
+               <br>
+               
+               <pre class="brush: js; ruler: true; first-line: 1 highlight:[1];">
+                    &lt;section class="secondary-bg"&gt;
+                        &lt;div class="container"&gt;	
+                            ......
+                        &lt;/div&gt;
+                    &lt;/section&gt;
+                </pre>
+                <div class="info"><p><span class="label label-warning">Note:</span> If you want to black background color in section use <strong>class="secondary-bg"</strong>
+                &nbsp;&nbsp;<span style="background:#111; display:inline-block; vertical-align:middle; width:30px; height:20px;"></span></p>
+                 </div>
+                 
+                 <br>
+               
+               <pre class="brush: js; ruler: true; first-line: 1 highlight:[1];">
+                    &lt;section class="gray_bg"&gt;
+                        &lt;div class="container"&gt;	
+                            ......
+                        &lt;/div&gt;
+                    &lt;/section&gt;
+                </pre>
+                <div class="info"><p><span class="label label-warning">Note:</span> If you want to gray background color in section use <strong>class="gray_bg"</strong>
+                &nbsp;&nbsp;<span style="background:#f0f2f2; display:inline-block; vertical-align:middle; width:30px; height:20px;"></span>
+                	</p>
+                 </div>
+               <br>
+               
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[10, 11, 12, 13, 14, 25, 26, 27, 28, 29, 30, 52]">
+<!-- Footer -->
+<footer id="footer" class="secondary-bg">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-md-4">
+            	<div class="footer_widgets">
+                	<h5>Connect with Us</h5>
+                    <div class="follow_us">
+                    	<ul>
+                        	<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+            	<div class="footer_widgets">
+                	<h5>Quick Links</h5>
+                    <div class="footer_nav">
+                    	<ul>
+                        	<li><a href="#">How it Work</a></li>
+                            <li><a href="#">Pricing</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms & condition</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+            	<div class="footer_widgets">
+                	<h5>Our Newsletter</h5>
+                    <div class="newsletter_wrap">
+                    	<form action="" method="get">
+                        	<input type="email" class="form-control" placeholder="Enter Email Address">
+                            <input type="submit" value="subscribe" class="btn">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer_bottom">
+    	<div class="container">
+        	<p>Copyright &copy; 2017 ElemoListing Private Limited. All Rights Reserved</p>
+        </div>
+    </div>
+</footer>
+<!-- /Footer -->
+
+                </pre>
+                <p><span class="label label-warning">Note:</span> You can see the complete list of font icons <strong><a href="http://fontawesome.io/icons/" target="_blank">here!</a></strong></p>
+                
+                <br>
+                <br>
+                <br>
+                
+                <div id="header_elements" class="heading_padding">
+                	 <h3>Header Elements</h3>
+                </div>
+                <!-- Header 1 -->
+                <div class="sub_headding">
+                	<h4>Add Header Style 1</h4>
+                    <p><strong>ADD  Header 1:-</strong> Copy This code and replaced HTML File in Header Section and Save and Change Your Header.</p>
+                </div>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[]">
+                    <header id="header">
+                        <nav class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="10">
+                            <div class="container">
+                              <div class="navbar-header">
+                                <div class="logo"> <a href="index.html"><img src="assets/images/logo.png" alt="image"/></a> </div>
+                                <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
+                                    <span class="sr-only">Toggle navigation</span> 
+                                    <span class="icon-bar"></span> 
+                                    <span class="icon-bar"></span> 
+                                    <span class="icon-bar"></span> 
+                                </button>
+                              </div>
+                              <div class="collapse navbar-collapse" id="navigation">
+                                <ul class="nav navbar-nav">
+                                  <li class="menu-item-has-children"><a href="#">Home</a> <span class="arrow"></span>
+                                    <ul class="sub-menu">
+                                        <li><a href="index.html">Home 1</a></li>
+                                        <li><a href="index-2.html">Home 2</a></li>
+                                        <li><a href="index-3.html">Home 3</a></li>
+                                     </ul>
+                                  </li>
+                                  <li class="menu-item-has-children"><a href="#">Listing</a> <span class="arrow"></span>
+                                     <ul class="sub-menu">
+                                        <li class="menu-item-has-children"><a href="#">Grid Layout</a> <span class="arrow"></span>
+                                            <ul class="sub-menu">
+                                                <li><a href="listing-grid.html">Listing Gird</a></li>
+                                                <li><a href="listing-grid-sidebar.html">Listing Gird Sidebar</a></li>
+                                                <li><a href="listing-grid-map.html">Listing Gird Half Map</a></li>
+                                            </ul> 
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="#">List Layout</a> <span class="arrow"></span>
+                                            <ul class="sub-menu">
+                                                <li><a href="listing-listview.html">Listing List</a></li>
+                                                <li><a href="listing-listview-sidebar.html">Listing List Sidebar</a></li>
+                                                <li><a href="listing-listview-map.html">Listing List Half Map</a></li>
+                                            </ul> 
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="#">Single Listing</a> <span class="arrow"></span>
+                                            <ul class="sub-menu">
+                                                <li><a href="listing-detail-1.html">Style 1</a></li>
+                                                <li><a href="listing-detail-2.html">Style 2</a></li>
+                                            </ul> 
+                                        </li>
+                                     </ul>
+                                  </li>
+                                  <li class="menu-item-has-children"><a href="#">Pages</a> <span class="arrow"></span>
+                                     <ul class="sub-menu">
+                                        <li><a href="about-us.html">About Us</a></li>
+                                        <li><a href="how-it-work.html">How it Work</a></li>
+                                        <li><a href="pricing.html">Pricing</a></li>
+                                        <li><a href="contact-us.html">Contact Us</a></li>
+                                        <li><a href="404-error.html">404 Error</a></li>
+                                    </ul> 
+                                  </li>
+                                  <li class="menu-item-has-children"><a href="#">Blog</a> <span class="arrow"></span>
+                                     <ul class="sub-menu">
+                                        <li><a href="blog-grid-style.html">Blog Grid Style</a></li>
+                                        <li><a href="blog-list-style.html">Blog List Style</a></li>
+                                        <li><a href="blog-single.html">Single Blog</a></li>
+                                    </ul> 
+                                  </li>
+                                  <li class="menu-item-has-children">
+                                        <a href="#">Elements</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="header.html">Header Style</a></li>
+                                            <li><a href="footer.html">Footer Style</a></li>
+                                        </ul> 
+                                   </li>
+                                  <li class="menu-item-has-children"><a href="#">User Panel</a> <span class="arrow"></span>
+                                     <ul class="sub-menu">
+                                        <li><a href="dashboard.html">Dashboard</a></li>
+                                        <li><a href="dashboard-my-listings.html">My Listings</a></li>
+                                        <li><a href="dashboard-reviews.html">Reviews</a></li>
+                                        <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
+                                        <li><a href="blog-single.html">Add Listing</a></li>
+                                        <li><a href="dashboard-my-profile.html">My Profile</a></li>
+                                    </ul> 
+                                  </li>
+                                  <li><a href="signin.html">Sign In</a></li>
+                                </ul>
+                                <div class="submit_listing">
+                                    <a href="pricing.html" class="btn outline-btn"><i class="fa  fa-plus-circle"></i> Submit Listing</a>
+                                </div>
+                              </div>
+                            </div>
+                        </nav>
+                    </header>
+                                     
+                 
+                 </pre>
+               <!-- /Header 1 -->
+  
+                <!-- Header 2 -->
+                <div class="sub_headding">
+                	<h4>Add Header Style 2</h4>
+                    <p><strong>ADD  Header 2:-</strong> Copy This code and replaced HTML File in Header Section and Save and Change Your Header.</p>
+                </div>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[]">
+                    <header id="header" class="header_style2">
+                        <nav class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="10">
+                            <div class="container">
+                              <div class="navbar-header">
+                                <div class="logo"> <a href="index.html"><img src="assets/images/logo2.png" alt="image"/></a> </div>
+                                <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
+                                    <span class="sr-only">Toggle navigation</span> 
+                                    <span class="icon-bar"></span> 
+                                    <span class="icon-bar"></span> 
+                                    <span class="icon-bar"></span> 
+                                </button>
+                              </div>
+                              <div class="collapse navbar-collapse" id="navigation">
+                                <ul class="nav navbar-nav">
+                                  <li class="menu-item-has-children"><a href="#">Home</a> <span class="arrow"></span>
+                                    <ul class="sub-menu">
+                                        <li><a href="index.html">Home 1</a></li>
+                                        <li><a href="index-2.html">Home 2</a></li>
+                                        <li><a href="index-3.html">Home 3</a></li>
+                                     </ul>
+                                  </li>
+                                  <li class="menu-item-has-children"><a href="#">Listing</a> <span class="arrow"></span>
+                                     <ul class="sub-menu">
+                                        <li class="menu-item-has-children"><a href="#">Grid Layout</a> <span class="arrow"></span>
+                                            <ul class="sub-menu">
+                                                <li><a href="listing-grid.html">Listing Gird</a></li>
+                                                <li><a href="listing-grid-sidebar.html">Listing Gird Sidebar</a></li>
+                                                <li><a href="listing-grid-map.html">Listing Gird Half Map</a></li>
+                                            </ul> 
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="#">List Layout</a> <span class="arrow"></span>
+                                            <ul class="sub-menu">
+                                                <li><a href="listing-listview.html">Listing List</a></li>
+                                                <li><a href="listing-listview-sidebar.html">Listing List Sidebar</a></li>
+                                                <li><a href="listing-listview-map.html">Listing List Half Map</a></li>
+                                            </ul> 
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="#">Single Listing</a> <span class="arrow"></span>
+                                            <ul class="sub-menu">
+                                                <li><a href="listing-detail-1.html">Style 1</a></li>
+                                                <li><a href="listing-detail-2.html">Style 2</a></li>
+                                            </ul> 
+                                        </li>
+                                     </ul>
+                                  </li>
+                                  <li class="menu-item-has-children"><a href="#">Pages</a> <span class="arrow"></span>
+                                     <ul class="sub-menu">
+                                        <li><a href="about-us.html">About Us</a></li>
+                                        <li><a href="how-it-work.html">How it Work</a></li>
+                                        <li><a href="pricing.html">Pricing</a></li>
+                                        <li><a href="contact-us.html">Contact Us</a></li>
+                                        <li><a href="404-error.html">404 Error</a></li>
+                                    </ul> 
+                                  </li>
+                                  <li class="menu-item-has-children"><a href="#">Blog</a> <span class="arrow"></span>
+                                     <ul class="sub-menu">
+                                        <li><a href="blog-grid-style.html">Blog Grid Style</a></li>
+                                        <li><a href="blog-list-style.html">Blog List Style</a></li>
+                                        <li><a href="blog-single.html">Single Blog</a></li>
+                                    </ul> 
+                                  </li>
+                                  <li class="menu-item-has-children">
+                                        <a href="#">Elements</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="header.html">Header Style</a></li>
+                                            <li><a href="footer.html">Footer Style</a></li>
+                                        </ul> 
+                                   </li>
+                                  <li class="menu-item-has-children"><a href="#">User Panel</a> <span class="arrow"></span>
+                                     <ul class="sub-menu">
+                                        <li><a href="dashboard.html">Dashboard</a></li>
+                                        <li><a href="dashboard-my-listings.html">My Listings</a></li>
+                                        <li><a href="dashboard-reviews.html">Reviews</a></li>
+                                        <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
+                                        <li><a href="blog-single.html">Add Listing</a></li>
+                                        <li><a href="dashboard-my-profile.html">My Profile</a></li>
+                                    </ul> 
+                                  </li>
+                                  
+                                </ul>
+                                <ul class="nav navbar-nav dashboard_menu">
+                                    <li><a href="signin.html">Sign In</a></li>
+                                </ul>
+                                <div class="front_nav_bar">
+                                    <a href="javascript:;" class="menu-toggle-bar">
+                                        <i class="fa fa-bars"></i>
+                                        <i class="fa fa-close"></i>
+                                    </a>
+                                </div>
+                                <div class="submit_listing">
+                                    <a href="pricing.html" class="btn outline-btn"><i class="fa  fa-plus-circle"></i> Submit Listing</a>
+                                </div>
+                               
+                              </div>
+                              
+                            </div>
+                        </nav>
+                    </header>                 
+                 </pre>
+               <!-- /Header 2 -->
+  
+                <!-- Header 3 -->
+                <div class="sub_headding">
+                	<h4>Add Header Style 3</h4>
+                    <p><strong>ADD  Header 3:-</strong> Copy This code and replaced HTML File in Header Section and Save and Change Your Header.</p>
+                </div>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[]">
+                    <header id="header" class="header_style3">
+                      <nav class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="10">
+                        <div class="container">
+                          <div class="nav_top">
+                            <div class="navbar-header">
+                              <div class="logo"> <a href="index.html"><img src="assets/images/logo2.png" alt="image"/></a> </div>
+                              <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                            </div>
+                            <div class="top_login_submit">
+                              <ul class="nav navbar-nav dashboard_menu">
+                                <li><a href="signin.html">Sign In</a></li>
+                              </ul>
+                              <div class="submit_listing"> <a href="pricing.html" class="btn outline-btn"><i class="fa  fa-plus-circle"></i> Submit Listing</a> </div>
+                            </div>
+                          </div>
+                          <div class="menu_bar">
+                            <div class="collapse navbar-collapse" id="navigation">
+                              <ul class="nav navbar-nav">
+                                <li class="menu-item-has-children"><a href="#">Home</a> <span class="arrow"></span>
+                                  <ul class="sub-menu">
+                                    <li><a href="index.html">Home 1</a></li>
+                                    <li><a href="index-2.html">Home 2</a></li>
+                                    <li><a href="index-3.html">Home 3</a></li>
+                                  </ul>
+                                </li>
+                                <li class="menu-item-has-children"><a href="#">Listing</a> <span class="arrow"></span>
+                                  <ul class="sub-menu">
+                                    <li class="menu-item-has-children"><a href="#">Grid Layout</a> <span class="arrow"></span>
+                                      <ul class="sub-menu">
+                                        <li><a href="listing-grid.html">Listing Gird</a></li>
+                                        <li><a href="listing-grid-sidebar.html">Listing Gird Sidebar</a></li>
+                                        <li><a href="listing-grid-map.html">Listing Gird Half Map</a></li>
+                                      </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><a href="#">List Layout</a> <span class="arrow"></span>
+                                      <ul class="sub-menu">
+                                        <li><a href="listing-listview.html">Listing List</a></li>
+                                        <li><a href="listing-listview-sidebar.html">Listing List Sidebar</a></li>
+                                        <li><a href="listing-listview-map.html">Listing List Half Map</a></li>
+                                      </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><a href="#">Single Listing</a> <span class="arrow"></span>
+                                      <ul class="sub-menu">
+                                        <li><a href="listing-detail-1.html">Style 1</a></li>
+                                        <li><a href="listing-detail-2.html">Style 2</a></li>
+                                      </ul>
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li class="menu-item-has-children"><a href="#">Pages</a> <span class="arrow"></span>
+                                  <ul class="sub-menu">
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="how-it-work.html">How it Work</a></li>
+                                    <li><a href="pricing.html">Pricing</a></li>
+                                    <li><a href="contact-us.html">Contact Us</a></li>
+                                    <li><a href="404-error.html">404 Error</a></li>
+                                  </ul>
+                                </li>
+                                <li class="menu-item-has-children"><a href="#">Blog</a> <span class="arrow"></span>
+                                  <ul class="sub-menu">
+                                    <li><a href="blog-grid-style.html">Blog Grid Style</a></li>
+                                    <li><a href="blog-list-style.html">Blog List Style</a></li>
+                                    <li><a href="blog-single.html">Single Blog</a></li>
+                                  </ul>
+                                </li>
+                                <li class="menu-item-has-children">
+                                        <a href="#">Elements</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="header.html">Header Style</a></li>
+                                            <li><a href="footer.html">Footer Style</a></li>
+                                        </ul> 
+                                   </li>
+                                <li class="menu-item-has-children"><a href="#">User Panel</a> <span class="arrow"></span>
+                                  <ul class="sub-menu">
+                                    <li><a href="dashboard.html">Dashboard</a></li>
+                                    <li><a href="dashboard-my-listings.html">My Listings</a></li>
+                                    <li><a href="dashboard-reviews.html">Reviews</a></li>
+                                    <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
+                                    <li><a href="blog-single.html">Add Listing</a></li>
+                                    <li><a href="dashboard-my-profile.html">My Profile</a></li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </nav>
+                    </header>                 
+                    
+                    
+                   </pre>
+               <!-- /Header 3 -->
+  
+  
+  
+                <div id="footer_elements" class="heading_padding">
+                	 <h3>Footer Elements</h3>
+                </div>
+                <!-- Footer 1 -->
+                <div class="sub_headding">
+                	<h4>Add Footer Style 1</h4>
+                    <p><strong>ADD  Footer 1:-</strong> Copy This code and replaced HTML File in Footer Section and Save and Change Your Footer.</p>
+                </div>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[]">
+
+                    <footer id="footer" class="secondary-bg">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="footer_widgets">
+                              <h5>Connect with Us</h5>
+                              <div class="follow_us">
+                                <ul>
+                                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="footer_widgets">
+                              <h5>Quick Links</h5>
+                              <div class="footer_nav">
+                                <ul>
+                                  <li><a href="#">How it Work</a></li>
+                                  <li><a href="#">Pricing</a></li>
+                                  <li><a href="#">Blog</a></li>
+                                  <li><a href="#">Contact Us</a></li>
+                                  <li><a href="#">Privacy Policy</a></li>
+                                  <li><a href="#">Terms & condition</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="footer_widgets">
+                              <h5>Our Newsletter</h5>
+                              <div class="newsletter_wrap">
+                                <form action="" method="get">
+                                  <input type="email" class="form-control" placeholder="Enter Email Address">
+                                  <input type="submit" value="subscribe" class="btn">
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="footer_bottom">
+                        <div class="container">
+                          <p>Copyright &copy; 2017 ElemoListing Private Limited. All Rights Reserved</p>
+                        </div>
+                      </div>
+                    </footer>
+
+
+                 </pre>
+               <!-- /Footer 1 -->
+  
+  
+                <!-- Footer 2 -->
+                <div class="sub_headding">
+                	<h4>Add Footer Style 2</h4>
+                    <p><strong>ADD  Footer 2:-</strong> Copy This code and replaced HTML File in Footer Section and Save and Change Your Footer.</p>
+                </div>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[]">
+
+                    <footer id="footer" class="footer_2 secondary-bg">
+                      <div class="container">
+                        <div class="footer_widgets">
+                          <h5>Our Newsletter</h5>
+                          <div class="newsletter_wrap">
+                            <form action="" method="get">
+                              <input type="email" class="form-control" placeholder="Enter Email Address">
+                              <input type="submit" value="subscribe" class="btn">
+                            </form>
+                          </div>
+                        </div>
+                        <div class="footer_widgets">
+                          <div class="footer_nav">
+                            <ul>
+                              <li><a href="#">How it Work</a></li>
+                              <li><a href="#">Pricing</a></li>
+                              <li><a href="#">Blog</a></li>
+                              <li><a href="#">Contact Us</a></li>
+                              <li><a href="#">Privacy Policy</a></li>
+                              <li><a href="#">Terms & condition</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="footer_bottom">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-6 col-md-push-6">
+                              <div class="follow_us">
+                                <ul>
+                                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-md-pull-6">
+                              <p>Copyright &copy; 2017 ElemoListing Private Limited. All Rights Reserved</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </footer>
+
+
+                 </pre>
+               <!-- /Footer 2 -->
+  
+  
+                <!-- Footer 3 -->
+                <div class="sub_headding">
+                	<h4>Add Footer Style 3</h4>
+                    <p><strong>ADD  Footer 3:-</strong> Copy This code and replaced HTML File in Footer Section and Save and Change Your Footer.</p>
+                </div>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[]">
+
+
+                    <footer id="footer" class="parallex-bg footer_style_3">
+                      <div class="dark-overlay"></div>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="footer_widgets">
+                              <div class="footer_nav">
+                                <h5>Important Links</h5>
+                                <ul>
+                                  <li><a href="#">How it Work</a></li>
+                                  <li><a href="#">Pricing</a></li>
+                                  <li><a href="#">Blog</a></li>
+                                  <li><a href="#">Contact Us</a></li>
+                                  <li><a href="#">Privacy Policy</a></li>
+                                  <li><a href="#">Terms & condition</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="footer_widgets">
+                              <div class="footer_contact">
+                                <ul>
+                                  <li> <i class="fa fa-envelope" aria-hidden="true"></i> <span><a href="mailto:contact@example.com">contact@example.com</a></span> </li>
+                                  <li> <i class="fa fa-phone" aria-hidden="true"></i> <span>+61-1234-5678-09</span> </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4 col-md-offset-1">
+                            <div class="footer_widgets">
+                              <h5>Our Newsletter</h5>
+                              <div class="newsletter_wrap">
+                                <form action="" method="get">
+                                  <input type="email" class="form-control" placeholder="Enter Email Address">
+                                  <input type="submit" value="Subscribe" class="btn">
+                                </form>
+                              </div>
+                              <div class="follow_us">
+                                <ul>
+                                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="footer_bottom">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p>Copyright &copy; 2017 ElemoListing Private Limited. All Rights Reserved</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </footer>
+                    
+
+                 </pre>
+               <!-- /Footer 3 -->
+  
+  
+                <!-- Footer 4 -->
+                <div class="sub_headding">
+                	<h4>Add Footer Style 4</h4>
+                    <p><strong>ADD  Footer 4:-</strong> Copy This code and replaced HTML File in Footer Section and Save and Change Your Footer.</p>
+                </div>
+                <pre class="brush: js; ruler: true; first-line: 1; highlight:[]">
+
+
+                    <footer id="footer" class="secondary-bg footer_style_4">
+                      <div class="footer_top">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="parallex-bg about_bg">
+                                <div class="dark-overlay"></div>
+                                <div class="footer_about div_zindex">
+                                  <div class="footer_logo"> <a href="index.html"><img src="assets/images/logo.png" alt="image"/></a> </div>
+                                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem.</p>
+                                  <ul class="contact_list">
+                                    <li> <i class="fa fa-envelope" aria-hidden="true"></i> <span><a href="mailto:contact@example.com">contact@example.com</a></span> </li>
+                                    <li> <i class="fa fa-phone" aria-hidden="true"></i> <span>+61-1234-5678-09</span> </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="footer_widgets">
+                                <h5>Popular Category</h5>
+                                <div class="footer_nav">
+                                  <ul>
+                                    <li><a href="#">Food & Drink</a></li>
+                                    <li><a href="#">Businesses</a></li>
+                                    <li><a href="#">Finance</a></li>
+                                    <li><a href="#">Educations</a></li>
+                                    <li><a href="#">Sports</a></li>
+                                    <li><a href="#">Hotels</a></li>
+                                    <li><a href="#">Seminars</a></li>
+                                    <li><a href="#">Travels</a></li>
+                                    <li><a href="#">Music</a></li>
+                                    <li><a href="#">Properties</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="footer_bottom">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-6 text-left">
+                              <p>Copyright &copy; 2017 ElemoListing Private Limited. All Rights Reserved</p>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="follow_us">
+                                <ul>
+                                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                  <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </footer>
+                                        
+                    
+
+                 </pre>
+               <!-- /Footer 4 -->
+  
+  
+  
+  
+  
+                 
+                <div id="fontawesome" class="heading_padding">
+                	 <h3>FontAwesome Icon Packs</h3>
+                </div>
+               
+                <p>You can also use built-in icon packs in this template, all icons use CSS Font feature, so you can edit and give color to the icon easily. For referrences to easier you use all icons you can visit <strong><a href="http://fontawesome.io/icons/" target="_blank">here!</a></strong></p>
+				
+                <br><br>
+                
+                <div id="multi-color" class="heading_padding">
+	                <h3>How to Set the Template Color</h3>
+                </div>
+                <p>It's easy to set the color which you want for your template, you just need to change the below line code:</p>
+                
+                <ol>
+                	<li>Open any template <strong>.html</strong> file which you want to set the color(example <strong>index.html</strong>).</li>
+                    <li>Find below line of code in <strong>&lt;head&gt;</strong> section:
+                    <div>
+                    <pre class="brush: js; ruler: true; first-line: 1;">
+                    	&lt;!-- Custom Colors --&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/red.css">--&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/orange.css">--&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/blue.css">--&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/pink.css">--&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/green.css">--&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/purple.css">--&gt;
+                    </pre>
+                    </div></li>
+                    <li>SET your favorite color (example: ORANGE) and make HTML comment all the other colors line like this:
+                    <div>
+                    <pre class="brush: js; ruler: true; first-line: 1; highlight:[3]">
+                    	&lt;!-- Custom Colors --&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/red.css">--&gt;
+                        <link rel="stylesheet" href="assets/css/colors/orange.css">
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/blue.css">--&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/pink.css">--&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/green.css">--&gt;
+                        &lt;!--<link rel="stylesheet" href="assets/css/colors/purple.css">--&gt;
+                    </pre>
+                    </div></li>
+                    <li>Just Save the template (CTRL+S) and see the result in browser!</li>
+                </ol>	
+                <br>
+				 
+                <div class="heading_padding">
+	                <h3 id="googlefont">Google Font</h3>
+                </div>
+                
+                 <br>
+                 <p>&nbsp;<strong>Open Sans</strong> : </p>
+                 <pre class="brush: js; ruler: true; first-line: 1; highlight:[]">
+                  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+                 </pre><br>
+
+                 <p>You can visit for more information : <a href="https://www.google.com/fonts" target="_blank">Google WebFonts</a></p>
+                 <br><br><br><br>
+
+                   <div class="heading_padding">
+	                <h3 id="map">Map Element</h3>
+                </div>
+                <p>Below is some scripts to change the Listing Maps Address settings <strong>(assets/js/maps.js)</strong></p>
+               <pre class="brush: js; ruler: true; first-line: 1; highlight:[12, 14, 16, 18, 20, 22, 24]">
+var infoBox_ratingType = 'star-rating';
+(function($) {
+"use strict";
+
+function mainMap() {
+var ib = new InfoBox();
+
+function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
+    return ('' + '<a href="' + locationURL + '" class="listing-img-container">' + '<div class="infoBox-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" alt="">' + '<div class="listing-item-content">' + '<h3>' + locationTitle + '</h3>' + '<span>' + locationAddress + '</span>' + '</div>' + '</a>' + '<div class="listing-content">' + '<div class="listing-title">' + '<div class="' + infoBox_ratingType + '" data-rating="' + locationRating + '"><div class="rating-counter">(' + locationRatingCounter + ' reviews)</div></div>' + '</div>' + '</div>')
+}
+var locations = [
+    [locationData('listing-detail-1.html', 'assets/images/listing_img6.jpg', "The Morning Hotel", '3112 NW Cache Rd, Lawton, OK 73505, USA', '3.5', '12'), 40.94401669296697, -74.16938781738281, 1, '<i class="im-icon"><img src="assets/images/category-icon5.png"></i>'],
+    
+    [locationData('listing-detail-1.html', 'assets/images/listing_img4.jpg', 'Laisa Spa Center', '41 Sunset Blvd, Lawton, OK 73505, USA', '5.0', '23'), 40.77055783505125, -74.26002502441406, 2, '<i class="im-icon"><img src="assets/images/category-icon4.png"></i>'],
+    
+    [locationData('listing-detail-1.html', 'assets/images/listing_img3.jpg', 'Blue Women Parlour', '778 Sunset Blvd, Lawton, OK 73505, USA', '2.0', '17'), 40.7427837, -73.11445617675781, 3, '<i class="im-icon"><img src="assets/images/category-icon4.png"></i>'],
+    
+    [locationData('listing-detail-1.html', 'assets/images/listing_img5.jpg', 'Auto Repair Shop', '2726 Shinn Street, New York', '5.0', '31'), 40.70437865245596, -73.98674011230469, 4, '<i class="im-icon"><img src="assets/images/category-icon6.png"></i>'],
+    
+    [locationData('listing-detail-1.html', 'assets/images/listing_img2.jpg', 'Eating Restaurant', '1512 Duncan Avenue, New York', '3.5', '46'), 40.641311, -73.778139, 5, '<i class="im-icon"><img src="assets/images/category-icon2.png"></i>'],
+    
+    [locationData('listing-detail-1.html', 'assets/images/listing_img8.jpg', 'The Shelby Apartment', '215 Terry Lane, New York', '4.5', '15'), 41.080938, -73.535957, 6, '<i class="im-icon"><img src="assets/images/category-icon1.png"></i>'],
+    
+    [locationData('listing-detail-1.html', 'assets/images/listing_img9.jpg', 'Fitness Center', '2726 Shinn Street, New York', '5.0', '31'), 41.079386, -73.519478, 7, '<i class="im-icon"><img src="assets/images/category-icon3.png"></i>'],
+];
+        </pre>
+        <p>Follow Highlight text and change listing map address.</p>
+        <p style="overflow:scroll"><img src="assets/images/map-screenshot.jpg" alt="image"></p>
+                <br> <br> <br>
+             
+                <div id="css" class="heading_padding">
+	                <h3>CSS Structure</h3>
+                </div>
+                <p>I'm using one main CSS file <strong>(assets/css/style.css)</strong>, in this template which you are free to modify depending on the customization you require.  Below are 4 additional CSS files:</p>
+                <ul style="list-style-type:square;">
+                    <li><strong>bootstrap.min.css</strong> - This is a main stylesheet that required for basic template styling like grid, form, input and web elements.</li>
+                    <li><strong>font-awesome.min.css</strong> - CSS stylesheets for font icon packs.</li>
+                    <li><strong>owl.carousel.css </strong> - This stylesheet used for styling the Banner slideshow.</li>
+                    <li><strong>owl.transitions.css</strong> - This stylesheet used for styling the Banner transitions.</li>
+
+                </ul>
+                <p>The main CSS file <strong>(assets/css/style.css)</strong> contains all of the specific stylings for the page. The file was divided into several sessions as below:</p>
+                <pre class="brush: js; ruler: true; first-line: 1;">
+/*===========================
+ =  Table of CSS
+ 
+ 	1. General code
+		1.1. Typography
+		1.2. Button
+		1.3. dark-overlay	                             
+		1.4. Space margins and padding
+		1.5. Form
+		1.6. Table
+		1.7. Accordion
+		1.8. Section-background-color & sectino-heading
+		1.9. parallex-background
+		1.10. Modal
+		1.11. owl-slider
+	2. Header
+		2.1. Menu
+		2.2. Drop-Down-Menu
+	3. Banner-Search
+	4. Home-Page-1
+		4.1. Category-Slider
+		4.2. Popular-Cities
+		4.3. About-Info
+		4.4. Popular-Listings
+		4.5. Testimonials
+		4.6. Latest-Blog
+		4.7. Footer
+	5. Home-Page-2
+		5.1. Category-Slider-2
+		5.2. How-it-Work
+		5.3. Pricing-Table
+		5.4. Footer-2
+	6. Inner-Pages
+		6.1. Login & Sign up
+		6.2. Pricing-Page
+		6.3. 404-Error-Page
+		6.4. About-Us-Page
+		6.5. Contact-Us-Page
+		6.6. How-it-work
+		6.7. Listing
+		6.7. Blog
+		6.8. Comment-List
+		6.9. Listing-with-map
+		6.10. Listing-Detail-Page
+		6.11. Listing-Detail-2 
+	7. Responsive CSS
+===========================*/
+                
+CSS styles for support all kinds of different screen sizes
+                </pre>
+                <p>If you would like to edit a specific section of the site, simply find the appropriate label in the <strong>.css</strong> file, and then scroll down until you find the appropriate style that needs to be edited.</p>
+                
+                <br>
+                
+                <div id="scripts" class="heading_padding">
+	                <h3>Scripts</h3>
+                </div>
+                <p>This theme uses several scripts many of which are documented within the theme's code. If you're a developer, you will find this particularly useful.</p>
+                <ul class="nav-list nav-list-custom">
+                    <li><a href="http://jquery.com/" target="_blank"><i class="fa fa-chevron-right"></i> jQuery v1.11.3</a></li>
+                    <li><a href="http://getbootstrap.com/" target="_blank"><i class="fa fa-chevron-right"></i> Bootstrap JS</a></li>
+                    <li><a href="http://owlgraphic.com/owlcarousel/" target="_blank"><i class="fa fa-chevron-right"></i> owl.carousel.min.js</a></li>  
+                    <li><a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank"><i class="fa fa-chevron-right"></i> markercluster</a></li>
+                </ul>
+                
+                <br>
+                <div id="image" class="heading_padding">
+	                <h3>Image Files</h3>
+                </div>
+                <ul class="nav-list nav-list-custom">
+                    <li><a href="https://pixabay.com/" target="_blank"><i class="fa fa-chevron-right"></i> Pixabay</a></li>
+                    <li><a href="http://www.freepik.com/" target="_blank"><i class="fa fa-chevron-right"></i> Freepik</a></li>
+                </ul>
+                
+                <br>
+                <div id="credits" class="heading_padding">
+	                <h3>Credits</h3>
+                </div>
+    
+                <ul class="nav-list nav-list-custom">
+                    <li><a href="http://getbootstrap.com/" target="_blank"><i class="fa fa-chevron-right"></i> Twitter Bootstrap</a></li>
+                    <li><a href="http://fontawesome.io/" target="_blank"><i class="fa fa-chevron-right"></i> Font Awesome</a></li>
+                    <li><a href="https://www.google.com/fonts" target="_blank"><i class="fa fa-chevron-right"></i> Google WebFonts</a></li>
+                </ul>
+                
+                <br><br>
+                 
+                
+            </div>
+        </div>
+	</div>
+    
+    <footer id="footer">
+    	<div class="container">Copyright &copy; 2017 ElemoListing. All Rights Reserved</div>
+    </footer>
+   
+    
+    <!-- JavaScripts -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script> 
+    <script src="assets/js/shCore.js"></script> 
+    <script src="assets/js/shBrushJScript.js"></script> 
+	<script src="assets/js/script.js"></script> 
+    
+</body>
+
+</html>
