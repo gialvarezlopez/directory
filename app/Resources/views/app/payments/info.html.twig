@@ -58,9 +58,23 @@
                     <tbody>        
                         {% for pay in pays %}
                             <tr>
-                                <td>US$ {{ pay.payMoneyPaid|number_format(2, '.', ',') }}</td>
+                                <td>
+                                    {% if pay.pp.ppName is defined %}
+                                        US$ {{ pay.payMoneyPaid|number_format(2, '.', ',') }}
+                                    {% else %}
+                                        <h4 ><span class="label label-success">US$ {{ pay.payMoneyPaid|number_format(2, '.', ',') }}</span></h4>
+                                    {% endif %}
+                                    
+                                </td>
                                 <td>{{ pay.pr.prPlan }} </td>
-                                <td>{{ pay.pp.ppName }} </td>
+                                <td>
+                                    {% if pay.pp.ppName is defined %}
+                                        {{ pay.pp.ppName }}
+                                    {% else %}
+                                        <h4 ><span class="label label-success">Free</span></h4>
+                                    {% endif %}
+                                    
+                                </td>
                                 <td>{{ pay.payCreated|date("\n l jS F Y")  }}</td>
                                 <td>{{ pay.payDeadLine|date("\n l jS F Y")  }}</td>
                                 <td>

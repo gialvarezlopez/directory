@@ -99,10 +99,15 @@ class PaymentsController extends Controller
 
         $pendingDays = $result;
 
+        //check if the user already has a free account
+        $oFreeAccount = $em->getRepository('AppBundle:Payer')->findBy( array("usr"=> $userId, "payActive"=>1, "pp"=>null) );
+        $hasFreeAccount = count($oFreeAccount);
+
         return $this->render('app/payments/checkIn.html.twig', array(
             "processors"=> $processors,
             "pricing" => $pricing,
             "pendingDays" =>$pendingDays,
+            "hasFreeAccount"=>$hasFreeAccount,
         ));
     }
 
@@ -126,31 +131,49 @@ class PaymentsController extends Controller
             $id_pricing = $request->query->get("pricing");
             //$id = $request->get("payment_gateway"); //POST
 
-            if( !is_numeric($id_payment_gateway) || !is_numeric($id_pricing) )
+            if( (!is_numeric($id_payment_gateway) || !is_numeric($id_pricing) ) && $id_payment_gateway != "free" )
             {
                 throw new AccessDeniedException("Invalid parameters!");
             }
             else
             {
                 $em = $this->getDoctrine()->getManager();
-                $oPaymentProcessor = $em->getRepository('AppBundle:PaymentProcessor')->findOneBy( array("ppActive"=> 1, "ppId"=>$id_payment_gateway) );
-                if(!$oPaymentProcessor)
-                {
-                    throw new AccessDeniedException("Invalid Payment Gateway!");
-                }
-
-                if( $oPaymentProcessor->getPpKey() == "" || empty($oPaymentProcessor->getPpKey()) )
-                {
-                    throw new AccessDeniedException("The key of payment gateway is missing!");
-                }
-
                 $oPricing = $em->getRepository('AppBundle:Pricing')->findOneBy( array("prActive"=> 1, "prId"=>$id_pricing) );
+
                 if(!$oPricing)
                 {
                     throw new AccessDeniedException("Invalid plan method!");
                 }
 
-                $this->paymentStart($oPaymentProcessor, $oPricing);
+                if( $id_payment_gateway == "free" )
+                {
+                    $oPaymentProcessor = $id_payment_gateway;
+                    $res = $this->paymentStart($oPaymentProcessor, $oPricing);
+                    if( $res == 1 )
+                    {
+                        $msg = "Thank you, the user has been published on the website successfully, you have a free month";
+                        $this->session->getFlashBag()->add("success", $msg);
+                        return $this->redirectToRoute('payments_info');
+                    }else{
+                        throw new AccessDeniedException("There was an error!");
+                    }
+                }
+                else
+                {
+                    $oPaymentProcessor = $em->getRepository('AppBundle:PaymentProcessor')->findOneBy( array("ppActive"=> 1, "ppId"=>$id_payment_gateway) );
+                    if(!$oPaymentProcessor)
+                    {
+                        throw new AccessDeniedException("Invalid Payment Gateway!");
+                    }
+
+                    if( $oPaymentProcessor->getPpKey() == "" || empty($oPaymentProcessor->getPpKey()) )
+                    {
+                        throw new AccessDeniedException("The key of payment gateway is missing!");
+                    }
+
+                    $this->paymentStart($oPaymentProcessor, $oPricing);
+                }    
+                
             }
 
             
@@ -168,10 +191,16 @@ class PaymentsController extends Controller
     public function paymentStart( $oPaymentProcessor, $oPricing ){
 		$session = new Session();
         
-		if( is_object($oPaymentProcessor) && is_object($oPricing) )
+		if( (is_object($oPaymentProcessor) || $oPaymentProcessor == "free" ) && is_object($oPricing) )
 		{	
-
-            switch( strtolower($oPaymentProcessor->getPpKey()) )
+            if( $oPaymentProcessor == "free" ){
+                $type = $oPaymentProcessor;
+            }
+            else{
+                $type = strtolower($oPaymentProcessor->getPpKey());
+            }
+            $userId = $this->getUser()->getUsrId();
+            switch( $type )
             {
                 case "paypal":
                         $is_checkout = "checkout";
@@ -179,14 +208,21 @@ class PaymentsController extends Controller
                         $session->set('paid', 1);
                         $aData = $this->getGeneralParameters();
                         $paypal->setParameterDB($aData['nameDB'], $aData['hostDB'], $aData['userDB'], $aData['passwordDB'], $aData['portDB'], $aData['urlSuccess'], $aData['urlCancel'] );
-                        $userId = $this->getUser()->getUsrId();
                         $planId = $oPricing->getPrId(); 
                         $months = $oPricing->getPrMonths(); 
                         $paymentProcessorId = $oPaymentProcessor->getPpId();
                         $session->set("paymentProcessorName", "paypal");
                         $paypal->processPaypal($userId, $planId, $months, $paymentProcessorId, $is_checkout );
                     break;
+                case "free":
+                        $months = $oPricing->getPrMonths(); 
+                        $paymentProcessorId = "free";
+                        return $this->freePaymentAccount($userId, $oPricing, $months, $paymentProcessorId );
+                        //echo "antes - ";
+                        //return $this->redirectToRoute('payments_paymentSuccess');
+                    break;    
                 default:
+                    throw new AccessDeniedException("Error the payment is unknown!");
                     break;
 			}
 		
@@ -224,6 +260,38 @@ class PaymentsController extends Controller
             return false;
         }
     */
+
+    public function freePaymentAccount( $userId, $oPricing, $months, $paymentProcessorId )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $payer = new \AppBundle\Entity\Payer();
+                    
+        
+        $oUser = $em->getRepository('AppBundle:User')->findOneBy( array( "usrId"=> $userId) );
+        $payer->setUsr($oUser);
+
+        $payer->setPr($oPricing);
+
+        $payer->setPayMoneyPaid($oPricing->getPrPrice());
+
+        $date = date('Y-m-d H:i:s');
+        $months = $months;
+		$newDate = strtotime ( "+".$months." month" , strtotime ( $date ) ) ;
+        $deadLine = date ( 'Y-m-d H:i:s' , $newDate );
+        
+        $payer->setPayDeadLine( new \DateTime($deadLine) );
+        $payer->setPayCreated( new \DateTime($date) );
+        $payer->setPayActive(1);
+        $payer->setPayIsPaid(1);
+
+        $em->persist($payer);			
+        $flush = $em->flush();
+        if( $flush == null)
+        {
+            return 1;
+        }
+        //return $this->redirectToRoute('payments_info');
+    }
 
     public function paymentSuccessAction( Request $request )
 	{

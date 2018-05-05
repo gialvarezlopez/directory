@@ -52,7 +52,7 @@
     {% endif %}
     <div class="box  ">
         <div class="box-header">
-            <h3 class="box-title">
+            <h3 class="box-title paymentGateway">
                 {# <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/logotipo_paypal_tarjetas.jpg" border="0" alt="" /> #}
 
                 {% if processors|length > 1 %}
@@ -98,8 +98,10 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>        
+                <tbody>
+                    {# {% set existFree = false %} #}       
                     {% for value in pricing %}
+                        {% if hasFreeAccount == 0 or ( hasFreeAccount != 0 and value.prPrice != 0 ) %}
                         <tr>
                             <td>
                                 {% if value.prId == 1 %}  
@@ -108,18 +110,53 @@
                                     <input type="radio" name="optionPricing" class="optionPricing minimal" id="" value="{{ value.prId }}" >
                                 {% endif %}
                             </td>
-                            <td>{{ value.prPlan }}</td>
+                            <td>
+                                {% if value.prPrice == 0 %}
+                                    {% set existFree = value.prId %}
+                                    <input type = "hidden" id="f" value="{{ existFree }}">
+                                    <h4 ><span class="label label-success">{{ value.prPlan }}</span></h4>
+                                {% else %}
+                                    {{ value.prPlan }}    
+                                {% endif %}
+                            </td>
                             <td>{{ value.prMonths }}</td>
-                            <td>$ {{ value.prPrice|number_format(2, '.', ',') }}</td>
+                            <td>
+                                {% if value.prPrice == 0 %}
+                                    {% set existFree = value.prId %}
+                                    <input type = "hidden" id="f" value="{{ existFree }}">
+                                    <h4 ><span class="label label-success">$ {{ value.prPrice|number_format(2, '.', ',') }}</span></h4>
+                                {% else %}
+                                   $ {{ value.prPrice|number_format(2, '.', ',') }}
+                                {% endif %}
+                                
+                            </td>
                             <td>{{ value.prDescription }}</td>
                         </tr>
+                        {% endif %}
                     {% endfor %}    
                 </tbody>
             </table>
+            
             <hr>
-            <button class="btn btn-primary" id="btnPay"><i class="fa fa-credit-card" aria-hidden="true"></i> Pay Now</button>                
+            <span id="holderBtnSend"><button class='btn btn-primary' id='btnPay'><i class='fa fa-credit-card' aria-hidden='true'></i> Pay Now</button></span>
+            <a href="{{ path('payments_info') }}" class='btn btn-primary'><i class="fa fa-handshake-o" aria-hidden="true"></i> My transaction</a>                
         </div>
     </div>
+
+    <style>
+        .noPayMent{
+            opacity: 0.1;
+            filter: alpha(opacity=10); /* For IE8 and earlier */
+
+        }
+        .noPayMent::before {
+            content: ""; 
+        }
+
+        .noPayMent ul li label{
+            cursor: default !important;
+        }
+    </style>
 {% endblock %}
 
 {% block codejs %}
@@ -127,24 +164,65 @@
         //$(document).on("ready", function(){
         $(function () {
            //iCheck for checkbox and radio inputs
+            
+            /*
             $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
                 checkboxClass: 'icheckbox_minimal-blue',
                 radioClass   : 'iradio_minimal-blue'
             });
+            */
+            var inputFree = $("#f");
+            var idFree = inputFree.val();    
+            if( inputFree.length > 0 )
+            {
+                $(".optionPricing").change(function(){ 
+                    var value = $(this).val();
+                    if( value == idFree )
+                    {
+                        console.log("es free");
+                        $(".paymentGateway").addClass("noPayMent");
+                        $(".optionPayment").attr("disabled", true);
+                        $(".optionPayment").prop('checked', false);
+                        var btn = "<button class='btn btn-primary' id='btnPay'><i class='fa fa-smile-o' aria-hidden='true'></i> Get it Now</button>";
+                    }else{
+                        $(".paymentGateway").removeClass("noPayMent");
+                        $(".optionPayment").attr("disabled", false);
+                        var btn = "<button class='btn btn-primary' id='btnPay'><i class='fa fa-credit-card' aria-hidden='true'></i> Pay Now</button>";
+                    }
+                    $("#holderBtnSend").html(btn);
+                });
 
-            $("#btnPay").on("click",function(){
-                var optPayment = $(".optionPayment:checked").val();
+                /*    
+                //$(".optionPricing").on('ifChanged', function (e) {
+                $('.optionPricing').on('ifClicked', function() {   
+                    var value = $(this).val(); 
+                    console.log(value);
+                });
+                */
+            }
+
+            $("body").on("click","#btnPay",function(){
+                
                 var optPricing = $(".optionPricing:checked").val();
-                if( optPayment == undefined )
-                {
-                    $.alert({
-                        icon: 'fa fa-warning',
-                        title: 'Alert!',
-                        type: "red",
-                        content: 'Select a payment method!',
-                    });
-                    return false;
+                
+                if( inputFree.length > 0 ){
+                    var optPayment = "free";
                 }
+                else
+                {
+                    var optPayment = $(".optionPayment:checked").val();
+                    if( optPayment == undefined )
+                    {
+                        $.alert({
+                            icon: 'fa fa-warning',
+                            title: 'Alert!',
+                            type: "red",
+                            content: 'Select a payment method!',
+                        });
+                        return false;
+                    }
+                }
+                
 
                 if( optPricing == undefined )
                 {
