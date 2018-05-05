@@ -22,9 +22,9 @@ app_socialnetwork:
         resource: "@AppBundle/Resources/config/routing/socialnetwork.yml"
         prefix:   /backend/socialnetwork
 
-#app_speciality:
-#        resource: "@AppBundle/Resources/config/routing/speciality.yml"
-#        prefix:   /speciality
+app_settings:
+        resource: "@AppBundle/Resources/config/routing/settings.yml"
+        prefix:   /settings
 
 app_payments:
         resource: "@AppBundle/Resources/config/routing/payments.yml"

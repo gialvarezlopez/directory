@@ -1,0 +1,4 @@
+settings_show:
+    path:   /show
+    defaults: { _controller: "AppBundle:Settings:index" }
+   

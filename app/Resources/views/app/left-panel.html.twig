@@ -34,7 +34,10 @@
               <a href="#"><i class="fa fa-sitemap" aria-hidden="true"></i> <span>Review</span></a>
             </li>
             {% if app.user != null %}
-              <li class="header">Close session</li>
+              <li class="header">Security</li>
+              <li>
+                <a href="{{ path('settings_show') }}"><i class="fa fa-gears" aria-hidden="true"></i><span>Settings</span></a>
+              </li>
               <li>
                 <a href="{{ path("logout") }}"><i class="fa fa-external-link" aria-hidden="true"></i><span>Sign out</span></a>
               </li>

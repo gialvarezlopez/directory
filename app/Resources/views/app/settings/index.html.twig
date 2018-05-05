@@ -1,0 +1,77 @@
+{% extends 'app/base.html.twig' %}
+
+{% block title_page %}
+    MD || Setting
+{% endblock %}
+
+{% block breadcrumb %}
+    {# {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }} #}
+{% endblock %} 
+
+{% block submenutop %}
+    {# {{ include('EmrBundle:consulta:_submenu.html.twig' )  }} #}
+{% endblock %} 
+
+
+
+{% block header %}
+        <h1>My General Settings</h1>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="box  {# collapsed-box #}">
+                        <div class="box-header">
+                            <h3 class="box-title">Reset Password :
+                                {# <small>Advanced and full of features</small> #}
+                            </h3>
+                            <!-- tools box -->
+                            {#
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-default  btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            </div>
+                            #}
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body pad">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="box box-success">
+                                        <div class="box-header with-border">
+                                        {# <h3 class="box-title">Full name</h3>#}
+                                        </div>
+                                        <div class="box-body">
+                                            <div>
+                                                Current Password: <input type="password" id="currentPass" name="currentPass" class="form-control">
+                                            </div>
+                                            <div>
+                                                New Password: <input type="password" id="newPass" name="newPass" class="form-control">
+                                            </div>
+                                            <div>
+                                                Repeat Password: <input type="password" id="repeatPass" name="repeatPass" class="form-control">
+                                            </div> 
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+
+{% endblock %}
+
+{% block codejs %}
+    <script>
+        //$(document).on("ready", function(){
+        $(function () {
+            
+        });
+    </script>
+{% endblock %}        
