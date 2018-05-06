@@ -18,6 +18,11 @@ class State
     private $staName;
 
     /**
+     * @var string
+     */
+    private $staCode;
+
+    /**
      * @var boolean
      */
     private $staActive = true;
@@ -60,6 +65,30 @@ class State
     public function getStaName()
     {
         return $this->staName;
+    }
+
+    /**
+     * Set staCode
+     *
+     * @param string $staCode
+     *
+     * @return Code
+     */
+    public function setStaCode($staCode)
+    {
+        $this->staCode = $staCode;
+
+        return $this;
+    }
+
+    /**
+     * Get staCode
+     *
+     * @return string
+     */
+    public function getStaCode()
+    {
+        return $this->staCode;
     }
 
     /**
