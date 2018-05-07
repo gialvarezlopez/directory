@@ -24,7 +24,7 @@ app_socialnetwork:
 
 app_settings:
         resource: "@AppBundle/Resources/config/routing/settings.yml"
-        prefix:   /settings
+        prefix:   /backend/settings
 
 app_payments:
         resource: "@AppBundle/Resources/config/routing/payments.yml"
