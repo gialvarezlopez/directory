@@ -1,0 +1,43 @@
+AppBundle\Entity\UserViews:
+    type: entity
+    table: user_views
+    indexes:
+        IDX_9D110CD43F23EF9A:
+            columns:
+                - vis_usu_id
+    id:
+        visId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            column: vis_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        visReferencia:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: vis_referencia
+        visFechaCrea:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: vis_fecha_crea
+    manyToOne:
+        visUsu:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                vis_usu_id:
+                    referencedColumnName: usr_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
