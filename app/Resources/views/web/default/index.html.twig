@@ -54,7 +54,7 @@
     
 	<div class="container">
     	<div class="listing_header">
-        	<h5>Listings Grid Layout</h5>
+        	<h5>Medical Profiles</h5>
             
             <div class="layout-switcher">
                 <a href="#" class="active"><i class="fa fa-th"></i></a>
@@ -63,168 +63,39 @@
         </div>
         
         <div class="row">
-	        <div class="col-md-6 col-lg-4 grid_col show_listingx">
-            	<div class="items-list listing_wrap" data-marker-id="1">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span> 
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+            {% for m in medic %}
+
+                <div class="col-md-6 col-lg-4 grid_col show_listingx">
+                    <div class="items-list listing_wrap" data-marker-id="1">
+                        <div class="listing_img" style="height: 300px;">
+                            <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                            <div class="listing_cate">
+                                <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span> 
+                                <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                            </div>
+                             {% set imgPerfil =  "uploads/" ~ m.md_profile_image %}
+                            <a href="#"><img src="{{ asset(imgPerfil) }} " style="width: 100%;" alt="image"></a>
                         </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Hotels & Travel</a>
-                        </div>
-                        <h4><a href="#">The Morning Hotel</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
-                        
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 grid_col show_listingx">
-            	<div class="items-list listing_wrap" data-marker-id="2">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} " alt="icon-img"></a></span> 
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Beauty & Spas</a>
-                        </div>
-                        <h4><a href="#">Laisa Spa Center</a></h4>
-                        <p>Best Pool & Spa Professionals in Laisa</p>
-                        
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                        <div class="listing_info">
+                            <div class="post_category">
+                                <a href="#">Hotels & Travel</a>
+                            </div>
+                            <h4><a href="#">{{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
+                            <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                            
+                            <div class="listing_review_info">
+                                <p><span class="review_score">4.0/5</span> 
+                                   <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
+                                   <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                                   (5 Reviews) </p>
+                                <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4 grid_col show_listingx">
-            	<div class="items-list listing_wrap" data-marker-id="3">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} " alt="icon-img"></a></span> 
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Beauty & Spas</a>
-                        </div>
-                        <h4><a href="#">Blue Women's Parlour</a></h4>
-                        <p>5-star Womens Beauty Parlour Services.</p>
-                        
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 grid_col show_listingx">
-            	<div class="items-list listing_wrap" data-marker-id="4">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon6.png') }} " alt="icon-img"></a></span> 
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Automotive</a>
-                        </div>
-                        <h4><a href="#">Auto Repair Shop</a></h4>
-                        <p>Texaco Auto Servicing & Repair shop</p>
-                        
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 grid_col show_listingx">
-            	<div class="items-list listing_wrap" data-marker-id="5">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon2.png') }} " alt="icon-img"></a></span> 
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Restaurant</a>
-                        </div>
-                        <h4><a href="#">Eating Restaurant</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
-                        
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 grid_col show_listingx">
-            	<div class="items-list listing_wrap" data-marker-id="6">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span> 
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Real Estate</a>
-                        </div>
-                        <h4><a href="#">The Shelby Apartment</a></h4>
-                        <p>Deluxe Rooms with AC</p>
-                        
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            {% endfor %}
+	        
         </div>
         <nav class="pagination_nav">
           <ul class="pagination">

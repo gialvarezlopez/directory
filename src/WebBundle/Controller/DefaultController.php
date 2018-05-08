@@ -15,8 +15,13 @@ class DefaultController extends Controller
     {
     	$em 	= $this->getDoctrine()->getManager();        
         $state 	= $em->getRepository('AppBundle:State')->findAll();
+
+        $RAW_QUERY	= "select * from user as u left join medical_detail as md on u.usr_id = md.usr_id";
+        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->execute();    
+        $medic    	= $statement->fetchAll();
         
-        return $this->render('web/default/index.html.twig', array('state'=> $state ));
+        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $medic ));
     }
 
     public function getCitiesByStateAction( Request $request ){
