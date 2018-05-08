@@ -24,21 +24,27 @@
             <form action="" method="get">
                 <div class="form-group">
                     <div class="select">
-                        <select class="form-control">
-                	    	<option>What are you looking for?</option>
-            	            <option>Real Estate</option>
-                            <option>Restaurant</option>
-                            <option>Real Estate</option>
-        	                <option>Health & Fitness</option>
-    	                    <option>Beauty & Spas</option>
-                            <option>Hotels & Travel</option>
-                            <option>Automotive</option>
+                        <select class="form-control" id="state">                            
+                            <option value="0">Select State</option>
+                            {% for states in state %}                         
+                               
+                                    <option value="{{ states.staId }}">{{ states.staName }}</option>                               
+                       
+                            {% endfor %}
+
 	                    </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Locaton">
+                    <div class="select">
+                        <select class="form-control" id="cities">
+
+                            
+
+                        </select>
+                    </div>
                 </div>
+
                 <div class="btn_group">
                     <input type="submit" value="Search" class="btn btn-block">
                 </div>
@@ -239,6 +245,32 @@
 
 {% block codejs %}
     <script>
+
+        $(function(){
+            $('#state').change(function(){
+
+                var idSate = $(this).val();
+                $("#cities").empty();
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('web_get_cities') }}",
+                    data: {id: idSate },
+                    error: function (data) {
+                            alert('Error : Load Cities');
+                            },
+                    success: function (data) {
+                        //var $this = $("#cities");
+                        //console.log(data);
+//                        $("#cities").append("<option value=''></option>");
+                        $.each(data, function (key, value) {
+                            $("#cities").append("<option value=" + value.cit_id + ">" + value.cit_name + "</option>");
+                        });
+
+                    }
+                });
+
+            });
+        });
         //$(document).on("ready", function(){
         $(function () {
                

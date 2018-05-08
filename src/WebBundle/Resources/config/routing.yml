@@ -1,3 +1,9 @@
 web_homepage:
     path:     /
     defaults: { _controller: WebBundle:Default:index }
+
+web_get_cities:
+  path:     /getCitiesByState
+  defaults: { _controller: "WebBundle:Default:getCitiesByState" }
+  methods:  POST
+
