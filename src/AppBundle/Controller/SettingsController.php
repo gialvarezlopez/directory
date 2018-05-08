@@ -42,6 +42,10 @@ class SettingsController extends Controller
                 {
                     $session->getFlashBag()->set('error', "The passwords do not match, try again!");
                 }
+                else if( $old_pwd == "" || $repeatPass == "" )
+                {
+                    $session->getFlashBag()->set('error', "The passwords can not be empty");
+                }
                 else
                 {
                     $new_pwd_encoded = $encoder->encodePassword($new_pwd, $user->getSalt());
