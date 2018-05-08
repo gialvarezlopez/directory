@@ -371,4 +371,3 @@ class Payer
         return $this->usr;
     }
 }
-

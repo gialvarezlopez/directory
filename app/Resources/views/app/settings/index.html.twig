@@ -58,13 +58,13 @@
 
                                             <form action="{{ path('settings_changepassword') }}" method="POST">
                                                 <div>
-                                                    Current Password: <input type="password" id="currentPass" name="currentPass" class="form-control">
+                                                    Current Password: <input type="password" id="currentPass" name="currentPass" class="form-control" required="required">
                                                 </div>
                                                 <div>
-                                                    New Password: <input type="password" id="newPass" name="newPass" class="form-control">
+                                                    New Password: <input type="password" id="newPass" name="newPass" class="form-control" required="required">
                                                 </div>
                                                 <div>
-                                                    Repeat Password: <input type="password" id="repeatPass" name="repeatPass" class="form-control">
+                                                    Repeat Password: <input type="password" id="repeatPass" name="repeatPass" class="form-control" required="required">
                                                 </div>
                                                 <hr>
                                                 <button type="submit" class="btn bg-navy">Change Password</button>
