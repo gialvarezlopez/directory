@@ -77,19 +77,21 @@
                             <a href="#"><img src="{{ asset(imgPerfil) }} " style="width: 100%;" alt="image"></a>
                         </div>
                         <div class="listing_info">
+                            <!--
                             <div class="post_category">
                                 <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
-                            </div>
+                            </div>-->
                             <h4><a href="#">{{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
                             
                             <p> {{ m.esp }} </p>
                              
                             <div class="listing_review_info">
-                                <p><span class="review_score">4.0/5</span> 
-                                   <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
+                               
+                                <p><span class="review_score"><i class="fa fa-eye"></i> {{ m.total }} </span> 
+                                    <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
                                    <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
-                                   (5 Reviews) </p>
-                                <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                                   (5 Reviews)--> </p>
+                                <p class="listing_map_m"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
                             </div>
                         </div>
                     </div>
@@ -152,13 +154,24 @@
 
     function GooglMap() {
         var ib = new InfoBox();
+        var test = {{ medic|json_encode|raw }};
+        //console.log(test);
+
 
         function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
             return ('' + '<a href="' + locationURL + '" class="map-post-thumb-m">' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-map-marker"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
         }
-        var locations = [
-            [locationData('listing-detail-1.html', '{{ asset('bundles/web/template/Site/assets/images/600x450.jpg') }} ', "The Morning Hotel", '3112 NW Cache Rd, Lawton, OK 73505, USA', '3.5', '12'), 40.94401669296697, -74.16938781738281, 1, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} "></i>'],
-			
+        var locations = [];
+
+        console.log(test);
+
+            $.each(test, function( k, v ) {     
+
+                locations.push([locationData('listing-detail-1.html', '{{ asset('bundles/web/template/Site/assets/images/600x450.jpg') }} ', v.md_first_name, test.sta_name, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} "></i>'])
+                
+            })
+            
+			/*
             [locationData('listing-detail-1.html', '{{ asset('bundles/web/template/Site/assets/images/600x450.jpg') }} ', 'Laisa Spa Center', '41 Sunset Blvd, Lawton, OK 73505, USA', '5.0', '23'), 40.77055783505125, -74.26002502441406, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} "></i>'],
 			
             [locationData('listing-detail-1.html', '{{ asset('bundles/web/template/Site/assets/images/600x450.jpg') }} ', 'Blue Women Parlour', '778 Sunset Blvd, Lawton, OK 73505, USA', '2.0', '17'), 40.7427837, -73.11445617675781, 3, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} "></i>'],
@@ -169,8 +182,8 @@
 			
             [locationData('listing-detail-1.html', '{{ asset('bundles/web/template/Site/assets/images/600x450.jpg') }} ', 'The Shelby Apartment', '215 Terry Lane, New York', '4.5', '15'), 41.080938, -73.535957, 6, '<i class="im-icon"><img src=" {{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }}  "></i>'],
 			
-            [locationData('listing-detail-1.html', '{{ asset('bundles/web/template/Site/assets/images/600x450.jpg') }} ', 'Fitness Center', '2726 Shinn Street, New York', '5.0', '31'), 41.079386, -73.519478, 7, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon3.png') }}"></i>'],
-        ];
+            [locationData('listing-detail-1.html', '{{ asset('bundles/web/template/Site/assets/images/600x450.jpg') }} ', 'Fitness Center', '2726 Shinn Street, New York', '5.0', '31'), 41.079386, -73.519478, 7, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon3.png') }}"></i>'],*/
+        
 		
         var mapZoomAttr = $('#map').attr('data-map-zoom');
         if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {

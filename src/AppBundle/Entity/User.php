@@ -367,7 +367,10 @@ class User implements UserInterface
     }
 
     public function __toString() {
-        return $this->usrEmail;
+        if(is_null($this->usrRole)) {
+            return 'Ajua';
+        }
+        return $this->usrRole;
     } 
     
     

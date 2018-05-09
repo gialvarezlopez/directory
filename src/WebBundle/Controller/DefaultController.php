@@ -15,38 +15,52 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        /*
+        *   Obtain all profiles data
+        */
+
     	$em 	= $this->getDoctrine()->getManager();        
         $state 	= $em->getRepository('AppBundle:State')->findAll();
 
-        $RAW_QUERY	= "select md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, group_concat(e.sp_name SEPARATOR ', ') as esp from user as u left join medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
-			left join state as s on s.sta_id = c.sta_id
-			left join speciality as e on e.usr_id = u.usr_id group by u.usr_id";
+        $RAW_QUERY	= "select md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, 
+                        ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
+                        group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla 
+                        from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u 
+            LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
+			LEFT JOIN state as s on s.sta_id = c.sta_id
+			LEFT JOIN speciality as e on e.usr_id = u.usr_id
+            group by u.usr_id limit 2";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();    
-        $medic    	= $statement->fetchAll();
+        $medic    	= $statement->fetchAll();        
 
-        // Validar si la Cookie se ha seteado
-        if(empty($_COOKIE['contador']))
-        {
-            // Obtener La Ip del visitante.
-            $ip = $this->getRealIP();
+        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $medic ));
+    }
 
-            $id_user['user'] 	= $em->getRepository('AppBundle:User')->findBy( array('usrId' => 1) );      
+    public function detailprofile( Request $request){
 
-            $visitas = new UserViews();
-            //$visitas->setVisUsu( $id_user['user'] );
-            $visitas->setVisReferencia($ip);
-            $visitas->setVisFechaCrea(new \DateTime("now"));
-
-            //$em->persist($visitas);
-            //$em->flush();
-
-            //setcookie('contador', 1, time() + 365 * 24 * 60 * 60, $request->getRequestUri());
+        /*
+        *   Obtain profile detail by user
+        */
+        $id_profile = 0;
+        if($request->get("id")){
+            $id_profile = $request->get("id");
         }
 
+        $em     = $this->getDoctrine()->getManager();        
 
-        
-        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $medic ));
+        $RAW_QUERY  = "select md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u 
+            LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
+            LEFT JOIN state as s on s.sta_id = c.sta_id
+            LEFT JOIN speciality as e on e.usr_id = u.usr_id
+            where u.usr_id = ". $id_profile ."
+            group by u.usr_id";
+
+        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                      $statement->execute();    
+        $medic      = $statement->fetchAll();        
+
+        return $this->render('web/default/detail.html.twig', array( 'medic' => $medic ));
     }
 
     public function getCitiesByStateAction( Request $request ){
@@ -66,7 +80,26 @@ class DefaultController extends Controller
         return $response;
     }
 
+    private function ViewsProfiles(){
+        // Validar si la Cookie se ha seteado
+        if(empty($_COOKIE['contador']))
+        {
+            // Obtener La Ip del visitante.
+            $ip = $this->getRealIP();
 
+            $oUsr   = $em->getRepository('AppBundle:User')->findOneBy( array('usrId' => 1) );     
+
+            $visitas = new UserViews();
+            $visitas->setVisUsu( $oUsr );
+            $visitas->setVisReferencia($ip);
+            $visitas->setVisFechaCrea(new \DateTime("now"));
+
+            $em->merge($visitas);
+            $em->flush();
+
+            //setcookie('contador', 1, time() + 365 * 24 * 60 * 60, $request->getRequestUri());
+        }
+    }
 
     private function getRealIP()
     {
