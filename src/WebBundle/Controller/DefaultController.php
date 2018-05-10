@@ -63,6 +63,10 @@ class DefaultController extends Controller
         return $this->render('web/default/detail.html.twig', array( 'medic' => $medic ));
     }
 
+    public function showFullProfileAction( Request $request ){
+        return $this->render('web/default/showProfile.html.twig');
+    }
+
     public function getCitiesByStateAction( Request $request ){
 
     	$em 	= $this->getDoctrine()->getManager();    	

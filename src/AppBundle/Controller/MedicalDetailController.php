@@ -163,6 +163,7 @@ class MedicalDetailController extends Controller
                 $file->move("uploads", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
                 $medicalDetail->setMdProfileImage($file_name);
+                @unlink( __DIR__.'/../../../web/uploads/'.$currentImage);
             }else{
                 $medicalDetail->setMdProfileImage($currentImage);
             }

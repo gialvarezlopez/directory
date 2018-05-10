@@ -7,3 +7,7 @@ web_get_cities:
   defaults: { _controller: "WebBundle:Default:getCitiesByState" }
   methods:  POST
 
+web_show_profile:
+  path:     /show/profile
+  defaults: { _controller: "WebBundle:Default:showFullProfile" }
+

@@ -1,0 +1,622 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title_page %}
+    MD || Find your medics
+{% endblock %}
+
+{% block classbg %}
+    listing-with-map-page
+{% endblock %} 
+
+{% block content %}
+
+<!-- Listing-detail-Header -->
+<section class="listing_detail_header style2_header parallex-bg">
+	<div class="container">
+    	<div class="div_zindex white-text">
+        	<div class="row">
+            	<div class="col-md-8">
+                	<h1>The Morning Hotel</h1>
+                    <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                    <div class="listing_rating">
+                        <p><span class="review_score">4.0/5</span> 
+                           <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
+                           <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                           (5 Reviews) </p>
+                        <p class="listing_like"><a href="#"><i class="fa fa-heart-o"></i> 5 Likes</a></p>
+                        <p class="listing_favorites"><a href="#"><i class="fa fa-bookmark-o"></i> Add to favorites</a></p>   
+                    </div>
+                </div>
+                <div class="col-md-4">
+                	<div class="pricing_info">
+                        <p class="listing_price"><span>$</span>2500 - <span>$</span>4000</p>
+                        <div class="listing_message"><a class="btn" data-toggle="modal" data-target="#message_modal"><i class="fa fa-envelope-o"></i> Send Message</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dark-overlay"></div>
+</section>
+<!-- /Listing-detail-Header -->
+
+<!-- Listings -->
+<section class="listing_info_wrap listing_detail_2">
+	<div class="container">
+        	<div class="sidebar_wrap listing_action_btn">
+                <ul>
+                    <li><a data-toggle="modal" data-target="#share_modal"><i class="fa fa-share-alt"></i> Share This</a></li>
+                    <li><a data-toggle="modal" data-target="#email_friends_modal"><i class="fa fa-envelope-o"></i>Email to Friends</a></li>
+                    <li><a href="#writereview" class="js-target-scroll"> <i class="fa fa-star"></i> Write a Review</a></li>
+                    <li><a data-toggle="modal" data-target="#report_modal"><i class="fa fa-exclamation-triangle"></i> Report</a></li>
+                </ul>
+            </div>
+                    
+            <div class="image_slider_wrap">
+                <div id="listing_img_slider">
+                    <div class="owl-carousel owl-theme">
+                       <div class="item"><img src="{{ asset('bundles/web/template/Site/assets/images/400x530_1.jpg') }}  " alt="image"></div>
+                       <div class="item"><img src="{{ asset('bundles/web/template/Site/assets/images/400x530_2.jpg') }}  " alt="image"></div>
+                       <div class="item"><img src="{{ asset('bundles/web/template/Site/assets/images/400x530_1.jpg') }}  " alt="image"></div>
+                       <div class="item"><img src="{{ asset('bundles/web/template/Site/assets/images/400x530_2.jpg') }}  " alt="image"></div>
+                       <div class="item"><img src="{{ asset('bundles/web/template/Site/assets/images/400x530_1.jpg') }}  " alt="image"></div>
+                       <div class="item"><img src="{{ asset('bundles/web/template/Site/assets/images/400x530_2.jpg') }}  " alt="image"></div>
+                    </div>    
+                </div>
+                <div class="view_map">
+                    <a href="#single_map" class="js-target-scroll"><i class="fa fa-map-marker"></i></a>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="ElemoListing_detail">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                              <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                  <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#description" aria-expanded="true" aria-controls="collapseOne">
+                                     <i class="fa  fa-file-text-o"></i> Listing Description</a>
+                                    </a>
+                                  </h4>
+                                </div>
+                                <div id="description" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                  <div class="panel-body">
+                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#amenities" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-align-left"></i> Amenities</a>
+                                  </h4>
+                                </div>
+                                <div id="amenities" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                  <div class="panel-body">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-credit-card"></i> Accepts Credit cards</a></li>
+                                        <li><a href="#"><i class="fa fa-paw"></i> Pets Friendly</a></li>
+                                        <li><a href="#"><i class="fa fa-ban"></i> No Smoking</a></li>
+                                         <li><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
+                                        <li><a href="#"><i class="fa fa-car"></i> Street Parking</a></li>
+                                        <li><a href="#"><i class="fa fa-wifi"></i> Wireless Internet</a></li>
+                                        <li><a href="#"><i class="fa fa-wheelchair-alt"></i> Wheelchair Accessible</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#opening_hours" aria-expanded="false" aria-controls="collapseThree"> <i class="fa fa-calendar-check-o"></i> Opening Hours</a>
+                                  </h4>
+                                </div>
+                                <div id="opening_hours" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                  <div class="panel-body">
+                                    <ul>
+                                        <li>
+                                            <span class="hours_title"><i class="fa fa-clock-o"></i>Monday</span> 
+                                            <span>8:00am</span> - <span>9:00pm</span>
+                                        </li>
+                                        <li>
+                                            <span class="hours_title"><i class="fa fa-clock-o"></i>Tuesday</span> 
+                                            <span>8:00am</span> - <span>9:00pm</span>
+                                        </li>
+                                        <li>
+                                            <span class="hours_title"><i class="fa fa-clock-o"></i>Wednesday</span> 
+                                            <span>8:00am</span> - <span>9:00pm</span>
+                                        </li>
+                                        <li>
+                                            <span class="hours_title"><i class="fa fa-clock-o"></i>Thursday</span> 
+                                            <span>8:00am</span> - <span>9:00pm</span>
+                                        </li>
+                                        <li>
+                                            <span class="hours_title"><i class="fa fa-clock-o"></i>Friday</span> 
+                                            <span>8:00am</span> - <span>9:00pm</span>
+                                        </li>
+                                        <li>
+                                            <span class="hours_title"><i class="fa fa-clock-o"></i>Saturday</span> 
+                                            <span>12:00am</span> - <span>9:00pm</span>
+                                        </li>
+                                        <li>
+                                            <span class="hours_title"><i class="fa fa-clock-o"></i>Sunday</span> 
+                                            <span>Closed</span>
+                                        </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                        
+                        <!-- Listing-Map -->
+                        <div id="single_map">
+                            <div class="widget_title">
+                                 <h4>View Map</h4>
+                            </div>
+                            <div id="singleListingMap-container">
+                                <div id="singlemap" data-latitude="34.6230191" data-longitude="-98.4315764" data-map-icon="{{ asset('bundles/web/template/Site/assets/images/category-icon2.png') }} "></div>
+                            </div>
+                        </div>
+	                    <!-- /Listing-Map -->
+                        
+                        <!-- Review-List -->
+                        <div class="reviews_list">
+                            <div class="widget_title">
+                                 <h4><span>2 Reviews for</span> The Morning Hotel</h4>
+                             </div>
+                            <div class="review_wrap">
+                                <div class="review_author">
+                                    <img src="{{ asset('bundles/web/template/Site/assets/images/100x100.jpg') }}" alt="image">
+                                    <figcaption>
+                                        <h6>Joanna Atkinson</h6>
+                                    </figcaption>
+                                </div>
+                                <div class="review_detail">
+                                    <h5>Good service and Location is great</h5>
+                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. </p>
+                                    <div class="listing_rating">
+                                        <p><span class="review_score">4.0/5</span> 
+                                           <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
+                                           <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                                           (5 Reviews) </p>
+                                        <p><i class="fa fa-clock-o"></i> April 11, 2017 8:52 am</p>  
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="review_wrap">
+                                <div class="review_author">
+                                    <img src="{{ asset('bundles/web/template/Site/assets/images/100x100.jpg') }}" alt="image">
+                                    <figcaption>
+                                        <h6>Joanna Atkinson</h6>
+                                    </figcaption>
+                                </div>
+                                <div class="review_detail">
+                                    <h5>Good service and Location is great</h5>
+                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. </p>
+                                    <div class="listing_rating">
+                                        <p><span class="review_score">4.0/5</span> 
+                                           <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
+                                           <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                                           (5 Reviews) </p>
+                                        <p><i class="fa fa-clock-o"></i> April 11, 2017 8:52 am</p>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Review-List -->
+                        
+                        <!-- Review-Form -->
+                        <div id="writereview" class="review_form">
+                    	<div class="widget_title">
+	                    	 <h4>Write a Review </h4>
+                         </div>
+						<form action="" method="get">
+                        	<div class="form-group">
+                            	<label class="form-label">Your Rating for this listing</label>
+                                <div class="listing_rating">
+                                    <input name="rating" id="rating-1" value="1" type="radio">
+                                    <label for="rating-1" class="fa fa-star"></label>
+                                    <input name="rating" id="rating-2" value="2" type="radio">
+                                    <label for="rating-2" class="fa fa-star"></label>
+                                    <input name="rating" id="rating-3" value="3" type="radio">
+                                    <label for="rating-3" class="fa fa-star"></label>
+                                    <input name="rating" id="rating-4" value="4" type="radio">
+                                    <label for="rating-4" class="fa fa-star"></label>
+                                    <input name="rating" id="rating-5" value="5" type="radio">
+                                    <label for="rating-5" class="fa fa-star"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            	<label class="form-label">Email</label>
+                                <input name="" type="email" placeholder="you@website.com" class="form-control">
+                            </div>
+                            <div class="form-group">
+                            	<label class="form-label">Title</label>
+                                <input name="" type="text" placeholder="Title of Your Review" class="form-control">
+                            </div>
+                            <div class="form-group">
+                            	<label class="form-label">Review</label>
+                                <textarea name="" cols="" rows="" class="form-control" placeholder="Yout Experience"></textarea>
+                            </div>
+                            <div class="form-group">
+                            	<input type="submit" class="btn" value="Submit Review">
+                            </div>
+                        </form>
+                    </div>
+                        <!-- Review-Form -->
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                 <div class="col-md-4">
+                    <div class="ElemoListing_sidebar">
+                        <div class="sidebar_wrap listing_contact_info">
+                            <div class="widget_title">
+                                <h6>Contact Info</h6>
+                            </div>
+                            <ul>
+                                <li><i class="fa fa-map-marker"></i> PO Box 1025MNO Collins Street West Victoria 8007 Australia</li>
+                                <li><i class="fa fa-phone"></i> <a href="tel:+61-1234-5678-09">+61-1234-5678-09</a></li>
+                                <li><i class="fa fa-envelope"></i> <a href="mailto:contcat@example.com">contcat@example.com</a></li>
+                                <li><i class="fa fa-link"></i> <a href="www.example.com">www.example.com</a></li>
+                            </ul>
+                            <div class="social_links">
+                                <a href="#" class="facebook_link"><i class="fa fa-facebook-f"></i></a>
+                                <a href="#" class="linkedin_link"><i class="fa fa-linkedin"></i></a>
+                                <a href="#" class="twitter_link"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="google_plus_link"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="sidebar_wrap">
+                            <div class="widget_title">
+                                <h4>Watch Video</h4>
+                            </div>
+                            <div class="listing_video">
+                              <iframe class="mfp-iframe" src="https://www.youtube.com/embed/rqSoXtKMU3Q" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Sidebar -->
+            </div>
+    </div>
+</section>
+<!-- /Listings -->
+
+<!-- Similar-Listings -->
+<section id="similar_listings" class="section-padding gray_bg">
+	<div class="container">
+		<div class="section-header text-center">
+            <h2>Similar Listings </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 show_listing grid_col">
+                <div class="listing_wrap">
+                    <div class="listing_img">
+                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                        <div class="listing_cate">
+                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span> 
+                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                        </div>
+                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
+                    </div>
+                    <div class="listing_info">
+                        <div class="post_category">
+                            <a href="#">Real Estate</a>
+                            
+                        </div>
+                        <h4><a href="#">The Morning Hotel</a></h4>
+                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                        
+                        <div class="listing_review_info">
+                            <p><span class="review_score">4.0/5</span> 
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                               (5 Reviews) </p>
+                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 show_listing grid_col">
+                <div class="listing_wrap">
+                    <div class="listing_img">
+                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                        <div class="listing_cate">
+                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span> 
+                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                        </div>
+                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
+                    </div>
+                    <div class="listing_info">
+                        <div class="post_category">
+                            <a href="#">Real Estate</a>
+                            
+                        </div>
+                        <h4><a href="#">The Morning Hotel</a></h4>
+                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                        
+                        <div class="listing_review_info">
+                            <p><span class="review_score">4.0/5</span> 
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                               (5 Reviews) </p>
+                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 show_listing grid_col">
+                <div class="listing_wrap">
+                    <div class="listing_img">
+                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                        <div class="listing_cate">
+                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }}  " alt="icon-img"></a></span> 
+                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                        </div>
+                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
+                    </div>
+                    <div class="listing_info">
+                        <div class="post_category">
+                            <a href="#">Real Estate</a>
+                            
+                        </div>
+                        <h4><a href="#">The Morning Hotel</a></h4>
+                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                        
+                        <div class="listing_review_info">
+                            <p><span class="review_score">4.0/5</span> 
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                               (5 Reviews) </p>
+                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /Similar-Listings -->
+
+<!-- Share-Listing -->
+<div id="share_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h3 class="modal-title">Share Listing</h3>
+      </div>
+      <div class="modal-body">
+      	<div class="share_listing">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Share-Listing -->
+
+<!-- Email-to-Friends -->
+<div id="email_friends_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h3 class="modal-title">Email to Friend</h3>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="get">
+          <div class="form-group">
+            <input class="form-control" placeholder="Your Name" type="text" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="Your Email Address" type="email" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <input class="form-control" placeholder="Friend Email Address" type="email" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <textarea rows="4" class="form-control" placeholder="Message"></textarea>
+          </div>
+          <div class="form-group">
+            <input value="Submit" class="btn btn-block" type="submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Email-to-Friends -->
+
+<!-- Report -->
+<div id="report_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h3 class="modal-title">Report This Listing</h3>
+        <p>Please indicate what problem has been found!</p>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="get">
+          <div class="form-group">
+            <div class="radio">
+                <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_0" checked>
+                <label for="RadioGroup1_0">Duplicate Listing</label>
+             </div>
+             <div class="radio">
+                <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_1">
+                <label for="RadioGroup1_1">Wrong Contact Info </label>
+             </div>
+             <div class="radio">
+                <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_2">
+                <label for="RadioGroup1_2">Fake Listing</label>
+             </div>
+             <div class="radio">
+                <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_2">
+                <label for="RadioGroup1_2">Other Problem</label>
+             </div>
+          </div>
+          <div class="form-group">
+            <textarea rows="4" class="form-control" placeholder="Problem Description"></textarea>
+          </div>
+          <div class="form-group">
+            <input value="Submit" class="btn btn-block" type="submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Report -->
+
+<!-- Send-Message -->
+<div id="message_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h3 class="modal-title">Send Message</h3>
+      </div>
+      <div class="modal-body">
+        <form action="#" method="get">
+          <div class="form-group">
+          	<input type="text" class="form-control" placeholder="Name" autocomplete="off">
+          </div>
+          <div class="form-group">
+          	<input type="email" class="form-control" placeholder="Email" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <textarea rows="4" class="form-control" placeholder="Message"></textarea>
+          </div>
+          <div class="form-group">
+            <input value="Send Message" class="btn btn-block" type="submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Send-Message -->
+
+{% endblock %}
+
+{% block codejs %}
+    <script>
+
+        $(function () {
+               
+    /*-------------------------------------------------------------------------------
+		Googl-Map
+	-------------------------------------------------------------------------------*/
+
+    var map = document.getElementById('map');
+    if (typeof(map) != 'undefined' && map != null) {
+        google.maps.event.addDomListener(window, 'load', GooglMap);
+        google.maps.event.addDomListener(window, 'resize', GooglMap);
+    }
+
+    function singlemap() {
+        var myLatlng = new google.maps.LatLng({
+            lng: $('#singlemap').data('longitude'),
+            lat: $('#singlemap').data('latitude'),
+        });
+        var single_map = new google.maps.Map(document.getElementById('singlemap'), {
+            zoom: 15,
+            center: myLatlng,
+            scrollwheel: false,
+            zoomControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+			fullscreenControl: false,
+            panControl: false,
+            navigationControl: false,
+            streetViewControl: false,
+        });
+        var zoomControlDiv = document.createElement('div');
+        var zoomControl = new ZoomControl(zoomControlDiv, single_map);
+
+        function ZoomControl(controlDiv, single_map) {
+            zoomControlDiv.index = 1;
+            single_map.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomControlDiv);
+            var controlWrapper = document.createElement('div');
+            controlDiv.appendChild(controlWrapper);
+            var zoomInButton = document.createElement('div');
+            zoomInButton.className = "custom-zoom-in";
+            controlWrapper.appendChild(zoomInButton);
+            var zoomOutButton = document.createElement('div');
+            zoomOutButton.className = "custom-zoom-out";
+            controlWrapper.appendChild(zoomOutButton);
+            google.maps.event.addDomListener(zoomInButton, 'click', function() {
+                single_map.setZoom(single_map.getZoom() + 1);
+            });
+            google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+                single_map.setZoom(single_map.getZoom() - 1);
+            });
+        }
+        var singleMapIco = "<i class='im-icon'><img src='" + $('#singlemap').data('map-icon') + "'></i>";
+        new CustomMarker(myLatlng, single_map, {
+            marker_id: '1'
+        }, singleMapIco);
+    }
+    var single_map = document.getElementById('singlemap');
+    if (typeof(single_map) != 'undefined' && single_map != null) {
+        google.maps.event.addDomListener(window, 'load', singlemap);
+        google.maps.event.addDomListener(window, 'resize', singlemap);
+    }
+
+    function CustomMarker(latlng, map, args, markerIco) {
+        this.latlng = latlng;
+        this.args = args;
+        this.markerIco = markerIco;
+        this.setMap(map);
+    }
+    CustomMarker.prototype = new google.maps.OverlayView();
+    CustomMarker.prototype.draw = function() {
+        var self = this;
+        var div = this.div;
+        if (!div) {
+            div = this.div = document.createElement('div');
+            div.className = 'map-marker-container';
+            div.innerHTML = '<div class="marker-container">' + '<div class="marker-card">' + '<div class="front face">' + self.markerIco + '</div>' + self.markerIco + '</div>'  + '</div>' + '</div>'
+            google.maps.event.addDomListener(div, "click", function(event) {
+                $('.map-marker-container').removeClass('clicked infoBox-opened');
+                google.maps.event.trigger(self, "click");
+                $(this).addClass('clicked infoBox-opened');
+            });
+            if (typeof(self.args.marker_id) !== 'undefined') {
+                div.dataset.marker_id = self.args.marker_id;
+            }
+            var panes = this.getPanes();
+            panes.overlayImage.appendChild(div);
+        }
+        var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+        if (point) {
+            div.style.left = (point.x) + 'px';
+            div.style.top = (point.y) + 'px';
+        }
+    };
+    CustomMarker.prototype.remove = function() {
+        if (this.div) {
+            this.div.parentNode.removeChild(this.div);
+            this.div = null;
+            $(this).removeClass('clicked');
+        }
+    };
+    CustomMarker.prototype.getPosition = function() {
+        return this.latlng;
+    }; 
+        });   
+    </script> 
+    </script>
+{% endblock %}        
+
