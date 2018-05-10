@@ -120,7 +120,7 @@ class MedicalDetailController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getUsrId();
-        $id = $request->get("id");
+        echo $id = $request->get("id");
         $oMedical = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "usr"=> $userId) );
         if( count($oMedical) == 1 )
         {
@@ -131,8 +131,16 @@ class MedicalDetailController extends Controller
         }else{
             return $this->redirectToRoute('medicaldetail_new');
         }   
-        
-       
+
+        $currentImage = "";
+        $oCurrentImage = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "mdId"=> $id) );
+                
+        if($oCurrentImage){
+            if( $oCurrentImage->getMdProfileImage() )
+            {
+                $currentImage = $oCurrentImage->getMdProfileImage();
+            }
+        }
 
         $deleteForm = $this->createDeleteForm($medicalDetail);
         $editForm = $this->createForm('AppBundle\Form\MedicalDetailType', $medicalDetail);
@@ -145,7 +153,7 @@ class MedicalDetailController extends Controller
 
             // Recogemos el fichero
             $file=$editForm['mdProfileImage']->getData();
-            if( $file )
+            if( $file != "")
             {
                 // Sacamos la extensión del fichero
                 $ext=$file->guessExtension();
@@ -155,12 +163,12 @@ class MedicalDetailController extends Controller
                 $file->move("uploads", $file_name);
                 // Establecemos el nombre de fichero en el atributo de la entidad
                 $medicalDetail->setMdProfileImage($file_name);
+            }else{
+                $medicalDetail->setMdProfileImage($currentImage);
             }
-             
-
             $em->persist($medicalDetail);
             $em->flush();
-
+            //exit();
             return $this->redirectToRoute('medicaldetail_edit', array('id' => $medicalDetail->getMdId()));
         }
 
