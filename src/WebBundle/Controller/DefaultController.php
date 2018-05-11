@@ -18,12 +18,30 @@ class DefaultController extends Controller
         /*
         *   Obtain all profiles data
         */
-        if(isset($request)){
-            //echo 1;
+        $_state     =   $request->query->get('state');
+        $_city      =   $request->query->get('city');
+        $_speciality=   $request->query->get('speciality');
+        $_filter    ='';
+
+
+        //$sBusqueda = $request->query->get('b');
+        $sUsuarios = '';
+        if (!empty($_state) or !empty($_city) or !empty($_speciality)) {
+
+            if(!empty($_state)){
+                $_filter = ' and dep.dep_id='.$_estado;
+            }elseif(!empty($_city)){
+                $_filter .= ' and m.mun_id='.$_cities;
+            }elseif(!empty($_speciality)){
+                $_filter .= ' and e.esp_id='.$_espe;
+            }
+            
         }
+
 
     	$em 	= $this->getDoctrine()->getManager();        
         $state 	= $em->getRepository('AppBundle:State')->findAll();
+        $speciality  = $em->getRepository('AppBundle:Speciality')->findAll();
 
         $RAW_QUERY	= "select md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, 
                         ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
@@ -32,6 +50,7 @@ class DefaultController extends Controller
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
 			LEFT JOIN state as s on s.sta_id = c.sta_id
 			LEFT JOIN speciality as e on e.usr_id = u.usr_id
+            where md.md_active = 1 $_filter
             group by u.usr_id limit 3";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();    
@@ -44,10 +63,10 @@ class DefaultController extends Controller
                         $pagination = $paginator->paginate(
                                 $medic, 
                                 $request->query->getInt('page', 1),
-                                1);
+                                3);
            
 
-        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination ));
+        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination, 'speciality' => $speciality ));
     }
 
     public function detailprofile( Request $request){

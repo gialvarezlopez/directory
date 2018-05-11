@@ -22,9 +22,9 @@
 	<div class="search_wrap">
     	<div class="search_form">
             <form action="" method="get">
-                <div class="form-group">
+                <div class="form-group" style="width: 25%;">
                     <div class="select">
-                        <select class="form-control" id="state">                            
+                        <select class="form-control" id="state" name="state">                            
                             <option value="0">Select State</option>
                             {% for states in state %}                         
                                
@@ -35,7 +35,7 @@
 	                    </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="width: 25%;" name="city">
                     <div class="select">
                         <select class="form-control" id="cities">
 
@@ -44,8 +44,21 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group" style="width: 25%;">
+                    <div class="select">
+                        <select class="form-control" id="speciality" name="speciality">                            
+                            <option value="0">Select State</option>
+                            {% for spe in speciality %}                         
+                               
+                                    <option value="{{ spe.spId }}">{{ spe.spName }}</option>                               
+                       
+                            {% endfor %}
 
-                <div class="btn_group">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn_group" style="width: 25%;">
                     <input type="submit" value="Search" class="btn btn-block">
                 </div>
             </form>
@@ -114,15 +127,7 @@
 
 {% block codejs %}
     <script>
-        
-        $(function(){
-            var test = {{ medic.items|json_encode|raw }};
-             $.each(test, function( k, v ) {
-                alert(5);
-                console.log(v.ci_lat);
-            });
-        });
-      
+              
 
         $(function(){
             $('#state').change(function(){
@@ -139,7 +144,7 @@
                     success: function (data) {
                         //var $this = $("#cities");
                         //console.log(data);
-//                        $("#cities").append("<option value=''></option>");
+                        $("#cities").append("<option value='0'>Select City</option>");
                         $.each(data, function (key, value) {
                             $("#cities").append("<option value=" + value.cit_id + ">" + value.cit_name + "</option>");
                         });
@@ -159,18 +164,14 @@
     function GooglMap() {
         var ib = new InfoBox();
         var test = {{ medic.items|json_encode|raw }};
-        //console.log(test);
 
         function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
             return ('' + '<a href="' + locationURL + '" class="map-post-thumb-m">' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-map-marker"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
         }
         var locations = [];
 
-        console.log(test);
-
             $.each(test, function( k, v ) {     
-                
-                locations.push([locationData('listing-detail-1.html', '{{ asset('uploads/1526046026.jpeg') }} ', v.md_first_name, test.sta_name, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} "></i>'])
+                locations.push([locationData('listing-detail-1.html', '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name, test.sta_name, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} "></i>'])
                 
             })
             
