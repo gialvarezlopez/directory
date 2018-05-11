@@ -63,6 +63,7 @@
         </div>
         
         <div class="row">
+
             {% for m in medic %}
 
                 <div class="col-md-6 col-lg-4 grid_col show_listingx">
@@ -101,24 +102,27 @@
 	        
         </div>
         <nav class="pagination_nav">
-          <ul class="pagination">
-            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2 </a></li>
-            <li><a href="#">3 </a></li>
-            <li><a href="#">4 </a></li>
-            <li><a href="#">5 </a></li>
-            <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-          </ul>
+            <div class="navigation text-center">
+                {{ knp_pagination_render(medic) }}
+            </div>
+         
         </nav>
-    </div>
+    </div>    
 </section>
 <!-- /Listings -->
-
 {% endblock %}
 
 {% block codejs %}
     <script>
+        
+        $(function(){
+            var test = {{ medic.items|json_encode|raw }};
+             $.each(test, function( k, v ) {
+                alert(5);
+                console.log(v.ci_lat);
+            });
+        });
+      
 
         $(function(){
             $('#state').change(function(){
@@ -154,9 +158,8 @@
 
     function GooglMap() {
         var ib = new InfoBox();
-        var test = {{ medic|json_encode|raw }};
+        var test = {{ medic.items|json_encode|raw }};
         //console.log(test);
-
 
         function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
             return ('' + '<a href="' + locationURL + '" class="map-post-thumb-m">' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-map-marker"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
@@ -166,8 +169,8 @@
         console.log(test);
 
             $.each(test, function( k, v ) {     
-
-                locations.push([locationData('listing-detail-1.html', '{{ asset('bundles/web/template/Site/assets/images/600x450.jpg') }} ', v.md_first_name, test.sta_name, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} "></i>'])
+                
+                locations.push([locationData('listing-detail-1.html', '{{ asset('uploads/1526046026.jpeg') }} ', v.md_first_name, test.sta_name, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} "></i>'])
                 
             })
             

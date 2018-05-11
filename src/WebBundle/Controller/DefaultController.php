@@ -13,11 +13,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         /*
         *   Obtain all profiles data
         */
+        if(isset($request)){
+            //echo 1;
+        }
 
     	$em 	= $this->getDoctrine()->getManager();        
         $state 	= $em->getRepository('AppBundle:State')->findAll();
@@ -29,12 +32,22 @@ class DefaultController extends Controller
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
 			LEFT JOIN state as s on s.sta_id = c.sta_id
 			LEFT JOIN speciality as e on e.usr_id = u.usr_id
-            group by u.usr_id limit 2";
+            group by u.usr_id limit 3";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();    
-        $medic    	= $statement->fetchAll();        
+        $medic    	= $statement->fetchAll();   
 
-        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $medic ));
+        /**
+        * @VAR $paginator \Knp\Component\Pager\Paginator
+        */
+        $paginator = $this->get('knp_paginator');
+                        $pagination = $paginator->paginate(
+                                $medic, 
+                                $request->query->getInt('page', 1),
+                                1);
+           
+
+        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination ));
     }
 
     public function detailprofile( Request $request){
