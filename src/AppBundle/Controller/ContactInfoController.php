@@ -98,6 +98,7 @@ class ContactInfoController extends Controller
             $oContactInfo[0]['ciPhone2'] = "";
             $oContactInfo[0]['ciLat'] = "";
             $oContactInfo[0]['ciLng'] = "";
+            $oContactInfo[0]['ciCompany'] = "";
         }
 
         $networkSelected = $em->getRepository('AppBundle:UserHasSocialNetwork')->findBy( array("usr"=>$userId ) );
