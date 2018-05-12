@@ -83,10 +83,12 @@
                     <div class="items-list listing_wrap" data-marker-id="1">
                         <div class="listing_img" style="height: 300px;">
                             <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                            <!--
                             <div class="listing_cate">
                                 <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span> 
                                 <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
                             </div>
+                            -->
                              {% set imgPerfil =  "uploads/" ~ m.md_profile_image %}
                             <a href="#"><img src="{{ asset(imgPerfil) }} " style="width: 100%;" alt="image"></a>
                         </div>
@@ -166,12 +168,12 @@
         var test = {{ medic.items|json_encode|raw }};
 
         function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
-            return ('' + '<a href="' + locationURL + '" class="map-post-thumb-m">' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-map-marker"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
+            return ('' + '<a href="' + locationURL + '" class="map-post-thumb-m">' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
         }
         var locations = [];
 
             $.each(test, function( k, v ) {     
-                locations.push([locationData('listing-detail-1.html', '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name, test.sta_name, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon4.png') }} "></i>'])
+                locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
                 
             })
             

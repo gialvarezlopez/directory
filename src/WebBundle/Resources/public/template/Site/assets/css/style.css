@@ -169,7 +169,7 @@ img {
 .white-text h5, 
 .white-text h6, 
 .white-text p {
-	color:#fff;	
+	color:black;	
 }
 .uppercase {
 	text-transform:uppercase;
@@ -3114,7 +3114,7 @@ p.listing_like a {
   background-color:transparent;
   color: #ffffff;
   min-height: inherit;
-  padding: 180px 0 70px;
+  /*padding: 180px 0 70px;*/
 }
 .style2_header {
 	background-image:url(../images/1920x800.jpg);

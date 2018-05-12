@@ -8,6 +8,8 @@ web_get_cities:
   methods:  POST
 
 web_show_profile:
-  path:     /show/profile
-  defaults: { _controller: "WebBundle:Default:showFullProfile" }
+  path:     /showProfile/{id}
+  defaults: { _controller: "WebBundle:Default:showProfile" }
+  methods:  GET
+
 
