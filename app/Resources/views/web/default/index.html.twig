@@ -107,7 +107,7 @@
                                     <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
                                    <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
                                    (5 Reviews)--> </p>
-                                <p class="listing_map_m"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
+                                <p class="listing_map_m" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
                             </div>
                         </div>
                     </div>
@@ -167,12 +167,58 @@
         var ib = new InfoBox();
         var test = {{ medic.items|json_encode|raw }};
 
+        $(document).ready(function(){
+            $(".listing_map_m").click(function(){
+
+                 listing_map_m($(this).attr('id'), $(this).attr('name') );
+            });
+               
+            
+        });
+
+        function showMe(lat1, lng1) {
+            
+
+            var myLatlng = {lat: parseFloat(lat1), lng: parseFloat(lng1)};
+
+
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: myLatlng
+              });
+
+              var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Click to zoom'
+              });
+
+              map.addListener('center_changed', function() {
+                // 3 seconds after the center of the map has changed, pan back to the
+                // marker.
+                window.setTimeout(function() {
+                  map.panTo(marker.getPosition());
+                }, 3000);
+              });
+
+              marker.addListener('click', function() {
+                map.setZoom(8);
+                map.setCenter(marker.getPosition());
+              });
+            console.log(lat1,lng1);
+        }
+
+        function listing_map_m(lat,lng){
+            showMe(lat , lng);
+        }
+
         function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
             return ('' + '<a href="' + locationURL + '" class="map-post-thumb-m">' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
         }
         var locations = [];
 
-            $.each(test, function( k, v ) {     
+            $.each(test, function( k, v ) {                    
+
                 locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
                 
             })
