@@ -21,7 +21,7 @@
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#description" aria-expanded="true" aria-controls="collapseOne">
-                                            <i class="fa  fa-home"></i> {{ profile[0].ci_company }}</a>
+                                            <i class="fa  fa-home"></i> {{ profile[0].ci_company | upper }} || {{ profile[0].esp | upper }}</a>
                                         </a>
                                     </h4>
                                 </div>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="listing_info">
                             <div class="post_category">
-                                <a href="#">{{ profile[0].esp }}</a>
+                                <a href="#"> Dr. {{ profile[0].md_first_name }} {{ profile[0].md_first_surname }}</a>
                                 
                             </div>
 
@@ -538,11 +538,18 @@
             lat: $('#singlemap').data('latitude'),
         });
         var single_map = new google.maps.Map(document.getElementById('singlemap'), {
-            zoom: 15,
+            zoom: 9,
             center: myLatlng,
-            scrollwheel: false,
-            zoomControl: false,
-            mapTypeControl: false,
+            scrollwheel: true,
+            zoomControl: true,
+            mapTypeControl: true,
+              mapTypeControlOptions: {
+                  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                  position: google.maps.ControlPosition.TOP_CENTER
+              },
+              zoomControlOptions: {
+              position: google.maps.ControlPosition.LEFT_CENTER
+          },
             scaleControl: false,
 			fullscreenControl: false,
             panControl: false,

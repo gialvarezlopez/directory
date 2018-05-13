@@ -10,6 +10,27 @@
 
 {% block content %}
 
+<style type="text/css">
+    .demo{
+        margin-top:40px;
+        vertical-align: bottom;
+        
+    }
+    .searchProfile:hover{
+        cursor: pointer;
+    }
+    .listing_info{
+        margin-top: -10px;
+        position: relative;
+    }
+    .listing_img{
+        margin-top: -40px;
+    }
+    .like_post{
+        margin-top: 40px;
+    }
+</style>
+
 <!-- Listings -->
 <section id="ElemoListing_with_map">
 	<div class="ElemoListing_map">
@@ -90,14 +111,14 @@
                             </div>
                             -->
                              {% set imgPerfil =  "uploads/" ~ m.md_profile_image %}
-                            <a href="#"><img src="{{ asset(imgPerfil) }} " style="width: 100%;" alt="image"></a>
+                            <a class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><img src="{{ asset(imgPerfil)  }} " class="demo" style="width: 100%;" alt="image"></a>
                         </div>
                         <div class="listing_info">
                             <!--
                             <div class="post_category">
                                 <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
                             </div>-->
-                            <h4><a href="#">{{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
+                            <h4><a href="#">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
                             
                             <p> {{ m.esp }} </p>
                              
@@ -107,7 +128,7 @@
                                     <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
                                    <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
                                    (5 Reviews)--> </p>
-                                <p class="listing_map_m" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
+                                <p class="listing_map_m"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
                             </div>
                         </div>
                     </div>
@@ -169,7 +190,7 @@
             var test = {{ medic.items|json_encode|raw }};
 
             $(document).ready(function(){
-                $(".listing_map_m").click(function(){
+                $(".searchProfile").click(function(){
 
                      listing_map_m($(this).attr('id'), $(this).attr('name') );
                 });               
@@ -181,7 +202,7 @@
             }
 
             function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
-                    return ('' + '<a href="' + locationURL + '" class="map-post-thumb-m">' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
+                    return ('' + '<a href="' + locationURL + '" class="map-post-thumb-m">' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
             }
             var locations = [];
 

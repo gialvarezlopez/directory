@@ -51,7 +51,7 @@ class DefaultController extends Controller
 			LEFT JOIN state as s on s.sta_id = c.sta_id
 			LEFT JOIN speciality as e on e.usr_id = u.usr_id
             where md.md_active = 1 $_filter
-            group by u.usr_id limit 3";
+            group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();    
         $medic    	= $statement->fetchAll();   
@@ -63,7 +63,7 @@ class DefaultController extends Controller
                         $pagination = $paginator->paginate(
                                 $medic, 
                                 $request->query->getInt('page', 1),
-                                3);
+                                6);
            
 
         return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination, 'speciality' => $speciality ));
