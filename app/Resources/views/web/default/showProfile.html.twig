@@ -20,7 +20,7 @@
                     <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#description" aria-expanded="true" aria-controls="collapseOne">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#description" aria-expanded="true" aria-controls="collapseOne" style="color:black;">
                                             <i class="fa  fa-home"></i> {{ profile[0].ci_company | upper }} || {{ profile[0].esp | upper }}</a>
                                         </a>
                                     </h4>
@@ -28,31 +28,7 @@
                                 <div id="description" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body" style="position: absolute; z-index: 100;">
                                         <p>
-                                            {% if horario|length %}
-
-                                            <table class="table table-striped text-center" style="table-layout: fixed; background: white;">
-                                                <tr>
-                                                    {% for key, horas in horario %}
-                                                        <th class="text-center">
-                                                            {% if ( key == hoy) %}
-                                                                <span style="color:#009bdb">{{ key }}</span>
-                                                            {% else %}
-                                                                {{ key }}
-                                                            {% endif %}
-                                                        </th>
-                                                    {% endfor %}
-                                                </tr>
-                                                <tr>
-                                                    {% for key, horas in horario %}
-                                                        <td>
-                                                            {{ horas|raw }}
-                                                        </td>
-                                                    {% endfor %}
-                                                </tr>
-                                            </table>
-                                            {% else %}
-                                                N/A
-                                            {% endif %}
+                                            
                                         </p>
                                     </div>
                                     <div id="single_map" style="margin-top: 0px;">
@@ -62,11 +38,7 @@
                                     </div>
                                 </div>
                             </div>
-                	
-                    <p>
-                        {{ profile[0].md_first_name }}
-                        {{ profile[0].md_first_surname }}
-                    </p>
+                
 
                 </div>
                 <div class="col-md-4">

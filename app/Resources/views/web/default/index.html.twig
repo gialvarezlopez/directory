@@ -15,7 +15,6 @@
         margin-top:40px;
         vertical-align: bottom;
         background-position: center;
-        height: 100%;
         background-size: cover;
         
     }
@@ -121,7 +120,7 @@
                             <div class="post_category">
                                 <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
                             </div>-->
-                            <h4><a href="#">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
+                            <h4><a href="showProfile/{{ m.usr_id }}">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
                             
                             <p> {{ m.esp }} </p>
                              
@@ -472,6 +471,7 @@
 
             // Buscar en el mapa individual
             function search(lat , lng){
+
                 var ib = new InfoBox();
                 var test = {{ medic.items|json_encode|raw }};
 
@@ -490,9 +490,9 @@
         
                 var mapZoomAttr = $('#map').attr('data-map-zoom');
                 if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {
-                    var zoomLevel = 9;
+                    var zoomLevel = 12;
                 } else {
-                    var zoomLevel = 9;
+                    var zoomLevel = 12;
                 }
 
                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -555,11 +555,23 @@
                 var markerIco;
                 for (i = 0; i < locations.length; i++) {
                     markerIco = locations[i][4];
+                    console.log(locations[i][4]);
+
+                    var focusIcon = '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor1.png') }} "></i>';
                     
-                    var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    if( locations[i][1] == lat && locations[i][2]== lng){
+                        var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        overlay = new CustomMarker(overlaypositions, map, {
+                            marker_id: i
+                        }, focusIcon);
+                    }
+                    else
+                    {
+                        var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
                         overlay = new CustomMarker(overlaypositions, map, {
                             marker_id: i
                         }, markerIco);
+                    }                    
                     allMarkers.push(overlay);
                     
                     google.maps.event.addDomListener(overlay, 'click', (function(overlay, i) {
