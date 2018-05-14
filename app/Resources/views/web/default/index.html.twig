@@ -14,6 +14,9 @@
     .demo{
         margin-top:40px;
         vertical-align: bottom;
+        background-position: center;
+        height: 100%;
+        background-size: cover;
         
     }
     .searchProfile:hover{
@@ -575,6 +578,63 @@
                         }
                     })(overlay, i));
                 }
+
+                var options = {
+                imagePath: 'images/',
+                styles: clusterStyles,
+                minClusterSize: 2
+            };
+
+            // Agrupar marker cercanos
+            markerCluster = new MarkerClusterer(map, allMarkers, options);
+            google.maps.event.addDomListener(window, "resize", function() {
+                var center = map.getCenter();
+                google.maps.event.trigger(map, "resize");
+                map.setCenter(center);
+            });
+
+            var zoomControlDiv = document.createElement('div');
+            var zoomControl = new ZoomControl(zoomControlDiv, map);
+
+            function ZoomControl(controlDiv, map) {
+                zoomControlDiv.index = 1;
+                map.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomControlDiv);
+                controlDiv.className = "leaflet-control-zoom";
+                var controlWrapper = document.createElement('div');
+                controlDiv.appendChild(controlWrapper);
+                var zoomInButton = document.createElement('div');
+                zoomInButton.className = "custom-zoom-in";
+                controlWrapper.appendChild(zoomInButton);
+                var zoomOutButton = document.createElement('div');
+                zoomOutButton.className = "custom-zoom-out";
+                controlWrapper.appendChild(zoomOutButton);
+                google.maps.event.addDomListener(zoomInButton, 'click', function() {
+                    map.setZoom(map.getZoom() + 1);
+                });
+                google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+                    map.setZoom(map.getZoom() - 1);
+                });
+            }
+
+            $("#geoLocation, .input-with-icon.location a").click(function(e) {
+                e.preventDefault();
+                geolocate();
+            });
+
+            function geolocate() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                        map.setCenter(pos);
+                        map.setZoom(12);
+                    });
+                }
+            }
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                map.setOptions({
+                    draggable: false
+                });
+            }
             }
         });   
     </script>

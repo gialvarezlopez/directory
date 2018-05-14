@@ -50,7 +50,7 @@ class DefaultController extends Controller
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
 			LEFT JOIN state as s on s.sta_id = c.sta_id
 			LEFT JOIN speciality as e on e.usr_id = u.usr_id
-            where md.md_active = 1 $_filter
+            where md.md_active = 1 and ci.ci_lat != '' $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();    
