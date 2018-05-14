@@ -105,7 +105,7 @@
                 <div class="col-md-6 col-lg-4 grid_col show_listingx">
                     <div class="items-list listing_wrap" data-marker-id="1">
                         <div class="listing_img" style="height: 300px;">
-                            <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                            <a href="#" class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><span class="like_post"><i class="fa fa-map-marker"></i></span></a>
                             <!--
                             <div class="listing_cate">
                                 <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span> 
@@ -113,14 +113,14 @@
                             </div>
                             -->
                              {% set imgPerfil =  "uploads/" ~ m.md_profile_image %}
-                            <a class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><img src="{{ asset(imgPerfil)  }} " class="demo" style="width: 100%;" alt="image"></a>
+                            <a href="showProfile/{{ m.usr_id }}"><img src="{{ asset(imgPerfil)  }} " class="demo" style="width: 100%;" alt="image"></a>
                         </div>
                         <div class="listing_info">
                             <!--
                             <div class="post_category">
                                 <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
                             </div>-->
-                            <h4><a href="showProfile/{{ m.usr_id }}">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
+                            <h4><a href="#">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
                             
                             <p> {{ m.esp }} </p>
                              
@@ -484,8 +484,7 @@
 
                     locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
                     
-                })
-                
+                })               
             
         
                 var mapZoomAttr = $('#map').attr('data-map-zoom');
@@ -564,6 +563,21 @@
                         overlay = new CustomMarker(overlaypositions, map, {
                             marker_id: i
                         }, focusIcon);
+                            allMarkers.push(overlay);
+
+                        
+                            ib.setOptions(boxOptions);
+                            boxText.innerHTML = locations[i][0];
+                            ib.open(map, overlay);
+                            currentInfobox = locations[i][3];
+                            google.maps.event.addListener(ib, 'domready', function() {
+                                $('.map-popup-close').click(function(e) {
+                                    e.preventDefault();
+                                    ib.close();
+                                    $('.map-marker-container').removeClass('clicked infoBox-opened');
+                                });
+                            });                        
+                        
                     }
                     else
                     {
@@ -571,8 +585,9 @@
                         overlay = new CustomMarker(overlaypositions, map, {
                             marker_id: i
                         }, markerIco);
+                        allMarkers.push(overlay);
                     }                    
-                    allMarkers.push(overlay);
+                    
                     
                     google.maps.event.addDomListener(overlay, 'click', (function(overlay, i) {
                         return function() {
