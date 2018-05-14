@@ -15,6 +15,7 @@ class ContactInfoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('ciCompany')
             ->add('ciPhone1')
             ->add('ciPhone2')
             ->add('ciAddress')

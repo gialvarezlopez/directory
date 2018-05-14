@@ -19,6 +19,13 @@ AppBundle\Entity\ContactInfo:
             generator:
                 strategy: IDENTITY
     fields:
+        ciCompany:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: ci_company
         ciPhone1:
             type: string
             nullable: true

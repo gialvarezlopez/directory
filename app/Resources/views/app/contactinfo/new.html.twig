@@ -34,7 +34,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div class="box box-info {# collapsed-box #}">
                         <div class="box-header">
-                            <h3 class="box-title">Personal Info :
+                            <h3 class="box-title">Info Location:
                                 {# <small>Advanced and full of features</small> #}
                             </h3>
                             <!-- tools box -->
@@ -49,6 +49,15 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="form_error">{# {{ form_errors(form.ciAddress)}} #}</div>
+                                                    <label for="" class=" control-label">Name : <span class="text-danger">*</span></label>
+                                                    <div class="">
+                                                        <input class="form-control" value="{{ contactInfo[0].ciCompany }}" id="company" name="company" autocomplete="off">
+                                                    </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error">{# {{ form_errors(form.ciAddress)}} #}</div>
@@ -214,6 +223,8 @@
                             <h3 class="box-title">Find My Place :
                                 {# <small>Advanced and full of features</small> #}
                             </h3>
+                            <hr>
+                            <p>This information is for set up on google map the location and get the latitude and longitude , but if you know it you can enter into corresponding fields</p>
                             <!-- tools box -->
                             <div class="pull-right box-tools">
                                 <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
@@ -804,6 +815,7 @@
             }    
 
             function saveFormAjax() {
+                var company = $("#company").val();
 				var address = $("#address").val();
 				var phone1 = $("#phone1").val();
                 var phone2 = $("#phone2").val();
@@ -841,6 +853,10 @@
 				});
 
                 var mandatory = "";
+                if( company == "")
+                {
+                    mandatory = "Company";
+                }
                 if( address == "")
                 {
                     mandatory = "address";
@@ -894,7 +910,7 @@
 						//processData: false,
 						url: routeShow,
 						data: {
-						    address: address,phone1: phone1,
+						    company:company, address: address,phone1: phone1,
 						    phone2:phone2,
 						    lat: lat, lng: lng,schedule: JSON.stringify(schedule),
 						    social_network: JSON.stringify(social_network), city: city

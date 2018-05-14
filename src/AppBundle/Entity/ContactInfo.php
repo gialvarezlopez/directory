@@ -317,4 +317,33 @@ class ContactInfo
     {
         return $this->usr;
     }
+    /**
+     * @var string
+     */
+    private $ciCompany;
+
+
+    /**
+     * Set ciCompany
+     *
+     * @param string $ciCompany
+     *
+     * @return ContactInfo
+     */
+    public function setCiCompany($ciCompany)
+    {
+        $this->ciCompany = $ciCompany;
+
+        return $this;
+    }
+
+    /**
+     * Get ciCompany
+     *
+     * @return string
+     */
+    public function getCiCompany()
+    {
+        return $this->ciCompany;
+    }
 }

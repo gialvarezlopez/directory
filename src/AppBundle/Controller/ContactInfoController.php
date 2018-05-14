@@ -98,6 +98,7 @@ class ContactInfoController extends Controller
             $oContactInfo[0]['ciPhone2'] = "";
             $oContactInfo[0]['ciLat'] = "";
             $oContactInfo[0]['ciLng'] = "";
+            $oContactInfo[0]['ciCompany'] = "";
         }
 
         $networkSelected = $em->getRepository('AppBundle:UserHasSocialNetwork')->findBy( array("usr"=>$userId ) );
@@ -165,6 +166,7 @@ class ContactInfoController extends Controller
     public function saveDataContactInfoAction( Request $request ){
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getUsrId();
+        $company = $request->get("company"); 
         $lat = $request->get("lat"); 
         $lng = $request->get("lng");
         $address = $request->get("address");
@@ -178,15 +180,12 @@ class ContactInfoController extends Controller
 		$status = 0;
 		try
 		{
-
-            
-
             $info = $em->getRepository('AppBundle:ContactInfo')->findOneBy( array( "usr"=> $userId) );
             if( count($info) == 0 )
             {
                 $info = new ContactInfo();
             }
-
+            $info->setCiCompany($company);
             $info->setCiPhone1($phone1);
             $info->setCiPhone2($phone2);
             $info->setCiAddress($address);

@@ -25,7 +25,8 @@
         "liip/imagine-bundle": "^1.9",
         "knpuniversity/oauth2-client-bundle": "^1.18",
         "league/oauth2-facebook": "^1.4",
-        "facebook/graph-sdk": "^5.6"
+        "facebook/graph-sdk": "^5.6",
+        "knplabs/knp-paginator-bundle": "^2.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
