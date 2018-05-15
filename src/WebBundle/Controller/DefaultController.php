@@ -15,6 +15,7 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $em     = $this->getDoctrine()->getManager();   
         /*
         *   Obtain all profiles data
         */
@@ -22,25 +23,39 @@ class DefaultController extends Controller
         $_city      =   $request->query->get('city');
         $_speciality=   $request->query->get('speciality');
         $_filter    ='';
-
+        $zoom = 0;
+        $stado_lat_lng=0;
 
         //$sBusqueda = $request->query->get('b');
         $sUsuarios = '';
         if (!empty($_state) or !empty($_city) or !empty($_speciality)) {
+            if($_state){
+                $_filter .= ' and s.sta_id='.$_state;
 
-            if(!empty($_state)){
-                $_filter = ' and dep.dep_id='.$_estado;
-            }elseif(!empty($_city)){
-                $_filter .= ' and m.mun_id='.$_cities;
-            }elseif(!empty($_speciality)){
-                $_filter .= ' and e.esp_id='.$_espe;
+                if ($_city){
+                    $_filter .= ' and ci.cit_id ='.$_city;
+                }
             }
-            
+            if ($_speciality != 0){
+                $_filter .= ' and ues.sp_id ='.$_speciality;
+            }
+
+            $sql_estado = "select * from state where sta_id = ".$_state;
+            $statement  = $em->getConnection()->prepare($sql_estado);
+                            $statement->execute();    
+            $stado_lat_lng= $statement->fetchAll(); 
+
+            $zoom = 1;        
+        }else{
+            $sql_estado = "select * from state where sta_id = 1";
+            $statement  = $em->getConnection()->prepare($sql_estado);
+                            $statement->execute();    
+            $stado_lat_lng= $statement->fetchAll(); 
         }
+    	     
+        $state 	= $em->getRepository('AppBundle:State')->findAll();      
 
 
-    	$em 	= $this->getDoctrine()->getManager();        
-        $state 	= $em->getRepository('AppBundle:State')->findAll();
         $speciality  = $em->getRepository('AppBundle:Speciality')->findAll();
 
         $RAW_QUERY	= "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, 
@@ -49,12 +64,15 @@ class DefaultController extends Controller
                         from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u 
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
 			LEFT JOIN state as s on s.sta_id = c.sta_id
-			LEFT JOIN speciality as e on e.usr_id = u.usr_id
+            
+			LEFT JOIN user_has_speciality AS ues ON ues.usr_id = u.usr_id
+            LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             where md.md_active = 1 and ci.ci_lat != '' $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();    
-        $medic    	= $statement->fetchAll();   
+        $medic    	= $statement->fetchAll(); 
+         
 
         /**
         * @VAR $paginator \Knp\Component\Pager\Paginator
@@ -63,10 +81,10 @@ class DefaultController extends Controller
                         $pagination = $paginator->paginate(
                                 $medic, 
                                 $request->query->getInt('page', 1),
-                                5);
+                                6);
            
 
-        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination, 'speciality' => $speciality ));
+        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng ));
     }
 
     public function showProfileAction( Request $request){

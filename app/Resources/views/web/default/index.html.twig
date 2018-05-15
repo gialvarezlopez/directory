@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group" style="width: 25%;" name="city">
                     <div class="select">
-                        <select class="form-control" id="cities">
+                        <select class="form-control" id="cities" name="city">
 
                             
 
@@ -213,27 +213,47 @@
                 locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
                 
             })
-		
-            var mapZoomAttr = $('#map').attr('data-map-zoom');
+
+
+		      var mapZoomAttr = $('#map').attr('data-map-zoom');
+            
             if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {
-                var zoomLevel = parseInt(mapZoomAttr);
+                var zoomLevel = parseInt(mapZoomAttr);                
             } else {
                 var zoomLevel = 9;
             }
+            
+            if({{zoom}} == 1){
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 7,
+                    scrollwheel: true,
+                    disableDefaultUI: true,                    
+                    center: new google.maps.LatLng({{ stateDatos[0].sta_lat }}, {{ stateDatos[0].sta_lng }}),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    panControl: false,
+                    navigationControl: false,
+                    streetViewControl: false,
+                });
+            }else{
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: zoomLevel,
+                    scrollwheel: true,
+                    disableDefaultUI: true,
+                    center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    panControl: false,
+                    navigationControl: false,
+                    streetViewControl: false,
+                });
+            }
 
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: zoomLevel,
-                scrollwheel: true,
-    			disableDefaultUI: true,
-                center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                zoomControl: false,
-                mapTypeControl: false,
-                scaleControl: false,
-                panControl: false,
-                navigationControl: false,
-                streetViewControl: false,
-            });
+            
 
             $('.items-list').on('mouseover', function() {
                 var listingAttr = $(this).data('post-id');

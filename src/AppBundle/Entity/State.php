@@ -20,6 +20,16 @@ class State
     /**
      * @var string
      */
+    private $staLat;
+
+    /**
+     * @var string
+     */
+    private $staLng;
+
+    /**
+     * @var string
+     */
     private $staCode;
 
     /**
@@ -66,6 +76,57 @@ class State
     {
         return $this->staName;
     }
+  
+
+    /**
+     * Set staLat
+     *
+     * @param string $staLat
+     *
+     * @return State
+     */
+    public function setStalat($staLat)
+    {
+        $this->staLat = $staLat;
+
+        return $this;
+    }
+
+    /**
+     * Get staLat
+     *
+     * @return string
+     */
+    public function getStaLat()
+    {
+        return $this->staLat;
+    }
+
+    /**
+     * Set staLng
+     *
+     * @param string $staLng
+     *
+     * @return State
+     */
+    public function setStaLng($staLng)
+    {
+        $this->staLng = $staLng;
+
+        return $this;
+    }
+
+    /**
+     * Get staLng
+     *
+     * @return string
+     */
+    public function getStaLng()
+    {
+        return $this->staLng;
+    }
+
+
 
     /**
      * Set staCode
