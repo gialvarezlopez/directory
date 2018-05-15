@@ -47,11 +47,24 @@
             <form action="" method="get">
                 <div class="form-group" style="width: 25%;">
                     <div class="select">
-                        <select class="form-control" id="state" name="state">                            
-                            <option value="0">Select State</option>
-                            {% for states in state %}                         
-                               
-                                    <option value="{{ states.staId }}">{{ states.staName }}</option>                               
+                        
+                        <select class="form-control" id="state" name="state">
+                            
+                            
+                                {% if stateDatos[0].sta_id %}
+                                    <option value="{{ stateDatos[0].sta_id }}">{{ stateDatos[0].sta_name }}</option> 
+                                {% else %} 
+                                    <option value="0">Select State</option>
+                                {% endif %}                                                
+                            
+
+                            <option value="{{ stateDatos[0].sta_id }}">{{ stateDatos[0].sta_name }}</option>  
+                            {% for states in state %} 
+
+                                {% if states.staId != stateDatos[0].sta_id %}
+                                    <option value="{{ states.staId }}">{{ states.staName }}</option>                                  
+                                {% endif %}                       
+                                                             
                        
                             {% endfor %}
 
@@ -60,9 +73,14 @@
                 </div>
                 <div class="form-group" style="width: 25%;" name="city">
                     <div class="select">
+
                         <select class="form-control" id="cities" name="city">
 
-                            
+                            {% if cities %}
+                                {% for city in cities %}                                 
+                                    <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>                                
+                                {% endfor %}
+                            {% endif %}         
 
                         </select>
                     </div>

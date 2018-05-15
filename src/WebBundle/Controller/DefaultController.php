@@ -25,10 +25,25 @@ class DefaultController extends Controller
         $_filter    ='';
         $zoom = 0;
         $stado_lat_lng=0;
+        $busqueda = array();
+        $citis = 0;
+
+        $busqueda['_STATE']=0;
+        $busqueda['_CITY']=0;
+        $busqueda['_SPECI']=0;
 
         //$sBusqueda = $request->query->get('b');
         $sUsuarios = '';
         if (!empty($_state) or !empty($_city) or !empty($_speciality)) {
+
+            $_SESSION['_STATE'] = $_state;
+            $_SESSION['_CITY'] = $_city;
+            $_SESSION['_SPECI'] = $_speciality;
+
+            $busqueda['_STATE'] = $_SESSION['_STATE'];
+            $busqueda['_CITY'] = $_SESSION['_CITY'];
+            $busqueda['_SPECI'] = $_SESSION['_SPECI'];
+
             if($_state){
                 $_filter .= ' and s.sta_id='.$_state;
 
@@ -44,6 +59,17 @@ class DefaultController extends Controller
             $statement  = $em->getConnection()->prepare($sql_estado);
                             $statement->execute();    
             $stado_lat_lng= $statement->fetchAll(); 
+
+            // Obteniendo todas las cities del estado en session
+            if(isset($_SESSION['_CITY'])){
+                $sql_estado = "select * from city where sta_id = ". $_SESSION['_STATE'];
+                $statement  = $em->getConnection()->prepare($sql_estado);
+                                $statement->execute();    
+                $citis = $statement->fetchAll(); 
+            }
+            
+
+
 
             $zoom = 1;        
         }else{
@@ -84,7 +110,7 @@ class DefaultController extends Controller
                                 6);
            
 
-        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng ));
+        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis ));
     }
 
     public function showProfileAction( Request $request){
