@@ -138,4 +138,10 @@ class Speciality
     {
         return $this->usr;
     }
+
+
+    public function __toString()
+    {
+        return $this->getSpName();
+    }
 }

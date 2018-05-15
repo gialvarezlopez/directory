@@ -20,7 +20,11 @@
 
 {% block content %}
     
-
+    <style>
+        .select2-container--default .select2-selection--multiple .select2-selection__choice{
+            color : #000 !important;
+        }
+    </style>
     {#}
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -95,11 +99,23 @@
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(edit_form.extraSpeciality)}}</div>
                                                 <div class="input-groupx">
+                                                    <small id="emailHelp" class="form-text text-muted">You can select all yours specialities</small>
+                                                    {{ form_widget(edit_form.extraSpeciality,  { 'attr': {'class': 'form-control'} } ) }}
+                                                    <small id="emailHelp" class="form-text text-muted">If you can't  find your specialities email us.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {#
+                                         <div class="box-body">
+                                            <div class="form-group">
+                                                <div class="form_error">{{ form_errors(edit_form.extraSpeciality)}}</div>
+                                                <div class="input-groupx">
                                                     <small id="emailHelp" class="form-text text-muted">Add one by one separate it by comma or press enter</small>
                                                     {{ form_widget(edit_form.extraSpeciality,  { 'attr': {'class': 'form-tag form-control'} } ) }}
                                                 </div>
                                             </div>
                                         </div>
+                                        #}
                                     </div>    
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
@@ -324,8 +340,21 @@
                 //CKEDITOR.replace('medical_detail_mdProfessionalExperience')
                 //bootstrap WYSIHTML5 - text editor
             $('textarea').not('.form-tag').wysihtml5();
-
-            $('.form-tag').tagEditor({ initialTags: {{ specialities|raw }}, placeholder: 'Enter specialities...'  });
+           
+        
+            {% for speciality in currentSpecialities %}
+                $("#medical_detail_extraSpeciality option[value='" + {{ speciality.sp.spId }} + "']").prop("selected", true);
+            {% endfor %}
+        
+            $("#medical_detail_extraSpeciality").select2({
+                placeholder: "Select speciality",
+                allowClear: true,
+                //theme: "classic"
+            });
+            
+           
+            
+            /* {# $('.form-tag').tagEditor({ initialTags:  {{  specialities|raw }}, placeholder: 'Enter specialities...'  });  #} */
 
             //======================================================
             //Image

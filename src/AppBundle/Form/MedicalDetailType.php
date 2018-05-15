@@ -44,13 +44,30 @@ class MedicalDetailType extends AbstractType
             ) 
         )
         */
+        ->add('extraSpeciality', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, array(
+				
+            "class" => "AppBundle:Speciality",
+            'mapped'=>false,
+            'required'=> false,
+            //'placeholder' => 'Seleccione el pais',
+            //'empty_data'  => null,
+            'multiple'=> true,
+            "attr"=>array( "class"=>"" ),
+            //'data' => array(),
+            'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                return $er->createQueryBuilder('q')->where('q.spActive = 1')->orderBy('q.spName', 'ASC');
+            },
+
+        ))
         ;
-        $builder->add('extraSpeciality', TextareaType::class,  array(
-            'label' => 'Specialities :',
-            "required"=>false,
-            'mapped' => false,
-            //"attr"=>array( "class"=>"form-tag form-control" )
-        ));
+       
+        //$builder->add('extraSpeciality', TextareaType::class,  array(
+        //    'label' => 'Specialities :',
+        //    "required"=>false,
+        //    'mapped' => false,
+
+        //));
+
         /*    
         $builder->add('states', ChoiceType::class, array(
                 'placeholder' => 'Choose an option',

@@ -19,6 +19,11 @@
 {% endblock %}
 
 {% block content %}
+        <style>
+            .select2-container--default .select2-selection--multiple .select2-selection__choice{
+                color : #000 !important;
+            }
+        </style>
         {#}
         {{ form_start(form) }}
             {{ form_widget(form) }}
@@ -93,8 +98,9 @@
                                             <div class="form-group">
                                                 <div class="form_error">{{ form_errors(form.extraSpeciality)}}</div>
                                                 <div class="input-groupx">
-                                                    <small id="emailHelp" class="form-text text-muted">Add one by one separate it by comma or press enter</small>
-                                                    {{ form_widget(form.extraSpeciality,  { 'attr': {'class': 'form-tag form-control'} } ) }}
+                                                    <small id="emailHelp" class="form-text text-muted">You can select all yours specialities</small>
+                                                    {{ form_widget( form.extraSpeciality,  { 'attr': {'class': 'form-control'} } ) }}
+                                                    <small id="emailHelp" class="form-text text-muted">If you can't  find your specialities email us.</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -296,7 +302,14 @@
                 //CKEDITOR.replace('medical_detail_mdProfessionalExperience')
                 //bootstrap WYSIHTML5 - text editor
             $('textarea').not('.form-tag').wysihtml5();
-            $('.form-tag').tagEditor({placeholder: 'Enter specialities...'});
+           // $('.form-tag').tagEditor({placeholder: 'Enter specialities...'});
+
+            $("#medical_detail_extraSpeciality").select2({
+                placeholder: "Select speciality",
+                allowClear: true,
+                //theme: "classic"
+            });
+
             //======================================================
             //Image
             //======================================================
