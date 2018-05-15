@@ -14,7 +14,8 @@ framework:
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
-        resource: "%kernel.root_dir%/config/routing.yml"
+        #resource: "%kernel.root_dir%/config/routing.yml"
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
@@ -93,6 +94,8 @@ liip_imagine :
                 # create a 2px black border: center the thumbnail on a black background
                 # 4px larger to create a 2px border around the final image
                 background : { size : [124, 94], position : center, color : '#000000' }    
+gregwar_image:
+    throw_exception: true
 
 # Knp Pagination
 knp_paginator:

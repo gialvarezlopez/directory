@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             //new KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle(),
+            new Gregwar\ImageBundle\GregwarImageBundle(),
             new WebBundle\WebBundle(),
         ];
 
