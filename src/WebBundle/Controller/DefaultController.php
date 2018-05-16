@@ -108,7 +108,7 @@ class DefaultController extends Controller
                         $pagination = $paginator->paginate(
                                 $medic, 
                                 $request->query->getInt('page', 1),
-                                6);
+                                1);
            
 
         return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis ));

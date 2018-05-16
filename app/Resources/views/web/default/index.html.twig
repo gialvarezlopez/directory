@@ -118,6 +118,7 @@
         
         <div class="row">
 
+            {% if medic | length  %}
             {% for m in medic %}
 
                 <div class="col-md-6 col-lg-4 grid_col show_listingx">
@@ -155,6 +156,11 @@
                 </div>
 
             {% endfor %}
+            {% else %}
+                <div class="col-md-6 col-lg-4 grid_col show_listingx">
+                    No Data Found.
+                </div>
+            {% endif %}
 	        
         </div>
         <nav class="pagination_nav">
