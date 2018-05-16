@@ -1,0 +1,31 @@
+AppBundle\Entity\Contactus:
+    type: entity
+    table: 
+    repositoryClass: AppBundle\Repository\ContactusRepository
+    id:
+        id:
+            type: integer
+            id: true
+            column: cont_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        conName:
+            type: string
+            length: 255
+            column: con_name
+        conEmail:
+            type: string
+            length: 255
+            column: con_email
+        conPhone:
+            type: string
+            length: 255
+            column: con_phone
+        conComment:
+            type: text
+            column: con_comment
+        conCreate:
+            type: datetimetz
+            column: con_create
+    lifecycleCallbacks: {  }

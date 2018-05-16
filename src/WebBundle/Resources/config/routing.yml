@@ -17,4 +17,9 @@ web_landing:
   defaults: { _controller: "WebBundle:Default:landing" }
   methods:  GET
 
+web_contactus:
+  path:     /contactus
+  defaults: { _controller: "WebBundle:Default:contactus" }
+  methods:  POST
+
 

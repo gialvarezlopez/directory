@@ -5,6 +5,7 @@ namespace WebBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\Contactus;
 use AppBundle\Entity\UserViews;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -321,5 +322,31 @@ class DefaultController extends Controller
 
     public function landingAction(){
         return $this->render('web/default/landing.html.twig');
+    }
+
+    public function contactusAction( Request $request ){
+       
+        $em     = $this->getDoctrine()->getManager();
+
+        $name = $request->get('name');
+        $email = $request->get('email');
+        $phone = $request->get('phone');
+        $message = $request->get('message');
+
+
+        if( $request ){
+
+            $contactus = new Contactus();
+            $contactus->setConName( $name );
+            $contactus->setConEmail( $email );
+            $contactus->setConPhone( $phone );
+            $contactus->setConComment( $message );
+            $contactus->setConCreate( new \DateTime("now") );
+
+            $em->merge($contactus);
+            $em->flush();
+        }       
+        return $this->render('web/default/landing.html.twig');
+
     }
 }
