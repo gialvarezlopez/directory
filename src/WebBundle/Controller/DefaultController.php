@@ -318,4 +318,8 @@ class DefaultController extends Controller
         }
         return $cadena;
     }
+
+    public function landingAction(){
+        return $this->render('web/default/landing.html.twig');
+    }
 }

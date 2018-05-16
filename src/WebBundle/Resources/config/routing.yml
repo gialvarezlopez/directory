@@ -12,4 +12,9 @@ web_show_profile:
   defaults: { _controller: "WebBundle:Default:showProfile" }
   methods:  GET
 
+web_landing:
+  path:     /landing
+  defaults: { _controller: "WebBundle:Default:landing" }
+  methods:  GET
+
 
