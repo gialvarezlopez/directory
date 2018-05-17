@@ -18,6 +18,10 @@ medicaldetail_edit:
     defaults: { _controller: "AppBundle:MedicalDetail:edit" }
     methods:  [GET, POST]
 
+medicaldetail_profile_image:
+    path:     /profileImage
+    defaults: { _controller: "AppBundle:MedicalDetail:profileImage" }  
+
 medicaldetail_delete:
     path:     /{id}/delete
     defaults: { _controller: "AppBundle:MedicalDetail:delete" }

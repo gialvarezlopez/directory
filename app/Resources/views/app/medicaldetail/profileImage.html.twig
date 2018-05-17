@@ -1,0 +1,9 @@
+{% if image != "" %}
+    {% if file_exists( 'uploads/'~image ) %}
+        <img src="{{ image('uploads/'~image).cropResize(max) }}" class="{{iClass}}" class="img-thumbnail">
+    {% else %}
+        <img src="{{ image("bundles/app/template/dist/img/profileImage.png").cropResize(max) }}" class="{{iClass}}" alt="User Image">
+    {% endif %}
+{% else %}
+    <img src="{{ image("bundles/app/template/dist/img/profileImage.png").cropResize(max) }}" class="{{iClass}}" alt="User Image">
+{% endif %}

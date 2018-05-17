@@ -17,7 +17,7 @@ class TwigExtension {
 }
 */
 
-namespace EmrBundle\Twig\Extension;
+namespace AppBundle\Twig\Extension;
 
 //use \Twig_Filter_Function;
 //use \Twig_Filter_Method;
