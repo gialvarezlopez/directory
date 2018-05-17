@@ -39,7 +39,7 @@ class adminCreateElSalvadorLocationsCommand extends ContainerAwareCommand {
 		
 		
 		$oCountry = new Country();
-		$oCountry->setCouName( "United State Of America" );
+		$oCountry->setCouName( "Canada" );
 		$oCountry->setCouActive( 1 ); 
 		$em->persist($oCountry);			
 		$flush = $em->flush();
@@ -74,8 +74,8 @@ class adminCreateElSalvadorLocationsCommand extends ContainerAwareCommand {
 				//$oState->setStaId( $oCountry );
 				$oState->setStaName( $state['state'] );
 				$oState->setCou( $oCountry );
-				$oState->setLat( $state['lat'] );
-				$oState->setLng( $state['lng'] );
+				$oState->setStalat( $state['lat'] );
+				$oState->setStaLng( $state['lng'] );
 				$oState->setStaCode( $state['state_code'] );
 				$oState->setStaActive(1);
 				
