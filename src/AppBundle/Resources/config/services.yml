@@ -1,0 +1,9 @@
+parameters:
+  app.file.twig.extension.class: AppBundle\Twig\Extension\TwigExtension
+
+services:
+  app.file.twig.extension:
+    #class: %app.file.twig.extension.class%
+    class: AppBundle\Twig\Extension\TwigExtension
+    tags:
+      - { name: twig.extension }

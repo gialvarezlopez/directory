@@ -268,6 +268,21 @@ class MedicalDetailController extends Controller
         return json_encode($arr, JSON_UNESCAPED_UNICODE);
     }
 
+    public function profileImageAction(Request $request, $max = null, $iClass = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userId = $this->getUser()->getUsrId();
+        $oInfo = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "usr"=> $userId) );
+        $image = "";
+        if( $oInfo &&  $oInfo->getMdProfileImage() != "")
+        {
+            $image = $oInfo->getMdProfileImage();
+        }
+
+        return $this->render('app/medicaldetail/profileImage.html.twig', array("image"=>$image,"max"=>$max,"iClass"=>$iClass));
+        
+    }
+
     /**
      * Deletes a MedicalDetail entity.
      *
