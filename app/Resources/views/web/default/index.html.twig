@@ -45,7 +45,27 @@
 	<div class="search_wrap">
     	<div class="search_form">
             <form action="" method="get">
-                <div class="form-group" style="width: 25%;">
+
+                <div class="form-group" style="width: 20%;">
+                    <div class="select">
+                        
+                        <select class="form-control" id="country" name="country">
+                            {{ dump( countries )}}
+                            {% if countries %}
+                                <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option> 
+                            {% else %} 
+                                <option value="0">Select Country</option>
+                            {% endif %}  
+
+                            {% for countries in country %} 
+                               
+                                    <option value="{{ countries.couId }}">{{ countries.couName }}</option>                                  
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="width: 20%;">
                     <div class="select">
                         
                         <select class="form-control" id="state" name="state">
@@ -71,7 +91,7 @@
 	                    </select>
                     </div>
                 </div>
-                <div class="form-group" style="width: 25%;" name="city">
+                <div class="form-group" style="width: 20%;" name="city">
                     <div class="select">
 
                         <select class="form-control" id="cities" name="city">
@@ -85,7 +105,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group" style="width: 25%;">
+                <div class="form-group" style="width: 20%;">
                     <div class="select">
                         <select class="form-control" id="speciality" name="speciality">                            
                             <option value="0">Select State</option>
@@ -99,7 +119,7 @@
                     </div>
                 </div>
 
-                <div class="btn_group" style="width: 25%;">
+                <div class="btn_group" style="width: 20%;">
                     <input type="submit" value="Search" class="btn btn-block">
                 </div>
             </form>
@@ -179,6 +199,33 @@
               
 
         $(function(){
+            // States by Country
+            $('#country').change(function(){
+
+                var idSate = $(this).val();
+                $("#state").empty();
+                $("#cities").empty();
+                $.ajax({
+                    type: "post",
+                    url: "{{ path('web_get_country') }}",
+                    data: {id: idSate },
+                    error: function (data) {
+                            alert('Error : Load States');
+                            },
+                    success: function (data) {
+                        //var $this = $("#cities");
+                        //console.log(data);
+                        $("#state").append("<option value='0'>Select State</option>");
+                        $.each(data, function (key, value) {
+                            $("#state").append("<option value=" + value.sta_id + ">" + value.sta_name + "</option>");
+                        });
+
+                    }
+                });
+
+            });
+
+            // cities by state
             $('#state').change(function(){
 
                 var idSate = $(this).val();
@@ -249,7 +296,7 @@
             
             if({{zoom}} == 1){
                     var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 7,
+                    zoom: 6,
                     scrollwheel: true,
                     disableDefaultUI: true,                    
                     center: new google.maps.LatLng({{ stateDatos[0].sta_lat }}, {{ stateDatos[0].sta_lng }}),

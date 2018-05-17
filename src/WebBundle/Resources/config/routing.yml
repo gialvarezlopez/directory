@@ -7,6 +7,11 @@ web_get_cities:
   defaults: { _controller: "WebBundle:Default:getCitiesByState" }
   methods:  POST
 
+web_get_country:
+  path:     /getStateByCountry
+  defaults: { _controller: "WebBundle:Default:getStateByCountry" }
+  methods:  POST
+
 web_show_profile:
   path:     /showProfile/{id}
   defaults: { _controller: "WebBundle:Default:showProfile" }

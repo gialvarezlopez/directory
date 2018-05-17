@@ -23,27 +23,32 @@ class DefaultController extends Controller
         $_state     =   $request->query->get('state');
         $_city      =   $request->query->get('city');
         $_speciality=   $request->query->get('speciality');
+        $_country   =   $request->query->get('country');
         $_filter    ='';
         $zoom = 0;
         $stado_lat_lng=0;
         $busqueda = array();
         $citis = 0;
+        $countries = 0;
 
         $busqueda['_STATE']=0;
         $busqueda['_CITY']=0;
         $busqueda['_SPECI']=0;
+        $busqueda['_COUNTRY']=0;
 
         //$sBusqueda = $request->query->get('b');
         $sUsuarios = '';
         if (!empty($_state) or !empty($_city) or !empty($_speciality)) {
 
-            $_SESSION['_STATE'] = $_state;
-            $_SESSION['_CITY'] = $_city;
-            $_SESSION['_SPECI'] = $_speciality;
+            $_SESSION['_STATE']     = $_state;
+            $_SESSION['_CITY']      = $_city;
+            $_SESSION['_SPECI']     = $_speciality;
+            $_SESSION['_COUNTRY']   = $_country;
 
-            $busqueda['_STATE'] = $_SESSION['_STATE'];
-            $busqueda['_CITY'] = $_SESSION['_CITY'];
-            $busqueda['_SPECI'] = $_SESSION['_SPECI'];
+            $busqueda['_STATE']     = $_SESSION['_STATE'];
+            $busqueda['_CITY']      = $_SESSION['_CITY'];
+            $busqueda['_SPECI']     = $_SESSION['_SPECI'];
+            $busqueda['_COUNTRY']   = $_SESSION['_COUNTRY'];
 
             if($_state){
                 $_filter .= ' and s.sta_id='.$_state;
@@ -68,6 +73,12 @@ class DefaultController extends Controller
                                 $statement->execute();    
                 $citis = $statement->fetchAll(); 
             }
+            if(isset($_country)){
+                $sql_estado = "select * from country where cou_id = ". $_SESSION['_COUNTRY'];
+                $statement  = $em->getConnection()->prepare($sql_estado);
+                                $statement->execute();    
+                $countries = $statement->fetchAll(); 
+            }
             
 
 
@@ -80,10 +91,9 @@ class DefaultController extends Controller
             $stado_lat_lng= $statement->fetchAll(); 
         }
     	     
-        $state 	= $em->getRepository('AppBundle:State')->findAll();      
-
-
-        $speciality  = $em->getRepository('AppBundle:Speciality')->findAll();
+        $state 	    = $em->getRepository('AppBundle:State')->findBy( array('cou' => $_country) );    
+        $speciality = $em->getRepository('AppBundle:Speciality')->findAll();
+        $country    = $em->getRepository('AppBundle:Country')->findAll();
 
         $RAW_QUERY	= "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, 
                         ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
@@ -111,7 +121,7 @@ class DefaultController extends Controller
                                 1);
            
 
-        return $this->render('web/default/index.html.twig', array('state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis ));
+        return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries));
     }
 
     public function showProfileAction( Request $request){
@@ -186,6 +196,23 @@ class DefaultController extends Controller
 
     public function showFullProfileAction( Request $request ){
         return $this->render('web/default/showProfile.html.twig');
+    }
+
+    public function getStateByCountryAction( Request $request ){
+
+        $em     = $this->getDoctrine()->getManager();       
+        //$state    = $em->getRepository('AppBundle:City')->findby( array('sta' => $_POST['id']) );
+
+        $RAW_QUERY  = "select * from state where state.cou_id =". $_POST['id'];
+
+        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->execute();    
+        $state      = $statement->fetchAll();
+
+        $response = new Response(json_encode($state));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     public function getCitiesByStateAction( Request $request ){
