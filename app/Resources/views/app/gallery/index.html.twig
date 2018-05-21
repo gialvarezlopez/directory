@@ -1,7 +1,7 @@
 {% extends 'app/base.html.twig' %}
 
 {% block title_page %}
-    EMR || Consulta Médica
+    DB || Gallery
 {% endblock %}
 
 {% block breadcrumb %}
@@ -92,7 +92,9 @@
                 //dragIcon: false,
                 initialPreview: [
                     {% for gallery in galleries %}
-                        "{{ asset('uploads/'~gallery.gaName) }}",
+                        {% if file_exists( 'uploads/'~gallery.gaName ) %}
+                        "{{ image('uploads/'~gallery.gaName).cropResize(900,900) }}",
+                        {% endif %}
                     {% endfor %}
                     //"https://picsum.photos/1920/1080?image=101",
                 ],

@@ -1,0 +1,8 @@
+<div class="msgBoxAlert">
+    {% if pendingDays.days == 0 %}
+        <div class="alert alert-danger">
+            <p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Before select payment method you can complete/update your information, after that you must select a payment gateway to be published on the website</p>
+        </div>
+        {{ app.request.attributes.get('_route') }}
+    {% endif %}
+</div>
