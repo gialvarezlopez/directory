@@ -158,16 +158,16 @@
                             {% if m.md_profile_image != "" %}
                                 {% if file_exists( 'uploads/'~m.md_profile_image ) %}
                                     {% set imgPerfil =  "uploads/" ~ m.md_profile_image %}
-                                    <a href="showProfile/{{ m.usr_id }}" target="_blank">
+                                    <a href=" {{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
                                     <div class="text-center"><img src="{{ image(imgPerfil).cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
                                     </a>
                                 {% else %}
-                                    <a href="showProfile/{{ m.usr_id }}" target="_blank">
+                                    <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
                                         <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
                                     </a>    
                                 {% endif %}
                             {% else %}
-                                <a href="showProfile/{{ m.usr_id }}" target="_blank">
+                                <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
                                     <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
                                 </a>
                             {% endif %}
@@ -178,7 +178,7 @@
                             <div class="post_category">
                                 <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
                             </div>-->
-                            <h4><a href="showProfile/{{ m.usr_id }}" target="_blank">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
+                            <h4><a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
                             
                             <p> {{ m.esp }} </p>
                              
