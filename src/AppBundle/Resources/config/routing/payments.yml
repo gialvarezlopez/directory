@@ -6,6 +6,10 @@ payments_checkIn:
     path:   /checkIn
     defaults: { _controller: "AppBundle:Payments:checkIn" } 
 
+payments_msgBoxPay:
+    path:   /msgBoxPay
+    defaults: { _controller: "AppBundle:Payments:msgBoxPay" }    
+
 payments_validation:
     path:   /validation
     defaults: { _controller: "AppBundle:Payments:validation" }        
@@ -20,4 +24,5 @@ payments_paymentSuccess:
     
 payments_paymentCancel:
     path:   /paymentCancel
-    defaults: { _controller: "AppBundle:Payments:paymentCancel" }     
+    defaults: { _controller: "AppBundle:Payments:paymentCancel" }
+

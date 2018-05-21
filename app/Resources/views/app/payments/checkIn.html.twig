@@ -1,7 +1,7 @@
 {% extends 'app/base.html.twig' %}
 
 {% block title_page %}
-    EMR || Check In
+    DB || Check In
 {% endblock %}
 
 {% block breadcrumb %}
@@ -88,55 +88,58 @@
         <!-- /.box-header -->
         <div class="box-body pad">
             <h4>Our plans methods</h4><hr>
-            <table class="table table-striped">
-                <thead class="">
-                    <tr>
-                        <th>Select an Option</th>
-                        <th>Plan</th>
-                        <th>Months</th>
-                        <th>Price</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {# {% set existFree = false %} #}       
-                    {% for value in pricing %}
-                        {% if hasFreeAccount == 0 or ( hasFreeAccount != 0 and value.prPrice != 0 ) %}
-                        <tr>
-                            <td>
-                                {% if value.prId == 1 %}  
-                                    <input type="radio" name="optionPricing" class="optionPricing minimal" id="" value="{{ value.prId }}" checked="true">
-                                {% else %}
-                                    <input type="radio" name="optionPricing" class="optionPricing minimal" id="" value="{{ value.prId }}" >
+            <div class="row">
+                <div class="col-lg-9">
+                    <table class="table table-striped">
+                        <thead class="">
+                            <tr>
+                                <th>Select an<br> Option</th>
+                                <th>Plan</th>
+                                <th>Months</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {# {% set existFree = false %} #}       
+                            {% for value in pricing %}
+                                {% if hasFreeAccount == 0 or ( hasFreeAccount != 0 and value.prPrice != 0 ) %}
+                                <tr>
+                                    <td>
+                                        {% if value.prId == 1 %}  
+                                            <input type="radio" name="optionPricing" class="optionPricing minimal" id="" value="{{ value.prId }}" checked="true">
+                                        {% else %}
+                                            <input type="radio" name="optionPricing" class="optionPricing minimal" id="" value="{{ value.prId }}" >
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if value.prPrice == 0 %}
+                                            {% set existFree = value.prId %}
+                                            <input type = "hidden" id="f" value="{{ existFree }}">
+                                            <h4 ><span class="label label-success">{{ value.prPlan }}</span></h4>
+                                        {% else %}
+                                            {{ value.prPlan }}    
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ value.prMonths }}</td>
+                                    <td>
+                                        {% if value.prPrice == 0 %}
+                                            {% set existFree = value.prId %}
+                                            <input type = "hidden" id="f" value="{{ existFree }}">
+                                            <h4 ><span class="label label-success">$ {{ value.prPrice|number_format(2, '.', ',') }}</span></h4>
+                                        {% else %}
+                                        $ {{ value.prPrice|number_format(2, '.', ',') }}
+                                        {% endif %}
+                                        
+                                    </td>
+                                    <td>{{ value.prDescription }}</td>
+                                </tr>
                                 {% endif %}
-                            </td>
-                            <td>
-                                {% if value.prPrice == 0 %}
-                                    {% set existFree = value.prId %}
-                                    <input type = "hidden" id="f" value="{{ existFree }}">
-                                    <h4 ><span class="label label-success">{{ value.prPlan }}</span></h4>
-                                {% else %}
-                                    {{ value.prPlan }}    
-                                {% endif %}
-                            </td>
-                            <td>{{ value.prMonths }}</td>
-                            <td>
-                                {% if value.prPrice == 0 %}
-                                    {% set existFree = value.prId %}
-                                    <input type = "hidden" id="f" value="{{ existFree }}">
-                                    <h4 ><span class="label label-success">$ {{ value.prPrice|number_format(2, '.', ',') }}</span></h4>
-                                {% else %}
-                                   $ {{ value.prPrice|number_format(2, '.', ',') }}
-                                {% endif %}
-                                
-                            </td>
-                            <td>{{ value.prDescription }}</td>
-                        </tr>
-                        {% endif %}
-                    {% endfor %}    
-                </tbody>
-            </table>
-            
+                            {% endfor %}    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <hr>
             <span id="holderBtnSend"><button class='btn btn-primary' id='btnPay'><i class='fa fa-credit-card' aria-hidden='true'></i> Pay Now</button></span>
             <a href="{{ path('payments_info') }}" class='btn btn-primary'><i class="fa fa-handshake-o" aria-hidden="true"></i> My transaction</a>                
@@ -172,45 +175,52 @@
             });
             */
             var inputFree = $("#f");
-            var idFree = inputFree.val();    
+            var idFree = inputFree.val();
+            var itemFree = false;    
             if( inputFree.length > 0 )
             {
                 $(".optionPricing").change(function(){ 
                     var value = $(this).val();
                     if( value == idFree )
                     {
-                        console.log("es free");
+                        //console.log("es free");
                         $(".paymentGateway").addClass("noPayMent");
                         $(".optionPayment").attr("disabled", true);
                         $(".optionPayment").prop('checked', false);
                         var btn = "<button class='btn btn-primary' id='btnPay'><i class='fa fa-smile-o' aria-hidden='true'></i> Get it Now</button>";
+                        itemFree = true;
                     }else{
                         $(".paymentGateway").removeClass("noPayMent");
                         $(".optionPayment").attr("disabled", false);
                         var btn = "<button class='btn btn-primary' id='btnPay'><i class='fa fa-credit-card' aria-hidden='true'></i> Pay Now</button>";
+                        itemFree = false;
                     }
                     $("#holderBtnSend").html(btn);
                 });
 
                 /*    
-                //$(".optionPricing").on('ifChanged', function (e) {
-                $('.optionPricing').on('ifClicked', function() {   
-                    var value = $(this).val(); 
-                    console.log(value);
-                });
+                    //$(".optionPricing").on('ifChanged', function (e) {
+                    $('.optionPricing').on('ifClicked', function() {   
+                        var value = $(this).val(); 
+                        console.log(value);
+                    });
                 */
             }
 
             $("body").on("click","#btnPay",function(){
                 
                 var optPricing = $(".optionPricing:checked").val();
+                var optPayment = $(".optionPayment:checked").val();
+                //console.log(optPayment + "------------------"+optPricing);
                 
-                if( inputFree.length > 0 ){
-                    var optPayment = "free";
+                if( itemFree /*inputFree.length > 0*/ ){
+                    //{# The item is free #};
+                    optPayment = "free";
                 }
                 else
                 {
-                    var optPayment = $(".optionPayment:checked").val();
+                    //var optPayment = $(".optionPayment:checked").val();
+                    //console.log(optPayment + "------------------");
                     if( optPayment == undefined )
                     {
                         $.alert({
@@ -235,6 +245,8 @@
                     return false;
                 }
 
+                //console.log(optPayment)
+                //return false;
                $("#holder_loading").show(); 
                 window.location = "{{ path('payments_validation') }}?payment_gateway="+optPayment+"&pricing="+optPricing;
             });

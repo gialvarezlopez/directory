@@ -345,5 +345,10 @@ $(function () {
 
   setup()
 
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip();
+
+  if( $(".msgBoxAlert").length > 0)
+  {
+    $('.msgBoxAlert').prependTo('.content-wrapper .content');
+  }
 })

@@ -111,6 +111,13 @@ class PaymentsController extends Controller
         ));
     }
 
+    public function msgBoxPayAction(Request $request)
+    {
+        $result = $this->getPayer();
+        $pendingDays = $result;
+        return $this->render('app/payments/msgBoxPay.html.twig',array("pendingDays"=>$pendingDays));        
+    }
+
     public function infoAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();

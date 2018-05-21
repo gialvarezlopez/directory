@@ -1,7 +1,7 @@
 {% extends 'app/base.html.twig' %}
 
 {% block title_page %}
-    MD || My information
+    DB || My information
 {% endblock %}
 
 {% block breadcrumb %}
@@ -132,8 +132,9 @@
                                                         {% if medicalDetail.mdProfileImage is empty %}
                                                             <img src="{{ asset('bundles/app/images/logo.svg') }}" alt="Profile Image" class="img-thumbnail"/>
                                                         {% else %}
-                                                           
-                                                            <img src="{{ asset('uploads/'~medicalDetail.mdProfileImage) }}" class="img-thumbnail">
+                                                            {% if file_exists( 'uploads/'~medicalDetail.mdProfileImage ) %}
+                                                                <img src="{{ image('uploads/'~medicalDetail.mdProfileImage).cropResize(140,140) }}" class="img-thumbnail">
+                                                            {% endif %}
                                                         {% endif %}
                                                         
                                                        
@@ -286,7 +287,7 @@
                     </div>
                 </div>    
             </div>
-             <div class="row">
+             <div class="row" style="display:none">
                 <div class="col-lg-12">
                     <div class="form-group">
                         <div class="form_error">{{ form_errors(edit_form.mdActive)}}</div>

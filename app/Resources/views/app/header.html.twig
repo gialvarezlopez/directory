@@ -4,7 +4,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>M</b>D</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Medical</b>Directory</span>
+          <span class="logo-lg"><b>Doctors</b>Billboard</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -19,6 +19,7 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
+              {#
               <li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-envelope-o"></i>
@@ -95,7 +96,9 @@
                   <li class="footer"><a href="#">See All Messages</a></li>
                 </ul>
               </li>
+              #}
               <!-- Notifications: style can be found in dropdown.less -->
+              {#
               <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
@@ -137,7 +140,9 @@
                   <li class="footer"><a href="#">View all</a></li>
                 </ul>
               </li>
+              #}
               <!-- Tasks: style can be found in dropdown.less -->
+              {#
               <li class="dropdown tasks-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-flag-o"></i>
@@ -215,6 +220,7 @@
                   </li>
                 </ul>
               </li>
+              #}
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -266,11 +272,16 @@
                   </li>
                 </ul>
               </li>
+              {#
               <!-- Control Sidebar Toggle Button -->
               <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
               </li>
+              #}
             </ul>
           </div>
         </nav>
       </header>
+      <div id="holderMsgBoxAlert" style="display:none">
+        {{ render(controller('AppBundle:Payments:msgBoxPay')) }}
+      </div>

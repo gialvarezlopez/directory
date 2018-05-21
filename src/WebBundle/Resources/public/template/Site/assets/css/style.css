@@ -681,7 +681,7 @@ table thead th, table thead td {
   width: 98%;
 }
 .logo {
-	margin:22px 0;	
+	margin:10px 0;	
 	transition-duration:0.3s;
    -moz-transition-duration:0.3s;
     -o-transition-duration:0.3s;
@@ -689,7 +689,7 @@ table thead th, table thead td {
       -ms-transition-duration:0.3s;
 }
 .affix .logo {
-	margin:17px 0;	
+	/*margin:17px 0;*/	
 }
 .affix .submit_listing {
   float: right;
@@ -764,13 +764,14 @@ table thead th, table thead td {
   font-size: 17px;
   font-weight: 400;
 }
+/*
 #navigation .nav.navbar-nav li > a {
-	padding:31px 12px;	
+	padding:15px 12px;	
 }
 .affix #navigation .nav.navbar-nav li > a {
 	padding:29px 12px;		
 }
-
+*/
 
 /*--------------------------
 	2.2. Drop-Down-Menu
@@ -1163,7 +1164,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 .listing_info .listing_review_info p {
   color: #b5b5b5;
-  font-size: 13px;
+  font-size: 12px;
   margin: 0 auto;
   float:left;
 }
@@ -1214,6 +1215,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   width: 100%;
   z-index: 1;
 }
+/*
 .listing_wrap:hover .listing_img:before {
 	opacity:1;	
 	transform: translateY(0%);
@@ -1222,6 +1224,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
      -webkit-transform: translateY(0%);
       -ms-transform: translateY(0%);
 }
+*/
 .like_post {
   background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
   border: 2px solid rgba(255, 255, 255, 0.5);
@@ -2340,13 +2343,13 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 .listing-with-map-page .grid_view .listing_review_info p {
 	float:none;
 	margin:5px auto;
-	font-size:13px;
+	font-size:12px;
 }
 .listing-with-map-page .listing_wrap {
 	margin:0 auto 30px;
 }
 .listing-with-map-page .listing_info .listing_review_info p {
-	font-size:13px;
+	font-size:12px;
 }
 .listing-with-map-page .grid_view .listing_review_info p:last-child {
 	margin-top:12px;
@@ -2589,7 +2592,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   text-align: center;
   top: -11px;
   width: 28px;
-  z-index: 999;
+  z-index: 9999;
 }
 .map-popup-close:hover {
 	color:#fff;
