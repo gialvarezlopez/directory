@@ -199,10 +199,10 @@ img {
   color: #ffffff;
   font-size: 16px;
   font-weight:700;
-  line-height: 30px;
+  /*line-height: 30px;*/
   margin: auto;
   width:auto;
-  padding: 8px 22px;
+  /*padding: 8px 22px;*/
     transition: all 0.3s linear 0s;
    -moz-transition: all 0.3s linear 0s;
     -o-transition: all 0.3s linear 0s;
