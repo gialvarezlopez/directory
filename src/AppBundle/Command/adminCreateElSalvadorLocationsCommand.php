@@ -39,7 +39,7 @@ class adminCreateElSalvadorLocationsCommand extends ContainerAwareCommand {
 		
 		
 		$oCountry = new Country();
-		$oCountry->setCouName( "Canada" );
+		$oCountry->setCouName( "Australia" );
 		$oCountry->setCouActive( 1 ); 
 		$em->persist($oCountry);			
 		$flush = $em->flush();
@@ -90,7 +90,7 @@ class adminCreateElSalvadorLocationsCommand extends ContainerAwareCommand {
 				{
 					$proStates++;
 					
-					$RAW_QUERY  = "SELECT * FROM cities where state_code='".$state['state_code']."'";
+					$RAW_QUERY  = "SELECT * FROM cities2 where state_code='".$state['state_code']."'";
                         $statement  = $em->getConnection()->prepare($RAW_QUERY);
                         $statement->execute();    
                         $cities    = $statement->fetchAll();
