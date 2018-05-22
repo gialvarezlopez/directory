@@ -40,7 +40,7 @@ class DefaultController extends Controller
         //$sBusqueda = $request->query->get('b');
         $sUsuarios = '';
         if (!empty($_state) or !empty($_city) or !empty($_speciality)) {
-
+            
             $_SESSION['_STATE']     = $_state;
             $_SESSION['_CITY']      = $_city;
             $_SESSION['_SPECI']     = $_speciality;
@@ -81,18 +81,19 @@ class DefaultController extends Controller
                 $statement  = $em->getConnection()->prepare($sql_estado);
                                 $statement->execute();    
                 $countries = $statement->fetchAll(); 
-            }
-            
-
-
+            }         
 
             $zoom = 1;        
         }else{
             $sql_estado = "select * from state where sta_id = 1";
             $statement  = $em->getConnection()->prepare($sql_estado);
                             $statement->execute();    
-            $stado_lat_lng= $statement->fetchAll(); 
+            $estados_d= $statement->fetchAll(); 
+
+            $zoom = 0;
         }
+
+        
     	     
         $state 	    = $em->getRepository('AppBundle:State')->findBy( array('cou' => $_country) );    
         $speciality = $em->getRepository('AppBundle:Speciality')->findAll();
