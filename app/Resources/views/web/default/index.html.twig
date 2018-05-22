@@ -141,7 +141,7 @@
     
     <div class="container">
         <div class="listing_header">
-            <h5>Medical Profiles</h5>
+            <h5><i class="fa fa-search" style="color: grey"></i> Find Your Doctor</h5>
             
             <div class="layout-switcher">
                 <a href="#" class="active"><i class="fa fa-th"></i></a>
@@ -322,7 +322,7 @@
 
             
             $.each(test, function( k, v ) {                    
-                locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/marker.png') }} "></i>'])
+                locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
             })
 
 
