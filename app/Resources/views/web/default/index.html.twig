@@ -6,7 +6,7 @@
 
 {% block classbg %}
     listing-with-map-page
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
 
@@ -16,7 +16,7 @@
         vertical-align: bottom;
         background-position: center;
         background-size: cover;
-        
+
     }
     .searchProfile:hover{
         cursor: pointer;
@@ -41,6 +41,37 @@
    @media (max-width:768px) {
        .grid-item { width: 50%;}
    }
+
+    /*select2 */
+    .myFont{
+       font-size:12px;
+       line-height: none !important;
+    }
+    .select2-results__option, .select2-selection__choice, .select2-selection__choice__remove {
+        font-size: 12px;
+        line-height: normal !important;
+        margin-bottom: 0px;
+    }
+
+    .select2-selection--multiple{
+        overflow: hidden !important;
+        height: auto !important;
+    }
+
+    .divForm{
+        float: left;
+        width: 33.3%;
+        padding: 0 3px;
+    }
+
+    /* Make Select2 boxes match Bootstrap3 heights: */
+        .select2-selection__rendered {
+        line-height: 32px !important;
+        }
+
+        .select2-selection {
+        height: 34px !important;
+        }
 </style>
 
 <!-- Listings -->
@@ -50,7 +81,7 @@
             <div id="map" data-map-zoom="4" data-map-scroll="true">
                 <!-- map goes here -->
             </div>
-            
+
         </div>
 
     </div>
@@ -58,97 +89,108 @@
     <div class="search_wrap">
         <div class="search_form">
             <form action="" method="get">
-
-                <div class="form-group" style="width: 20%;">
-                    <div class="select">
-                        
-                        <select class="form-control" id="country" name="country">
-                            {% if countries %}
-                                <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option> 
-                            {% else %} 
-                                <option value="0">Select Country</option>
-                            {% endif %}  
-
-                            {% for countries in country %} 
-                               
-                                    <option value="{{ countries.couId }}">{{ countries.couName }}</option>                                  
-                            {% endfor %}
-
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group" style="width: 20%;">
-                    <div class="select">
-                        
-                        <select class="form-control" id="state" name="state">
-                            
-                            
-                                {% if estados_d %}
-                                    <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option> 
-                                {% else %} 
-                                    <option value="0">Select State</option>
-                                {% endif %}                                                
-                            
-
-                            
-                            {% for states in state %} 
-
-                                {% if states.staId != estados_d[0].sta_id %}
-                                    <option value="{{ states.staId }}">{{ states.staName }}</option>                                  
-                                {% endif %}                       
-                                                             
-                       
-                            {% endfor %}
-
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group" style="width: 20%;" name="city">
-                    <div class="select">
-
-                        <select class="form-control" id="cities" name="city">
-
-                            <option value="0">Select City</option>
-                            {% if cities %}
-                                {% for city in cities %}                                 
-                                    <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>                                
+                <div style="float:left; width: 80%;" id="holderInputsSearch">
+                    <div class="form-groupx divForm" style="width: 25%;">
+                        <div class="select">
+                            <select class="form-control" id="country" name="country">
+                                {#
+                                {% if countries %}
+                                    <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option>
+                                {% else %}
+                                    <option value="0">Select Country</option>
+                                {% endif %}
+                                #}
+                                {% for countries in country %}
+                                        {% if app.request.query.get("country") == countries.couId %}
+                                            <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
+                                        {% else %}
+                                            <option value="{{ countries.couId }}">{{ countries.couName }}</option>
+                                        {% endif %}
                                 {% endfor %}
-                            {% endif %}         
 
-                        </select>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-groupx divForm" style="width: 25%;">
+                        <div class="select">
+
+                            <select class="form-control" id="state" name="state">
+
+                                    {% if estados_d %}
+                                        <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option>
+                                    {% else %}
+                                        {# <option value="0">Select State</option> #}
+                                    {% endif %}
+                                {% for states in state %}
+
+                                    {% if states.staId != estados_d[0].sta_id %}
+                                        <option value="{{ states.staId }}">{{ states.staName }}</option>
+                                    {% endif %}
+
+
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-groupx divForm" style="width: 25%;" >
+                        <div class="select">
+
+                            <select class="form-control" id="cities" name="city">
+
+                                {# <option value="0">Select City</option> #}
+                                {% if cities %}
+                                    {% for city in cities %}
+                                        {% if app.request.query.get("city") == city.cit_id %}
+                                            <option value="{{ city.cit_id }}" selected="selected">{{ city.cit_name }}</option>
+                                        {% else %}
+                                            <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                {% endif %}
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-groupx divForm" style="width: 25%; ">
+                        <div class="select">
+                            <select class="form-control" id="speciality" name="speciality" >
+
+                                {% for spe in speciality %}
+                                    {% if app.request.query.get("speciality") == spe.spId %}
+                                        <option value="{{ spe.spId }}" selected="selected">{{ spe.spName }}</option>
+                                    {% else %}
+                                        <option value="{{ spe.spId }}">{{ spe.spName }}</option>
+                                    {% endif %}
+
+
+                                {% endfor %}
+
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group" style="width: 20%;">
-                    <div class="select">
-                        <select class="form-control" id="speciality" name="speciality">                            
-                            <option value="0">Select State</option>
-                            {% for spe in speciality %}                         
-                               
-                                    <option value="{{ spe.spId }}">{{ spe.spName }}</option>                               
-                       
-                            {% endfor %}
-
-                        </select>
+                <div class="" style="float:left; width: 20%;">
+                    <div class="btn_groupx" style="">
+                        <input type="submit" value="Search" class="btn btn-block" id="btnSend">
                     </div>
                 </div>
 
-                <div class="btn_group" style="width: 20%;">
-                    <input type="submit" value="Search" class="btn btn-block">
-                </div>
             </form>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="listing_header">
             <h5><i class="fa fa-search" style="color: grey"></i> Find Your Doctor</h5>
-            
+
             <div class="layout-switcher">
                 <a href="#" class="active"><i class="fa fa-th"></i></a>
                 <a href="listing-listview-map.html"><i class="fa fa-align-justify"></i></a>
             </div>
         </div>
-        
+
         <div class="row grid">
             {% if medic | length  %}
             {% for m in medic %}
@@ -159,7 +201,7 @@
                             <a href="#" class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><span class="like_post"><i class="fa fa-map-marker"></i></span></a>
                             <!--
                             <div class="listing_cate">
-                                <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span> 
+                                <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span>
                                 <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
                             </div>
                             -->
@@ -172,7 +214,7 @@
                                 {% else %}
                                     <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
                                         <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
-                                    </a>    
+                                    </a>
                                 {% endif %}
                             {% else %}
                                 <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
@@ -187,14 +229,14 @@
                                 <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
                             </div>-->
                             <h4><a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
-                            
+
                             <p> {{ m.esp }} </p>
-                             
+
                             <div class="listing_review_info">
-                               
-                                <p><span class="review_score"><i class="fa fa-eye"></i> {{ m.total }} </span> 
-                                    <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                                   <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+
+                                <p><span class="review_score"><i class="fa fa-eye"></i> {{ m.total }} </span>
+                                    <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                                   <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
                                    (5 Reviews)--> </p>
                                 <p class="listing_map_m"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
                             </div>
@@ -208,16 +250,16 @@
                     No Data Found.
                 </div>
             {% endif %}
-            
+
         </div>
         <nav class="pagination_nav">
             <div class="navigation text-center">
                 {{ knp_pagination_render(medic) }}
             </div>
-         
+
         </nav>
 
-    </div>    
+    </div>
 </section>
 
 <!-- /Listings -->
@@ -225,75 +267,97 @@
 
 {% block codejs %}
     <script>
-              
+
 
         $(function(){
 
 
             $('.grid').isotope({
                 itemSelector: '.grid-item',
-               /*
-                masonry: {
-                    columnWidth: 50
-                }
-                */
-                
             });
 
             // States by Country
             $('#country').change(function(){
-
                 var idSate = $(this).val();
-                $("#state").empty();
-                $("#cities").empty();
-                $.ajax({
-                    type: "post",
-                    url: "{{ path('web_get_country') }}",
-                    data: {id: idSate },
-                    error: function (data) {
-                            alert('Error : Load States');
-                            },
-                    success: function (data) {
-                        //var $this = $("#cities");
-                        //console.log(data);
-                        $("#state").append("<option value='0'>Select State</option>");
-                        $.each(data, function (key, value) {
-                            $("#state").append("<option value=" + value.sta_id + ">" + value.sta_name + "</option>");
-                        });
-
-                    }
-                });
+                getStates(idSate);
 
             });
+
+            {% if app.request.query.get("country") == "" %}
+                var idSate = $('#country').val();
+                getStates(idSate);
+            {% endif %}
+
+            function getStates(idSate){
+                if( idSate > 0 )
+                {
+                    $("#state").empty();
+                    $("#cities").empty();
+                    $("#holder_loading").show();
+                    $.ajax({
+                        type: "post",
+                        url: "{{ path('web_get_country') }}",
+                        data: {id: idSate },
+                        error: function (data) {
+                                alert('Error : Load States');
+                                },
+                        success: function (data) {
+                            $.each(data, function (key, value) {
+                                $("#state").append("<option value=" + value.sta_id + ">" + value.sta_name + "</option>");
+                            });
+                            $("#holder_loading").hide();
+                        }
+                    });
+                }
+            }
+
+            $('#country').select2({ dropdownCssClass: "myFont",  placeholder: "Select a country",  width: '100%' });
 
             // cities by state
             $('#state').change(function(){
-
                 var idSate = $(this).val();
-                $("#cities").empty();
-                $.ajax({
-                    type: "post",
-                    url: "{{ path('web_get_cities') }}",
-                    data: {id: idSate },
-                    error: function (data) {
-                            alert('Error : Load Cities');
-                            },
-                    success: function (data) {
-                        //var $this = $("#cities");
-                        //console.log(data);
-                        $("#cities").append("<option value='0'>Select City</option>");
-                        $.each(data, function (key, value) {
-                            $("#cities").append("<option value=" + value.cit_id + ">" + value.cit_name + "</option>");
-                        });
-
-                    }
-                });
-
+                getCities(idSate);
             });
+
+
+
+            function getCities(idSate){
+                if( idSate > 0 )
+                {
+                    $("#cities").empty();
+                    $("#holder_loading").show();
+                    $.ajax({
+                        type: "post",
+                        url: "{{ path('web_get_cities') }}",
+                        data: {id: idSate },
+                        error: function (data) {
+                                alert('Error : Load Cities');
+                                },
+                        success: function (data) {
+                            //var $this = $("#cities");
+                            //console.log(data);
+                            $("#cities").append("<option value='0'>Select City</option>");
+                            $.each(data, function (key, value) {
+                                $("#cities").append("<option value=" + value.cit_id + ">" + value.cit_name + "</option>");
+                            });
+                            $("#cities").select2({  dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%' } );
+                            $("#holder_loading").hide();
+                        }
+                    });
+                }
+            }
+
+            $('#state').select2({ dropdownCssClass: "myFont", placeholder: "Select a state",  width: '100%' });
+            $("#cities").select2({  dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%' } );
+            $("#speciality").select2({  dropdownCssClass: "myFont", placeholder: "Select speciality", width: '100%'  } );
+
+            //var vh = $("#holderInputsSearch").height();
+            //$("#btnSend").css({"height":(vh-3)+"px"});
+            //alert(vh);
         });
         //$(document).on("ready", function(){
         $(function () {
-               
+
 /*-------------------------------------------------------------------------------
         Googl-Map
     -------------------------------------------------------------------------------*/
@@ -307,8 +371,8 @@
                 $(".searchProfile").click(function(){
 
                      listing_map_m($(this).attr('id'), $(this).attr('name') );
-                });               
-                
+                });
+
             });
 
             function listing_map_m(lat,lng){
@@ -320,26 +384,26 @@
             }
             var locations = [];
 
-            
-            $.each(test, function( k, v ) {                    
+
+            $.each(test, function( k, v ) {
                 locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
             })
 
 
               var mapZoomAttr = $('#map').attr('data-map-zoom');
-            
+
             if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {
-                var zoomLevel = parseInt(mapZoomAttr);                
+                var zoomLevel = parseInt(mapZoomAttr);
             } else {
                 var zoomLevel = 9;
             }
-            
+
             if({{ zoom }} == 1){
                 console.log(3);
                     var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 6,
                     scrollwheel: true,
-                    disableDefaultUI: true,                    
+                    disableDefaultUI: true,
                     center: new google.maps.LatLng({{ estados_d[0].sta_lat }}, {{ estados_d[0].sta_lng }}),
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     zoomControl: false,
@@ -357,10 +421,10 @@
                         "stylers": [{
                             "color": "#444444"
                         }]
-                    }] 
+                    }]
                 });
             }else{
-                
+
                     var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: zoomLevel,
                     scrollwheel: true,
@@ -381,11 +445,11 @@
                         "stylers": [{
                             "color": "#444444"
                         }]
-                    }]                  
+                    }]
                 });
             }
 
-            
+
 
 
             var boxText = document.createElement("div");
@@ -416,7 +480,7 @@
                 height: 50,
                 width: 50
             }];
-            
+
             var markerIco;
             for (i = 0; i < locations.length; i++) {
                 markerIco = locations[i][4];
@@ -531,9 +595,9 @@
                 });
             }
     }
-    
-    
-    
+
+
+
             var map = document.getElementById('map');
             if (typeof(map) != 'undefined' && map != null) {
                 google.maps.event.addDomListener(window, 'load', GooglMap);
@@ -648,7 +712,7 @@
             };
             CustomMarker.prototype.getPosition = function() {
                 return this.latlng;
-            }; 
+            };
 
 
             // Buscar en el mapa individual
@@ -662,13 +726,13 @@
                 }
                 var locations = [];
 
-                $.each(test, function( k, v ) {                    
+                $.each(test, function( k, v ) {
 
                     locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
-                    
-                })               
-            
-        
+
+                })
+
+
                 var mapZoomAttr = $('#map').attr('data-map-zoom');
                 if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {
                     var zoomLevel = 12;
@@ -732,7 +796,7 @@
                     height: 50,
                     width: 50
                 }];
-                
+
                 var markerIco;
 
                 for (i = 0; i < locations.length; i++) {
@@ -740,7 +804,7 @@
                     //console.log(locations[i][4]);
 
                     var focusIcon = '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor1.png') }} "></i>';
-                    
+
                     if( locations[i][1] == lat && locations[i][2]== lng){
 
                         var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
@@ -749,7 +813,7 @@
                         }, focusIcon);
                             allMarkers.push(overlay);
 
-                        
+
                             ib.setOptions(boxOptions);
                             boxText.innerHTML = locations[i][0];
                             ib.open(map, overlay);
@@ -760,20 +824,20 @@
                                     ib.close();
                                     $('.map-marker-container').removeClass('clicked infoBox-opened');
                                 });
-                            });                        
-                        
+                            });
+
                     }
                     else
                     {
-                       
+
                         var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
                         overlay = new CustomMarker(overlaypositions, map, {
                             marker_id: i
                         }, markerIco);
                         allMarkers.push(overlay);
-                    }                    
-                    
-                    
+                    }
+
+
                     google.maps.event.addDomListener(overlay, 'click', (function(overlay, i) {
                         return function() {
                             ib.setOptions(boxOptions);
@@ -851,7 +915,7 @@
                     });
                 }
             }
-        });   
+        });
     </script>
-{% endblock %}        
+{% endblock %}
 

@@ -8,11 +8,11 @@ Version:1.0
 
 /*===========================
  =  Table of CSS
- 
+
  	1. General code
 		1.1. Typography
 		1.2. Button
-		1.3. dark-overlay	                             
+		1.3. dark-overlay
 		1.4. Space margins and padding
 		1.5. Form
 		1.6. Table
@@ -51,8 +51,8 @@ Version:1.0
 		6.9. Listing-with-map
 		6.10. Listing-Detail-Page
 		6.11. Listing-Detail-2
-		
-	Version 1.2	
+
+	Version 1.2
 	7. Home Page 3
 		7.1 Header Style 2
 		7.2 Map Search
@@ -127,11 +127,13 @@ a:hover, a:focus {
 ul, ol {
 	margin:0 auto 20px;
 }
+/*
 ul li, ol li {
   font-size: 16px;
   line-height:30px;
   margin: 0 auto 10px;
 }
+*/
 ul li i, ol li i {
 	margin:0 12px 0 0;
 }
@@ -156,20 +158,20 @@ ul.list-with-icon li i {
 }
 
 blockquote {
-	background:#f5f5f5 ;	
+	background:#f5f5f5 ;
 }
 img {
 	max-width:100%;
 }
-.white-text, 
-.white-text h1, 
-.white-text h2, 
-.white-text h3, 
-.white-text h4, 
-.white-text h5, 
-.white-text h6, 
+.white-text,
+.white-text h1,
+.white-text h2,
+.white-text h3,
+.white-text h4,
+.white-text h5,
+.white-text h6,
 .white-text p {
-	color:black;	
+	color:black;
 }
 .uppercase {
 	text-transform:uppercase;
@@ -262,10 +264,10 @@ img {
 	padding:50px 0;
 }
 .padding_4x4_30 {
-	padding:30px;	
+	padding:30px;
 }
 .padding_4x4_40 {
-	padding:40px;	
+	padding:40px;
 }
 .space-20 {
     width:100%;
@@ -304,6 +306,7 @@ img {
 /*-----------------
 	1.5. Form
 ---------------------------*/
+/*
 .form-group {
   margin-bottom: 15px;
   position: relative;
@@ -327,12 +330,12 @@ img {
   padding: 0 20px;
   width:100%;
 }
-.form-control:focus, 
-form input:focus, 
-form textarea:focus, 
+.form-control:focus,
+form input:focus,
+form textarea:focus,
 form select:focus {
   box-shadow:none;
-  outline:#38ccff solid 1px;	
+  outline:#38ccff solid 1px;
 }
 textarea {
 	width:100%;
@@ -351,19 +354,22 @@ textarea.form-control {
    -o-appearance: none;
    -webkit-appearance: none;
    -ms-appearance: none;
-  
+
 }
 .select::after {
   color: #878787;
   content: "";
   cursor: pointer;
   font-family: fontawesome;
-  font-size: 15px;
+  font-size: 12px !important;
   padding: 12px 0;
   pointer-events: none;
   position: absolute;
   right: 15px;
   top: 0;
+}
+.select option{
+  font-size: 10px;
 }
 .form-control option {
   padding: 10px;
@@ -371,7 +377,7 @@ textarea.form-control {
 .control-label {
 	color:#555;
 	font-size:15px;
-	font-weight:700;	
+	font-weight:700;
 }
 .checkbox, .radio {
   margin-bottom: 15px;
@@ -400,7 +406,7 @@ textarea.form-control {
     left: 0;
 	top:4px;
     position: absolute;
-    width: 15px;	
+    width: 15px;
 }
 .checkbox label::before {
   background-color: rgba(0, 0, 0, 0);
@@ -427,7 +433,7 @@ textarea.form-control {
     line-height: 12px;
 	font-weight:bold;
 }
-
+*/
 
 /*-----------------
 	1.6. Table
@@ -487,7 +493,7 @@ table thead th, table thead td {
 	padding:10px;
 	display:block;
 }
-.panel-group .panel .panel-title a:hover, 
+.panel-group .panel .panel-title a:hover,
 .panel-group .panel .panel-title a {
 	color:#111;
 	position:relative;
@@ -498,10 +504,10 @@ table thead th, table thead td {
 	top:10px;
 	right:10px;
 	font-family:fontawesome;
-	content:"\f107";	
+	content:"\f107";
 }
 .panel-group .panel .panel-title a.collapsed:after {
-	content:"\f105";	
+	content:"\f105";
 }
 .panel-group .panel .panel-title a.collapsed {
 	color:#111;
@@ -621,7 +627,7 @@ table thead th, table thead td {
   width: 15px;
   border:rgba(0, 0, 0, 0.4) solid 1px;
 }
-.owl-dots .owl-dot.active span, 
+.owl-dots .owl-dot.active span,
 .owl-dots .owl-dot:hover span {
 	opacity:1;
 	background:#38ccff;
@@ -681,7 +687,7 @@ table thead th, table thead td {
   width: 98%;
 }
 .logo {
-	margin:10px 0;	
+	margin:10px 0;
 	transition-duration:0.3s;
    -moz-transition-duration:0.3s;
     -o-transition-duration:0.3s;
@@ -689,7 +695,7 @@ table thead th, table thead td {
       -ms-transition-duration:0.3s;
 }
 .affix .logo {
-	/*margin:17px 0;*/	
+	/*margin:17px 0;*/
 }
 .affix .submit_listing {
   float: right;
@@ -718,7 +724,7 @@ table thead th, table thead td {
 .header_solidbg .submit_listing .btn {
 	background:#38ccff;
 	border-color:#38ccff;
-	font-weight:700;	
+	font-weight:700;
 }
 .arrow {
 	display:none;
@@ -766,17 +772,17 @@ table thead th, table thead td {
 }
 /*
 #navigation .nav.navbar-nav li > a {
-	padding:15px 12px;	
+	padding:15px 12px;
 }
 .affix #navigation .nav.navbar-nav li > a {
-	padding:29px 12px;		
+	padding:29px 12px;
 }
 */
 
 /*--------------------------
 	2.2. Drop-Down-Menu
 ------------------------------*/
-header .navbar-default .navbar-nav li.active a, 
+header .navbar-default .navbar-nav li.active a,
 header .navbar-default .navbar-nav li.active a:hover,
 header .navbar-default .navbar-nav li.active a:focus {
   color: #38ccff ;
@@ -818,7 +824,7 @@ header .navbar-default .navbar-nav li ul.sub-menu {
   box-shadow:rgba(0, 0, 0, 0.2) 0 0px 10px;
 }
 @media (min-width:768px) {
-header .navbar-default .navbar-nav li:hover ul.sub-menu, 
+header .navbar-default .navbar-nav li:hover ul.sub-menu,
 header .navbar-default .navbar-nav li:hover ul.sub-menu:hover ul.children {
   height: inherit;
   opacity: 1;
@@ -834,7 +840,7 @@ header .navbar-default .navbar-nav li ul.children li {
   display: block;
   margin:0 !important;
 }
-.navbar-default #navigation .navbar-nav li ul.sub-menu li:hover, 
+.navbar-default #navigation .navbar-nav li ul.sub-menu li:hover,
 .navbar-default #navigation .navbar-nav li ul.children li:hover {
 	overflow:visible;
 }
@@ -852,7 +858,7 @@ header .navbar-default #navigation .navbar-nav li ul.children li a {
 	border:0px;
 }
 header #navigation .navbar-default .navbar-nav li ul.sub-menu li a:hover,
-header #navigation .navbar-default .navbar-nav li ul.children li a:hover, 
+header #navigation .navbar-default .navbar-nav li ul.children li a:hover,
 .navbar.navbar-default #navigation .nav.navbar-nav li > a:hover {
   color: #38ccff;
 }
@@ -890,24 +896,24 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   margin: 45px auto 0;
   width: 1024px;
 }
-#banner .search_form .form-group, 
+#banner .search_form .form-group,
 #intro_map .search_form .form-group {
   width: 42%;
-  margin-right:0.5%;	
+  margin-right:0.5%;
   margin-bottom:0px;
 }
-#banner .search_form .form-group.search_btn, 
+#banner .search_form .form-group.search_btn,
 #intro_map .search_form .form-group.search_btn {
   width: 15%;
   margin:0;
 }
-#banner .search_form  .form-control, 
-#banner .search_form  form input, 
-#banner .search_form  form textarea, 
-#banner .search_form  form select, 
-#intro_map .search_form  .form-control, 
-#intro_map .search_form  form input, 
-#intro_map .search_form  form textarea, 
+#banner .search_form  .form-control,
+#banner .search_form  form input,
+#banner .search_form  form textarea,
+#banner .search_form  form select,
+#intro_map .search_form  .form-control,
+#intro_map .search_form  form input,
+#intro_map .search_form  form textarea,
 #intro_map .search_form  form select {
 	padding:0 30px;
 }
@@ -917,7 +923,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 .search_form .form-group {
 	float:left;
 }
-.search_form  .form-control, .search_form  form input, .search_form  form textarea, .search_form  form select {
+.search_form  .form-control, .search_form  form input, .search_form  form textarea, /*.search_form  form select */{
   font-size: 16px;
   height: 60px;
   padding: 0 20px;
@@ -953,7 +959,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	 4.1. Category-Slider
 -------------------------------*/
 #all_category {
-	padding:32px 0;  
+	padding:32px 0;
 }
 #category_slider .item {
 	background:#fff;
@@ -987,7 +993,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	color:#111;
 }
 #category_slider .item:hover {
-	background:#38ccff;	
+	background:#38ccff;
 }
 #category_slider .item:hover p {
 	color:#fff;
@@ -1022,7 +1028,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	height:100%;
 	width:100%;
 	content:"";
-	background:rgba(0, 0, 0, 0.5);	
+	background:rgba(0, 0, 0, 0.5);
 }
 .city_listings_info {
 	position:absolute;
@@ -1038,7 +1044,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	 -moz-transition-duration:0.3s;
 	  -o-transition-duration:0.3s;
 	   -webkit-transition-duration:0.3s;
-	    -ms-transition-duration:0.3s;   
+	    -ms-transition-duration:0.3s;
 	z-index:1;
 }
 .city_listings_info h4 {
@@ -1127,7 +1133,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 #about_info {
 	background-image:url(../images/1920x800.jpg);
 	background-position:center;
-	background-size:cover;	
+	background-size:cover;
 }
 .white_box {
 	background:#fff;
@@ -1176,7 +1182,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   padding: 4px 10px;
 }
 .listing_review_info .active, .fa-star.active {
-	color:#ffc600;	
+	color:#ffc600;
 }
 .listing_review_info {
   background: #f6f6f6 none repeat scroll 0 0;
@@ -1217,7 +1223,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 /*
 .listing_wrap:hover .listing_img:before {
-	opacity:1;	
+	opacity:1;
 	transform: translateY(0%);
    -moz-transform: translateY(0%);
     -o-transform: translateY(0%);
@@ -1243,7 +1249,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   cursor:pointer;
 }
 .like_post:hover {
-	background:#38ccff;	
+	background:#38ccff;
 }
 .listing_info .listing_review_info .listing_map_m {
 	float:right;
@@ -1329,7 +1335,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	position:relative;
 }
 .post_category a {
-  color:#38ccff;	
+  color:#38ccff;
   border: #38ccff solid 2px;
   border-radius: 3px;
   letter-spacing:1px;
@@ -1373,12 +1379,12 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	 4.7. Footer
 ---------------------------*/
 .footer_widgets {
-	margin:70px 0;	
+	margin:70px 0;
 }
 .footer_widgets h5 {
 	color:#fff;
-	margin:0 auto 24px;		
-}	
+	margin:0 auto 24px;
+}
 .footer_bottom {
 	text-align:center;
 	padding:25px 0;
@@ -1417,7 +1423,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 .footer_nav ul li {
 	float:left;
-	width:50%; 
+	width:50%;
 	margin:0 auto;
 }
 .footer_nav ul li a {
@@ -1435,7 +1441,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	font-family:fontawesome;
 }
 .footer_nav ul li a:hover {
-	color:#38ccff;	
+	color:#38ccff;
 }
 .newsletter_wrap {
   position: relative;
@@ -1536,7 +1542,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 #category_slider2 .item p {
 	color:#fff;
 	font-weight:700;
-	font-size:25px;	
+	font-size:25px;
 	margin:0 auto;
 }
 
@@ -1642,7 +1648,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	 6. Inner-Pages
 ===========================*/
 #inner_pages {
-	padding:70px 0;	
+	padding:70px 0;
 }
 #inner_banner {
 	background-image:url(../images/1920x800.jpg);
@@ -1668,7 +1674,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	vertical-align:middle;
 }
 .form_wrap_m .white_box {
-	box-shadow:rgba(0, 0, 0, 0.3) 0 0 30px; 
+	box-shadow:rgba(0, 0, 0, 0.3) 0 0 30px;
 	margin:30px auto;
 }
 #login_signup p {
@@ -1699,7 +1705,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	background:#eff0f0;
 	padding:30px;
 	margin:0 auto 30px;
-	text-align:center;	
+	text-align:center;
 	border-radius:3px;
 	position:relative;
 	z-index:1;
@@ -1790,10 +1796,10 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	border-radius:3px;
 	padding:30px 20px;
 	text-align:center;
-	margin:40px auto;	
+	margin:40px auto;
 }
 .box_wrap .fa {
-	font-size:40px;	
+	font-size:40px;
 	color:#111;
 	margin:10px auto;
 }
@@ -1824,7 +1830,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 .facts_info p span {
 	display:block;
 	color:#111;
-	font-size:70px;	
+	font-size:70px;
 	line-height:70px;
 }
 .our_prtners {
@@ -1844,7 +1850,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 .office_info_box {
   background:#f2f4f4;
-  text-align:center;	
+  text-align:center;
   border-left: 8px solid #dddddd;
   border-radius: 4px;
   padding-bottom: 10px;
@@ -1985,7 +1991,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 .layout-switcher a.active, .layout-switcher a:hover {
 	color:#fff;
-	background:#38ccff	
+	background:#38ccff
 }
 .listview .listing_img {
   float: left;
@@ -2058,7 +2064,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 .widget_title {
 	position:relative;
-	margin:0 auto 30px;	
+	margin:0 auto 30px;
 	padding-bottom:10px;
 	text-transform:uppercase;
 }
@@ -2102,10 +2108,10 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   font-weight: 600;
   margin: 0 20px 0 0;
 }
-.meta_m .fa, .meta_m a:hover, 
-.sidebar_widgets ul li a:hover, 
+.meta_m .fa, .meta_m a:hover,
+.sidebar_widgets ul li a:hover,
 .entry-desc h3 a:hover, .info_m h6 a:hover {
-	color:#38ccff;	
+	color:#38ccff;
 }
 .meta_m a {
 	color:#555;
@@ -2181,7 +2187,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	margin:0 5px 5px 0;
 }
 .post_tag a:hover {
-	background:#38ccff;	
+	background:#38ccff;
 	color:#fff;
 }
 .share_post {
@@ -2260,7 +2266,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   position: relative;
   width: 84px;
 }
-.comment-content, 
+.comment-content,
 .commentlist .reply {
   margin-left: 110px;
 }
@@ -2270,14 +2276,14 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 .comment-meta.commentmetadata {
 	margin-bottom:8px;
 }
-.comment-meta.commentmetadata, 
+.comment-meta.commentmetadata,
 .comment-meta.commentmetadata a {
   color: #b7b7b7;
   font-size: 14px;
   font-weight: 400;
 }
 .comment-meta.commentmetadata a:hover {
-	color:#38ccff;	
+	color:#38ccff;
 }
 .comment-author .fn {
   color: #111;
@@ -2307,7 +2313,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   position: relative;
   z-index: 2;
 }
-#ElemoListing_with_map .container, 
+#ElemoListing_with_map .container,
 .listing-with-map-page #footer .container {
 	width:auto;
 	padding:0 30px;
@@ -2377,15 +2383,15 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 .search_wrap {
 	padding:30px;
-	background:#eee;	
+	background:#eee;
 	display:table;
 	width:100%;
 }
 .search_wrap .search_form {
   margin: 0 auto;
 }
-.search_wrap .form-control, 
-.search_wrap form textarea, 
+.search_wrap .form-control,
+.search_wrap form textarea,
 .search_wrap form select {
   background: #fff none repeat scroll 0 0;
   padding: 0 10px;
@@ -2464,7 +2470,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	display: none;
 }
 .marker-container:hover .face.front, .clicked .marker-container .face.front {
-	border-color:#38ccff;	
+	border-color:#38ccff;
 	border-width:6px;
 }
 .marker-cluster-count {
@@ -2515,9 +2521,11 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   width: 100%;
   z-index: 99;
 }
+/*
 .infoBox {
 	border-radius:4px;
 }
+*/
 .map-box {
   background: #fff none repeat scroll 0 0;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.53);
@@ -2556,11 +2564,13 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	font-size:15px;
 	margin:-7px 0 0 0;
 }
+/*
 .infoBox>img {
 	position:absolute!important;
 	right:0px;
 	top:0px;
 }
+*/
 .map-box .map-post-des-m {
   padding: 13px 20px;
 }
@@ -2641,10 +2651,12 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	overflow:hidden;
 	display:block;
 }
+/*
 .infoBox {
 	-webkit-animation:fadeIn 0.9s;
 	animation:fadeIn 0.9s;
 }
+*/
 #singlemap {
   border-radius: 3px;
   height: 400px;
@@ -2731,7 +2743,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
      -ms-transition-duration:0.3s;
 }
 .view_map:hover {
-	background:#111;	
+	background:#111;
 }
 .view_map a, .view_map:hover a {
   color: #ffffff;
@@ -2923,7 +2935,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 #listing_img_slider .owl-nav > div:hover:after {
 	background:#fff;
 	opacity:1;
-}	
+}
 #opening_hours ul {
 	padding:0px;
 	margin:0px;
@@ -2960,29 +2972,29 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	font-size:40px;
 	color:#111;
 }
-.listing_favorites .fa, 
+.listing_favorites .fa,
 p.listing_like .fa {
 	width:32px;
 	height:32px;
 	text-align:center;
 	border-radius:50%;
 	line-height:30px;
-	border:#38ccff solid 1px;		
+	border:#38ccff solid 1px;
 	margin:0 3px 0 0;
 }
-.listing_price span, 
-p.listing_like .fa, 
-.listing_favorites .fa, 
-.listing_favorites a:hover, 
-.listing_favorites a:focus, 
-p.listing_favorites .fa, 
-p.listing_favorites a:hover, 
-p.listing_favorites a:focus, 
-p.listing_like a:hover, 
+.listing_price span,
+p.listing_like .fa,
+.listing_favorites .fa,
+.listing_favorites a:hover,
+.listing_favorites a:focus,
+p.listing_favorites .fa,
+p.listing_favorites a:hover,
+p.listing_favorites a:focus,
+p.listing_like a:hover,
 p.listing_like a:focus {
-	color:#38ccff;	
+	color:#38ccff;
 }
-.listing_favorites a, 
+.listing_favorites a,
 p.listing_like a {
 	color:#111;
 }
@@ -2997,7 +3009,7 @@ p.listing_like a {
 #amenities ul li {
 	float:left;
 	width:50%;
-	position:relative;	
+	position:relative;
 }
 #amenities ul li a {
 	color:#111;
@@ -3074,7 +3086,7 @@ p.listing_like a {
   margin: 0 auto 14px;
 }
 .review_form .fa-star:hover {
-	color:#fd6c02;	
+	color:#fd6c02;
 }
 .review_form .review_score {
   margin: 0 0 0 10px;
@@ -3110,8 +3122,8 @@ p.listing_like a {
 }
 
 
-/*--------------------------- 
-	6.11. Listing-Detail-2 
+/*---------------------------
+	6.11. Listing-Detail-2
 ------------------------------------*/
 .style2_header.listing_detail_header {
   background-color:transparent;
@@ -3148,7 +3160,7 @@ p.listing_like a {
   margin: 0 auto 30px;
 }
 .listing_detail_2 .panel-group {
- padding-top:0px; 
+ padding-top:0px;
 }
 
 .listing_detail_2 .listing_action_btn {
@@ -3218,7 +3230,7 @@ p.listing_like a {
 }
 .header_style2 .submit_listing .btn.outline-btn:hover{
 	background:#03aee9;
-	border-color: #03aee9;	
+	border-color: #03aee9;
 }
 .front_nav_bar{
 	float:right;
@@ -3255,14 +3267,14 @@ p.listing_like a {
 }
 #navigation .front_nav_bar .fa-close{
 	display:none;
-	margin-top: 5px;	
+	margin-top: 5px;
 }
 #navigation.shownav .front_nav_bar .fa-close{
-	display:block;	
+	display:block;
 }
 #navigation.shownav .front_nav_bar .fa-bars{
-	display:none;	
-}  
+	display:none;
+}
 
 /*============================
 	7.2 Map Search
@@ -3385,7 +3397,7 @@ p.listing_like a {
 	    position: relative;
 }
 .popular_city .btn{
-	border-radius:0px;	
+	border-radius:0px;
 }
 .city_panel .city_content{
 	float:left;
@@ -3491,7 +3503,7 @@ p.listing_like a {
 	margin:5px;
 }
 .recent_listing_slider{
-	
+
 }
 .recent_listing_panel .listing_info{
 	text-align:center;
@@ -3581,7 +3593,7 @@ p.listing_like a {
 	color:#fff;
 }
 
-.timer-panel{	
+.timer-panel{
     text-align: center;
     float: left;
     width: 100%;
@@ -3614,7 +3626,7 @@ p.listing_like a {
 	text-align:center;
 	border:solid 2px #fff;
 	line-height:126px;
-	
+
 }
 
 .timer-panel .timer-panel-inner h1{
@@ -3705,13 +3717,13 @@ p.listing_like a {
     float: left;
     list-style: none;
     width: 25%;
-    padding: 0 10px 10px 0;    
+    padding: 0 10px 10px 0;
     text-align: center;
 	margin:0px;
 }
 .partners_logo ul li a {
     display: block;
-    padding: 30px 20px;    
+    padding: 30px 20px;
     transition-duration: 0.3s;
     -moz-transition-duration: 0.3s;
     -o-transition-duration: 0.3s;
@@ -4017,7 +4029,7 @@ h3 {
 .submit_listing {
   margin-left: 10px;
 }
-#banner .search_form, 
+#banner .search_form,
 #intro_map .search_form {
   width: 940px;
 }
@@ -4327,14 +4339,14 @@ h2 {
   width: 100%;
   margin:0 auto 15px;
 }
-#banner .search_form .form-control, #banner .search_form form input, #banner .search_form form textarea, #banner .search_form form select, #intro_map .search_form .form-control, #intro_map .search_form form input, #intro_map .search_form form textarea, #intro_map .search_form form select, 
-.search_form .form-control, .search_form form textarea, .search_form form select, .search_form form .btn, 
+#banner .search_form .form-control, #banner .search_form form input, #banner .search_form form textarea, #banner .search_form form select, #intro_map .search_form .form-control, #intro_map .search_form form input, #intro_map .search_form form textarea, #intro_map .search_form form select,
+.search_form .form-control, .search_form form textarea, .search_form form select, .search_form form .btn,
 .search_wrap .form-group select {
   padding: 0 15px;
   font-size:14px;
   height:55px;
 }
-#banner .select::after, #intro_map .select::after, 
+#banner .select::after, #intro_map .select::after,
 .search_form .select::after {
   right: 10px;
   top: -5px;
@@ -4352,11 +4364,11 @@ h2 {
   padding: 0;
   text-align: left;
 }
-#navigation .nav.navbar-nav li > a, 
+#navigation .nav.navbar-nav li > a,
 .affix #navigation .nav.navbar-nav li > a {
   padding: 18px 0;
 }
-.submit_listing, 
+.submit_listing,
 .affix .submit_listing {
   float: none;
   margin: 20px 0 30px;
@@ -4372,11 +4384,11 @@ h2 {
 }
 .form_wrap_m .white_box {
   padding: 15px;
-}	
+}
 .form_wrap_m p {
   font-size: 15px;
 }
- #popular_listing_slider .owl-nav, 
+ #popular_listing_slider .owl-nav,
  #category_slider .owl-nav {
 	display:none;
 }
@@ -4443,7 +4455,7 @@ h2 {
 .sidebar .sidebar_widgets {
 	margin-left:0px;
 }
-.listview .listing_img, .listview .listing_info, 
+.listview .listing_img, .listview .listing_info,
 .listview_sidebar .listing_img, .listview_sidebar .listing_info  {
   width: auto;
   float:none;
@@ -4554,13 +4566,13 @@ h3 {
 }
 #banner {
   padding: 150px 0 100px;
-}	
+}
 #banner .search_form {
   display: block;
 }
-#banner .search_form .form-group, #intro_map .search_form .form-group, 
+#banner .search_form .form-group, #intro_map .search_form .form-group,
 #banner .search_form .form-group.search_btn, #intro_map .search_form .form-group.search_btn,
-#listing_banner .form-group, 
+#listing_banner .form-group,
 #listing_banner .btn_group {
   float: none;
   margin: 0 auto 14px;
@@ -4709,7 +4721,7 @@ p {
 .listing_detail_header h1 {
   font-size: 37px;
 }
-.listing_rating p.listing_favorites, 
+.listing_rating p.listing_favorites,
 .listing_rating p.listing_like {
 	float:left;
 	margin-right:20px;
@@ -4755,7 +4767,7 @@ p {
 }
 .review_detail {
   width: calc(100% - 80px);
-}	
+}
 .listing_detail_2 .listing_action_btn ul li {
   font-size: 14px;
   width: 49%;
