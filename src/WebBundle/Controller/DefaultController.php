@@ -30,6 +30,7 @@ class DefaultController extends Controller
         $busqueda = array();
         $citis = 0;
         $countries = 0;
+        $estados_d = 0;
 
         $busqueda['_STATE']=0;
         $busqueda['_CITY']=0;
@@ -61,10 +62,12 @@ class DefaultController extends Controller
                 $_filter .= ' and ues.sp_id ='.$_speciality;
             }
 
-            $sql_estado = "select * from state where sta_id = ".$_state;
-            $statement  = $em->getConnection()->prepare($sql_estado);
-                            $statement->execute();    
-            $stado_lat_lng= $statement->fetchAll(); 
+            if(isset($_state)){
+                $sql_estado = "select * from state where sta_id = ".$_state;
+                $statement  = $em->getConnection()->prepare($sql_estado);
+                                $statement->execute();    
+                $estados_d = $statement->fetchAll(); 
+            }            
 
             // Obteniendo todas las cities del estado en session
             if(isset($_SESSION['_CITY'])){
@@ -121,7 +124,7 @@ class DefaultController extends Controller
                                 9);
            
 
-        return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries));
+        return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries , 'estados_d' => $estados_d));
     }
 
     public function showProfileAction( Request $request){
