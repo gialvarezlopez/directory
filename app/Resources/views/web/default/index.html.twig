@@ -10,329 +10,358 @@
 
 {% block content %}
 
-<style type="text/css">
-    .demo{
-        margin-top:40px;
-        vertical-align: bottom;
-        background-position: center;
-        background-size: cover;
+    <style type="text/css">
+        .demo {
+            margin-top: 40px;
+            vertical-align: bottom;
+            background-position: center;
+            background-size: cover;
 
-    }
-    .searchProfile:hover{
-        cursor: pointer;
-    }
-    .listing_info{
-        margin-top: -10px;
-        position: relative;
-    }
-    .listing_img{
-        margin-top: -40px;
-    }
-    .like_post{
-        margin-top: 40px;
-    }
+        }
+        .searchProfile:hover {
+            cursor: pointer;
+        }
+        .listing_info {
+            margin-top: -10px;
+            position: relative;
+        }
+        .listing_img {
+            margin-top: -40px;
+        }
+        .like_post {
+            margin-top: 40px;
+        }
 
-    .mapnavigation a, .mapzoom-in:hover, .mapzoom-out:hover {
-        background: #2F3B59;
-    }
+        .mapnavigation a,
+        .mapzoom-in:hover,
+        .mapzoom-out:hover {
+            background: #2F3B59;
+        }
 
-   .grid-item { width: 33%; padding: 0px 10px; }
+        .grid-item {
+            width: 33%;
+            padding: 0 10px;
+        }
 
-   @media (max-width:768px) {
-       .grid-item { width: 50%;}
-   }
+        @media (max-width:768px) {
+            .grid-item {
+                width: 50%;
+            }
+        }
 
-    /*select2 */
-    .myFont{
-       font-size:12px;
-       line-height: none !important;
-    }
-    .select2-results__option, .select2-selection__choice, .select2-selection__choice__remove {
-        font-size: 12px;
-        line-height: normal !important;
-        margin-bottom: 0px;
-    }
+        /*select2 */
+        .myFont {
+            font-size: 12px;
+            line-height: none !important;
+        }
+        .select2-results__option,
+        .select2-selection__choice,
+        .select2-selection__choice__remove {
+            font-size: 12px;
+            line-height: normal !important;
+            margin-bottom: 0;
+        }
 
-    .select2-selection--multiple{
-        overflow: hidden !important;
-        height: auto !important;
-    }
+        .select2-selection--multiple {
+            overflow: hidden !important;
+            height: auto !important;
+        }
 
-    .divForm{
+        .divForm {
+            /*
         float: left;
         width: 33.3%;
         padding: 0 3px;
-    }
+        */
+        }
 
-    /* Make Select2 boxes match Bootstrap3 heights: */
-    .select2-selection__rendered {
-        line-height: 32px !important;
-    }
+        /* Make Select2 boxes match Bootstrap3 heights: */
+        .select2-selection__rendered {
+            line-height: 32px !important;
+        }
 
-    .select2-selection {
-        height: 34px !important;
-    }
+        .select2-selection {
+            height: 34px !important;
+        }
 
-    #cleanSearch{
-        background: #ee3535 !important;
-    }
+        #cleanSearch {
+            background: #ee3535 !important;
+        }
 
-    .fixedBottom{
-        position: absolute;
-        left:0px;
-        bottom: 0px;
-        text-align: center;
-        width:100%;
-    }
-</style>
+        .fixedBottom {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
 
-<!-- Listings -->
-<section id="ElemoListing_with_map">
-    <div class="ElemoListing_map">
-        <div id="map-container">
-            <div id="map" data-map-zoom="4" data-map-scroll="true">
-                <!-- map goes here -->
+    <!-- Listings -->
+    <section id="ElemoListing_with_map">
+        <div class="ElemoListing_map">
+            <div id="map-container">
+                <div id="map" data-map-zoom="4" data-map-scroll="true">
+                    <!-- map goes here -->
+                </div>
+
             </div>
 
         </div>
 
-    </div>
+        <div class="search_wrap">
+            <div class="search_form">
+                <form action="" method="get" id="formSearch">
 
-    <div class="search_wrap">
-        <div class="search_form">
-            <form action="" method="get" id="formSearch">
-                <div style="float:left; width: 80%;" id="holderInputsSearch">
-                    <div class="form-groupx divForm" style="width: 25%;">
-                        <div class="select">
-                            Country:
-                            <select class="form-control" id="country" name="country">
-                                {#
-                                {% if countries %}
-                                    <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option>
-                                {% else %}
-                                    <option value="0">Select Country</option>
-                                {% endif %}
-                                #}
-                                <option value=""></option>
-                                {% for countries in country %}
-                                        {% if app.request.query.get("country") == countries.couId %}
-                                            <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
-                                        {% else %}
-                                            <option value="{{ countries.couId }}">{{ countries.couName }}</option>
-                                        {% endif %}
-                                {% endfor %}
+                    <div class="row">
+                        <div class="col-lg-9 col-md-8 col-sm-9">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
+                                    <div class="form-groupx divForm" style="">
+                                        <div class="select">
+                                            Country:
+                                            <select class="form-control" id="country" name="country">
+                                                {#
+                                                    {% if countries %}
+                                                        <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option>
+                                                    {% else %}
+                                                        <option value="0">Select Country</option>
+                                                    {% endif %}
+                                                    #}
+                                                <option value=""></option>
+                                                {% for countries in country %}
+                                                    {% if app.request.query.get("country") == countries.couId %}
+                                                        <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
+                                                    {% else %}
+                                                        <option value="{{ countries.couId }}">{{ countries.couName }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
 
-                            </select>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
+                                    <div class="form-groupx divForm" style="">
+                                        <div class="select">
+                                            State:
+                                            <select class="form-control" id="state" name="state">
+                                                {#
+                                            {% if estados_d %}
+                                                <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option>
+                                            {% else %}
+                                                <option value="0">Select State</option>
+                                            {% endif %}
+                                            #}
+                                                <option value=""></option>
+                                                {% for states in state %}
+
+                                                    {# {% if states.staId != estados_d[0].sta_id %} #}
+                                                    {% if app.request.query.get("state") == states.staId %}
+                                                        <option value="{{ states.staId }}" selected="selected">{{ states.staName }}</option>
+                                                    {% else %}
+                                                        <option value="{{ states.staId }}">{{ states.staName }}</option>
+                                                    {% endif %}
+
+                                                {% endfor %}
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
+                                    <div class="form-groupx divForm" style="">
+                                        <div class="select">
+                                            City:
+                                            <select class="form-control" id="cities" name="city">
+                                                <option value=""></option>
+                                                {% if cities %}
+                                                    {% for city in cities %}
+                                                        {% if app.request.query.get("city") == city.cit_id %}
+                                                            <option value="{{ city.cit_id }}" selected="selected">{{ city.cit_name }}</option>
+                                                        {% else %}
+                                                            <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>
+                                                        {% endif %}
+
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
+                                    <div class="form-groupx divForm" style="">
+                                        <div class="select">
+                                            Speciality:
+                                            <select class="form-control" id="speciality" name="speciality">
+                                                <option value=""></option>
+                                                {% for spe in speciality %}
+                                                    {% if app.request.query.get("speciality") == spe.spId %}
+                                                        <option value="{{ spe.spId }}" selected="selected">{{ spe.spName }}</option>
+                                                    {% else %}
+                                                        <option value="{{ spe.spId }}">{{ spe.spName }}</option>
+                                                    {% endif %}
+
+                                                {% endfor %}
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-groupx divForm" style="width: 25%;">
-                        <div class="select">
-                            State:
-                            <select class="form-control" id="state" name="state">
-                                    {#
-                                    {% if estados_d %}
-                                        <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option>
-                                    {% else %}
-                                         <option value="0">Select State</option> 
+
+                        <div class="col-lg-3 col-md-4 col-sm-3 col-xm-3">
+                            <br>
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="submit" class="btn btn-default" id="btnSend">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    Search</button>
+                                    {% if app.request.query.get("country") > 0 %}
+                                        <a href="{{ path('web_homepage') }}" class="btn btn-danger" id="cleanSearch">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </a>
                                     {% endif %}
-                                    #}
-                                    <option value=""></option>
-                                {% for states in state %}
-
-                                    {# {% if states.staId != estados_d[0].sta_id %} #}
-                                    {% if app.request.query.get("state") == states.staId %}
-                                        <option value="{{ states.staId }}" selected="selected">{{ states.staName }}</option>
-                                    {% else %}
-                                        <option value="{{ states.staId }}">{{ states.staName }}</option>
-                                    {% endif %}
-
-
-                                {% endfor %}
-
-                            </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-groupx divForm" style="width: 25%;" >
-                        <div class="select">
-                            City:
-                            <select class="form-control" id="cities" name="city">
-                                <option value=""></option>
-                                {% if cities %}
-                                    {% for city in cities %}
-                                        {% if app.request.query.get("city") == city.cit_id %}
-                                            <option value="{{ city.cit_id }}" selected="selected">{{ city.cit_name }}</option>
-                                        {% else %}
-                                            <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>
-                                        {% endif %}
+                    {#
+                    <div style="float:left; width: 80%;" id="holderInputsSearch"></div>
+                    <div class="" style="float:left; width: 20%;">
+                        <br>
+                        <div class="btn_groupx" style=""></div>
 
-                                    {% endfor %}
-                                {% endif %}
-
-                            </select>
-                        </div>
                     </div>
-                    <div class="form-groupx divForm" style="width: 25%; ">
-                        <div class="select">
-                            Speciality:
-                            <select class="form-control" id="speciality" name="speciality" >
-                                <option value=""></option>
-                                {% for spe in speciality %}
-                                    {% if app.request.query.get("speciality") == spe.spId %}
-                                        <option value="{{ spe.spId }}" selected="selected">{{ spe.spName }}</option>
-                                    {% else %}
-                                        <option value="{{ spe.spId }}">{{ spe.spName }}</option>
-                                    {% endif %}
+                    #}
 
-
-                                {% endfor %}
-
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="" style="float:left; width: 20%;">
-                <br>
-                    <div class="btn_groupx" style="">
-                        
-                    </div>
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button type="submit"  class="btn btn-default" id="btnSend"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
-                        {% if app.request.query.get("country") > 0 %}
-                            <a href="{{ path('web_homepage') }}" class="btn btn-danger" id="cleanSearch"><i class="fa fa-times" aria-hidden="true"></i> Clear</a>     
-                        {% endif %}
-                    </div>
-                </div>
-
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="listing_header">
-            <h6>
-                 {% if medic | length  %}
-                    <i class="fa fa-user-md" aria-hidden="true" style="color: grey"></i> Find Your Doctor
-                 {% else %}
-                    <div class="text-center"><i class="fa fa-warning" style="color: grey"></i> Sorry, No data found. Try again</div>
-                 {% endif %}
+        <div class="container">
+            <div class="listing_header">
+                <h6>
+                    {% if medic | length %}
+                        <i class="fa fa-user-md" aria-hidden="true" style="color: grey"></i>
+                        Find Your Doctor
+                    {% else %}
+                        <div class="text-center">
+                            <i class="fa fa-warning" style="color: grey"></i>
+                            Sorry, No data found. Try again</div>
+                    {% endif %}
 
-            </h6>
-            {#
+                </h6>
+                {#
             <div class="layout-switcher">
                 <a href="#" class="active"><i class="fa fa-th"></i></a>
                 <a href="listing-listview-map.html"><i class="fa fa-align-justify"></i></a>
             </div>
             #}
-        </div>
+            </div>
 
-        <div class="row grid">
-            {% if medic | length  %}
-                {% for m in medic %}
+            <div class="row grid">
+                {% if medic | length %}
+                    {% for m in medic %}
 
-                    <div class="col-md-6x col-lg-4x grid_colx show_listingx grid-item">
-                        <div class="items-list listing_wrap " data-marker-id="1">
-                            <div class="listing_img" style="height: 300px;">
-                                <a href="#" class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><span class="like_post"><i class="fa fa-map-marker"></i></span></a>
-                                <!--
-                                <div class="listing_cate">
-                                    <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span>
-                                    <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                                </div>
-                                -->
-                                {% if m.md_profile_image != "" %}
-                                    {% if file_exists( 'uploads/'~m.md_profile_image ) %}
-                                        {% set imgPerfil =  "uploads/" ~ m.md_profile_image %}
-                                        <a href=" {{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
-                                        <div class="text-center"><img src="{{ image(imgPerfil).cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
-                                        </a>
+                        <div class="col-md-6x col-lg-4x grid_colx show_listingx grid-item">
+                            <div class="items-list listing_wrap " data-marker-id="1">
+                                <div class="listing_img" style="height: 300px;">
+                                    <a href="#" class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}">
+                                        <span class="like_post">
+                                            <i class="fa fa-map-marker"></i></span></a>
+                                    <!-- <div class="listing_cate"> <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span> <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span> </div> -->
+                                    {% if m.md_profile_image != "" %}
+                                        {% if file_exists('uploads/' ~ m.md_profile_image) %}
+                                            {% set imgPerfil = "uploads/" ~ m.md_profile_image %}
+                                            <a href=" {{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                                <div class="text-center"><img src="{{ image(imgPerfil).cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                                <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
+                                            </a>
+                                        {% endif %}
                                     {% else %}
                                         <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
                                             <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
                                         </a>
                                     {% endif %}
-                                {% else %}
-                                    <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
-                                        <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
-                                    </a>
-                                {% endif %}
 
-                            </div>
-                            <div class="listing_info">
-                                <!--
-                                <div class="post_category">
-                                    <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
-                                </div>-->
-                                <h4><a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
+                                </div>
+                                <div class="listing_info">
+                                    <!-- <div class="post_category"> <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a> </div>-->
+                                    <h4>
+                                        <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">Dr.
+                                            {{ m.md_first_name }}
+                                            {{ m.md_first_surname }}</a>
+                                    </h4>
 
-                                <p> {{ m.esp }} </p>
+                                    <p>
+                                        {{ m.esp }}
+                                    </p>
 
-                                <div class="listing_review_info">
+                                    <div class="listing_review_info">
 
-                                    <p><span class="review_score"><i class="fa fa-eye"></i> {{ m.total }} </span>
-                                        <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                                    <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                                    (5 Reviews)--> </p>
-                                    <p class="listing_map_m"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
+                                        <p>
+                                            <span class="review_score">
+                                                <i class="fa fa-eye"></i>
+                                                {{ m.total }}
+                                            </span>
+                                            <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star"></i> (5 Reviews)-->
+                                        </p>
+                                        <p class="listing_map_m">
+                                            <i class="fa fa-map-marker"></i>
+                                            {{ m.cit_name }}
+                                            /{{ m.sta_name }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                {% endfor %}
-            {% else %}
-                <div class="col-md-6 col-lg-4 grid_col show_listingx">
-                    {# No Data Found. #}
+                    {% endfor %}
+                {% else %}
+                    <div class="col-md-6 col-lg-4 grid_col show_listingx">
+                        {# No Data Found. #}
+                    </div>
+                {% endif %}
+
+            </div>
+            <nav class="pagination_nav">
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(medic) }}
                 </div>
-            {% endif %}
+
+            </nav>
 
         </div>
-        <nav class="pagination_nav">
-            <div class="navigation text-center">
-                {{ knp_pagination_render(medic) }}
-            </div>
+    </section>
 
-        </nav>
-
-    </div>
-</section>
-
-<!-- /Listings -->
+    <!-- /Listings -->
 {% endblock %}
 
 {% block codejs %}
     <script>
 
+        $(function () {
 
-        $(function(){
-
-
-            $('.grid').isotope({
-                itemSelector: '.grid-item',
-            });
+            $('.grid').isotope({itemSelector: '.grid-item'});
 
             {% if medic|length == 0 %}
                 $("#footer").addClass("fixedBottom")
             {% endif %}
 
-            $("#formSearch").submit(function(){
+            $("#formSearch").submit(function () {
                 var country = $('#country').val();
-                if( country > 1 )
-                {
-
-                }else{
-                    $.alert({
-                            icon: 'fa fa-warning',
-                            title: 'Error!',
-                            type: "red",
-                            content: 'Please use the filters',
-                    });
+                if (country > 1) {} else {
+                    $.alert({icon: 'fa fa-warning', title: 'Error!', type: "red", content: 'Please use the filters'});
                     return false;
                 }
                 //alert();
             });
 
             // States by Country
-            $('#country').change(function(){
+            $('#country').change(function () {
                 var idSate = $(this).val();
                 getStates(idSate);
 
@@ -343,19 +372,20 @@
                 getStates(idSate);
             {% endif %}
 
-            function getStates(idSate){
-                if( idSate > 0 )
-                {
+            function getStates(idSate) {
+                if (idSate > 0) {
                     $("#state").empty();
                     $("#cities").empty().append("<option value=''>All</option>");
                     $("#holder_loading").show();
                     $.ajax({
                         type: "post",
                         url: "{{ path('web_get_country') }}",
-                        data: {id: idSate },
+                        data: {
+                            id: idSate
+                        },
                         error: function (data) {
-                                alert('Error : Load States');
-                                },
+                            alert('Error : Load States');
+                        },
                         success: function (data) {
                             $("#state").append("<option value=''>All</option>");
                             $.each(data, function (key, value) {
@@ -367,28 +397,27 @@
                 }
             }
 
-            $('#country').select2({ dropdownCssClass: "myFont",  placeholder: "Select a country",  width: '100%' });
+            $('#country').select2({dropdownCssClass: "myFont", placeholder: "Select a country", width: '100%'});
 
             // cities by state
-            $('#state').change(function(){
+            $('#state').change(function () {
                 var idSate = $(this).val();
                 getCities(idSate);
             });
 
-
-
-            function getCities(idSate){
-                if( idSate > 0 )
-                {
+            function getCities(idSate) {
+                if (idSate > 0) {
                     $("#cities").empty();
                     $("#holder_loading").show();
                     $.ajax({
                         type: "post",
                         url: "{{ path('web_get_cities') }}",
-                        data: {id: idSate },
+                        data: {
+                            id: idSate
+                        },
                         error: function (data) {
-                                alert('Error : Load Cities');
-                                },
+                            alert('Error : Load Cities');
+                        },
                         success: function (data) {
                             //var $this = $("#cities");
                             //console.log(data);
@@ -396,16 +425,16 @@
                             $.each(data, function (key, value) {
                                 $("#cities").append("<option value=" + value.cit_id + ">" + value.cit_name + "</option>");
                             });
-                            $("#cities").select2({  dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%' } );
+                            $("#cities").select2({dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%'});
                             $("#holder_loading").hide();
                         }
                     });
                 }
             }
 
-            $('#state').select2({ dropdownCssClass: "myFont", placeholder: "Select a state",  width: '100%' });
-            $("#cities").select2({  dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%' } );
-            $("#speciality").select2({  dropdownCssClass: "myFont", placeholder: "Select speciality", width: '100%'  } );
+            $('#state').select2({dropdownCssClass: "myFont", placeholder: "Select a state", width: '100%'});
+            $("#cities").select2({dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%'});
+            $("#speciality").select2({dropdownCssClass: "myFont", placeholder: "Select speciality", width: '100%'});
 
             //var vh = $("#holderInputsSearch").height();
             //$("#btnSend").css({"height":(vh-3)+"px"});
@@ -414,245 +443,254 @@
         //$(document).on("ready", function(){
         $(function () {
 
-/*-------------------------------------------------------------------------------
+            /*-------------------------------------------------------------------------------
         Googl-Map
     -------------------------------------------------------------------------------*/
 
-    function GooglMap() {
+            function GooglMap() {
 
-            var ib = new InfoBox();
-            var test = {{ medic.items|json_encode|raw }};
-
-            $(document).ready(function(){
-                $(".searchProfile").click(function(){
-
-                     listing_map_m($(this).attr('id'), $(this).attr('name') );
-                });
-
-            });
-
-            function listing_map_m(lat,lng){
-                search(lat , lng);
-            }
-
-            function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
-                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
-            }
-            var locations = [];
-
-
-            $.each(test, function( k, v ) {
-                locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
-            })
-
-
-              var mapZoomAttr = $('#map').attr('data-map-zoom');
-
-            if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {
-                var zoomLevel = parseInt(mapZoomAttr);
-            } else {
-                var zoomLevel = 9;
-            }
-
-            if({{ zoom }} == 1){
-                console.log(3);
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 6,
-                    scrollwheel: true,
-                    disableDefaultUI: true,
-                    center: new google.maps.LatLng({{ estados_d[0].sta_lat }}, {{ estados_d[0].sta_lng }}),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    zoomControl: false,
-                    mapTypeControl: false,
-                    scaleControl: false,
-                    panControl: false,
-                    fullscreenControl: false,
-                    navigationControl: false,
-                    streetViewControl: false,
-                    animation: google.maps.Animation.BOUNCE,
-                    gestureHandling: 'cooperative',
-                    styles: [{
-                        "featureType": "administrative",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#444444"
-                        }]
-                    }]
-                });
-            }else{
-
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: zoomLevel,
-                    scrollwheel: true,
-                    center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    zoomControl: false,
-                    mapTypeControl: false,
-                    scaleControl: false,
-                    panControl: false,
-                    fullscreenControl: false,
-                    navigationControl: false,
-                    streetViewControl: false,
-                    animation: google.maps.Animation.BOUNCE,
-                    gestureHandling: 'cooperative',
-                    styles: [{
-                        "featureType": "administrative",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#444444"
-                        }]
-                    }]
-                });
-            }
-
-
-
-
-            var boxText = document.createElement("div");
-            boxText.className = 'map-box'
-            var currentInfobox;
-            var boxOptions = {
-                content: boxText,
-                disableAutoPan: true,
-                alignBottom: true,
-                maxWidth: 0,
-                pixelOffset: new google.maps.Size(-145, -45),
-                zIndex: null,
-                boxStyle: {
-                    width: "260px"
-                },
-                closeBoxMargin: "0",
-                closeBoxURL: "",
-                infoBoxClearance: new google.maps.Size(1, 1),
-                isHidden: false,
-                pane: "floatPane",
-                enableEventPropagation: false,
-            };
-            var markerCluster, overlay, i;
-            var allMarkers = [];
-            var clusterStyles = [{
-                textColor: 'white',
-                url: '',
-                height: 50,
-                width: 50
-            }];
-
-            var markerIco;
-            for (i = 0; i < locations.length; i++) {
-                markerIco = locations[i][4];
-                //alert(locations[i][0]);
-                var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    overlay = new CustomMarker(overlaypositions, map, {
-                        marker_id: i
-                    }, markerIco);
-                allMarkers.push(overlay);
                 var ib = new InfoBox();
-                //console.log(allMarkers);
-                google.maps.event.addListener(overlay, 'click', (function(overlay, i) {
-                    return function() {
-                        ib.setOptions(boxOptions);
-                        boxText.innerHTML = locations[i][0];
-                        ib.close();
-                        ib.open(map, overlay);
-                        currentInfobox = overlay.id;
-                        var latLng = new google.maps.LatLng(locations[i][1], locations[i][2]);
-                        map.panTo(latLng);
-                        map.panBy(0, -180);
-                        google.maps.event.addListener(ib, 'domready', function () {
-                            $('.map-popup-close').click(function (e) {
-                                e.preventDefault();
-                                ib.close();
-                            });
-                        });
-                    }
-                })(overlay, i));
-            }
+                var test = {{ medic.items|json_encode|raw }};
 
-            var options = {
-                imagePath: 'images/',
-                styles: clusterStyles,
-                minClusterSize: 2
-            };
+                $(document).ready(function () {
+                    $(".searchProfile").click(function () {
 
-            // Agrupar marker cercanos
-            markerCluster = new MarkerClusterer(map, allMarkers, options);
-            google.maps.event.addDomListener(window, "resize", function() {
-                var center = map.getCenter();
-                google.maps.event.trigger(map, "resize");
-                map.setCenter(center);
-            });
+                        listing_map_m($(this).attr('id'), $(this).attr('name'));
+                    });
 
-            $('.nextmap-nav').click(function (e) {
-                e.preventDefault();
-                map.setZoom(9);
-                var index = currentInfobox;
-                if (index + 1 < allMarkers.length) {
-                    google.maps.event.trigger(allMarkers[index + 1], 'click');
-                } else {
-                    google.maps.event.trigger(allMarkers[0], 'click');
-                }
-            });
-
-            $('.prevmap-nav').click(function (e) {
-                e.preventDefault();
-                map.setZoom(9);
-                if (typeof (currentInfobox) == "undefined") {
-                    google.maps.event.trigger(allMarkers[allMarkers.length - 1], 'click');
-                } else {
-                    var index = currentInfobox;
-                    if (index - 1 < 0) {
-                        google.maps.event.trigger(allMarkers[allMarkers.length - 1], 'click');
-                    } else {
-                        google.maps.event.trigger(allMarkers[index - 1], 'click');
-                    }
-                }
-            });
-
-            var zoomControlDiv = document.createElement('div');
-            var zoomControl = new ZoomControl(zoomControlDiv, map);
-
-            function ZoomControl(controlDiv, map) {
-                zoomControlDiv.index = 1;
-                map.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomControlDiv);
-                controlDiv.className = "leaflet-control-zoom";
-                var controlWrapper = document.createElement('div');
-                controlDiv.appendChild(controlWrapper);
-                var zoomInButton = document.createElement('div');
-                zoomInButton.className = "custom-zoom-in";
-                controlWrapper.appendChild(zoomInButton);
-                var zoomOutButton = document.createElement('div');
-                zoomOutButton.className = "custom-zoom-out";
-                controlWrapper.appendChild(zoomOutButton);
-                google.maps.event.addDomListener(zoomInButton, 'click', function() {
-                    map.setZoom(map.getZoom() + 1);
                 });
-                google.maps.event.addDomListener(zoomOutButton, 'click', function() {
-                    map.setZoom(map.getZoom() - 1);
-                });
-            }
 
-            $("#geoLocation, .input-with-icon.location a").click(function(e) {
-                e.preventDefault();
-                geolocate();
-            });
+                function listing_map_m(lat, lng) {
+                    search(lat, lng);
+                }
 
-            function geolocate() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                        map.setCenter(pos);
-                        map.setZoom(12);
+                function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
+                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
+                }
+                var locations = [];
+
+                $.each(test, function (k, v) {
+                    locations.push([
+                        locationData('showProfile/' + v.usr_id, '{{ asset(' uploads / ') }}' + v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                        v.ci_lat,
+                        v.ci_lng,
+                        2,
+                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
+                    ])
+                })
+
+                var mapZoomAttr = $('#map').attr('data-map-zoom');
+
+                if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {
+                    var zoomLevel = parseInt(mapZoomAttr);
+                } else {
+                    var zoomLevel = 9;
+                }
+
+                if ({{ zoom }} == 1) {
+                    console.log(3);
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 6,
+                        scrollwheel: true,
+                        disableDefaultUI: true,
+                        center: new google.maps.LatLng({{ estados_d[0].sta_lat }}, {{ estados_d[0].sta_lng }}),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        zoomControl: false,
+                        mapTypeControl: false,
+                        scaleControl: false,
+                        panControl: false,
+                        fullscreenControl: false,
+                        navigationControl: false,
+                        streetViewControl: false,
+                        animation: google.maps.Animation.BOUNCE,
+                        gestureHandling: 'cooperative',
+                        styles: [
+                            {
+                                "featureType": "administrative",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#444444"
+                                    }
+                                ]
+                            }
+                        ]
+                    });
+                } else {
+
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: zoomLevel,
+                        scrollwheel: true,
+                        center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        zoomControl: false,
+                        mapTypeControl: false,
+                        scaleControl: false,
+                        panControl: false,
+                        fullscreenControl: false,
+                        navigationControl: false,
+                        streetViewControl: false,
+                        animation: google.maps.Animation.BOUNCE,
+                        gestureHandling: 'cooperative',
+                        styles: [
+                            {
+                                "featureType": "administrative",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#444444"
+                                    }
+                                ]
+                            }
+                        ]
                     });
                 }
-            }
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                map.setOptions({
-                    draggable: false
+
+                var boxText = document.createElement("div");
+                boxText.className = 'map-box'
+                var currentInfobox;
+                var boxOptions = {
+                    content: boxText,
+                    disableAutoPan: true,
+                    alignBottom: true,
+                    maxWidth: 0,
+                    pixelOffset: new google.maps.Size(-145, -45),
+                    zIndex: null,
+                    boxStyle: {
+                        width: "260px"
+                    },
+                    closeBoxMargin: "0",
+                    closeBoxURL: "",
+                    infoBoxClearance: new google.maps.Size(1, 1),
+                    isHidden: false,
+                    pane: "floatPane",
+                    enableEventPropagation: false
+                };
+                var markerCluster,
+                    overlay,
+                    i;
+                var allMarkers = [];
+                var clusterStyles = [
+                    {
+                        textColor: 'white',
+                        url: '',
+                        height: 50,
+                        width: 50
+                    }
+                ];
+
+                var markerIco;
+                for (i = 0; i < locations.length; i++) {
+                    markerIco = locations[i][4];
+                    //alert(locations[i][0]);
+                    var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        overlay = new CustomMarker(overlaypositions, map, {
+                            marker_id: i
+                        }, markerIco);
+                    allMarkers.push(overlay);
+                    var ib = new InfoBox();
+                    //console.log(allMarkers);
+                    google.maps.event.addListener(overlay, 'click', (function (overlay, i) {
+                        return function () {
+                            ib.setOptions(boxOptions);
+                            boxText.innerHTML = locations[i][0];
+                            ib.close();
+                            ib.open(map, overlay);
+                            currentInfobox = overlay.id;
+                            var latLng = new google.maps.LatLng(locations[i][1], locations[i][2]);
+                            map.panTo(latLng);
+                            map.panBy(0, -180);
+                            google.maps.event.addListener(ib, 'domready', function () {
+                                $('.map-popup-close').click(function (e) {
+                                    e.preventDefault();
+                                    ib.close();
+                                });
+                            });
+                        }
+                    })(overlay, i));
+                }
+
+                var options = {
+                    imagePath: 'images/',
+                    styles: clusterStyles,
+                    minClusterSize: 2
+                };
+
+                // Agrupar marker cercanos
+                markerCluster = new MarkerClusterer(map, allMarkers, options);
+                google.maps.event.addDomListener(window, "resize", function () {
+                    var center = map.getCenter();
+                    google.maps.event.trigger(map, "resize");
+                    map.setCenter(center);
                 });
+
+                $('.nextmap-nav').click(function (e) {
+                    e.preventDefault();
+                    map.setZoom(9);
+                    var index = currentInfobox;
+                    if (index + 1 < allMarkers.length) {
+                        google.maps.event.trigger(allMarkers[index + 1], 'click');
+                    } else {
+                        google.maps.event.trigger(allMarkers[0], 'click');
+                    }
+                });
+
+                $('.prevmap-nav').click(function (e) {
+                    e.preventDefault();
+                    map.setZoom(9);
+                    if (typeof(currentInfobox) == "undefined") {
+                        google.maps.event.trigger(allMarkers[allMarkers.length - 1], 'click');
+                    } else {
+                        var index = currentInfobox;
+                        if (index - 1 < 0) {
+                            google.maps.event.trigger(allMarkers[allMarkers.length - 1], 'click');
+                        } else {
+                            google.maps.event.trigger(allMarkers[index - 1], 'click');
+                        }
+                    }
+                });
+
+                var zoomControlDiv = document.createElement('div');
+                var zoomControl = new ZoomControl(zoomControlDiv, map);
+
+                function ZoomControl(controlDiv, map) {
+                    zoomControlDiv.index = 1;
+                    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomControlDiv);
+                    controlDiv.className = "leaflet-control-zoom";
+                    var controlWrapper = document.createElement('div');
+                    controlDiv.appendChild(controlWrapper);
+                    var zoomInButton = document.createElement('div');
+                    zoomInButton.className = "custom-zoom-in";
+                    controlWrapper.appendChild(zoomInButton);
+                    var zoomOutButton = document.createElement('div');
+                    zoomOutButton.className = "custom-zoom-out";
+                    controlWrapper.appendChild(zoomOutButton);
+                    google.maps.event.addDomListener(zoomInButton, 'click', function () {
+                        map.setZoom(map.getZoom() + 1);
+                    });
+                    google.maps.event.addDomListener(zoomOutButton, 'click', function () {
+                        map.setZoom(map.getZoom() - 1);
+                    });
+                }
+
+                $("#geoLocation, .input-with-icon.location a").click(function (e) {
+                    e.preventDefault();
+                    geolocate();
+                });
+
+                function geolocate() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            map.setCenter(pos);
+                            map.setZoom(12);
+                        });
+                    }
+                }
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    map.setOptions({draggable: false});
+                }
             }
-    }
-
-
 
             var map = document.getElementById('map');
             if (typeof(map) != 'undefined' && map != null) {
@@ -662,10 +700,7 @@
 
             function singlemap() {
 
-                var myLatlng = new google.maps.LatLng({
-                    lng: $('#singlemap').data('longitude'),
-                    lat: $('#singlemap').data('latitude'),
-                });
+                var myLatlng = new google.maps.LatLng({lng: $('#singlemap').data('longitude'), lat: $('#singlemap').data('latitude')});
 
                 var single_map = new google.maps.Map(document.getElementById('singlemap'), {
                     zoom: 15,
@@ -677,21 +712,20 @@
                     panControl: false,
                     navigationControl: false,
                     streetViewControl: false,
-                    styles: [{
-                        "featureType": "landscape",
-                        "elementType": "all",
-                        "stylers": [{
-                            "color": "#f2f2f2"
-                        }]
-                    }]
+                    styles: [
+                        {
+                            "featureType": "landscape",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "color": "#f2f2f2"
+                                }
+                            ]
+                        }
+                    ]
                 });
 
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: single_map,
-                    icon: markerIcon,
-                    title: 'Our Location'
-                });
+                var marker = new google.maps.Marker({position: myLatLng, map: single_map, icon: markerIcon, title: 'Our Location'});
 
                 var zoomControlDiv = document.createElement('div');
                 var zoomControl = new ZoomControl(zoomControlDiv, single_map);
@@ -707,10 +741,10 @@
                     var zoomOutButton = document.createElement('div');
                     zoomOutButton.className = "custom-zoom-out";
                     controlWrapper.appendChild(zoomOutButton);
-                    google.maps.event.addDomListener(zoomInButton, 'click', function() {
+                    google.maps.event.addDomListener(zoomInButton, 'click', function () {
                         single_map.setZoom(single_map.getZoom() + 1);
                     });
-                    google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+                    google.maps.event.addDomListener(zoomOutButton, 'click', function () {
                         single_map.setZoom(single_map.getZoom() - 1);
                     });
                 }
@@ -734,14 +768,14 @@
             }
 
             CustomMarker.prototype = new google.maps.OverlayView();
-            CustomMarker.prototype.draw = function() {
+            CustomMarker.prototype.draw = function () {
                 var self = this;
                 var div = this.div;
                 if (!div) {
                     div = this.div = document.createElement('div');
                     div.className = 'map-marker-container';
-                    div.innerHTML = '<div class="marker-container">' + '<div class="marker-card">' + '<div class="front face">' + self.markerIco + '</div>' + self.markerIco + '</div>'  + '</div>' + '</div>'
-                    google.maps.event.addDomListener(div, "click", function(event) {
+                    div.innerHTML = '<div class="marker-container">' + '<div class="marker-card">' + '<div class="front face">' + self.markerIco + '</div>' + self.markerIco + '</div>' + '</div>' + '</div>'
+                    google.maps.event.addDomListener(div, "click", function (event) {
                         $('.map-marker-container').removeClass('clicked infoBox-opened');
                         google.maps.event.trigger(self, "click");
                         $(this).addClass('clicked infoBox-opened');
@@ -759,35 +793,39 @@
                 }
             };
 
-            CustomMarker.prototype.remove = function() {
+            CustomMarker.prototype.remove = function () {
                 if (this.div) {
                     this.div.parentNode.removeChild(this.div);
                     this.div = null;
                     $(this).removeClass('clicked');
                 }
             };
-            CustomMarker.prototype.getPosition = function() {
+            CustomMarker.prototype.getPosition = function () {
                 return this.latlng;
             };
 
-
             // Buscar en el mapa individual
-            function search(lat , lng){
+            function search(lat, lng) {
 
                 var ib = new InfoBox();
                 var test = {{ medic.items|json_encode|raw }};
 
                 function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
-                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">'+ '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
+                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
                 }
                 var locations = [];
 
-                $.each(test, function( k, v ) {
+                $.each(test, function (k, v) {
 
-                    locations.push([locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name +' '+v.md_first_surname, v.ci_phone1, '5.0', '23'),v.ci_lat, v.ci_lng, 2, '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'])
+                    locations.push([
+                        locationData('showProfile/' + v.usr_id, '{{ asset(' uploads / ') }}' + v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                        v.ci_lat,
+                        v.ci_lng,
+                        2,
+                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
+                    ])
 
                 })
-
 
                 var mapZoomAttr = $('#map').attr('data-map-zoom');
                 if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {
@@ -807,16 +845,16 @@
                     scaleControl: false,
                     panControl: false,
                     navigationControl: false,
-                    streetViewControl: false,
+                    streetViewControl: false
                 });
 
-                $('.items-list').on('mouseover', function() {
+                $('.items-list').on('mouseover', function () {
                     var listingAttr = $(this).data('post-id');
                     if (listingAttr !== undefined) {
                         var listing_id = $(this).data('post-id') - 1;
                         var marker_div = allMarkers[listing_id].div;
                         $(marker_div).addClass('clicked');
-                        $(this).on('mouseout', function() {
+                        $(this).on('mouseout', function () {
                             if ($(marker_div).is(":not(.infoBox-opened)")) {
                                 $(marker_div).removeClass('clicked');
                             }
@@ -842,16 +880,20 @@
                     infoBoxClearance: new google.maps.Size(25, 25),
                     isHidden: false,
                     pane: "floatPane",
-                    enableEventPropagation: false,
+                    enableEventPropagation: false
                 };
-                var markerCluster, overlay, i;
+                var markerCluster,
+                    overlay,
+                    i;
                 var allMarkers = [];
-                var clusterStyles = [{
-                    textColor: 'white',
-                    url: '',
-                    height: 50,
-                    width: 50
-                }];
+                var clusterStyles = [
+                    {
+                        textColor: 'white',
+                        url: '',
+                        height: 50,
+                        width: 50
+                    }
+                ];
 
                 var markerIco;
 
@@ -861,41 +903,37 @@
 
                     var focusIcon = '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor1.png') }} "></i>';
 
-                    if( locations[i][1] == lat && locations[i][2]== lng){
+                    if (locations[i][1] == lat && locations[i][2] == lng) {
 
                         var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        overlay = new CustomMarker(overlaypositions, map, {
-                            marker_id: i
-                        }, focusIcon);
-                            allMarkers.push(overlay);
+                            overlay = new CustomMarker(overlaypositions, map, {
+                                marker_id: i
+                            }, focusIcon);
+                        allMarkers.push(overlay);
 
-
-                            ib.setOptions(boxOptions);
-                            boxText.innerHTML = locations[i][0];
-                            ib.open(map, overlay);
-                            currentInfobox = locations[i][3];
-                            google.maps.event.addListener(ib, 'domready', function() {
-                                $('.map-popup-close').click(function(e) {
-                                    e.preventDefault();
-                                    ib.close();
-                                    $('.map-marker-container').removeClass('clicked infoBox-opened');
-                                });
+                        ib.setOptions(boxOptions);
+                        boxText.innerHTML = locations[i][0];
+                        ib.open(map, overlay);
+                        currentInfobox = locations[i][3];
+                        google.maps.event.addListener(ib, 'domready', function () {
+                            $('.map-popup-close').click(function (e) {
+                                e.preventDefault();
+                                ib.close();
+                                $('.map-marker-container').removeClass('clicked infoBox-opened');
                             });
+                        });
 
-                    }
-                    else
-                    {
+                    } else {
 
                         var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        overlay = new CustomMarker(overlaypositions, map, {
-                            marker_id: i
-                        }, markerIco);
+                            overlay = new CustomMarker(overlaypositions, map, {
+                                marker_id: i
+                            }, markerIco);
                         allMarkers.push(overlay);
                     }
 
-
-                    google.maps.event.addDomListener(overlay, 'click', (function(overlay, i) {
-                        return function() {
+                    google.maps.event.addDomListener(overlay, 'click', (function (overlay, i) {
+                        return function () {
                             ib.setOptions(boxOptions);
                             boxText.innerHTML = locations[i][0];
                             ib.close();
@@ -915,14 +953,14 @@
                 }
 
                 var options = {
-                imagePath: 'images/',
-                styles: clusterStyles,
-                minClusterSize: 2
+                    imagePath: 'images/',
+                    styles: clusterStyles,
+                    minClusterSize: 2
                 };
 
                 // Agrupar marker cercanos
                 markerCluster = new MarkerClusterer(map, allMarkers, options);
-                google.maps.event.addDomListener(window, "resize", function() {
+                google.maps.event.addDomListener(window, "resize", function () {
                     var center = map.getCenter();
                     google.maps.event.trigger(map, "resize");
                     map.setCenter(center);
@@ -943,22 +981,22 @@
                     var zoomOutButton = document.createElement('div');
                     zoomOutButton.className = "custom-zoom-out";
                     controlWrapper.appendChild(zoomOutButton);
-                    google.maps.event.addDomListener(zoomInButton, 'click', function() {
+                    google.maps.event.addDomListener(zoomInButton, 'click', function () {
                         map.setZoom(map.getZoom() + 1);
                     });
-                    google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+                    google.maps.event.addDomListener(zoomOutButton, 'click', function () {
                         map.setZoom(map.getZoom() - 1);
                     });
                 }
 
-                $("#geoLocation, .input-with-icon.location a").click(function(e) {
+                $("#geoLocation, .input-with-icon.location a").click(function (e) {
                     e.preventDefault();
                     geolocate();
                 });
 
                 function geolocate() {
                     if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
                             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                             map.setCenter(pos);
                             map.setZoom(12);
@@ -966,12 +1004,9 @@
                     }
                 }
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    map.setOptions({
-                        draggable: false
-                    });
+                    map.setOptions({draggable: false});
                 }
             }
         });
     </script>
 {% endblock %}
-
