@@ -65,13 +65,25 @@
     }
 
     /* Make Select2 boxes match Bootstrap3 heights: */
-        .select2-selection__rendered {
+    .select2-selection__rendered {
         line-height: 32px !important;
-        }
+    }
 
-        .select2-selection {
+    .select2-selection {
         height: 34px !important;
-        }
+    }
+
+    #cleanSearch{
+        background: #ee3535 !important;
+    }
+
+    .fixedBottom{
+        position: absolute;
+        left:0px;
+        bottom: 0px;
+        text-align: center;
+        width:100%;
+    }
 </style>
 
 <!-- Listings -->
@@ -88,10 +100,11 @@
 
     <div class="search_wrap">
         <div class="search_form">
-            <form action="" method="get">
+            <form action="" method="get" id="formSearch">
                 <div style="float:left; width: 80%;" id="holderInputsSearch">
                     <div class="form-groupx divForm" style="width: 25%;">
                         <div class="select">
+                            Country:
                             <select class="form-control" id="country" name="country">
                                 {#
                                 {% if countries %}
@@ -100,6 +113,7 @@
                                     <option value="0">Select Country</option>
                                 {% endif %}
                                 #}
+                                <option value=""></option>
                                 {% for countries in country %}
                                         {% if app.request.query.get("country") == countries.couId %}
                                             <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
@@ -113,17 +127,22 @@
                     </div>
                     <div class="form-groupx divForm" style="width: 25%;">
                         <div class="select">
-
+                            State:
                             <select class="form-control" id="state" name="state">
-
+                                    {#
                                     {% if estados_d %}
                                         <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option>
                                     {% else %}
-                                        {# <option value="0">Select State</option> #}
+                                         <option value="0">Select State</option> 
                                     {% endif %}
+                                    #}
+                                    <option value=""></option>
                                 {% for states in state %}
 
-                                    {% if states.staId != estados_d[0].sta_id %}
+                                    {# {% if states.staId != estados_d[0].sta_id %} #}
+                                    {% if app.request.query.get("state") == states.staId %}
+                                        <option value="{{ states.staId }}" selected="selected">{{ states.staName }}</option>
+                                    {% else %}
                                         <option value="{{ states.staId }}">{{ states.staName }}</option>
                                     {% endif %}
 
@@ -135,10 +154,9 @@
                     </div>
                     <div class="form-groupx divForm" style="width: 25%;" >
                         <div class="select">
-
+                            City:
                             <select class="form-control" id="cities" name="city">
-
-                                {# <option value="0">Select City</option> #}
+                                <option value=""></option>
                                 {% if cities %}
                                     {% for city in cities %}
                                         {% if app.request.query.get("city") == city.cit_id %}
@@ -155,8 +173,9 @@
                     </div>
                     <div class="form-groupx divForm" style="width: 25%; ">
                         <div class="select">
+                            Speciality:
                             <select class="form-control" id="speciality" name="speciality" >
-
+                                <option value=""></option>
                                 {% for spe in speciality %}
                                     {% if app.request.query.get("speciality") == spe.spId %}
                                         <option value="{{ spe.spId }}" selected="selected">{{ spe.spName }}</option>
@@ -172,8 +191,15 @@
                     </div>
                 </div>
                 <div class="" style="float:left; width: 20%;">
+                <br>
                     <div class="btn_groupx" style="">
-                        <input type="submit" value="Search" class="btn btn-block" id="btnSend">
+                        
+                    </div>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="submit"  class="btn btn-default" id="btnSend"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                        {% if app.request.query.get("country") > 0 %}
+                            <a href="./" class="btn btn-danger" id="cleanSearch"><i class="fa fa-times" aria-hidden="true"></i> Clear</a>     
+                        {% endif %}
                     </div>
                 </div>
 
@@ -183,71 +209,79 @@
 
     <div class="container">
         <div class="listing_header">
-            <h5><i class="fa fa-search" style="color: grey"></i> Find Your Doctor</h5>
+            <h6>
+                 {% if medic | length  %}
+                    <i class="fa fa-user-md" aria-hidden="true" style="color: grey"></i> Find Your Doctor
+                 {% else %}
+                    <div class="text-center"><i class="fa fa-warning" style="color: grey"></i> Sorry, No data found. Try again</div>
+                 {% endif %}
 
+            </h6>
+            {#
             <div class="layout-switcher">
                 <a href="#" class="active"><i class="fa fa-th"></i></a>
                 <a href="listing-listview-map.html"><i class="fa fa-align-justify"></i></a>
             </div>
+            #}
         </div>
 
         <div class="row grid">
             {% if medic | length  %}
-            {% for m in medic %}
+                {% for m in medic %}
 
-                <div class="col-md-6x col-lg-4x grid_colx show_listingx grid-item">
-                    <div class="items-list listing_wrap " data-marker-id="1">
-                        <div class="listing_img" style="height: 300px;">
-                            <a href="#" class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><span class="like_post"><i class="fa fa-map-marker"></i></span></a>
-                            <!--
-                            <div class="listing_cate">
-                                <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span>
-                                <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                            </div>
-                            -->
-                            {% if m.md_profile_image != "" %}
-                                {% if file_exists( 'uploads/'~m.md_profile_image ) %}
-                                    {% set imgPerfil =  "uploads/" ~ m.md_profile_image %}
-                                    <a href=" {{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
-                                    <div class="text-center"><img src="{{ image(imgPerfil).cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
-                                    </a>
+                    <div class="col-md-6x col-lg-4x grid_colx show_listingx grid-item">
+                        <div class="items-list listing_wrap " data-marker-id="1">
+                            <div class="listing_img" style="height: 300px;">
+                                <a href="#" class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}"><span class="like_post"><i class="fa fa-map-marker"></i></span></a>
+                                <!--
+                                <div class="listing_cate">
+                                    <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span>
+                                    <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                                </div>
+                                -->
+                                {% if m.md_profile_image != "" %}
+                                    {% if file_exists( 'uploads/'~m.md_profile_image ) %}
+                                        {% set imgPerfil =  "uploads/" ~ m.md_profile_image %}
+                                        <a href=" {{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                        <div class="text-center"><img src="{{ image(imgPerfil).cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                            <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
+                                        </a>
+                                    {% endif %}
                                 {% else %}
                                     <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
                                         <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
                                     </a>
                                 {% endif %}
-                            {% else %}
-                                <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
-                                    <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
-                                </a>
-                            {% endif %}
 
-                        </div>
-                        <div class="listing_info">
-                            <!--
-                            <div class="post_category">
-                                <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
-                            </div>-->
-                            <h4><a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
+                            </div>
+                            <div class="listing_info">
+                                <!--
+                                <div class="post_category">
+                                    <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a>
+                                </div>-->
+                                <h4><a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">Dr. {{ m.md_first_name }} {{ m.md_first_surname }}</a></h4>
 
-                            <p> {{ m.esp }} </p>
+                                <p> {{ m.esp }} </p>
 
-                            <div class="listing_review_info">
+                                <div class="listing_review_info">
 
-                                <p><span class="review_score"><i class="fa fa-eye"></i> {{ m.total }} </span>
-                                    <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                                   <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                                   (5 Reviews)--> </p>
-                                <p class="listing_map_m"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
+                                    <p><span class="review_score"><i class="fa fa-eye"></i> {{ m.total }} </span>
+                                        <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                                    <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
+                                    (5 Reviews)--> </p>
+                                    <p class="listing_map_m"><i class="fa fa-map-marker"></i> {{ m.cit_name }} /{{ m.sta_name }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            {% endfor %}
+                {% endfor %}
             {% else %}
                 <div class="col-md-6 col-lg-4 grid_col show_listingx">
-                    No Data Found.
+                    {# No Data Found. #}
                 </div>
             {% endif %}
 
@@ -276,6 +310,27 @@
                 itemSelector: '.grid-item',
             });
 
+            {% if medic|length == 0 %}
+                $("#footer").addClass("fixedBottom")
+            {% endif %}
+
+            $("#formSearch").submit(function(){
+                var country = $('#country').val();
+                if( country > 1 )
+                {
+
+                }else{
+                    $.alert({
+                            icon: 'fa fa-warning',
+                            title: 'Error!',
+                            type: "red",
+                            content: 'Please use the filters',
+                    });
+                    return false;
+                }
+                //alert();
+            });
+
             // States by Country
             $('#country').change(function(){
                 var idSate = $(this).val();
@@ -292,7 +347,7 @@
                 if( idSate > 0 )
                 {
                     $("#state").empty();
-                    $("#cities").empty();
+                    $("#cities").empty().append("<option value=''>All</option>");
                     $("#holder_loading").show();
                     $.ajax({
                         type: "post",
@@ -302,6 +357,7 @@
                                 alert('Error : Load States');
                                 },
                         success: function (data) {
+                            $("#state").append("<option value=''>All</option>");
                             $.each(data, function (key, value) {
                                 $("#state").append("<option value=" + value.sta_id + ">" + value.sta_name + "</option>");
                             });
@@ -336,7 +392,7 @@
                         success: function (data) {
                             //var $this = $("#cities");
                             //console.log(data);
-                            $("#cities").append("<option value='0'>Select City</option>");
+                            $("#cities").append("<option value=''></option>");
                             $.each(data, function (key, value) {
                                 $("#cities").append("<option value=" + value.cit_id + ">" + value.cit_name + "</option>");
                             });
