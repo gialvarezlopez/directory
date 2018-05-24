@@ -138,4 +138,62 @@ class SocialNetwork
     {
         return $this->snCreated;
     }
+    /**
+     * @var string
+     */
+    private $snIcon;
+
+
+    /**
+     * Set snIcon
+     *
+     * @param string $snIcon
+     *
+     * @return SocialNetwork
+     */
+    public function setSnIcon($snIcon)
+    {
+        $this->snIcon = $snIcon;
+
+        return $this;
+    }
+
+    /**
+     * Get snIcon
+     *
+     * @return string
+     */
+    public function getSnIcon()
+    {
+        return $this->snIcon;
+    }
+    /**
+     * @var string
+     */
+    private $snBackground;
+
+
+    /**
+     * Set snBackground
+     *
+     * @param string $snBackground
+     *
+     * @return SocialNetwork
+     */
+    public function setSnBackground($snBackground)
+    {
+        $this->snBackground = $snBackground;
+
+        return $this;
+    }
+
+    /**
+     * Get snBackground
+     *
+     * @return string
+     */
+    public function getSnBackground()
+    {
+        return $this->snBackground;
+    }
 }

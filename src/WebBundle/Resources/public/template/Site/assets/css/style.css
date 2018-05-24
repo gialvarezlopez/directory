@@ -103,11 +103,11 @@ h5 {
 	font-size: 22px;
 }
 h6 {
-	font-size: 20px;
+	font-size: 16px;
 }
 p {
-	font-size:16px;
-	line-height:30px;
+	font-size:14px;
+	line-height:28px;
 	margin-bottom:15px;
 }
 a {
@@ -483,7 +483,7 @@ table thead th, table thead td {
   border-radius: 0;
 }
 .panel-group .panel .panel-title {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 400;
 }
 .panel-group .panel .panel-title a.collapsed {
@@ -2328,7 +2328,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 .listing-with-map-page #footer {
   background: #eeeeee none repeat scroll 0 0 !important;
-  padding-right: 40%;
+  /*padding-right: 40%;*/
 }
 .listing-with-map-page .footer_bottom p {
   color: #555555;
@@ -2898,7 +2898,9 @@ header .navbar-default .navbar-nav li ul.children ul.children {
      -ms-transition-duration:0.3s;
 }
 .social_links a:hover {
-	border-radius:6px;
+  border-radius:6px;
+  color:#fff !important;
+  background: rgba(0,0,0,0.5)
 }
 .social_links a:last-child {
 	margin-right:0px;

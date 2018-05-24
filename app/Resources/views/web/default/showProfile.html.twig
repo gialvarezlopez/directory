@@ -6,7 +6,7 @@
 
 {% block classbg %}
     listing-with-map-page
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
 
@@ -49,7 +49,13 @@
     height: auto;
     max-width: 100%;
 }
-
+.thumbnail-location imgx{
+    border: solid 1px #ccc;
+}
+.grid-item {
+  margin-bottom: 5px;
+  border: solid 1px #ccc;
+}
 .colorSky{
     /*
     color: #03aee9;
@@ -64,7 +70,7 @@
     /*text-shadow: -2px -2px 2px #03aee9, 2px -2px 2px #03aee9, -2px 2px 2px #03aee9, 2px 2px 2px #03aee9;*/
 }
 .double {
-	
+
     border-top: 1px solid #8c8b8b;
 	border-bottom: 1px solid #fff;
 }
@@ -82,62 +88,69 @@
 	<div class="container">
     	<div class="div_zindex white-textx">
         	<div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="text-align:center">
+                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12" style="text-align:center">
                     {% if profile[0].md_profile_image != "" %}
                         {% if file_exists( 'uploads/'~profile[0].md_profile_image ) %}
                             <div  class="ratio img-responsive img-circle" style="background-image: url({{ image('uploads/'~profile[0].md_profile_image).cropResize(250,250) }});"></div>
                         {% else %}
-                              <div  class="ratio img-responsive " style="background-image: url({{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250) }});"></div>  
+                              <div  class="ratio img-responsive " style="background-image: url({{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250) }});"></div>
                         {% endif %}
                     {% else %}
-                        <div  class="ratio img-responsive " style="background-image: url({{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250) }});"></div>  
+                        <div  class="ratio img-responsive " style="background-image: url({{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250) }});"></div>
                     {% endif %}
                 </div>
-                <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
+                <div class="col-lg-10 col-md-9 col-sm-6 col-xs-12">
                     <h2 class="colorSky">Dr. {{ profile[0].md_first_name }} {{ profile[0].md_first_surname }}</h2>
                     <div class="">
                         <hr class="double">
-                        <span class="white"><i class="fa  fa-home"></i> {{ profile[0].ci_company | upper }} | {{ profile[0].esp | upper }}</span>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <span class="white"><i class="fa  fa-home"></i> {{ profile[0].ci_company | upper }} | {{ profile[0].esp | upper }}</span>
+                                <p class="listing_map_m white">
+                                    <a href="#single_map" class="js-target-scroll">
+                                        <i class="fa fa-map-marker"></i> {{ profile[0].ci_address }} {{ profile[0].cit_name }} /{{ profile[0].sta_name }}
+                                    </a>
+                                </p>
+                                <p class="white">
+                                    <span class="review_score ">{{ profile[0].total }}</span>
 
-                        <p class="listing_map_m white">
-                            <i class="fa fa-map-marker"></i>
-                            <a href="#single_map" class="js-target-scroll">{{ profile[0].cit_name }} /{{ profile[0].sta_name }}</a>
-                        </p>
-                        <p class="white">
-                            <span class="review_score ">{{ profile[0].total }}</span> 
-                          
-                            ( <i class="fa fa-eye active"></i> Views) 
-                        </p>
-                        
+                                    ( <i class="fa fa-eye active"></i> Views)
+                                </p>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="listing_message"><a class="btn" data-toggle="modal" data-target="#message_modal"><i class="fa fa-envelope-o"></i> Send Message</a></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr>
 
                 <div class="col-md-4x">
-                    <!--
+                    {#
                 	<div class="pricing_info">
                         <p class="listing_price"><span>$</span>2500 - <span>$</span>4000</p>
-                        <div class="listing_message"><a class="btn" data-toggle="modal" data-target="#message_modal"><i class="fa fa-envelope-o"></i> Send Message</a></div>
+
                     </div>
-                    -->
+                    #}
+
                     {#
                     <div class="listing_wrap">
                         <div class="listing_img">
                             <a href="../"><span class="like_post"><i class="fa fa-arrow-left"></i></span></a>
                             <div class="listing_cate">
-                                
-                                
+
+
                             </div>
-                            
-                           
+
+
                         </div>
                         <div class="listing_info">
                             <div class="post_category">
                                 <a href="#"> Dr. {{ profile[0].md_first_name }} {{ profile[0].md_first_surname }}</a>
                             </div>
 
-                            
-                            
+
+
                         </div>
                     </div>
                     #}
@@ -153,7 +166,7 @@
 <!-- Listings -->
 <section class="listing_info_wrap listing_detail_2">
 	<div class="container">
-            
+
             <!--
         	<div class="sidebar_wrap listing_action_btn">
                 <ul>
@@ -164,7 +177,7 @@
                 </ul>
             </div>
             -->
-            {#        
+            {#
             <div class="image_slider_wrap">
                 <div id="listing_img_slider">
                     <div class="owl-carousel owl-theme">
@@ -173,60 +186,77 @@
                                 <img src="{{ asset('uploads/') }}{{ g.ga_name }}  " style="height: 300px;" alt="image">
                             </div>
                         {% endfor %}
-                    </div>    
+                    </div>
                 </div>
                 <div class="view_map">
                     <a href="#single_map" class="js-target-scroll"><i class="fa fa-map-marker"></i></a>
                 </div>
             </div>
             #}
-            
+            <div class="row">
+                <div class="col-lg-12">
+
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-8">
                     <div class="ElemoListing_detail">
+
+                        <div>
+                            <div class="widget_title">
+                                <h6>
+                                    <i class="fa fa-align-left"></i> Profile Description
+                                </h6>
+                            </div>
+                            <div>
+                                {{ profile[0].md_profile_description|raw }}
+                            </div>
+                        </div>
+
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             {#
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingOne">
-                                    <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#description" aria-expanded="true" aria-controls="collapseOne">
-                                            <i class="fa  fa-clock-o"></i> Schedule </a>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="description" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                    <div class="panel-body">
-                                        <p>
-                                            {% if horario|length %}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#description" aria-expanded="true" aria-controls="collapseOne">
+                                                <i class="fa  fa-clock-o"></i> Schedule </a>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="description" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <p>
+                                                {% if horario|length %}
 
-                                            <table class="table table-striped text-center" style="table-layout: fixed;">
-                                                <tr>
-                                                    {% for key, horas in horario %}
-                                                        <th class="text-center">
-                                                            {% if ( key == hoy) %}
-                                                                <span style="color:#009bdb">{{ key }}</span>
-                                                            {% else %}
-                                                                {{ key }}
-                                                            {% endif %}
-                                                        </th>
-                                                    {% endfor %}
-                                                </tr>
-                                                <tr>
-                                                    {% for key, horas in horario %}
-                                                        <td>
-                                                            {{ horas|raw }}
-                                                        </td>
-                                                    {% endfor %}
-                                                </tr>
-                                            </table>
-                                            {% else %}
-                                                N/A
-                                            {% endif %}
-                                        </p>
+                                                <table class="table table-striped text-center" style="table-layout: fixed;">
+                                                    <tr>
+                                                        {% for key, horas in horario %}
+                                                            <th class="text-center">
+                                                                {% if ( key == hoy) %}
+                                                                    <span style="color:#009bdb">{{ key }}</span>
+                                                                {% else %}
+                                                                    {{ key }}
+                                                                {% endif %}
+                                                            </th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    <tr>
+                                                        {% for key, horas in horario %}
+                                                            <td>
+                                                                {{ horas|raw }}
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </table>
+                                                {% else %}
+                                                    N/A
+                                                {% endif %}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            #}  
+                            #}
+                            {#
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingTwo">
                                   <h4 class="panel-title">
@@ -239,24 +269,25 @@
                                   </div>
                                 </div>
                             </div>
-                              
+                            #}
+
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingThree">
                                   <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#opening_hours" aria-expanded="false" aria-controls="collapseThree"> <i class="fa fa-calendar-check-o"></i> Academic Training </a>
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#opening_hours" aria-expanded="false" aria-controls="collapseThree"> <i class="fa fa-check" aria-hidden="true"></i> Academic Training </a>
                                   </h4>
                                 </div>
-                                <div id="opening_hours" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div id="opening_hours" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                                   <div class="panel-body">
                                     {{ profile[0].md_academic_training|raw }}
                                   </div>
                                 </div>
                             </div>
-                              
+
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingFour">
                                   <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_professional_experience" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-calendar-check-o"></i> Professional Experience</a>
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_professional_experience" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-check" aria-hidden="true"></i> Professional Experience</a>
                                   </h4>
                                 </div>
                                 <div id="md_professional_experience" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
@@ -269,7 +300,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingFour">
                                   <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_courses_seminars" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-calendar-check-o"></i> Courses/Seminars </a>
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_courses_seminars" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-check" aria-hidden="true"></i> Courses/Seminars </a>
                                   </h4>
                                 </div>
                                 <div id="md_courses_seminars" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
@@ -282,7 +313,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingFour">
                                   <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_aditional_information" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-calendar-check-o"></i> Aditional Information </a>
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_aditional_information" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-check" aria-hidden="true"></i> Aditional Information </a>
                                   </h4>
                                 </div>
                                 <div id="md_aditional_information" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
@@ -293,27 +324,51 @@
                             </div>
 
                         </div>
-                    
-                        
+
+
                     </div>
                 </div>
-                
+
                 <!-- Sidebar -->
                  <div class="col-md-4">
                     <div class="ElemoListing_sidebar">
                         <div class="sidebar_wrap listing_contact_info">
                             <div class="widget_title">
-                                <h6>Contact Info</h6>
+                                <h6><i class="fa fa-address-book" aria-hidden="true"></i> Contact Info</h6>
                             </div>
                             <ul>
                                 <li><i class="fa fa-map-marker"></i> {{ profile[0].ci_address }} {{ profile[0].cit_name }} / {{ profile[0].sta_name  }} </li>
-                                <li><i class="fa fa-phone"></i> {{ profile[0].ci_phone1 }} / {{ profile[0].ci_phone2  }} </li>
-                                <li><i class="fa fa-envelope"></i> {{ profile[0].ci_phone1 }}</li>
-                                <li><i class="fa fa-link"></i> {{ profile[0].usr_email }}</li>
+                                <li><i class="fa fa-phone"></i>
+                                    {{ profile[0].ci_phone1 }}
+                                        {% if profile[0].ci_phone1 != "" and profile[0].ci_phone2 != "" %}
+                                            /
+                                        {% endif %}
+                                    {{ profile[0].ci_phone2  }}
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    {% for social in oListMySocialNetworks %}
+                                        {% if social.sn.snkey|lower == "email" %}
+                                            {{social.usnLink }}<br>
+                                        {% endif %}
+                                    {% endfor %}
+                                </li>
                             </ul>
                             <div class="social_links">
-                                {% for sn in  social_network %}
-                                    <a href="{{ sn.usn_link }}" target="_blanck"><i class="fa fa-{{ sn.sn_type | lower }}"></i></a>
+                                {#
+                                    {% for sn in  social_network %}
+                                        <a href="{{ sn.usn_link }}" target="_blanck"><i class="fa fa-{{ sn.sn_type | lower }}"></i></a>
+                                    {% endfor %}
+                                #}
+                                {% for social in oListMySocialNetworks %}
+                                    {% if social.sn.snkey|lower != "email" %}
+
+                                        {% if social.sn.snBackground != "" %}
+                                            <a href="{{social.usnLink }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{social.sn.snType}}" style="background:{{social.sn.snBackground}}"><i class="{{ social.sn.snIcon }}"></i></a>
+                                        {% else %}
+                                            <a href="{{social.usnLink }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{social.sn.snType}}"><i class="{{ social.sn.snIcon }}"></i></a>
+                                        {% endif %}
+                                    {% endif %}
                                 {% endfor %}
                             </div>
                             <hr>
@@ -322,7 +377,7 @@
                                     <h6><i class="fa  fa-clock-o"></i> Schedule </a></h6>
                                 </div>
                                 <table class="table table-striped text-center" >
-                                    
+
                                         {% for key, horas in horario %}
                                             <tr>
                                                 <th class="text-center">
@@ -337,15 +392,30 @@
                                                 </th>
                                             </tr>
                                         {% endfor %}
-                                    
-                                    
+
+
                                 </table>
                             {% else %}
                                 N/A
                             {% endif %}
+                                {% if gallery|length %}
+                                <hr>
+                                    <div class="widget_title">
+                                        <h6><i class="fa fa-file-image-o" aria-hidden="true"></i> Gallery</h6>
+                                    </div>
+                                    <div class="grid">
+                                    {% for g in gallery %}
+                                        {% if file_exists( 'uploads/'~g.ga_name ) %}
+                                        <div class="grid-item thumbnail-location">
+                                            <a class="" data-fancybox="gallery" href="{{ image('uploads/'~g.ga_name).cropResize(600,450) }}"><img src="{{ image('uploads/'~g.ga_name).cropResize(100,100) }}" alt=""></a>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </div>
+                                {% endif %}
 
                         </div>
-                        
+
                     </div>
                 </div>
                 <!-- /Sidebar -->
@@ -366,7 +436,7 @@
                     <div class="listing_img">
                         <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
                         <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span> 
+                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span>
                             <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
                         </div>
                         <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
@@ -374,15 +444,15 @@
                     <div class="listing_info">
                         <div class="post_category">
                             <a href="#">Real Estate</a>
-                            
+
                         </div>
                         <h4><a href="#">The Morning Hotel</a></h4>
                         <p>5-star hotel with restaurant, Deluxe Rooms.</p>
-                        
+
                         <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                            <p><span class="review_score">4.0/5</span>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
                                (5 Reviews) </p>
                             <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
                         </div>
@@ -395,7 +465,7 @@
                     <div class="listing_img">
                         <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
                         <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span> 
+                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span>
                             <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
                         </div>
                         <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
@@ -403,15 +473,15 @@
                     <div class="listing_info">
                         <div class="post_category">
                             <a href="#">Real Estate</a>
-                            
+
                         </div>
                         <h4><a href="#">The Morning Hotel</a></h4>
                         <p>5-star hotel with restaurant, Deluxe Rooms.</p>
-                        
+
                         <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                            <p><span class="review_score">4.0/5</span>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
                                (5 Reviews) </p>
                             <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
                         </div>
@@ -424,7 +494,7 @@
                     <div class="listing_img">
                         <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
                         <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }}  " alt="icon-img"></a></span> 
+                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }}  " alt="icon-img"></a></span>
                             <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
                         </div>
                         <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
@@ -432,15 +502,15 @@
                     <div class="listing_info">
                         <div class="post_category">
                             <a href="#">Real Estate</a>
-                            
+
                         </div>
                         <h4><a href="#">The Morning Hotel 24</a></h4>
                         <p>5-star hotel with restaurant, Deluxe Rooms.</p>
-                        
+
                         <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> 
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i> 
+                            <p><span class="review_score">4.0/5</span>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
                                (5 Reviews) </p>
                             <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
                         </div>
@@ -554,7 +624,7 @@
 <!-- /Report -->
 
 <!-- Send-Message -->
-<div id="message_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div id="message_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -562,18 +632,18 @@
         <h3 class="modal-title">Send Message</h3>
       </div>
       <div class="modal-body">
-        <form action="#" method="get">
+        <form action="#" method="get" name="formSendMsg" id="formSendMsg">
           <div class="form-group">
-          	<input type="text" class="form-control" placeholder="Name" autocomplete="off">
+          	<input type="text" class="form-control" id="inputName" placeholder="Name" autocomplete="off">
           </div>
           <div class="form-group">
-          	<input type="email" class="form-control" placeholder="Email" autocomplete="off">
+          	<input type="email" class="form-control" id="inputEmail" placeholder="Email" autocomplete="off">
           </div>
           <div class="form-group">
-            <textarea rows="4" class="form-control" placeholder="Message"></textarea>
+            <textarea rows="4" class="form-control" id="inputMessage" placeholder="Message"></textarea>
           </div>
           <div class="form-group">
-            <input value="Send Message" class="btn btn-block" type="submit">
+            <input value="Send Now" class="btn btn-block" type="submit">
           </div>
         </form>
       </div>
@@ -587,21 +657,14 @@
 
 <div class="container">
     <div class="col-lg-12">
-        <div>
-            
-            {% for g in gallery %}
-                {% if file_exists( 'uploads/'~g.ga_name ) %}
 
-                    <a data-fancybox="gallery" href="{{ image('uploads/'~g.ga_name).cropResize(600,450) }}"><img src="{{ image('uploads/'~g.ga_name).cropResize(100,100) }}"></a>
 
-                {% endif %}    
-            {% endfor %}
-        </div>
-        
         {% if profile[0].ci_lat != "" and profile[0].ci_lng != ""%}
-            <hr>
-            
-            <div id="single_map" style="margin-top: 0px;">
+
+            <div class="widget_title">
+                <h6><i class="fa fa-map-marker" aria-hidden="true"></i> Location Map</h6>
+            </div>
+            <div id="single_mapx" style="margin-top: 0px;">
                 <div id="singleListingMap-container">
                     <div id="singlemap" data-latitude="{{ profile[0].ci_lat }}" data-longitude="{{ profile[0].ci_lng }}" data-map-icon="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></div>
                 </div>
@@ -616,15 +679,83 @@
 
         $(function () {
 
-            $("[data-fancybox]").fancybox({
-                /*
-                thumbs : {
-                    autoStart : true
-                }
-                */
-                 transitionEffect: "circular",
+            $("#formSendMsg").submit(function(event){
+                event.preventDefault();
+                $("#holder_loading").show();
+                var name = $("#inputName").val();
+                var email = $("#inputEmail").val();
+                var message = $("#inputMessage").val();
+                var routeShow = "{{ path('web_sendContactFormToDoctor') }}";
+				$.ajax({
+						type: "POST",
+						url: routeShow,
+						data: {
+						    name:name, email:email, message: message
+						},
+						error: function (data) {
+							$("#holder_loading").hide();
+                            $.alert({
+									icon: 'fa fa-times',
+									title: 'Info!',
+									content: 'An error occurred while trying to send the form ',
+									type: 'red',
+									typeAnimated: true,
+							});
+						},
+						success: function (data) {
+
+							if (data > 0)
+							{
+
+								$("#holder_loading").hide();
+                                $.alert({
+                                    icon: 'fa fa-check',
+                                    title: 'Success',
+                                    type: "green",
+                                    content: 'The form was sended Ok!',
+                                });
+                                $('#message_modal').modal('hide')
+                                $("#formSendMsg")[0].reset();
+							} else
+							{
+								$("#holder_loading").hide();
+								$.alert({
+									icon: 'fa fa-times',
+									title: 'Info!',
+									content: 'An error occurred while trying to send the form ',
+									type: 'red',
+									typeAnimated: true,
+								});
+							}
+
+
+
+						}
+				});
             });
-               
+
+           // $("#footer").css({"padding-right":"0% !important"});
+            $('.grid').isotope({
+                itemSelector: '.grid-item',
+                masonry: {
+                    columnWidth: 20,
+                    gutter: 10
+                }
+            });
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+
+            {%if gallery|length > 0  %}
+                $("[data-fancybox]").fancybox({
+                    /*
+                    thumbs : {
+                        autoStart : true
+                    }
+                    */
+                    transitionEffect: "circular",
+                });
+            {% endif %}
     /*-------------------------------------------------------------------------------
 		Googl-Map
 	-------------------------------------------------------------------------------*/
@@ -641,7 +772,7 @@
             lat: $('#singlemap').data('latitude'),
         });
         var single_map = new google.maps.Map(document.getElementById('singlemap'), {
-            zoom: 9,
+            zoom: 15,
             center: myLatlng,
             scrollwheel: true,
             zoomControl: true,
@@ -731,9 +862,9 @@
     };
     CustomMarker.prototype.getPosition = function() {
         return this.latlng;
-    }; 
-        });   
-    </script> 
+    };
+        });
     </script>
-{% endblock %}        
+    </script>
+{% endblock %}
 

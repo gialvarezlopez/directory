@@ -27,4 +27,9 @@ web_contactus:
   defaults: { _controller: "WebBundle:Default:contactus" }
   methods:  POST
 
+web_sendContactFormToDoctor:
+  path:     /send/form/doctor
+  defaults: { _controller: "WebBundle:Default:sendContactFormToDoctor" }
+  methods:  POST
+
 

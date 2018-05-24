@@ -81,4 +81,3 @@ class UserHasSpeciality
         return $this->usr;
     }
 }
-

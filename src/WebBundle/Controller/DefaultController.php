@@ -11,12 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $em     = $this->getDoctrine()->getManager();   
+        $em     = $this->getDoctrine()->getManager();
         /*
         *   Obtain all profiles data
         */
@@ -40,7 +41,7 @@ class DefaultController extends Controller
         //$sBusqueda = $request->query->get('b');
         $sUsuarios = '';
         if (!empty($_state) or !empty($_city) or !empty($_speciality)) {
-            
+
             $_SESSION['_STATE']     = $_state;
             $_SESSION['_CITY']      = $_city;
             $_SESSION['_SPECI']     = $_speciality;
@@ -65,65 +66,65 @@ class DefaultController extends Controller
             if(isset($_state)){
                 $sql_estado = "select * from state where sta_id = ".$_state;
                 $statement  = $em->getConnection()->prepare($sql_estado);
-                                $statement->execute();    
-                $estados_d = $statement->fetchAll(); 
-            }            
+                                $statement->execute();
+                $estados_d = $statement->fetchAll();
+            }
 
             // Obteniendo todas las cities del estado en session
             if(isset($_SESSION['_CITY'])){
                 $sql_estado = "select * from city where sta_id = ". $_SESSION['_STATE'];
                 $statement  = $em->getConnection()->prepare($sql_estado);
-                                $statement->execute();    
-                $citis = $statement->fetchAll(); 
+                                $statement->execute();
+                $citis = $statement->fetchAll();
             }
             if(isset($_country)){
                 $sql_estado = "select * from country where cou_id = ". $_SESSION['_COUNTRY'];
                 $statement  = $em->getConnection()->prepare($sql_estado);
-                                $statement->execute();    
-                $countries = $statement->fetchAll(); 
-            }         
+                                $statement->execute();
+                $countries = $statement->fetchAll();
+            }
 
-            $zoom = 1;        
+            $zoom = 1;
         }else{
             $sql_estado = "select * from state where sta_id = 1";
             $statement  = $em->getConnection()->prepare($sql_estado);
-                            $statement->execute();    
-            $estados_d= $statement->fetchAll(); 
+                            $statement->execute();
+            $estados_d= $statement->fetchAll();
 
             $zoom = 0;
         }
 
-        
-    	     
-        $state 	    = $em->getRepository('AppBundle:State')->findBy( array('cou' => $_country) );    
+
+
+        $state 	    = $em->getRepository('AppBundle:State')->findBy( array('cou' => $_country) );
         $speciality = $em->getRepository('AppBundle:Speciality')->findAll();
         $country    = $em->getRepository('AppBundle:Country')->findAll();
 
-        $RAW_QUERY	= "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, 
+        $RAW_QUERY	= "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,
                         ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
-                        group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla 
-                        from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u 
+                        group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
+                        from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
 			LEFT JOIN state as s on s.sta_id = c.sta_id
-            
+
 			LEFT JOIN user_has_speciality AS ues ON ues.usr_id = u.usr_id
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             where md.md_active = 1 and ci.ci_lat != '' $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
-        			  $statement->execute();    
-        $medic    	= $statement->fetchAll(); 
-         
+        			  $statement->execute();
+        $medic    	= $statement->fetchAll();
+
 
         /**
         * @VAR $paginator \Knp\Component\Pager\Paginator
         */
         $paginator = $this->get('knp_paginator');
                         $pagination = $paginator->paginate(
-                                $medic, 
+                                $medic,
                                 $request->query->getInt('page', 1),
                                 9);
-           
+
 
         return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries , 'estados_d' => $estados_d));
     }
@@ -133,17 +134,31 @@ class DefaultController extends Controller
         /*
         *   Obtain profile detail by user
         */
-        $id_profile = 0;
-        if($request->get("id")){
-            $id_profile = $request->get("id");
-        }
+        $id_profile = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        //$id_profile = 0;
 
-        $em     = $this->getDoctrine()->getManager();        
+        if( is_numeric($id_profile) )
+        {
+
+            $oUser = $em->getRepository('AppBundle:User')->findOneBy( array( "usrId"=> $id_profile) );
+
+            if(!$oUser)
+            {
+                throw new NotFoundHttpException("Page not found");
+            }
+
+            $oListMySocialNetworks = $em->getRepository('AppBundle:UserHasSocialNetwork')->findBy( array("usr"=>$id_profile, "usnActive"=>1) );
+        }
+        else
+        {
+            throw new NotFoundHttpException("Page not found");
+        }
 
         $RAW_QUERY  = "select  u.usr_id, md.md_first_name,  ci.ci_company,ci.ci_schedule,md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, md.md_profile_description, md.md_academic_training,md.md_professional_experience,md.md_courses_seminars,md.md_aditional_information,
                         ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1, ci.ci_phone2,u.usr_email,
-                        group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla 
-                        from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u 
+                        group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
+                        from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
             LEFT JOIN state as s on s.sta_id = c.sta_id
             LEFT JOIN speciality as e on e.usr_id = u.usr_id
@@ -151,22 +166,22 @@ class DefaultController extends Controller
             group by u.usr_id";
 
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
-                      $statement->execute();    
-        $profile      = $statement->fetchAll();   
+                      $statement->execute();
+        $profile      = $statement->fetchAll();
 
         //Obtain gallery
 
         $RAW_GALLERY    = "select * from gallery where usr_id = ".$id_profile;
         $statement      = $em->getConnection()->prepare($RAW_GALLERY);
                           $statement->execute();
-        $gallery        = $statement->fetchAll();  
+        $gallery        = $statement->fetchAll();
 
-        //Obtain Social Network 
-        $RAW_Social     = "select * from user_has_social_network usn left join social_network as sn on 
+        //Obtain Social Network
+        $RAW_Social     = "select * from user_has_social_network usn left join social_network as sn on
                             usn.sn_id = sn.sn_id where usr_id =".$id_profile;
         $statement      = $em->getConnection()->prepare($RAW_Social);
                           $statement->execute();
-        $social_network = $statement->fetchAll();  
+        $social_network = $statement->fetchAll();
 
         $horaDias = array();
         $hoy = "";
@@ -174,12 +189,12 @@ class DefaultController extends Controller
             $arr = unserialize($profile[0]['ci_schedule']);
 
             $num = 1;
-            
+
             $horaDias = array();
             $dias = array(1 => "Mon", 2 => "Tus", 3 => "Wed", 4 => "Thr", 5 => "Fri", 6 => "Sat", 7 => "Sun");
             $hoy = $dias[date("N")];
 
-            foreach ($arr as $key => $value) 
+            foreach ($arr as $key => $value)
             {
                 if ( count($value) > 0 )
                 {
@@ -188,14 +203,14 @@ class DefaultController extends Controller
                     $hd .= $cadena;
                     $horaDias[$key] = $hd;
                 }
-                $num++; 
+                $num++;
             }
             //var_dump($horaDias);
-        }     
+        }
 
         $this->ViewsProfiles( $request , $id_profile );
 
-        return $this->render('web/default/showProfile.html.twig', array( 'profile' => $profile ,"horario" => $horaDias, "hoy" => $hoy, 'gallery' => $gallery , 'social_network' => $social_network ));
+        return $this->render('web/default/showProfile.html.twig', array( 'profile' => $profile ,"horario" => $horaDias, "hoy" => $hoy, 'gallery' => $gallery , 'social_network' => $social_network, "oListMySocialNetworks"=>$oListMySocialNetworks ));
     }
 
     public function showFullProfileAction( Request $request ){
@@ -204,13 +219,13 @@ class DefaultController extends Controller
 
     public function getStateByCountryAction( Request $request ){
 
-        $em     = $this->getDoctrine()->getManager();       
+        $em     = $this->getDoctrine()->getManager();
         //$state    = $em->getRepository('AppBundle:City')->findby( array('sta' => $_POST['id']) );
 
         $RAW_QUERY  = "select * from state where state.cou_id =". $_POST['id'];
 
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
-        $statement->execute();    
+        $statement->execute();
         $state      = $statement->fetchAll();
 
         $response = new Response(json_encode($state));
@@ -221,13 +236,13 @@ class DefaultController extends Controller
 
     public function getCitiesByStateAction( Request $request ){
 
-    	$em 	= $this->getDoctrine()->getManager();    	
+    	$em 	= $this->getDoctrine()->getManager();
         //$state 	= $em->getRepository('AppBundle:City')->findby( array('sta' => $_POST['id']) );
 
         $RAW_QUERY  = "select * from city where city.sta_id =". $_POST['id'];
 
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
-        $statement->execute();    
+        $statement->execute();
         $state    	= $statement->fetchAll();
 
         $response = new Response(json_encode($state));
@@ -241,10 +256,10 @@ class DefaultController extends Controller
         if(empty($_COOKIE['contador']))
         {
             // Obtener La Ip del visitante.
-            $em     = $this->getDoctrine()->getManager();        
+            $em     = $this->getDoctrine()->getManager();
             $ip     = $this->getRealIP();
 
-            $oUsr   = $em->getRepository('AppBundle:User')->findOneBy( array('usrId' => $id_profile) );     
+            $oUsr   = $em->getRepository('AppBundle:User')->findOneBy( array('usrId' => $id_profile) );
 
             $visitas = new UserViews();
             $visitas->setVisUsu( $oUsr );
@@ -260,8 +275,8 @@ class DefaultController extends Controller
 
     private function getRealIP()
     {
-   
-        if ($_SERVER['SERVER_NAME']) 
+
+        if ($_SERVER['SERVER_NAME'])
         {
             if (isset($_SERVER['HTTP_X_FORWARDED_FOR'] ))
             {
@@ -275,7 +290,7 @@ class DefaultController extends Controller
             {
                 $sIpAddress = @$_SERVER["REMOTE_ADDR"];
             }
-        }    
+        }
         return $sIpAddress;
     }
 
@@ -289,8 +304,8 @@ class DefaultController extends Controller
         $total_minutos_trasncurridos = $total_minutos_trasncurridos[1]-$total_minutos_trasncurridos[2];
         if($total_minutos_trasncurridos<=59){
             //return($total_minutos_trasncurridos.' Minutos');
-            return($total_minutos_trasncurridos);   
-        } 
+            return($total_minutos_trasncurridos);
+        }
         else if($total_minutos_trasncurridos>59)
         {
             $HORA_TRANSCURRIDA = round($total_minutos_trasncurridos/60);
@@ -299,14 +314,14 @@ class DefaultController extends Controller
                 $HORA_TRANSCURRIDA='0'.$HORA_TRANSCURRIDA;
             }
             $MINUITOS_TRANSCURRIDOS = $total_minutos_trasncurridos%60;
-            if($MINUITOS_TRANSCURRIDOS<=9) 
+            if($MINUITOS_TRANSCURRIDOS<=9)
             {
                 $MINUITOS_TRANSCURRIDOS='0'.$MINUITOS_TRANSCURRIDOS;
-            }   
+            }
             //return ($HORA_TRANSCURRIDA.':'.$MINUITOS_TRANSCURRIDOS.' Horas');
             return $Minutos = ($HORA_TRANSCURRIDA * 60)+$MINUITOS_TRANSCURRIDOS;
 
-        } 
+        }
     }
 
     public function rangos($arr)
@@ -337,7 +352,7 @@ class DefaultController extends Controller
                         {
                             $cadena .= "<br /> ". date('ga', strtotime($arr[$i]));
                             $block = false;
-                        }   
+                        }
                     }
                 }
             }
@@ -356,7 +371,7 @@ class DefaultController extends Controller
     }
 
     public function contactusAction( Request $request ){
-       
+
         $em     = $this->getDoctrine()->getManager();
 
         $name = $request->get('name');
@@ -376,8 +391,16 @@ class DefaultController extends Controller
 
             $em->merge($contactus);
             $em->flush();
-        }       
+        }
         return $this->render('web/default/landing.html.twig');
 
+    }
+
+    public function sendContactFormToDoctorAction( Request $request ){
+        $name = $request->get("name");
+        $email = $request->get("email");
+        $message = $request->get("message");
+        echo 1;
+        exit();
     }
 }

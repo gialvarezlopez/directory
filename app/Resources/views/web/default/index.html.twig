@@ -31,6 +31,9 @@
         .like_post {
             margin-top: 40px;
         }
+        .itemSpecialities{
+            font-size: 12px !important;
+        }
 
         .mapnavigation a,
         .mapzoom-in:hover,
@@ -95,6 +98,10 @@
             text-align: center;
             width: 100%;
         }
+
+        .#footer {
+            padding-right: 40%;
+         }
     </style>
 
     <!-- Listings -->
@@ -291,13 +298,13 @@
                                 </div>
                                 <div class="listing_info">
                                     <!-- <div class="post_category"> <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a> </div>-->
-                                    <h4>
+                                    <h6>
                                         <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">Dr.
                                             {{ m.md_first_name }}
                                             {{ m.md_first_surname }}</a>
-                                    </h4>
+                                    </h6>
 
-                                    <p>
+                                    <p class="itemSpecialities">
                                         {{ m.esp }}
                                     </p>
 
@@ -344,7 +351,7 @@
     <script>
 
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip(); 
+            $('[data-toggle="tooltip"]').tooltip();
 
             $('.grid').isotope({itemSelector: '.grid-item'});
 
@@ -354,7 +361,10 @@
 
             $("#formSearch").submit(function () {
                 var country = $('#country').val();
-                if (country > 1) {} else {
+                //alert(country);
+                if (country > 0) {
+
+                } else {
                     $.alert({icon: 'fa fa-warning', title: 'Error!', type: "red", content: 'Please use the filters'});
                     return false;
                 }

@@ -26,6 +26,20 @@ AppBundle\Entity\SocialNetwork:
             options:
                 fixed: false
             column: sn_key
+        snIcon:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: sn_icon
+        snBackground:
+            type: string
+            nullable: true
+            length: 12
+            options:
+                fixed: false
+            column: sn_background
         snActive:
             type: boolean
             nullable: true

@@ -6,11 +6,11 @@
 
 {% block breadcrumb %}
     {# {{ include('EmrBundle:consulta:_breadcrumb.html.twig' )  }} #}
-{% endblock %} 
+{% endblock %}
 
 {% block submenutop %}
     {# {{ include('EmrBundle:consulta:_submenu.html.twig' )  }} #}
-{% endblock %} 
+{% endblock %}
 
 
 
@@ -87,7 +87,7 @@
                                         </div>
                                         <!-- /.box-body -->
                                     </div>
-                                    
+
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="box box-success">
@@ -104,7 +104,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="box box-success">
@@ -119,21 +119,21 @@
                                                 <div class="col-lg-8">
                                                     <div class="form-group">
                                                         <div class="form_error">{{ form_errors(form.mdProfileImage)}}</div>
-                                                            
+
                                                         <div class="">{{ form_widget(form.mdProfileImage,  { 'attr': {'class': 'form-control'} } ) }}</div>
                                                     </div>
                                                     <div class="col-lg-3"></div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                         <!-- /.box-body -->
                                     </div>
-                                    
+
                                 </div>
                             </div>
-                            
-                            
+
+
                         </div>
                     </div>
                 </div>
@@ -142,6 +142,31 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div class="row">
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="box box-info collapsed-box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Profile Description :
+                                        {# <small>Advanced and full of features</small> #}
+                                    </h3>
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+                                        <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                        <i class="fa fa-plus"></i></button>
+                                    </div>
+                                    <!-- /. tools -->
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body pad">
+                                    <div class="form-group">
+                                        <div class="form_error">{{ form_errors(form.mdProfileDescription)}}</div>
+
+                                        <div class="">{{ form_widget(form.mdProfileDescription,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="box box-info collapsed-box">
                                 <div class="box-header">
@@ -159,7 +184,7 @@
                                 <div class="box-body pad">
                                     <div class="form-group">
                                         <div class="form_error">{{ form_errors(form.mdAcademicTraining)}}</div>
-                                        
+
                                         <div class="">{{ form_widget(form.mdAcademicTraining,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                     </div>
                                 </div>
@@ -182,12 +207,18 @@
                                 <div class="box-body pad">
                                     <div class="form-group">
                                         <div class="form_error">{{ form_errors(form.mdProfessionalExperience)}}</div>
-                                        
+
                                         <div class="">{{ form_widget(form.mdProfessionalExperience,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div class="row">
+
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="box box-info collapsed-box">
                                 <div class="box-header">
@@ -205,39 +236,14 @@
                                 <div class="box-body pad">
                                     <div class="form-group">
                                         <div class="form_error">{{ form_errors(form.mdCoursesSeminars)}}</div>
-                                        
+
                                         <div class="">{{ form_widget(form.mdCoursesSeminars,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>    
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <div class="box box-info collapsed-box">
-                                <div class="box-header">
-                                    <h3 class="box-title">Profile Description :
-                                        {# <small>Advanced and full of features</small> #}
-                                    </h3>
-                                    <!-- tools box -->
-                                    <div class="pull-right box-tools">
-                                        <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
-                                        <i class="fa fa-plus"></i></button>
-                                    </div>
-                                    <!-- /. tools -->
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body pad">
-                                    <div class="form-group">
-                                        <div class="form_error">{{ form_errors(form.mdProfileDescription)}}</div>
-                                        
-                                        <div class="">{{ form_widget(form.mdProfileDescription,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="box box-info collapsed-box">
                                 <div class="box-header">
@@ -255,7 +261,7 @@
                                 <div class="box-body pad">
                                     <div class="form-group">
                                         <div class="form_error">{{ form_errors(form.mdAditionalInformation)}}</div>
-                                        
+
                                         <div class="">{{ form_widget(form.mdAditionalInformation,  { 'attr': {'class': 'textarea'} } ) }} {# {{ form_widget(form.catalogName,  { 'attr': {'class': 'c4'} } ) }} #}</div>
                                     </div>
                                 </div>
@@ -272,7 +278,7 @@
                         <label>
                             {{ form_widget(form.mdActive,  { 'attr': {'class': ''} } ) }} Active this Information
                         </label>
-                         
+
                     </div>
                 </div>
              </div>
@@ -284,14 +290,14 @@
                     {{ form_end(form) }}
                 </div>
              </div>
-                    
+
         {{form_end(form)}}
         {#
         <form action="{{ path('ajuste_set_update') }}" method="POST" enctype="multipart/form-data" id="form_setting" name="form_setting">
         </form>
         #}
 
-   
+
 {% endblock %}
 
 {% block codejs %}
@@ -319,7 +325,7 @@
 
                 var imgPath = $(this)[0].value;
                 var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
-                
+
 
                 if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
                     var image_holder = $("#image-holder");
@@ -345,7 +351,7 @@
                         alert("This browser does not support FileReader.");
                     }
                 } else {
-                    
+
                     $.alert({
                             icon: 'fa fa-warning',
                             title: 'Error!',
@@ -356,6 +362,6 @@
                 }
             });
         })
-    </script> 
+    </script>
 {% endblock %}
 

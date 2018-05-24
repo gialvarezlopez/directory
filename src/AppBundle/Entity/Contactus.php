@@ -197,4 +197,3 @@ class Contactus
         return $this->conCreate;
     }
 }
-
