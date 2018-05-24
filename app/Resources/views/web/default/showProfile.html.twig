@@ -346,9 +346,26 @@
                                     {{ profile[0].ci_phone2  }}
                                 </li>
                                 <li>
-                                    <i class="fa fa-envelope"></i>
+
+                                    {% set pros = 0 %}
+                                    {% set arrayEmails = [] %}
                                     {% for social in oListMySocialNetworks %}
                                         {% if social.sn.snkey|lower == "email" %}
+                                            {% if pros == 0 %}
+                                                {% set arrayEmails = arrayEmails|merge([{ icon: social.sn.snIcon, background:social.sn.snBackground  }]) %}
+                                                {% set pros = 1 %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+
+
+                                    {% if arrayEmails|length %}
+                                        <span style="background:{{arrayEmails[0].background}}"><i class="{{arrayEmails[0].icon}}"></i></span>
+                                    {% endif %}
+
+                                    {% for social in oListMySocialNetworks %}
+                                        {% if social.sn.snkey|lower == "email" %}
+                                            {% set emails = true %}
                                             {{social.usnLink }}<br>
                                         {% endif %}
                                     {% endfor %}
