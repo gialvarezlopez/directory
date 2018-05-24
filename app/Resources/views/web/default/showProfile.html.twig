@@ -597,12 +597,16 @@
                 {% endif %}    
             {% endfor %}
         </div>
-        <hr>
-        <div id="single_map" style="margin-top: 0px;">
-            <div id="singleListingMap-container">
-                <div id="singlemap" data-latitude="{{ profile[0].ci_lat }}" data-longitude="{{ profile[0].ci_lng }}" data-map-icon="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></div>
+        
+        {% if profile[0].ci_lat != "" and profile[0].ci_lng != ""%}
+            <hr>
+            
+            <div id="single_map" style="margin-top: 0px;">
+                <div id="singleListingMap-container">
+                    <div id="singlemap" data-latitude="{{ profile[0].ci_lat }}" data-longitude="{{ profile[0].ci_lng }}" data-map-icon="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></div>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
