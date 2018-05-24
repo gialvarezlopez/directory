@@ -219,7 +219,7 @@
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search</button>
                                     {% if app.request.query.get("country") > 0 %}
-                                        <a href="{{ path('web_homepage') }}" class="btn btn-danger" id="cleanSearch">
+                                        <a href="{{ path('web_homepage') }}" class="btn btn-danger" id="cleanSearch" data-toggle="tooltip" title="Clear Filters">
                                             <i class="fa fa-times" aria-hidden="true"></i>
                                         </a>
                                     {% endif %}
@@ -344,6 +344,7 @@
     <script>
 
         $(function () {
+            $('[data-toggle="tooltip"]').tooltip(); 
 
             $('.grid').isotope({itemSelector: '.grid-item'});
 

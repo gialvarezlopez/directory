@@ -1,9 +1,9 @@
 {% if image != "" %}
     {% if file_exists( 'uploads/'~image ) %}
-        <img src="{{ image('uploads/'~image).cropResize(max) }}" class="{{iClass}}" class="img-thumbnail">
+        <img src="{{ image('uploads/'~image).cropResize(90,90) }}" class="{{iClass}}" class="img-thumbnail">
     {% else %}
-        <img src="{{ image("bundles/app/template/dist/img/user_info.png").cropResize(max) }}" class="{{iClass}}" alt="User Image">
+        <img src="{{ image("bundles/app/template/dist/img/user_info.png").cropResize(90,90) }}" class="{{iClass}}" alt="User Image">
     {% endif %}
 {% else %}
-    <img src="{{ image("bundles/app/template/dist/img/user_info.png").cropResize(max) }}" class="{{iClass}}" alt="User Image">
+    <img src="{{ image("bundles/app/template/dist/img/user_info.png").cropResize(90,90) }}" class="{{iClass}}" alt="User Image">
 {% endif %}
