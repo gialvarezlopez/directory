@@ -81,6 +81,16 @@
 .dark-overlay{
     background: rgba(0, 0, 0, 0.82) none repeat scroll 0 0;
 }
+.single_map{
+    margin-top: 0px;padding-top: 0px;
+}
+
+.days{
+    font-size: 12px;
+}
+.hoursText{
+    font-size: 12px;
+}
 </style>
 
 <!-- Listing-detail-Header -->
@@ -379,11 +389,23 @@
                                 #}
                                 {% for social in oListMySocialNetworks %}
                                     {% if social.sn.snkey|lower != "email" %}
-
-                                        {% if social.sn.snBackground != "" %}
-                                            <a href="{{social.usnLink }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{social.sn.snType}}" style="background:{{social.sn.snBackground}}"><i class="{{ social.sn.snIcon }}"></i></a>
+                                        {#
+                                        {% if 'https' in social.usnLink OR '' %}
+                                        {% endif %}
+                                        #}
+                                        {% if (social.usnLink|slice(0, 4)|lower == "http")  %}
+                                            {% set http = "" %} 
                                         {% else %}
-                                            <a href="{{social.usnLink }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{social.sn.snType}}"><i class="{{ social.sn.snIcon }}"></i></a>
+                                            {% set http = "http://" %}    
+                                        {% endif %}
+                                        {% if social.sn.snBackground != "" %}
+                                            <a href="{{ http~social.usnLink }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{social.sn.snType}}" style="background:{{social.sn.snBackground}}">
+                                                <i class="{{ social.sn.snIcon }}"></i>
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ http~social.usnLink }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{social.sn.snType}}">
+                                                <i class="{{ social.sn.snIcon }}"></i>
+                                            </a>
                                         {% endif %}
                                     {% endif %}
                                 {% endfor %}
@@ -397,20 +419,18 @@
 
                                         {% for key, horas in horario %}
                                             <tr>
-                                                <th class="text-center">
+                                                <th class="text-center days">
                                                     {% if ( key == hoy) %}
                                                         <span style="color:#009bdb">{{ key }}</span>
                                                     {% else %}
                                                         {{ key }}
                                                     {% endif %}
                                                 </th>
-                                                <th>
+                                                <td class="text-left hoursText">
                                                     {{ horas|raw }}
-                                                </th>
+                                                </td>
                                             </tr>
                                         {% endfor %}
-
-
                                 </table>
                             {% else %}
                                 N/A
@@ -556,9 +576,6 @@
             <a href="#"><i class="fa fa-linkedin"></i></a>
             <a href="#"><i class="fa fa-google-plus"></i></a>
             -->
-            {% for sn in  social_network %}
-                <a href="{{ sn.usn_link }}" target="_blanck"><i class="fa fa-{{ sn.sn_type | lower }}"></i></a>
-            {% endfor %}
         </div>
       </div>
     </div>
@@ -681,7 +698,7 @@
             <div class="widget_title">
                 <h6><i class="fa fa-map-marker" aria-hidden="true"></i> Location Map</h6>
             </div>
-            <div id="single_mapx" style="margin-top: 0px;">
+            <div id="single_map">
                 <div id="singleListingMap-container">
                     <div id="singlemap" data-latitude="{{ profile[0].ci_lat }}" data-longitude="{{ profile[0].ci_lng }}" data-map-icon="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></div>
                 </div>

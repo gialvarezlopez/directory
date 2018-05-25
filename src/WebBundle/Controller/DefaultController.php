@@ -147,8 +147,8 @@ class DefaultController extends Controller
             {
                 throw new NotFoundHttpException("Page not found");
             }
-
-            $oListMySocialNetworks = $em->getRepository('AppBundle:UserHasSocialNetwork')->findBy( array("usr"=>$id_profile, "usnActive"=>1) );
+            //Obtain Social Network
+            $oListMySocialNetworks = $em->getRepository('AppBundle:UserHasSocialNetwork')->findBy( array("usr"=>$id_profile, "usnActive"=>1),array('sn' => 'ASC') );
         }
         else
         {
@@ -176,12 +176,14 @@ class DefaultController extends Controller
                           $statement->execute();
         $gallery        = $statement->fetchAll();
 
-        //Obtain Social Network
-        $RAW_Social     = "select * from user_has_social_network usn left join social_network as sn on
-                            usn.sn_id = sn.sn_id where usr_id =".$id_profile;
-        $statement      = $em->getConnection()->prepare($RAW_Social);
-                          $statement->execute();
-        $social_network = $statement->fetchAll();
+        
+        /*
+            $RAW_Social     = "select * from user_has_social_network usn left join social_network as sn on
+                                usn.sn_id = sn.sn_id where usr_id =".$id_profile;
+            $statement      = $em->getConnection()->prepare($RAW_Social);
+                            $statement->execute();
+            $social_network = $statement->fetchAll();
+        */
 
         $horaDias = array();
         $hoy = "";
@@ -210,7 +212,16 @@ class DefaultController extends Controller
 
         $this->ViewsProfiles( $request , $id_profile );
 
-        return $this->render('web/default/showProfile.html.twig', array( 'profile' => $profile ,"horario" => $horaDias, "hoy" => $hoy, 'gallery' => $gallery , 'social_network' => $social_network, "oListMySocialNetworks"=>$oListMySocialNetworks ));
+        return $this->render('web/default/showProfile.html.twig',
+             array( 
+                 'profile' => $profile ,
+                 "horario" => $horaDias, 
+                 "hoy" => $hoy, 
+                 'gallery' => $gallery , 
+                 //'social_network' => $social_network, 
+                 "oListMySocialNetworks"=>$oListMySocialNetworks
+                )
+            );
     }
 
     public function showFullProfileAction( Request $request ){
@@ -301,6 +312,9 @@ class DefaultController extends Controller
 
         $total_minutos_trasncurridos[1] = (preg_replace("/[^0-9]/", "", $separar[1][0])*60)+ preg_replace("/[^0-9]/", "", $separar[1][1]);
         $total_minutos_trasncurridos[2] = (preg_replace("/[^0-9]/", "", $separar[2][0])*60)+preg_replace("/[^0-9]/", "", $separar[2][1]);
+
+        //$total_minutos_trasncurridos[1] = ($separar[1][0]*60) + $separar[1][1];
+        //$total_minutos_trasncurridos[2] = ($separar[2][0]*60)+ $separar[2][1];
         $total_minutos_trasncurridos = $total_minutos_trasncurridos[1]-$total_minutos_trasncurridos[2];
         if($total_minutos_trasncurridos<=59){
             //return($total_minutos_trasncurridos.' Minutos');
@@ -326,6 +340,7 @@ class DefaultController extends Controller
 
     public function rangos($arr)
     {
+        
         $pros = 1;
         $total = count($arr);
         $cadena = "";
@@ -334,7 +349,8 @@ class DefaultController extends Controller
         {
             if($pros < $total)
             {
-                $res = abs( $this->calcular_tiempo_trasnc($hora1=$arr[$i],$hora2=$arr[$i+1]) );
+                //$res = abs( $this->calcular_tiempo_trasnc($hora1=  $arr[$i], $hora2=$arr[$i+1]) );
+                $res = abs( $this->calcular_tiempo_trasnc($hora1=date("H:i", strtotime($arr[$i]))  , $hora2=date("H:i", strtotime($arr[$i+1])) ) );
                 if( $pros == 1 )
                 {
                     $cadena .= date('ga', strtotime($arr[$i]));
@@ -343,7 +359,10 @@ class DefaultController extends Controller
                 {
                     if( $res != 60 )
                     {
-                        $cadena .= " <i>a</i> ". date('ga', strtotime($arr[$i]));
+                        // 12-hour time to 24-hour time 
+                        //$time_in_24_hour_format  = date("H:i", strtotime("1:30 PM"));
+
+                        $cadena .= " <i>to</i> ". $this->renderHours($arr[$i]);// date('ga', strtotime($arr[$i])  );
                         $block=true;
                     }
                     else
@@ -358,12 +377,26 @@ class DefaultController extends Controller
             }
             else
             {
-                $cadena .= " <i>a</i> " .date('ga', strtotime($arr[$i]));
+                $cadena .= " <i>to</i> " .$this->renderHours($arr[$i]);//date('ga', strtotime($arr[$i]) );
             }
             $pros++;
 
         }
         return $cadena;
+    }
+
+    public function renderHours($horaInicial)
+    {
+        $horaInicial=$horaInicial;//"14:00";
+        $minutoAnadir=60;
+        
+        $segundos_horaInicial=strtotime($horaInicial);
+        
+        $segundos_minutoAnadir=$minutoAnadir*60;
+        
+        $nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
+        
+        return date('ga', strtotime($nuevaHora)  );
     }
 
     public function landingAction(){

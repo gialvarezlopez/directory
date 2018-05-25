@@ -830,16 +830,14 @@
 				//var typeImage = $('input[name=radioTypeImage]:checked').val();
 
 				var social_network = [];
-                var index = 0;
 				$("#table-social-network tbody tr").each(function () {
 				    var trItem = $(this).data("item");
-                    var trId = $(this).attr("item");
+                    var trId = $(this).attr("id");
 					//var txt = $("#" + trId).find("td").eq(1).text();
                     //var txt = $("#" + trId).find("td").eq(1).text();
-                     var txt = $('#table-social-network tr[data-item="'+trItem+'"]').find("td").eq(1).text();
-					var td = {"index":index, "id": trId, "url": txt};
+                    var txt = $('#table-social-network tr[data-item="'+trItem+'"]').find("td").eq(1).text();
+					var td = {"id": trId, "url": txt};
 					social_network.push(td);
-                    index++;
 				});
 
 				//=====================================
