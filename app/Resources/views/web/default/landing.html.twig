@@ -1,807 +1,885 @@
-<!DOCTYPE html>
+{% extends 'web/base.html.twig' %}
 
-<!-- ThreeSixty Creativity Website Template -->
+{% block title_page %}
+    Home || Doctors Billboard
+{% endblock %}
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Doctor Billboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ThreeSixty Bootstrap Template">
-    <meta name="author" content="Fabian Bentz Webdesign">
+{% block classbg %}
+    listing-with-map-page
+{% endblock %}
 
-    <!-- google web fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,500,400italic,700' rel='stylesheet' type='text/css'>
-    
-    <!-- CSS Styles -->
-    
-    <!-- bootstrap css -->
+{% block content %}
 
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/css/bootstrap.css') }} ">
-    
-    <!-- custom css -->
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/css/custom.css') }} ">
-    
-    <!-- standart theme css -->
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/css/theme1.css') }} ">
-    
-    <!-- Font Awesome Icons css -->
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/font-awesome/css/font-awesome.min.css') }} ">
-    
-    <!-- BxSlider and Sequence Slider css -->
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/css/jquery.bxslider.css') }} ">
+    <style type="text/css">
+        .#footer {
+            padding-right: 40%;
+         }
+         #intro_map{
 
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/css/sequence-slider.css') }} ">
-    
-    <!-- Magnific Popup core CSS file -->
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/css/magnific-popup.css') }} ">
+            padding-top: 0px;
 
-    <!-- Color Switch Panel css -->
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/css/color.switch.css') }} ">
-    
-    <!-- Back to Top Button css -->
-    <link rel="stylesheet" href="{{ asset('bundles/web/template/landing/css/top.css') }} ">
+         }
+    </style>
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.js"></script>
-    <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="shortcut icon" href="{{ asset('bundles/web/template/landing/img/favicon.ico') }} ">
-    <link rel="apple-touch-icon" href="{{ asset('bundles/web/template/landing/img/apple-touch-icon.png') }} ">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/web/template/landing/apple-touch-icon-72x72.png') }} ">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/web/template/landing/img/apple-touch-icon-114x114.png') }} ">
-
-	<!-- Your Google Analytics Code Here!! -->
-
-	
-  </head>
-
-<body>
-  
-<!-- START PRIMARY LAYOUT
-======================== -->
-
-<!-- Back to Top Button (visible after scrolling 1200px down) Change Styles at the top.css file -->
-
-<div class="button-top" id="top-bt">
-
-  <a href="#about"><i class="fa fa-sort-desc fa-3x"></i></a>
-  
-</div>
-
-<!-- Back to Top Button END -->
-
-<!-- NAVBAR -->
-    
-<!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
-
-<nav class="navbar navbar-inverse navbar-static-top" role="navigation" id="menu">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-            </div>
-           <!-- MENU LINKS -->
-           <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav" id="navigation">
-                <li><a href="#top-slider">Home</a></li>
-                <li><a href="#service">Service</a></li>
-                <li><a href="#price">Price</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="login" target="_blank">Login</a></li>
-                <li><a href="register" target="_blank">Register</a></li>
-                <li><a href="index" target="_blank">Doctor Billboard</a></li>
-              </ul>
-          </div>
+{#
+<!-- Map -->
+<section id="intro_map" class="section-padding">
+	<div id="map-container" class="fullwidth-home-map">
+    	<div id="map" data-map-zoom="9">
+        	 <!-- map-here -->
         </div>
-</nav>
-
-<!-- NAVBAR END -->
-  
-<!-- SEQUENCE SLIDER Change Styles at the sequence-slider.css file --> 
-
-<div id="top-slider">
-	<div class="slider-bg"></div>
-		   <div class="container">
-		
-           <div id="sequence">
-
-				<img class="sequence-prev" src="{{ asset('bundles/web/template/landing/img/button-previous.svg') }}" alt="Previous Frame" />
-				<img class="sequence-next" src="{{ asset('bundles/web/template/landing/img/button-next.svg') }}" alt="Next Frame" />
-
-				<ul class="sequence-canvas">
-					<li class="animate-in">
-						<h2 class="title">Doctor Profile</h2>
-						<h3 class="subtitle">Public Profile Information like services</h3>
-						<img class="slider-image" src="{{ asset('bundles/web/template/landing/img/slider/2.png') }}" alt="Image" />
-					</li>
-					<li>
-						<h2 class="title">We Marker Your Ubicacion</h2>
-						<h3 class="subtitle">Easy to find your profile</h3>
-						<img class="slider-image" src="{{ asset('bundles/web/template/landing/img/slider/1.png') }}" alt="Image" />
-					</li>
-					<li>
-						<h2 class="title">Many People see your services</h2>
-						<h3 class="subtitle">You have one contact point for your customers</h3>
-						<img class="slider-image" src="{{ asset('bundles/web/template/landing/img/slider/3.png') }}" alt="Image" />
-					</li>
-				</ul>
-
-				<ul class="sequence-pagination">
-					<li><img src="{{ asset('bundles/web/template/landing/img/pagination-dot.svg') }}" alt="Image" /></li>
-					<li><img src="{{ asset('bundles/web/template/landing/img/pagination-dot.svg') }}" alt="Image" /></li>
-					<li><img src="{{ asset('bundles/web/template/landing/img/pagination-dot.svg') }}" alt="Image" /></li>
-				</ul>
-				
-          </div>
-          
-    </div>
-</div>
-
-<!-- SEQUENCE SLIDER END -->
-   
-
-     
-<!-- SERVICE -->
-     
-<div id="service">
-
-  <div class="container">
-
-    <div class="row">
-    
-     <div class="center-block head">
-       
-       <div class="col-lg-12 col-md-12 col-xs-12">
-     
-        <h1>What We Do</h1>
-        <hr class="head-border-white">
-         <p class="subhead">Te ubicamos en el mapa de la solusion para ser visto ante el mundo</p>
-       </div>
-          
-      </div>
-      
-        <!-- SERVICE COLUMNS -->   
-        <div class="col-lg-4 col-md-4 service">
-         <div class="service-col">
-         
-           <div class="icon-desktop rotate">
-             <img src="{{ asset('bundles/web/template/landing/img/icons/register.png') }}" alt="">
-           </div>
-           
-          <h4>Register</h4>
-          <p>You Need To Register In We Us web application.</p>
-          
-         </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-4 service">
-        <div class="service-col">
-        
-          <div class="icon-wrench rotate">
-            <img src="{{ asset('bundles/web/template/landing/img/icons/fillup.png') }}" alt="">
-          </div>
-           
-          <h4>Information</h4>
-          <p>With You Information The People Could Be Find You.</p>
-          
-          </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-4 service">
-        <div class="service-col">
-        
-          <div class="icon-mobile rotate">
-            <img src="{{ asset('bundles/web/template/landing/img/icons/miscellaneous.png') }}" alt="">
-           </div>
-           
-          <h4>Public</h4>
-          <p>Your Doctor Profile Wil Be In The Map For All World.</p>
-          
-        </div>
-      </div>
-      
-      <div class="center-block service-btn">
-         <p class="center"><a class="btn btn-hire btn-primary" href="#contact" role="button">Hire Us Now!</a></p>
-      </div>
-      
-     </div>
-   </div>
-</div>
-
-<!-- SERVICE END -->
-
-<!-- PORTFOLIO -->
-
-<div id="portfolio">
-
-  <div class="container">
-
-    
-      <div class="center-block head">
-      
-        <div class="col-lg-12 col-md-12 col-xs-12">
-      
-         <h1 class="d-grey">One Month</h1>
-           <hr class="head-border-grey">
-
-        </div>        
-      
-      </div>
-
-      <div class="center-block head">
-      <div class="col-lg-12 col-md-12 col-xs-12">
-           <h1 class="d-grey"><img src="{{ asset('bundles/web/template/landing/img/icons/free.png') }}" alt="" style="text-align: center;"></h1>
-          
-        </div>
-      </div>
-	
-  
-</div>
-
-<!-- PORTFOLIO END -->
-
-<!-- PROCESS -->
-
-<div id="process">
-
-  <div class="container">
-      <div class="row">
-    
-      <div class="center-block head">
-      
-       <div class="col-lg-12 col-md-12 col-xs-12">
-     
-        <h1>How We Do</h1>
-        <hr class="head-border-white">
-          <p class="subhead center">Steps To Register.</p>
-          
-       </div>
-         
-      </div>
-      
-      <div class="our-process">
-           
-             <div class="process">
-                <div class="col-lg-4 process-con img1">
-                   <div class="process-img rotate">
-                      <img src="{{ asset('bundles/web/template/landing/img/icons/course_pencil.png') }}" alt=""> 
-                   </div>
-                   <h5>Register</h5>
-                </div>
-                
-               <div class="col-lg-4 process-con img2">
-                 <div class="process-img rotate">
-                   <img src="{{ asset('bundles/web/template/landing/img/icons/813844_people_512x512.png') }}" alt="">  
-                 </div>
-                 <h5>Fill Up Information</h5>
-               </div>
-               
-               <div class="col-lg-4 process-con img3">
-                 <div class="process-img rotate">
-                  <img src="{{ asset('bundles/web/template/landing/img/icons/maps.png') }}" alt="">   
-                 </div>
-                 <h5>Maps Publication</h5>
-               </div> 
-            </div>
-       </div>
-
-   </div>
-  </div>
-  
-</div>
-
-<!-- PROCESS END -->
-
-
-
-<!-- PRICE -->
-
-<div id="price">
-
-  <div class="container">
-    <div class="row">
-    
-     <div class="center-block head tables">
-     
-      <div class="col-lg-12 col-md-12 col-xs-12">
-    
-       <h1>Best Price Guranteed</h1>
-       <hr class="head-border-grey">
-        <p class="d-grey center">Select the one you prefer</p>
-       
-      </div>
-       
-    </div>
-
-      
-      <!-- PRICE TABLES -->
-        
-        <!-- TABLE 2 -->
-        <div class="col-lg-4 col-md-4">
-            <div class="price-table">
-                <div class="price-table-heading">
-                    <h3 class="price-table-title lead d-grey">
-                        1 month</h3>
-                </div>
-                <div class="price-table-body">
-                    <div class="the-price white">
-                        <h1>
-                            $25<span class="month">/month</span></h1>
-                        <small>1 Month FREE</small>
+    	<div class="container">
+    	<div class="search_form">
+            	<form action="listing-grid-map.html" method="get">
+                	<div class="form-group select">
+                   		<select class="form-control">
+                	    	<option>What are you looking for?</option>
+            	            <option>Real Estate</option>
+                            <option>Restaurant</option>
+                            <option>Real Estate</option>
+        	                <option>Health & Fitness</option>
+    	                    <option>Beauty & Spas</option>
+                            <option>Hotels & Travel</option>
+                            <option>Automotive</option>
+	                    </select>
                     </div>
-                    <table class="table">
-                        <tr>
-                            <td class="white">
-                                Only for 1 Month
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Profile Information
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class="white">
-                                Contact Information
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Academy Information
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="white">
-                                Map Ubication
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Schedule Work
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="white">
-                                Socials Networks
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Speciality Medics
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class="white">
-                                Gallery
-                            </td>
-                        </tr>                       
-                        
-                        <tr class="active">
-                            <td class="blue">
-                                Easy Contact Doctor
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="price-table-footer">
-                   <a href="register" class="btn btn-lg btn-primary" role="button">Sign Up</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- TABLE 3 -->
-        <div class="col-lg-4 col-md-4">
-            <div class="price-table table-feature">
-                <div class="price-table-heading">
-                    <h3 class="price-table-title lead d-grey">
-                        6 Months</h3>
-                </div>
-                <div class="price-table-body">
-                    <div class="the-price white">
-                        <h1>
-                            $100<span class="month">/6 months</span></h1>
-                        <small>1 Month FREE</small>
+                    <div class="form-group">
+                   		<input type="text" class="form-control" placeholder="Locaton">
                     </div>
-                    <table class="table">
-                        <tr>
-                            <td class="white">
-                                6 Months
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Profile Information
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class="white">
-                                Contact Information
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Academy Information
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="white">
-                                Map Ubication
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Schedule Work
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="white">
-                                Socials Networks
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Speciality Medics
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class="white">
-                                Gallery
-                            </td>
-                        </tr>                       
-                        
-                        <tr class="active">
-                            <td class="blue">
-                                Easy Contact Doctor
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="price-table-footer">
-                   <a href="register" class="btn btn-lg btn-primary" role="button">Sign Up</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- TABLE 4 -->
-        <div class="col-lg-4 col-md-4">
-            <div class="price-table">
-                <div class="price-table-heading">
-                    <h3 class="price-table-title lead d-grey">
-                        12 Months</h3>
-                </div>
-                <div class="price-table-body">
-                    <div class="the-price white">
-                        <h1>
-                            $150<span class="month">/1 Year</span></h1>
-                        <small>1 Month FREE</small>
+                    <div class="form-group search_btn">
+                    	<input type="submit" value="Search" class="btn btn-block">
                     </div>
-                    <table class="table">
-                        <tr>
-                            <td class="white">
-                                1 Year
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Profile Information
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class="white">
-                                Contact Information
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Academy Information
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="white">
-                                Map Ubication
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Schedule Work
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="white">
-                                Socials Networks
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td class="blue">
-                                Speciality Medics
-                            </td>
-                        </tr>
-                        <tr class="">
-                            <td class="white">
-                                Gallery
-                            </td>
-                        </tr>                       
-                        
-                        <tr class="active">
-                            <td class="blue">
-                                Easy Contact Doctor
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="price-table-footer">
-                   <a href="register" class="btn btn-lg btn-primary" role="button">Sign Up</a>
-                </div>
+                </form>
             </div>
         </div>
-        
-  </div>
- </div>
-</div>
-
-<!-- PRICE END -->
-
-
-
-
-
-<!-- FACTS -->
-     
-<div id="facts">
-
-  <div class="container">
-
-    <div class="row">
-    
-     <div class="center-block head">
-     
-      <div class="col-lg-12 col-md-12 col-xs-12">
-     
-        <h1>Multi Region</h1>
-        <hr class="head-border-white">
-         <p class="subhead">Every Doctor in US and CN. Can register</p>
-         
-       </div>
-         
-      </div>
-      
-        <!-- SERVICE COLUMNS -->   
-        <div class="col-lg-4 col-md-4">
-           <div class="fun-fact">
-            <h3>US<br> </h3>
-            <hr class="head-border-grey">
-            <p>All State</p>
-           </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-4">
-           <div class="fun-fact">
-            <h3>Canada<br> </h3>
-            <hr class="head-border-grey">
-            <p>All State</p>
-           </div>
-          </div>
-
-          
-          <div class="col-lg-4 col-md-4">
-           <div class="fun-fact">
-            <h3>Central America<br></h3>
-            <hr class="head-border-grey">
-            <p>Coming Ssoon</p>
-           </div>
-          </div>
-          
-      </div>
-   </div>
-</div>
-
-<!-- FACTS END -->
-
-<!-- GOOGLE MAP DIVIDER -->
-
-<div id="map">
-  <iframe class="border" src="http://localhost/directory/web/app_dev.php/" scrolling="no"><!-- Place Your Google Map Link here -->
-  </iframe>
-</div>
-
-<!-- GOOGLE MAP DIVIDER END -->
-
-<!-- CONTACT -->
-
-<div id="contact">
-
-  <div class="container">
-     <div class="row">
-    
-      <div class="center-block head">
-      
-       <div class="col-lg-12 col-md-12 col-xs-12">
-    
-         <h1>Get in Touch</h1>
-         <hr class="head-border-grey">
-           <p class="center">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
-        
-       </div>
-       
-    </div>
-      
-      <!-- CONTACT FORM -->
-      <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2 form">
-      <!--FORM -->
-      <form action="contactus" class="form-horizontal" role="form" id="contactForm" method="post" name="contactForm">
-            
-            <div class="form-group">
-               
-                <div class="col-sm-12">
-                <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Name*">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                  
-                    <div class="col-sm-12">
-                      <input type="email" class="form-control input-lg" name="email" id="email" placeholder="Email*">
-                  </div>
-            </div>
-            
-            <div class="form-group">
-                  
-                    <div class="col-sm-12">
-                      <input type="text" class="form-control input-lg" name="phone" id="phone" placeholder="Phone">
-                  </div>
-            </div>
-            
-            <div class="form-group">
-                  
-                    <div class="col-sm-12">
-                      <textarea class="form-control input-lg" rows="10" name="message" id="message" placeholder="Message*"></textarea>
-                  </div>
-            </div>
-            
-            <div class="control-group submit center">
-               <input class="btn btn-lg btn-primary" type="submit" value="Submit">
-            </div>
-
-           </form>
-           
-           <p class="d-grey requi">* Required</p>
-      
-      </div>
-      
-     </div>
-  </div>
-</div>
-
-<!-- CONTACT END -->
-
-<!-- GOING UP ARROW -->
-
-<div class="col-lg-12">
-  <div class="up"><a href="#about"><span class="glyphicon glyphicon-chevron-up"></span></a></div>
-</div>
-
-<!-- GOING UP ARROW END -->
-
-<!-- SOCIAL MEDIA DIVIDER -->
-
-<div id="divider">
-		<div class="divider-bg"></div>
-
-  <div class="container">
-  
-	<div class="row">
-      <div class="col-12-lg social-media">
-        
-    		<div class="social-icons">
-    		
-            <a class="social-media facebook" href=""><i class="fa fa-facebook-square fa-8x"></i></a>
-				    <a class="social-media white twitter" href=""><i class="fa fa-twitter-square fa-8x"></i></a>
-				    <a class="social-media white google" href=""><i class="fa fa-google-plus-square fa-8x"></i></a>
-              
-        </div>  
-              
-      </div>
 	</div>
-  
-  </div>
-
-</div>
-
-<!-- SOCIAL MEDIA DIVIDER END --> 
-
-<!-- BOTTOM -->
-
-<div id="foot">
-
-  <div class="container">
-     <div class="row">
-     
- 
-      <div class="col-lg-12 col-md-12">
-        <div class="bottom-con">
-            <h5>Write Us</h5>
-            <hr class="head-border-white">
-            <i class="fa fa-envelope"><span> info@doctorbillboard.com</span></i>       
+</section>
+<!-- /Map -->
+#}
+<!-- Map -->
+<section id="intro_map" class="section-padding intro_map_style2">
+	<div id="map-container" class="fullwidth-home-map">
+    	<div id="map" data-map-zoom="9">
+        	 <!-- map-here -->
         </div>
-      </div>
-   
-          
-           <div class="col-lg-12 col-md-12 footer">
-               
-                  <p>&copy; 2018. &middot; DoctorsBillboard.com All Rights Reserved </p>
-           </div> 
-           
-     </div>
-  </div>
-  
-</div>
+        <div class="intro_search">
+        	<div class="intro_search_content">
+            	<h2>Find Your Destination</h2>
+            	<div class="search_form">
+                    <form action="listing-grid-map.html" method="get">
 
-<!-- FOOTER END -->
+                        <div class="form-group select">
+                            <select class="form-control">
+                                <option>What are you looking for?</option>
+                                <option>Real Estate</option>
+                                <option>Restaurant</option>
+                                <option>Real Estate</option>
+                                <option>Health & Fitness</option>
+                                <option>Beauty & Spas</option>
+                                <option>Hotels & Travel</option>
+                                <option>Automotive</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Location">
+                        </div>
+                        <div class="form-group search_btn">
+                            <input type="submit" value="Search" class="btn btn-block">
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-<!-- COLOR SWITCH. Change Styles at the color.switch.css file -->
-
-
-<!-- END PRIMARY LAYOUT
-====================== -->
-
-
-<!-- JAVASCRIPT
-================================================== -->
-
-<!-- BOOTSTRAP JAVASCRIPT -->
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="{{ asset('bundles/web/template/landing/js/bootstrap.min.js') }} "></script>
-
-
-<!-- CUSTOM JAVASCRIPT -->
-<!-- Custom Functions -->
-<script src="{{ asset('bundles/web/template/landing/js/functions.js') }} "></script>
+        </div>
 
 
-<!-- Portfolio with mixitup filter and prettyphoto -->
-<script src="{{ asset('bundles/web/template/landing/js/jquery.mixitup.min.js') }} "></script>
+	</div>
+</section>
 
-<!-- Magnific Popup core JS file -->
-<script src="{{ asset('bundles/web/template/landing/js/magnific.js') }} "></script>
+<!-- Category-Slider-Style-2 -->
+<section id="listing_category" class="section-padding">
+	<div class="container">
+    	<div class="section-header text-center">
+        	<h2>What are you interested in? </h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.</p>
+        </div>
+    	<div id="category_slider2">
+        	<div class="owl-carousel owl-theme">
+            	<div class="item" style="background-image:url(assets/images/400x530.jpg);">
+                	<a href="#">
+    	            	<div class="category_icon">
+                        	<span class="category_listing_n">20</span>
+                            <img src="assets/images/category-icon1.png" alt="image">
+                        </div>
+	                    <p>Real Estate</p>
+                    </a>
+                </div>
 
-<!-- BxSlider -->
-<script src="{{ asset('bundles/web/template/landing/js/jquery.bxslider.min.js') }} "></script>
+                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
+                	<a href="#">
+    	            	<div class="category_icon">
+                        	<span class="category_listing_n">32</span>
+                            <img src="assets/images/category-icon2.png" alt="image">
+                        </div>
+	                    <p>Restaurant</p>
+                    </a>
+                </div>
 
-<!-- Sequence Slider -->
-<script src="{{ asset('bundles/web/template/landing/js/jquery.sequence-min.js') }} "></script>
+                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
+                	<a href="#">
+    	            	<div class="category_icon">
+                        	<span class="category_listing_n">18</span>
+                            <img src="assets/images/category-icon3.png" alt="image">
+                        </div>
+	                    <p>Health & Fitness</p>
+                    </a>
+                </div>
+
+                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
+                	<a href="#">
+    	            	<div class="category_icon">
+                        	<span class="category_listing_n">15</span>
+                            <img src="assets/images/category-icon4.png" alt="image">
+                        </div>
+                        <p>Beauty & Spas</p>
+                    </a>
+                </div>
+
+                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
+                	<a href="#">
+    	            	<div class="category_icon">
+                        	<span class="category_listing_n">15</span>
+                            <img src="assets/images/category-icon5.png" alt="image">
+                        </div>
+                        <p>Hotels & Travel</p>
+                    </a>
+                </div>
+
+                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
+                	<a href="#">
+    	            	<div class="category_icon">
+                        	<span class="category_listing_n">32</span>
+                            <img src="assets/images/category-icon6.png" alt="image">
+                        </div>
+	                    <p>Automotive</p>
+                    </a>
+                </div>
+
+                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
+                	<a href="#">
+    	            	<div class="category_icon">
+                        	<span class="category_listing_n">10</span>
+                            <img src="assets/images/category-icon7.png" alt="image">
+                        </div>
+	                    <p>Event</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /Category-Slider-Style-2 -->
 
 
-<!-- Parallax Background -->
-<script src="{{ asset('bundles/web/template/landing/js/nbw-parallax.js') }} "></script>
-<script src="{{ asset('bundles/web/template/landing/js/jquery.inview.js') }} "></script>
+<!-- How-it-Work -->
+<section id="how_it_work" class="section-padding parallex-bg">
+	<div class="container">
+    	<div class="section-header text-center white-text div_zindex">
+        	<h2>Find Quick and Easy</h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.</p>
+        </div>
+
+        <div class="row">
+        	<div class="col-md-4">
+            	<div class="steps_wrap">
+                	<div class="icon_div">
+                    	<i class="fa fa-map-marker"></i>
+                    </div>
+                	<h5>Choose a location</h5>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+            	<div class="steps_wrap">
+                	<div class="icon_div">
+                    	<i class="fa fa-location-arrow"></i>
+                    </div>
+                	<h5>Pick a category</h5>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+            	<div class="steps_wrap">
+                	<div class="icon_div">
+                    	<i class="fa fa-smile-o"></i>
+                    </div>
+                	<h5>Find what you want</h5>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="dark-overlay"></div>
+</section>
+<!-- /How-it-Work -->
+
+<!-- Featured-Listings -->
+<section id="featured_listings" class="section-padding">
+	<div class="container">
+    	<div class="section-header text-center">
+        	<h2>Featured Listings</h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+        </div>
+
+        <div id="popular_listing_slider">
+        	<div class="owl-carousel owl-theme">
+                <div class="listing_wrap">
+                    <div class="listing_img">
+                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                        <div class="listing_cate">
+                            <span class="cate_icon"><a href="#"><img src="assets/images/category-icon1.png" alt="icon-img"></a></span>
+                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                        </div>
+                        <a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    </div>
+                    <div class="listing_info">
+                        <div class="post_category">
+                            <a href="#">Real Estate</a>
+                        </div>
+                        <h4><a href="#">The Morning Hotel</a></h4>
+                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+
+                        <div class="listing_review_info">
+                            <p><span class="review_score">4.0/5</span>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
+                               (5 Reviews) </p>
+                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing_wrap">
+                    <div class="listing_img">
+                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                        <div class="listing_cate">
+                            <span class="cate_icon"><a href="#"><img src="assets/images/category-icon2.png" alt="icon-img"></a></span>
+                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                        </div>
+                        <a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    </div>
+                    <div class="listing_info">
+                        <div class="post_category">
+                            <a href="#">Restaurant</a>
+                        </div>
+                        <h4><a href="#">Eating Restaurant</a></h4>
+                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+
+                        <div class="listing_review_info">
+                            <p><span class="review_score">4.0/5</span>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
+                               (5 Reviews) </p>
+                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing_wrap">
+                    <div class="listing_img">
+                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                        <div class="listing_cate">
+                            <span class="cate_icon"><a href="#"><img src="assets/images/category-icon4.png" alt="icon-img"></a></span>
+                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                        </div>
+                        <a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    </div>
+                    <div class="listing_info">
+                        <div class="post_category">
+                            <a href="#">Beauty & Spas</a>
+                        </div>
+                        <h4><a href="#">The Morning Hotel</a></h4>
+                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+
+                        <div class="listing_review_info">
+                            <p><span class="review_score">4.0/5</span>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
+                               (5 Reviews) </p>
+                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing_wrap">
+                    <div class="listing_img">
+                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
+                        <div class="listing_cate">
+                            <span class="cate_icon"><a href="#"><img src="assets/images/category-icon2.png" alt="icon-img"></a></span>
+                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
+                        </div>
+                        <a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    </div>
+                    <div class="listing_info">
+                        <div class="post_category">
+                            <a href="#">Restaurant</a>
+                        </div>
+                        <h4><a href="#">Blue Restaurant</a></h4>
+                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+
+                        <div class="listing_review_info">
+                            <p><span class="review_score">4.0/5</span>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
+                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
+                               (5 Reviews) </p>
+                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- /Featured-Listings -->
+
+<!-- Pricing-Table -->
+<section id="pricing_table" class="section-padding parallex-bg">
+	<div class="container">
+    	<div class="section-header white-text div_zindex text-center">
+        	<h2>Listing Packages</h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.</p>
+        </div>
+
+        <div class="row">
+        	<div class="col-md-4">
+            	<div class="pricing_wrap">
+                	<div class="pricing_header">
+                    	<h2>Basic</h2>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                    </div>
+                    <div class="plan_info">
+                    	<div class="plan_price">Free</div>
+                        <ul>
+                        	<li><span>One</span> Listing</li>
+                            <li><span>30 Days </span> Availability</li>
+                            <li><span>Standard </span> Listing</li>
+                            <li><span>Limited </span> Support</li>
+                        </ul>
+                        <a href="#" class="btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+            	<div class="pricing_wrap active">
+                	<div class="pricing_header">
+                    	<p class="popular_plan">Most Popular</p>
+                    	<h2>Professional</h2>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                    </div>
+                    <div class="plan_info">
+                    	<div class="plan_price">$5.00</div>
+                        <ul>
+                        	<li><span>10</span> Listing</li>
+                            <li><span>90 Days </span> Availability</li>
+                            <li><span>Standard </span> Listing</li>
+                            <li><span>24/7 </span> Support</li>
+                        </ul>
+                        <a href="#" class="btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+            	<div class="pricing_wrap">
+                	<div class="pricing_header">
+                    	<h2>Business</h2>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                    </div>
+                    <div class="plan_info">
+                    	<div class="plan_price">$16.00</div>
+                        <ul>
+                        	<li><span>Unlimited</span> Listing</li>
+                            <li><span>Unlimited Days </span> Availability</li>
+                            <li><span>Featured</span> Listing</li>
+                            <li><span>24/7 </span> Support</li>
+                        </ul>
+                        <a href="#" class="btn">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="dark-overlay"></div>
+</section>
+<!-- /Pricing-Table -->
+
+<!-- Latest-Blog -->
+<section id="latest_blog" class="section-padding">
+	<div class="container">
+    	<div class="section-header text-center">
+        	<h2>Latest Articles and Tips</h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.</p>
+        </div>
+
+        <div class="row">
+        	<div class="col-md-4">
+            	<div class="post_wrap">
+                	<div class="post_img">
+                    	<a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    </div>
+                    <div class="post_info">
+                    	<div class="post_category">
+                        	<a href="#">Beauty & Spas</a>
+                        </div>
+                    	<h4><a href="#">The Standard Chunk.</a></h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+                        <div class="post_meta">
+                        	<p>By: <a href="#">ElemoListing</a></p>
+                            <p>On: <a href="#">22 March, 2017</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+            	<div class="post_wrap">
+                	<div class="post_img">
+                    	<a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    </div>
+                    <div class="post_info">
+                    	<div class="post_category">
+                        	<a href="#">Restaurant</a>
+                        </div>
+                    	<h4><a href="#">There are many variations.</a></h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+                        <div class="post_meta">
+                        	<p>By: <a href="#">ElemoListing</a></p>
+                            <p>On: <a href="#">22 March, 2017</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+            	<div class="post_wrap">
+                	<div class="post_img">
+                    	<a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    </div>
+                    <div class="post_info">
+                    	<div class="post_category">
+                        	<a href="#">Real Estate</a>
+                        </div>
+                    	<h4><a href="#">All the Lorem Ipsum.</a></h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+                        <div class="post_meta">
+                        	<p>By: <a href="#">ElemoListing</a></p>
+                            <p>On: <a href="#">22 March, 2017</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+        	<a href="#" class="btn">Read More Articles</a>
+        </div>
+
+    </div>
+</section>
+<!-- /Latest-Blog -->
 
 
-<!-- Smooth Scrolling -->
-<script src="{{ asset('bundles/web/template/landing/js/smoothscroll.js') }} "></script>
+
+{% endblock %}
+
+{% block codejs %}
 
 
-<!-- Sticky Navigation --> 
-<script src="{{ asset('bundles/web/template/landing/js/jquery.sticky.js') }} "></script>
+    <script>
+
+    $(function () {
 
 
-<!-- Style Switcher --> 
-<script src="{{ asset('bundles/web/template/landing/js/jquery.style-switcher.js') }} "></script>
+
+    });
+
+    $(function () {
+
+            /*-------------------------------------------------------------------------------
+        Googl-Map
+    -------------------------------------------------------------------------------*/
+
+            function GooglMap() {
+
+                var ib = new InfoBox();
+                var test = ""; //{# {{ (medic.items|json_encode|raw) }}; #}
+
+                $(document).ready(function () {
+                    $(".searchProfile").click(function () {
+
+                        listing_map_m($(this).attr('id'), $(this).attr('name'));
+                    });
+
+                });
+
+                function listing_map_m(lat, lng) {
+                    search(lat, lng);
+                }
+
+                function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
+                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
+                }
+                var locations = [];
+
+                $.each(test, function (k, v) {
+                    locations.push([
+                        locationData('showProfile/' + v.usr_id, '{{ asset(' uploads / ') }}' + v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                        v.ci_lat,
+                        v.ci_lng,
+                        2,
+                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
+                    ])
+                })
+
+                var mapZoomAttr = $('#map').attr('data-map-zoom');
+
+                if (typeof mapZoomAttr !== typeof undefined && mapZoomAttr !== false) {
+                    var zoomLevel = parseInt(mapZoomAttr);
+                } else {
+                    var zoomLevel = 9;
+                }
+
+                {# //if  ({{ zoom  }} == 1)  #}
+                if (1) {
+                   // console.log(3);
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 6,
+                        scrollwheel: true,
+                        disableDefaultUI: true,
+                        {% if estados_d[0].sta_lat is defined and estados_d[0].sta_lng is defined %}
+                            center: new google.maps.LatLng({{ estados_d[0].sta_lat }}, {{ estados_d[0].sta_lng }}),
+                        {% else %}
+                            center: new google.maps.LatLng(-14.5822, 1.45236),
+                        {% endif %}
+
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        zoomControl: false,
+                        mapTypeControl: false,
+                        scaleControl: false,
+                        panControl: false,
+                        fullscreenControl: false,
+                        navigationControl: false,
+                        streetViewControl: false,
+                        animation: google.maps.Animation.BOUNCE,
+                        gestureHandling: 'cooperative',
+                        styles: [
+                            {
+                                "featureType": "administrative",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#444444"
+                                    }
+                                ]
+                            }
+                        ]
+                    });
+                } else {
+
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: zoomLevel,
+                        scrollwheel: true,
+                        center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        zoomControl: false,
+                        mapTypeControl: false,
+                        scaleControl: false,
+                        panControl: false,
+                        fullscreenControl: false,
+                        navigationControl: false,
+                        streetViewControl: false,
+                        animation: google.maps.Animation.BOUNCE,
+                        gestureHandling: 'cooperative',
+                        styles: [
+                            {
+                                "featureType": "administrative",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#444444"
+                                    }
+                                ]
+                            }
+                        ]
+                    });
+                }
+
+                var boxText = document.createElement("div");
+                boxText.className = 'map-box'
+                var currentInfobox;
+                var boxOptions = {
+                    content: boxText,
+                    disableAutoPan: true,
+                    alignBottom: true,
+                    maxWidth: 0,
+                    pixelOffset: new google.maps.Size(-145, -45),
+                    zIndex: null,
+                    boxStyle: {
+                        width: "260px"
+                    },
+                    closeBoxMargin: "0",
+                    closeBoxURL: "",
+                    infoBoxClearance: new google.maps.Size(1, 1),
+                    isHidden: false,
+                    pane: "floatPane",
+                    enableEventPropagation: false
+                };
+                var markerCluster,
+                    overlay,
+                    i;
+                var allMarkers = [];
+                var clusterStyles = [
+                    {
+                        textColor: 'white',
+                        url: '',
+                        height: 50,
+                        width: 50
+                    }
+                ];
+
+                var markerIco;
+                for (i = 0; i < locations.length; i++) {
+                    markerIco = locations[i][4];
+                    //alert(locations[i][0]);
+                    var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        overlay = new CustomMarker(overlaypositions, map, {
+                            marker_id: i
+                        }, markerIco);
+                    allMarkers.push(overlay);
+                    var ib = new InfoBox();
+                    //console.log(allMarkers);
+                    google.maps.event.addListener(overlay, 'click', (function (overlay, i) {
+                        return function () {
+                            ib.setOptions(boxOptions);
+                            boxText.innerHTML = locations[i][0];
+                            ib.close();
+                            ib.open(map, overlay);
+                            currentInfobox = overlay.id;
+                            var latLng = new google.maps.LatLng(locations[i][1], locations[i][2]);
+                            map.panTo(latLng);
+                            map.panBy(0, -180);
+                            google.maps.event.addListener(ib, 'domready', function () {
+                                $('.map-popup-close').click(function (e) {
+                                    e.preventDefault();
+                                    ib.close();
+                                });
+                            });
+                        }
+                    })(overlay, i));
+                }
+
+                var options = {
+                    imagePath: 'images/',
+                    styles: clusterStyles,
+                    minClusterSize: 2
+                };
+
+                // Agrupar marker cercanos
+                markerCluster = new MarkerClusterer(map, allMarkers, options);
+                google.maps.event.addDomListener(window, "resize", function () {
+                    var center = map.getCenter();
+                    google.maps.event.trigger(map, "resize");
+                    map.setCenter(center);
+                });
+
+                $('.nextmap-nav').click(function (e) {
+                    e.preventDefault();
+                    map.setZoom(9);
+                    var index = currentInfobox;
+                    if (index + 1 < allMarkers.length) {
+                        google.maps.event.trigger(allMarkers[index + 1], 'click');
+                    } else {
+                        google.maps.event.trigger(allMarkers[0], 'click');
+                    }
+                });
+
+                $('.prevmap-nav').click(function (e) {
+                    e.preventDefault();
+                    map.setZoom(9);
+                    if (typeof(currentInfobox) == "undefined") {
+                        google.maps.event.trigger(allMarkers[allMarkers.length - 1], 'click');
+                    } else {
+                        var index = currentInfobox;
+                        if (index - 1 < 0) {
+                            google.maps.event.trigger(allMarkers[allMarkers.length - 1], 'click');
+                        } else {
+                            google.maps.event.trigger(allMarkers[index - 1], 'click');
+                        }
+                    }
+                });
+
+                var zoomControlDiv = document.createElement('div');
+                var zoomControl = new ZoomControl(zoomControlDiv, map);
+
+                function ZoomControl(controlDiv, map) {
+                    zoomControlDiv.index = 1;
+                    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomControlDiv);
+                    controlDiv.className = "leaflet-control-zoom";
+                    var controlWrapper = document.createElement('div');
+                    controlDiv.appendChild(controlWrapper);
+                    var zoomInButton = document.createElement('div');
+                    zoomInButton.className = "custom-zoom-in";
+                    controlWrapper.appendChild(zoomInButton);
+                    var zoomOutButton = document.createElement('div');
+                    zoomOutButton.className = "custom-zoom-out";
+                    controlWrapper.appendChild(zoomOutButton);
+                    google.maps.event.addDomListener(zoomInButton, 'click', function () {
+                        map.setZoom(map.getZoom() + 1);
+                    });
+                    google.maps.event.addDomListener(zoomOutButton, 'click', function () {
+                        map.setZoom(map.getZoom() - 1);
+                    });
+                }
+
+                $("#geoLocation, .input-with-icon.location a").click(function (e) {
+                    e.preventDefault();
+                    geolocate();
+                });
+
+                function geolocate() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            map.setCenter(pos);
+                            map.setZoom(12);
+                        });
+                    }
+                }
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    map.setOptions({draggable: false});
+                }
+            }
+
+            var map = document.getElementById('map');
+            if (typeof(map) != 'undefined' && map != null) {
+                google.maps.event.addDomListener(window, 'load', GooglMap);
+                google.maps.event.addDomListener(window, 'resize', GooglMap);
+            }
+
+            function singlemap() {
+
+                var myLatlng = new google.maps.LatLng({lng: $('#singlemap').data('longitude'), lat: $('#singlemap').data('latitude')});
+
+                var single_map = new google.maps.Map(document.getElementById('singlemap'), {
+                    zoom: 15,
+                    center: myLatLng,
+                    scrollwheel: false,
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    panControl: false,
+                    navigationControl: false,
+                    streetViewControl: false,
+                    styles: [
+                        {
+                            "featureType": "landscape",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "color": "#f2f2f2"
+                                }
+                            ]
+                        }
+                    ]
+                });
+
+                var marker = new google.maps.Marker({position: myLatLng, map: single_map, icon: markerIcon, title: 'Our Location'});
+
+                var zoomControlDiv = document.createElement('div');
+                var zoomControl = new ZoomControl(zoomControlDiv, single_map);
+
+                function ZoomControl(controlDiv, single_map) {
+                    zoomControlDiv.index = 1;
+                    single_map.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomControlDiv);
+                    var controlWrapper = document.createElement('div');
+                    controlDiv.appendChild(controlWrapper);
+                    var zoomInButton = document.createElement('div');
+                    zoomInButton.className = "custom-zoom-in";
+                    controlWrapper.appendChild(zoomInButton);
+                    var zoomOutButton = document.createElement('div');
+                    zoomOutButton.className = "custom-zoom-out";
+                    controlWrapper.appendChild(zoomOutButton);
+                    google.maps.event.addDomListener(zoomInButton, 'click', function () {
+                        single_map.setZoom(single_map.getZoom() + 1);
+                    });
+                    google.maps.event.addDomListener(zoomOutButton, 'click', function () {
+                        single_map.setZoom(single_map.getZoom() - 1);
+                    });
+                }
+                var singleMapIco = "<i class='im-icon'><img src='" + $('#singlemap').data('map-icon') + "'></i>";
+                new CustomMarker(myLatlng, single_map, {
+                    marker_id: '1'
+                }, singleMapIco);
+            }
+
+            var single_map = document.getElementById('singlemap');
+            if (typeof(single_map) != 'undefined' && single_map != null) {
+                google.maps.event.addDomListener(window, 'load', singlemap);
+                google.maps.event.addDomListener(window, 'resize', singlemap);
+            }
+
+            function CustomMarker(latlng, map, args, markerIco) {
+                this.latlng = latlng;
+                this.args = args;
+                this.markerIco = markerIco;
+                this.setMap(map);
+            }
+
+            CustomMarker.prototype = new google.maps.OverlayView();
+            CustomMarker.prototype.draw = function () {
+                var self = this;
+                var div = this.div;
+                if (!div) {
+                    div = this.div = document.createElement('div');
+                    div.className = 'map-marker-container';
+                    div.innerHTML = '<div class="marker-container">' + '<div class="marker-card">' + '<div class="front face">' + self.markerIco + '</div>' + self.markerIco + '</div>' + '</div>' + '</div>'
+                    google.maps.event.addDomListener(div, "click", function (event) {
+                        $('.map-marker-container').removeClass('clicked infoBox-opened');
+                        google.maps.event.trigger(self, "click");
+                        $(this).addClass('clicked infoBox-opened');
+                    });
+                    if (typeof(self.args.marker_id) !== 'undefined') {
+                        div.dataset.marker_id = self.args.marker_id;
+                    }
+                    var panes = this.getPanes();
+                    panes.overlayImage.appendChild(div);
+                }
+                var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+                if (point) {
+                    div.style.left = (point.x) + 'px';
+                    div.style.top = (point.y) + 'px';
+                }
+            };
+
+            CustomMarker.prototype.remove = function () {
+                if (this.div) {
+                    this.div.parentNode.removeChild(this.div);
+                    this.div = null;
+                    $(this).removeClass('clicked');
+                }
+            };
+            CustomMarker.prototype.getPosition = function () {
+                return this.latlng;
+            };
 
 
-<!-- Clients Slider -->
-<script src="{{ asset('bundles/web/template/landing/js/jquery.flexisel.js') }} "></script>
-
-
-<!-- Retina JS -->
-<script src="{{ asset('bundles/web/template/landing/js/retina-1.1.0.min.js') }} "></script>
-
-
-</body>
-</html>
+        });
+</script>
+{% endblock %}

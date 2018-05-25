@@ -1,7 +1,9 @@
 {% extends 'web/base.html.twig' %}
 
 {% block title_page %}
-    DB || Dr. {{ profile[0].md_first_name }} {{ profile[0].md_first_surname }}
+    DB || Dr.
+    {{ profile[0].md_first_name }}
+    {{ profile[0].md_first_surname }}
 {% endblock %}
 
 {% block classbg %}
@@ -10,8 +12,8 @@
 
 {% block content %}
 
-<style>
-/*
+    <style>
+        /*
 #divProfileImage{
   position:relative;
   width:50%;
@@ -26,124 +28,140 @@
   margin:0 auto;
 }
 */
-.caption div {
-    box-shadow: 0 0 5px #C8C8C8;
-    transition: all 0.3s ease 0s;
-}
+        .caption div {
+            box-shadow: 0 0 5px #C8C8C8;
+            transition: all 0.3s ease 0s;
+        }
 
-.ratio {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+        .ratio {
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
 
-    height: 0;
-    padding-bottom: 100%;
-    position: relative;
-    width: 100%;
-}
-.img-circle {
-    border-radius: 50%;
-}
-.img-responsive {
-    display: block;
-    height: auto;
-    max-width: 100%;
-}
-.thumbnail-location imgx{
-    border: solid 1px #ccc;
-}
-.grid-item {
-  margin-bottom: 5px;
-  border: solid 1px #ccc;
-}
-.colorSky{
-    /*
+            height: 0;
+            padding-bottom: 100%;
+            position: relative;
+            width: 100%;
+        }
+        .img-circle {
+            border-radius: 50%;
+        }
+        .img-responsive {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+        .thumbnail-location imgx {
+            border: solid 1px #ccc;
+        }
+        .grid-item {
+            margin-bottom: 5px;
+            border: solid 1px #ccc;
+        }
+        .colorSky {
+            /*
     color: #03aee9;
     -webkit-text-fill-color: #03aee9;
     -webkit-text-stroke: 1px #fff;
 */
-    color: #fff;
-    /*background: #eee;*/
-    font-family: impact;
-    font-size: 40px;
-    letter-spacing: 0;
-    /*text-shadow: -2px -2px 2px #03aee9, 2px -2px 2px #03aee9, -2px 2px 2px #03aee9, 2px 2px 2px #03aee9;*/
-}
-.double {
+            color: #fff;
+            /*background: #eee;*/
+            font-family: impact;
+            font-size: 40px;
+            letter-spacing: 0;
+            /*text-shadow: -2px -2px 2px #03aee9, 2px -2px 2px #03aee9, -2px 2px 2px #03aee9, 2px 2px 2px #03aee9;*/
+        }
+        .double {
 
-    border-top: 1px solid #8c8b8b;
-	border-bottom: 1px solid #fff;
-}
-.white{
-    color: #fff;
-}
+            border-top: 1px solid #8c8b8b;
+            border-bottom: 1px solid #fff;
+        }
+        .white {
+            color: #fff;
+        }
 
-.dark-overlay{
-    background: rgba(0, 0, 0, 0.82) none repeat scroll 0 0;
-}
-.single_map{
-    margin-top: 0px;padding-top: 0px;
-}
+        .dark-overlay {
+            background: rgba(0, 0, 0, 0.82) none repeat scroll 0 0;
+        }
+        .single_map {
+            margin-top: 0;
+            padding-top: 0;
+        }
 
-.days{
-    font-size: 12px;
-}
-.hoursText{
-    font-size: 12px;
-}
-</style>
+        .days {
+            font-size: 12px;
+        }
+        .hoursText {
+            font-size: 12px;
+        }
+    </style>
 
-<!-- Listing-detail-Header -->
-<section class="listing_detail_header style2_headerx parallex-bg">
-	<div class="container">
-    	<div class="div_zindex white-textx">
-        	<div class="row">
-                <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12" style="text-align:center">
-                    {% if profile[0].md_profile_image != "" %}
-                        {% if file_exists( 'uploads/'~profile[0].md_profile_image ) %}
-                            <div  class="ratio img-responsive img-circle" style="background-image: url({{ image('uploads/'~profile[0].md_profile_image).cropResize(250,250) }});"></div>
+    <!-- Listing-detail-Header -->
+    <section class="listing_detail_header style2_headerx parallex-bg">
+        <div class="container">
+            <div class="div_zindex white-textx">
+                <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12" style="text-align:center">
+                        {% if profile[0].md_profile_image != "" %}
+                            {% if file_exists('uploads/' ~ profile[0].md_profile_image) %}
+                                <div class="ratio img-responsive img-circle" style="background-image: url({{ image('uploads/'~profile[0].md_profile_image).cropResize(250,250) }});"></div>
+                            {% else %}
+                                <div class="ratio img-responsive " style="background-image: url({{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250) }});"></div>
+                            {% endif %}
                         {% else %}
-                              <div  class="ratio img-responsive " style="background-image: url({{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250) }});"></div>
+                            <div class="ratio img-responsive " style="background-image: url({{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250) }});"></div>
                         {% endif %}
-                    {% else %}
-                        <div  class="ratio img-responsive " style="background-image: url({{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250) }});"></div>
-                    {% endif %}
-                </div>
-                <div class="col-lg-10 col-md-9 col-sm-6 col-xs-12">
-                    <h2 class="colorSky">Dr. {{ profile[0].md_first_name }} {{ profile[0].md_first_surname }}</h2>
-                    <div class="">
-                        <hr class="double">
-                        <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-12">
-                                <span class="white"><i class="fa  fa-home"></i> {{ profile[0].ci_company | upper }} | {{ profile[0].esp | upper }}</span>
-                                <p class="listing_map_m white">
-                                    <a href="#single_map" class="js-target-scroll">
-                                        <i class="fa fa-map-marker"></i> {{ profile[0].ci_address }} {{ profile[0].cit_name }} /{{ profile[0].sta_name }}
-                                    </a>
-                                </p>
-                                <p class="white">
-                                    <span class="review_score ">{{ profile[0].total }}</span>
+                    </div>
+                    <div class="col-lg-10 col-md-9 col-sm-6 col-xs-12">
+                        <h2 class="colorSky">Dr.
+                            {{ profile[0].md_first_name }}
+                            {{ profile[0].md_first_surname }}</h2>
+                        <div class="">
+                            <hr class="double">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                    <span class="white">
+                                        <i class="fa  fa-home"></i>
+                                        {{ profile[0].ci_company | upper }}
+                                        |
+                                        {{ profile[0].esp | upper }}</span>
+                                    <p class="listing_map_m white">
+                                        <a href="#single_map" class="js-target-scroll">
+                                            <i class="fa fa-map-marker"></i>
+                                            {{ profile[0].ci_address }}
+                                            {{ profile[0].cit_name }}
+                                            /{{ profile[0].sta_name }}
+                                        </a>
+                                    </p>
+                                    <p class="white">
+                                        <span class="review_score ">{{ profile[0].total }}</span>
 
-                                    ( <i class="fa fa-eye active"></i> Views)
-                                </p>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="listing_message"><a class="btn" data-toggle="modal" data-target="#message_modal"><i class="fa fa-envelope-o"></i> Send Message</a></div>
+                                        (
+                                        <i class="fa fa-eye active"></i>
+                                        Views)
+                                    </p>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="listing_message">
+                                        <a class="btn" data-toggle="modal" data-target="#message_modal">
+                                            <i class="fa fa-envelope-o"></i>
+                                            Send Message</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr>
+                    <hr>
 
-                <div class="col-md-4x">
-                    {#
+                    <div class="col-md-4x">
+                        {#
                 	<div class="pricing_info">
                         <p class="listing_price"><span>$</span>2500 - <span>$</span>4000</p>
 
                     </div>
                     #}
 
-                    {#
+                        {#
                     <div class="listing_wrap">
                         <div class="listing_img">
                             <a href="../"><span class="like_post"><i class="fa fa-arrow-left"></i></span></a>
@@ -165,28 +183,19 @@
                     </div>
                     #}
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="dark-overlay"></div>
-</section>
-<!-- /Listing-detail-Header -->
+        <div class="dark-overlay"></div>
+    </section>
+    <!-- /Listing-detail-Header -->
 
-<!-- Listings -->
-<section class="listing_info_wrap listing_detail_2">
-	<div class="container">
+    <!-- Listings -->
+    <section class="listing_info_wrap listing_detail_2">
+        <div class="container">
 
-            <!--
-        	<div class="sidebar_wrap listing_action_btn">
-                <ul>
-                    <li><a data-toggle="modal" data-target="#share_modal"><i class="fa fa-facebook"></i>Social Network</a></li>
-                    <li><a data-toggle="modal" data-target="#email_friends_modal"><i class="fa fa-envelope-o"></i>Twitter</a></li>
-                    <li><a href="#writereview" class="js-target-scroll"> <i class="fa fa-star"></i> G-Mail</a></li>
-                    <li><a data-toggle="modal" data-target="#report_modal"><i class="fa fa-exclamation-triangle"></i> Other</a></li>
-                </ul>
-            </div>
-            -->
+            <!-- <div class="sidebar_wrap listing_action_btn"> <ul> <li><a data-toggle="modal" data-target="#share_modal"><i class="fa fa-facebook"></i>Social Network</a></li> <li><a data-toggle="modal" data-target="#email_friends_modal"><i class="fa fa-envelope-o"></i>Twitter</a></li> <li><a href="#writereview" class="js-target-scroll"> <i class="fa fa-star"></i> G-Mail</a></li> <li><a data-toggle="modal" data-target="#report_modal"><i class="fa fa-exclamation-triangle"></i> Other</a></li> </ul> </div> -->
             {#
             <div class="image_slider_wrap">
                 <div id="listing_img_slider">
@@ -204,9 +213,7 @@
             </div>
             #}
             <div class="row">
-                <div class="col-lg-12">
-
-                </div>
+                <div class="col-lg-12"></div>
             </div>
             <div class="row">
                 <div class="col-md-8">
@@ -215,7 +222,8 @@
                         <div>
                             <div class="widget_title">
                                 <h6>
-                                    <i class="fa fa-align-left"></i> Profile Description
+                                    <i class="fa fa-align-left"></i>
+                                    Profile Description
                                 </h6>
                             </div>
                             <div>
@@ -283,76 +291,95 @@
 
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingThree">
-                                  <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#opening_hours" aria-expanded="false" aria-controls="collapseThree"> <i class="fa fa-check" aria-hidden="true"></i> Academic Training </a>
-                                  </h4>
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#opening_hours" aria-expanded="false" aria-controls="collapseThree">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            Academic Training
+                                        </a>
+                                    </h4>
                                 </div>
                                 <div id="opening_hours" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-                                  <div class="panel-body">
-                                    {{ profile[0].md_academic_training|raw }}
-                                  </div>
+                                    <div class="panel-body">
+                                        {{ profile[0].md_academic_training|raw }}
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingFour">
-                                  <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_professional_experience" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-check" aria-hidden="true"></i> Professional Experience</a>
-                                  </h4>
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_professional_experience" aria-expanded="false" aria-controls="collapseFour">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            Professional Experience</a>
+                                    </h4>
                                 </div>
                                 <div id="md_professional_experience" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                  <div class="panel-body">
-                                    {{ profile[0].md_professional_experience|raw }}
-                                  </div>
+                                    <div class="panel-body">
+                                        {{ profile[0].md_professional_experience|raw }}
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingFour">
-                                  <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_courses_seminars" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-check" aria-hidden="true"></i> Courses/Seminars </a>
-                                  </h4>
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_courses_seminars" aria-expanded="false" aria-controls="collapseFour">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            Courses/Seminars
+                                        </a>
+                                    </h4>
                                 </div>
                                 <div id="md_courses_seminars" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                  <div class="panel-body">
-                                    {{ profile[0].md_courses_seminars|raw }}
-                                  </div>
+                                    <div class="panel-body">
+                                        {{ profile[0].md_courses_seminars|raw }}
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingFour">
-                                  <h4 class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_aditional_information" aria-expanded="false" aria-controls="collapseFour"> <i class="fa fa-check" aria-hidden="true"></i> Aditional Information </a>
-                                  </h4>
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#md_aditional_information" aria-expanded="false" aria-controls="collapseFour">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            Aditional Information
+                                        </a>
+                                    </h4>
                                 </div>
                                 <div id="md_aditional_information" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                  <div class="panel-body">
-                                    {{ profile[0].md_aditional_information|raw }}
-                                  </div>
+                                    <div class="panel-body">
+                                        {{ profile[0].md_aditional_information|raw }}
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
 
-
                     </div>
                 </div>
 
                 <!-- Sidebar -->
-                 <div class="col-md-4">
+                <div class="col-md-4">
                     <div class="ElemoListing_sidebar">
                         <div class="sidebar_wrap listing_contact_info">
                             <div class="widget_title">
-                                <h6><i class="fa fa-address-book" aria-hidden="true"></i> Contact Info</h6>
+                                <h6>
+                                    <i class="fa fa-address-book" aria-hidden="true"></i>
+                                    Contact Info</h6>
                             </div>
                             <ul>
-                                <li><i class="fa fa-map-marker"></i> {{ profile[0].ci_address }} {{ profile[0].cit_name }} / {{ profile[0].sta_name  }} </li>
-                                <li><i class="fa fa-phone"></i>
+                                <li>
+                                    <i class="fa fa-map-marker"></i>
+                                    {{ profile[0].ci_address }}
+                                    {{ profile[0].cit_name }}
+                                    /
+                                    {{ profile[0].sta_name  }}
+                                </li>
+                                <li>
+                                    <i class="fa fa-phone"></i>
                                     {{ profile[0].ci_phone1 }}
-                                        {% if profile[0].ci_phone1 != "" and profile[0].ci_phone2 != "" %}
-                                            /
-                                        {% endif %}
+                                    {% if profile[0].ci_phone1 != "" and profile[0].ci_phone2 != "" %}
+                                        /
+                                    {% endif %}
                                     {{ profile[0].ci_phone2  }}
                                 </li>
                                 <li>
@@ -360,21 +387,27 @@
                                     {% set pros = 0 %}
                                     {% set arrayEmails = [] %}
                                     {% for social in oListMySocialNetworks %}
-                                        {% if social.sn.snkey|lower == "email" %}
+                                        {% if social.sn.snkey | lower == "email" %}
                                             {% if pros == 0 %}
-                                                {% set arrayEmails = arrayEmails|merge([{ icon: social.sn.snIcon, background:social.sn.snBackground  }]) %}
+                                                {% set arrayEmails = arrayEmails | merge([
+                                                    {
+                                                        icon: social.sn.snIcon,
+                                                        background: social.sn.snBackground
+                                                    }
+                                                ]) %}
                                                 {% set pros = 1 %}
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
 
-
-                                    {% if arrayEmails|length %}
-                                        <span style="background:{{arrayEmails[0].background}}"><i class="{{arrayEmails[0].icon}}"></i></span>
+                                    {% if arrayEmails | length %}
+                                        <span style="background:{{arrayEmails[0].background}}">
+                                            <i class="{{arrayEmails[0].icon}}"></i>
+                                        </span>
                                     {% endif %}
 
                                     {% for social in oListMySocialNetworks %}
-                                        {% if social.sn.snkey|lower == "email" %}
+                                        {% if social.sn.snkey | lower == "email" %}
                                             {% set emails = true %}
                                             {{social.usnLink }}<br>
                                         {% endif %}
@@ -388,15 +421,15 @@
                                     {% endfor %}
                                 #}
                                 {% for social in oListMySocialNetworks %}
-                                    {% if social.sn.snkey|lower != "email" %}
+                                    {% if social.sn.snkey | lower != "email" %}
                                         {#
                                         {% if 'https' in social.usnLink OR '' %}
                                         {% endif %}
                                         #}
-                                        {% if (social.usnLink|slice(0, 4)|lower == "http")  %}
-                                            {% set http = "" %} 
+                                        {% if (social.usnLink | slice(0, 4) | lower == "http") %}
+                                            {% set http = "" %}
                                         {% else %}
-                                            {% set http = "http://" %}    
+                                            {% set http = "http://" %}
                                         {% endif %}
                                         {% if social.sn.snBackground != "" %}
                                             <a href="{{ http~social.usnLink }}" target="_blank" data-toggle="tooltip" data-placement="top" title="{{social.sn.snType}}" style="background:{{social.sn.snBackground}}">
@@ -411,494 +444,385 @@
                                 {% endfor %}
                             </div>
                             <hr>
-                            {% if horario|length %}
+                            {% if horario | length %}
                                 <div class="widget_title">
-                                    <h6><i class="fa  fa-clock-o"></i> Schedule </a></h6>
-                                </div>
-                                <table class="table table-striped text-center" >
+                                    <h6>
+                                        <i class="fa  fa-clock-o"></i>
+                                        Schedule
+                                    </a>
+                                </h6>
+                            </div>
+                            <table class="table table-striped text-center">
 
-                                        {% for key, horas in horario %}
-                                            <tr>
-                                                <th class="text-center days">
-                                                    {% if ( key == hoy) %}
-                                                        <span style="color:#009bdb">{{ key }}</span>
-                                                    {% else %}
-                                                        {{ key }}
-                                                    {% endif %}
-                                                </th>
-                                                <td class="text-left hoursText">
-                                                    {{ horas|raw }}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                </table>
-                            {% else %}
-                                N/A
-                            {% endif %}
-                                {% if gallery|length %}
-                                <hr>
-                                    <div class="widget_title">
-                                        <h6><i class="fa fa-file-image-o" aria-hidden="true"></i> Gallery</h6>
-                                    </div>
-                                    <div class="grid">
-                                    {% for g in gallery %}
-                                        {% if file_exists( 'uploads/'~g.ga_name ) %}
+                                {% for key, horas in horario %}
+                                    <tr>
+                                        <th class="text-center days">
+                                            {% if (key == hoy) %}
+                                                <span style="color:#009bdb">{{ key }}</span>
+                                            {% else %}
+                                                {{ key }}
+                                            {% endif %}
+                                        </th>
+                                        <td class="text-left hoursText">
+                                            {{ horas|raw }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                        {% if gallery | length %}
+                            <hr>
+                            <div class="widget_title">
+                                <h6>
+                                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                    Gallery</h6>
+                            </div>
+                            <div class="grid">
+                                {% for g in gallery %}
+                                    {% if file_exists('uploads/' ~ g.ga_name) %}
                                         <div class="grid-item thumbnail-location">
                                             <a class="" data-fancybox="gallery" href="{{ image('uploads/'~g.ga_name).cropResize(600,450) }}"><img src="{{ image('uploads/'~g.ga_name).cropResize(100,100) }}" alt=""></a>
                                         </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    </div>
-                                {% endif %}
-
-                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
 
                     </div>
+
                 </div>
-                <!-- /Sidebar -->
             </div>
+            <!-- /Sidebar -->
+        </div>
     </div>
 </section>
 <!-- /Listings -->
 
-<!-- Similar-Listings --> <!--
-<section id="similar_listings" class="section-padding gray_bg">
-	<div class="container">
-		<div class="section-header text-center">
-            <h2>Similar Listings </h2>
-        </div>
-        <div class="row">
-            <div class="col-md-4 show_listing grid_col">
-                <div class="listing_wrap">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span>
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Real Estate</a>
-
-                        </div>
-                        <h4><a href="#">The Morning Hotel</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
-
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 show_listing grid_col">
-                <!--
-                <div class="listing_wrap">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span>
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Real Estate</a>
-
-                        </div>
-                        <h4><a href="#">The Morning Hotel</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
-
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 show_listing grid_col">
-                <!--
-                <div class="listing_wrap">
-                    <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }}  " alt="icon-img"></a></span>
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a>
-                    </div>
-                    <div class="listing_info">
-                        <div class="post_category">
-                            <a href="#">Real Estate</a>
-
-                        </div>
-                        <h4><a href="#">The Morning Hotel 24</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
-
-                        <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
-                        </div>
-                    </div>
-                </div>
-                -->
-            </div>
-        </div>
-    </div>
+<!-- Similar-Listings -->
+<!-- <section id="similar_listings" class="section-padding gray_bg"> <div class="container"> <div class="section-header text-center"> <h2>Similar Listings </h2> </div> <div class="row"> <div class="col-md-4 show_listing grid_col"> <div class="listing_wrap"> <div class="listing_img"> <span class="like_post"><i class="fa fa-bookmark-o"></i></span> <div class="listing_cate"> <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span> <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span> </div> <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a> </div> <div class="listing_info"> <div class="post_category"> <a href="#">Real Estate</a> </div> <h4><a href="#">The Morning Hotel</a></h4> <p>5-star hotel with restaurant, Deluxe Rooms.</p> <div class="listing_review_info"> <p><span class="review_score">4.0/5</span> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star"></i> (5 Reviews) </p> <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p> </div> </div> </div> </div> <div class="col-md-4 show_listing grid_col"> <!-- <div class="listing_wrap"> <div class="listing_img"> <span class="like_post"><i class="fa fa-bookmark-o"></i></span> <div class="listing_cate"> <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span> <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span> </div> <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a> </div> <div class="listing_info"> <div class="post_category"> <a href="#">Real Estate</a> </div> <h4><a href="#">The Morning Hotel</a></h4> <p>5-star hotel with restaurant, Deluxe Rooms.</p> <div class="listing_review_info"> <p><span class="review_score">4.0/5</span> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star"></i> (5 Reviews) </p> <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p> </div> </div> </div> </div> <div class="col-md-4 show_listing grid_col"> <!-- <div class="listing_wrap"> <div class="listing_img"> <span class="like_post"><i class="fa fa-bookmark-o"></i></span> <div class="listing_cate"> <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon1.png') }} " alt="icon-img"></a></span> <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span> </div> <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/800x530.jpg') }} " alt="image"></a> </div> <div class="listing_info"> <div class="post_category"> <a href="#">Real Estate</a> </div> <h4><a href="#">The Morning Hotel 24</a></h4> <p>5-star hotel with restaurant, Deluxe Rooms.</p> <div class="listing_review_info"> <p><span class="review_score">4.0/5</span> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star"></i> (5 Reviews) </p> <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p> </div> </div> </div> -->
+</div>
+</div>
+</div>
 </section>
 <!-- /Similar-Listings -->
 
 <!-- Share-Listing -->
 <div id="share_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h3 class="modal-title">Social Network</h3>
-      </div>
-      <div class="modal-body">
-      	<div class="share_listing">
-            <!--
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-google-plus"></i></a>
-            -->
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span></button>
+<h3 class="modal-title">Social Network</h3>
+</div>
+<div class="modal-body">
+<div class="share_listing">
+    <!-- <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-google-plus"></i></a> -->
+</div>
+</div>
+</div>
+</div>
 </div>
 <!-- /Share-Listing -->
 
 <!-- Email-to-Friends -->
 <div id="email_friends_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h3 class="modal-title">Email to Friend</h3>
-      </div>
-      <div class="modal-body">
-        <form action="#" method="get">
-          <div class="form-group">
-            <input class="form-control" placeholder="Your Name" type="text" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <input class="form-control" placeholder="Your Email Address" type="email" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <input class="form-control" placeholder="Friend Email Address" type="email" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <textarea rows="4" class="form-control" placeholder="Message"></textarea>
-          </div>
-          <div class="form-group">
-            <input value="Submit" class="btn btn-block" type="submit">
-          </div>
-        </form>
-      </div>
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span></button>
+<h3 class="modal-title">Email to Friend</h3>
+</div>
+<div class="modal-body">
+<form action="#" method="get">
+    <div class="form-group">
+        <input class="form-control" placeholder="Your Name" type="text" autocomplete="off">
     </div>
-  </div>
+    <div class="form-group">
+        <input class="form-control" placeholder="Your Email Address" type="email" autocomplete="off">
+    </div>
+    <div class="form-group">
+        <input class="form-control" placeholder="Friend Email Address" type="email" autocomplete="off">
+    </div>
+    <div class="form-group">
+        <textarea rows="4" class="form-control" placeholder="Message"></textarea>
+    </div>
+    <div class="form-group">
+        <input value="Submit" class="btn btn-block" type="submit">
+    </div>
+</form>
+</div>
+</div>
+</div>
 </div>
 <!-- /Email-to-Friends -->
 
 <!-- Report -->
 <div id="report_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h3 class="modal-title">Report This Listing</h3>
-        <p>Please indicate what problem has been found!</p>
-      </div>
-      <div class="modal-body">
-        <form action="#" method="get">
-          <div class="form-group">
-            <div class="radio">
-                <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_0" checked>
-                <label for="RadioGroup1_0">Duplicate Listing</label>
-             </div>
-             <div class="radio">
-                <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_1">
-                <label for="RadioGroup1_1">Wrong Contact Info </label>
-             </div>
-             <div class="radio">
-                <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_2">
-                <label for="RadioGroup1_2">Fake Listing</label>
-             </div>
-             <div class="radio">
-                <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_2">
-                <label for="RadioGroup1_2">Other Problem</label>
-             </div>
-          </div>
-          <div class="form-group">
-            <textarea rows="4" class="form-control" placeholder="Problem Description"></textarea>
-          </div>
-          <div class="form-group">
-            <input value="Submit" class="btn btn-block" type="submit">
-          </div>
-        </form>
-      </div>
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span></button>
+<h3 class="modal-title">Report This Listing</h3>
+<p>Please indicate what problem has been found!</p>
+</div>
+<div class="modal-body">
+<form action="#" method="get">
+    <div class="form-group">
+        <div class="radio">
+            <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_0" checked="checked">
+            <label for="RadioGroup1_0">Duplicate Listing</label>
+        </div>
+        <div class="radio">
+            <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_1">
+            <label for="RadioGroup1_1">Wrong Contact Info
+            </label>
+        </div>
+        <div class="radio">
+            <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_2">
+            <label for="RadioGroup1_2">Fake Listing</label>
+        </div>
+        <div class="radio">
+            <input type="radio" name="RadioGroup1" value="radio" id="RadioGroup1_2">
+            <label for="RadioGroup1_2">Other Problem</label>
+        </div>
     </div>
-  </div>
+    <div class="form-group">
+        <textarea rows="4" class="form-control" placeholder="Problem Description"></textarea>
+    </div>
+    <div class="form-group">
+        <input value="Submit" class="btn btn-block" type="submit">
+    </div>
+</form>
+</div>
+</div>
+</div>
 </div>
 <!-- /Report -->
 
 <!-- Send-Message -->
 <div id="message_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h3 class="modal-title">Send Message</h3>
-      </div>
-      <div class="modal-body">
-        <form action="#" method="get" name="formSendMsg" id="formSendMsg">
-          <div class="form-group">
-          	<input type="text" class="form-control" id="inputName" placeholder="Name" autocomplete="off" required="required">
-          </div>
-          <div class="form-group">
-          	<input type="email" class="form-control" id="inputEmail" placeholder="Email" autocomplete="off" required="required">
-          </div>
-          <div class="form-group">
-            <textarea rows="4" class="form-control" id="inputMessage" placeholder="Message" required="required"></textarea>
-          </div>
-          <div class="form-group">
-            <input value="Send Now" class="btn btn-block" type="submit">
-          </div>
-        </form>
-      </div>
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span></button>
+<h3 class="modal-title">Send Message</h3>
+</div>
+<div class="modal-body">
+<form action="#" method="get" name="formSendMsg" id="formSendMsg">
+    <div class="form-group">
+        <input type="text" class="form-control" id="inputName" placeholder="Name" autocomplete="off" required="required">
     </div>
-  </div>
+    <div class="form-group">
+        <input type="email" class="form-control" id="inputEmail" placeholder="Email" autocomplete="off" required="required">
+    </div>
+    <div class="form-group">
+        <textarea rows="4" class="form-control" id="inputMessage" placeholder="Message" required="required"></textarea>
+    </div>
+    <div class="form-group">
+        <input value="Send Now" class="btn btn-block" type="submit">
+    </div>
+</form>
+</div>
+</div>
+</div>
 </div>
 <!-- /Send-Message -->
 
 <!-- gellery -->
 
-
 <div class="container">
-    <div class="col-lg-12">
+<div class="col-lg-12">
 
+{% if profile[0].ci_lat != "" and profile[0].ci_lng != ""%}
 
-        {% if profile[0].ci_lat != "" and profile[0].ci_lng != ""%}
-
-            <div class="widget_title">
-                <h6><i class="fa fa-map-marker" aria-hidden="true"></i> Location Map</h6>
-            </div>
-            <div id="single_map">
-                <div id="singleListingMap-container">
-                    <div id="singlemap" data-latitude="{{ profile[0].ci_lat }}" data-longitude="{{ profile[0].ci_lng }}" data-map-icon="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></div>
-                </div>
-            </div>
-        {% endif %}
-    </div>
+<div class="widget_title">
+<h6>
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    Location Map</h6>
+</div>
+<div id="single_map">
+<div id="singleListingMap-container">
+    <div id="singlemap" data-latitude="{{ profile[0].ci_lat }}" data-longitude="{{ profile[0].ci_lng }}" data-map-icon="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></div>
+</div>
+</div>
+{% endif %}
+</div>
 </div>
 {% endblock %}
 
 {% block codejs %}
-    <script>
 
-        $(function () {
+<script>
 
-            $("#formSendMsg").submit(function(event){
-                event.preventDefault();
-                $("#holder_loading").show();
-                var name = $("#inputName").val();
-                var email = $("#inputEmail").val();
-                var message = $("#inputMessage").val();
-                var routeShow = "{{ path('web_sendContactFormToDoctor') }}";
-				$.ajax({
-						type: "POST",
-						url: routeShow,
-						data: {
-						    name:name, email:email, message: message
-						},
-						error: function (data) {
-							$("#holder_loading").hide();
-                            $.alert({
-									icon: 'fa fa-times',
-									title: 'Info!',
-									content: 'An error occurred while trying to send the form ',
-									type: 'red',
-									typeAnimated: true,
-							});
-						},
-						success: function (data) {
+    $(function () {
 
-							if (data > 0)
-							{
+        $("#formSendMsg").submit(function (event) {
+            event.preventDefault();
+            $("#holder_loading").show();
+            var name = $("#inputName").val();
+            var email = $("#inputEmail").val();
+            var message = $("#inputMessage").val();
+            var routeShow = "{{ path('web_sendContactFormToDoctor') }}";
+            $.ajax({
+                type: "POST",
+                url: routeShow,
+                data: {
+                    name: name,
+                    email: email,
+                    message: message
+                },
+                error: function (data) {
+                    $("#holder_loading").hide();
+                    $.alert({icon: 'fa fa-times', title: 'Info!', content: 'An error occurred while trying to send the form ', type: 'red', typeAnimated: true});
+                },
+                success: function (data) {
 
-								$("#holder_loading").hide();
-                                $.alert({
-                                    icon: 'fa fa-check',
-                                    title: 'Success',
-                                    type: "green",
-                                    content: 'The form was sent Ok!',
-                                });
-                                $('#message_modal').modal('hide')
-                                $("#formSendMsg")[0].reset();
-							} else
-							{
-								$("#holder_loading").hide();
-								$.alert({
-									icon: 'fa fa-times',
-									title: 'Info!',
-									content: 'An error occurred while trying to send the form ',
-									type: 'red',
-									typeAnimated: true,
-								});
-							}
+                    if (data > 0) {
 
+                        $("#holder_loading").hide();
+                        $.alert({icon: 'fa fa-check', title: 'Success', type: "green", content: 'The form was sent Ok!'});
+                        $('#message_modal').modal('hide')
+                        $("#formSendMsg")[0].reset();
+                    } else {
+                        $("#holder_loading").hide();
+                        $.alert({icon: 'fa fa-times', title: 'Info!', content: 'An error occurred while trying to send the form ', type: 'red', typeAnimated: true});
+                    }
 
-
-						}
-				});
-            });
-
-           // $("#footer").css({"padding-right":"0% !important"});
-            $('.grid').isotope({
-                itemSelector: '.grid-item',
-                masonry: {
-                    columnWidth: 20,
-                    gutter: 10
                 }
             });
+        });
 
-            $('[data-toggle="tooltip"]').tooltip();
+        // $("#footer").css({"padding-right":"0% !important"});
+        $('.grid').isotope({
+            itemSelector: '.grid-item',
+            masonry: {
+            columnWidth: 20,
+            gutter: 10
+            }
+        });
 
+        $('[data-toggle="tooltip"]').tooltip();
 
-            {%if gallery|length > 0  %}
-                $("[data-fancybox]").fancybox({
-                    /*
-                    thumbs : {
-                        autoStart : true
-                    }
-                    */
-                    transitionEffect: "circular",
-                });
-            {% endif %}
-    /*-------------------------------------------------------------------------------
-		Googl-Map
-	-------------------------------------------------------------------------------*/
+        {% if gallery|length > 0 %}
+            $("[data-fancybox]").fancybox({
+            /*
+                                thumbs : {
+                                    autoStart : true
+                                }
+                                */
+            transitionEffect: "circular"
+            });
+        {% endif %}
+        /*-------------------------------------------------------------------------------
+                Googl-Map
+            -------------------------------------------------------------------------------*/
 
-    var map = document.getElementById('map');
-    if (typeof(map) != 'undefined' && map != null) {
+        var map = document.getElementById('map');
+        if (typeof(map) != 'undefined' && map != null) {
         google.maps.event.addDomListener(window, 'load', GooglMap);
         google.maps.event.addDomListener(window, 'resize', GooglMap);
-    }
+        }
 
-    function singlemap() {
-        var myLatlng = new google.maps.LatLng({
-            lng: $('#singlemap').data('longitude'),
-            lat: $('#singlemap').data('latitude'),
-        });
+        function singlemap() {
+        var myLatlng = new google.maps.LatLng({lng: $('#singlemap').data('longitude'), lat: $('#singlemap').data('latitude')});
         var single_map = new google.maps.Map(document.getElementById('singlemap'), {
-            zoom: 15,
-            center: myLatlng,
-            scrollwheel: true,
-            zoomControl: true,
-            mapTypeControl: true,
-              mapTypeControlOptions: {
-                  style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-                  position: google.maps.ControlPosition.TOP_CENTER
-              },
-              zoomControlOptions: {
-              position: google.maps.ControlPosition.LEFT_CENTER
-          },
-            scaleControl: false,
-			fullscreenControl: false,
-            panControl: false,
-            navigationControl: false,
-            streetViewControl: false,
+        zoom: 15,
+        center: myLatlng,
+        scrollwheel: true,
+        zoomControl: true,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+            position: google.maps.ControlPosition.TOP_CENTER
+        },
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_CENTER
+        },
+        scaleControl: false,
+        fullscreenControl: false,
+        panControl: false,
+        navigationControl: false,
+        streetViewControl: false
         });
         var zoomControlDiv = document.createElement('div');
         var zoomControl = new ZoomControl(zoomControlDiv, single_map);
 
         function ZoomControl(controlDiv, single_map) {
-            zoomControlDiv.index = 1;
-            single_map.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomControlDiv);
-            var controlWrapper = document.createElement('div');
-            controlDiv.appendChild(controlWrapper);
-            var zoomInButton = document.createElement('div');
-            zoomInButton.className = "custom-zoom-in";
-            controlWrapper.appendChild(zoomInButton);
-            var zoomOutButton = document.createElement('div');
-            zoomOutButton.className = "custom-zoom-out";
-            controlWrapper.appendChild(zoomOutButton);
-            google.maps.event.addDomListener(zoomInButton, 'click', function() {
-                single_map.setZoom(single_map.getZoom() + 1);
-            });
-            google.maps.event.addDomListener(zoomOutButton, 'click', function() {
-                single_map.setZoom(single_map.getZoom() - 1);
-            });
+        zoomControlDiv.index = 1;
+        single_map.controls[google.maps.ControlPosition.RIGHT_TOP].push(zoomControlDiv);
+        var controlWrapper = document.createElement('div');
+        controlDiv.appendChild(controlWrapper);
+        var zoomInButton = document.createElement('div');
+        zoomInButton.className = "custom-zoom-in";
+        controlWrapper.appendChild(zoomInButton);
+        var zoomOutButton = document.createElement('div');
+        zoomOutButton.className = "custom-zoom-out";
+        controlWrapper.appendChild(zoomOutButton);
+        google.maps.event.addDomListener(zoomInButton, 'click', function () {
+            single_map.setZoom(single_map.getZoom() + 1);
+        });
+        google.maps.event.addDomListener(zoomOutButton, 'click', function () {
+            single_map.setZoom(single_map.getZoom() - 1);
+        });
         }
         var singleMapIco = "<i class='im-icon'><img src='" + $('#singlemap').data('map-icon') + "'></i>";
         new CustomMarker(myLatlng, single_map, {
-            marker_id: '1'
+        marker_id: '1'
         }, singleMapIco);
-    }
-    var single_map = document.getElementById('singlemap');
-    if (typeof(single_map) != 'undefined' && single_map != null) {
+        }
+        var single_map = document.getElementById('singlemap');
+        if (typeof(single_map) != 'undefined' && single_map != null) {
         google.maps.event.addDomListener(window, 'load', singlemap);
         google.maps.event.addDomListener(window, 'resize', singlemap);
-    }
+        }
 
-    function CustomMarker(latlng, map, args, markerIco) {
+        function CustomMarker(latlng, map, args, markerIco) {
         this.latlng = latlng;
         this.args = args;
         this.markerIco = markerIco;
         this.setMap(map);
-    }
-    CustomMarker.prototype = new google.maps.OverlayView();
-    CustomMarker.prototype.draw = function() {
+        }
+        CustomMarker.prototype = new google.maps.OverlayView();
+        CustomMarker.prototype.draw = function () {
         var self = this;
         var div = this.div;
         if (!div) {
-            div = this.div = document.createElement('div');
-            div.className = 'map-marker-container';
-            div.innerHTML = '<div class="marker-container">' + '<div class="marker-card">' + '<div class="front face">' + self.markerIco + '</div>' + self.markerIco + '</div>'  + '</div>' + '</div>'
-            google.maps.event.addDomListener(div, "click", function(event) {
-                $('.map-marker-container').removeClass('clicked infoBox-opened');
-                google.maps.event.trigger(self, "click");
-                $(this).addClass('clicked infoBox-opened');
-            });
-            if (typeof(self.args.marker_id) !== 'undefined') {
-                div.dataset.marker_id = self.args.marker_id;
-            }
-            var panes = this.getPanes();
-            panes.overlayImage.appendChild(div);
+        div = this.div = document.createElement('div');
+        div.className = 'map-marker-container';
+        div.innerHTML = '<div class="marker-container">' + '<div class="marker-card">' + '<div class="front face">' + self.markerIco + '</div>' + self.markerIco + '</div>' + '</div>' + '</div>'
+        google.maps.event.addDomListener(div, "click", function (event) {
+            $('.map-marker-container').removeClass('clicked infoBox-opened');
+            google.maps.event.trigger(self, "click");
+            $(this).addClass('clicked infoBox-opened');
+        });
+        if (typeof(self.args.marker_id) !== 'undefined') {
+            div.dataset.marker_id = self.args.marker_id;
+        }
+        var panes = this.getPanes();
+        panes.overlayImage.appendChild(div);
         }
         var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
         if (point) {
-            div.style.left = (point.x) + 'px';
-            div.style.top = (point.y) + 'px';
+        div.style.left = (point.x) + 'px';
+        div.style.top = (point.y) + 'px';
         }
-    };
-    CustomMarker.prototype.remove = function() {
+        };
+        CustomMarker.prototype.remove = function () {
         if (this.div) {
-            this.div.parentNode.removeChild(this.div);
-            this.div = null;
-            $(this).removeClass('clicked');
+        this.div.parentNode.removeChild(this.div);
+        this.div = null;
+        $(this).removeClass('clicked');
         }
-    };
-    CustomMarker.prototype.getPosition = function() {
+        };
+        CustomMarker.prototype.getPosition = function () {
         return this.latlng;
-    };
-        });
-    </script>
-    </script>
+        };
+    });
+</script>
 {% endblock %}
-

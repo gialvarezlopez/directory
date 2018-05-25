@@ -1,5 +1,5 @@
 web_homepage:
-    path:     /
+    path:     /billboard
     defaults: { _controller: WebBundle:Default:index }
 
 web_get_cities:
@@ -18,7 +18,7 @@ web_show_profile:
   methods:  GET
 
 web_landing:
-  path:     /landing
+  path:     /
   defaults: { _controller: "WebBundle:Default:landing" }
   methods:  GET
 
