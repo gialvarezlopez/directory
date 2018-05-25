@@ -429,10 +429,42 @@ class DefaultController extends Controller
 
     }
 
-    public function sendContactFormToDoctorAction( Request $request ){
+    public function sendContactFormToDoctorAction( Request $request /*, \Swift_Mailer $mailer*/ ){
         $name = $request->get("name");
         $email = $request->get("email");
-        $message = $request->get("message");
+        $msg = $request->get("message");
+        
+        
+        $message = (new \Swift_Message('Hello Email'))
+        ->setFrom($email)
+        ->setTo('gialvarezlopez@gmail.com')
+        ->setBody(
+            $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                'web/default/contactEmail.html.twig',
+                array('name' => $name)
+            ),
+            'text/html'
+        )
+            /*
+            * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+        $this->get('mailer')->send($message);            
+        //$mailer->send($message);
+
+    // or, you can also fetch the mailer service this way
+    // $this->get('mailer')->send($message);
+
+    //return $this->render(...);
+
         echo 1;
         exit();
     }

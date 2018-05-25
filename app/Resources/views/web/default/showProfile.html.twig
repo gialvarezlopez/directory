@@ -668,13 +668,13 @@
       <div class="modal-body">
         <form action="#" method="get" name="formSendMsg" id="formSendMsg">
           <div class="form-group">
-          	<input type="text" class="form-control" id="inputName" placeholder="Name" autocomplete="off">
+          	<input type="text" class="form-control" id="inputName" placeholder="Name" autocomplete="off" required="required">
           </div>
           <div class="form-group">
-          	<input type="email" class="form-control" id="inputEmail" placeholder="Email" autocomplete="off">
+          	<input type="email" class="form-control" id="inputEmail" placeholder="Email" autocomplete="off" required="required">
           </div>
           <div class="form-group">
-            <textarea rows="4" class="form-control" id="inputMessage" placeholder="Message"></textarea>
+            <textarea rows="4" class="form-control" id="inputMessage" placeholder="Message" required="required"></textarea>
           </div>
           <div class="form-group">
             <input value="Send Now" class="btn btn-block" type="submit">
@@ -746,7 +746,7 @@
                                     icon: 'fa fa-check',
                                     title: 'Success',
                                     type: "green",
-                                    content: 'The form was sended Ok!',
+                                    content: 'The form was sent Ok!',
                                 });
                                 $('#message_modal').modal('hide')
                                 $("#formSendMsg")[0].reset();
