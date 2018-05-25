@@ -399,8 +399,119 @@ class DefaultController extends Controller
         return date('ga', strtotime($nuevaHora)  );
     }
 
-    public function landingAction(){
-        return $this->render('web/default/landing.html.twig');
+    public function landingAction( Request $request ){
+
+        $em     = $this->getDoctrine()->getManager();
+        /*
+        *   Obtain all profiles data
+        */
+        $_state     =   $request->query->get('state');
+        $_city      =   $request->query->get('city');
+        $_speciality=   $request->query->get('speciality');
+        $_country   =   $request->query->get('country');
+        $_filter    ='';
+        $zoom = 0;
+        $stado_lat_lng=0;
+        $busqueda = array();
+        $citis = 0;
+        $countries = 0;
+        $estados_d = 0;
+
+        $busqueda['_STATE']=0;
+        $busqueda['_CITY']=0;
+        $busqueda['_SPECI']=0;
+        $busqueda['_COUNTRY']=0;
+
+        //$sBusqueda = $request->query->get('b');
+        $sUsuarios = '';
+        if (!empty($_state) or !empty($_city) or !empty($_speciality)) {
+
+            $_SESSION['_STATE']     = $_state;
+            $_SESSION['_CITY']      = $_city;
+            $_SESSION['_SPECI']     = $_speciality;
+            $_SESSION['_COUNTRY']   = $_country;
+
+            $busqueda['_STATE']     = $_SESSION['_STATE'];
+            $busqueda['_CITY']      = $_SESSION['_CITY'];
+            $busqueda['_SPECI']     = $_SESSION['_SPECI'];
+            $busqueda['_COUNTRY']   = $_SESSION['_COUNTRY'];
+
+            if($_state){
+                $_filter .= ' and s.sta_id='.$_state;
+
+                if ($_city){
+                    $_filter .= ' and ci.cit_id ='.$_city;
+                }
+            }
+            if ($_speciality != 0){
+                $_filter .= ' and ues.sp_id ='.$_speciality;
+            }
+
+            if(isset($_state)){
+                $sql_estado = "select * from state where sta_id = ".$_state;
+                $statement  = $em->getConnection()->prepare($sql_estado);
+                                $statement->execute();
+                $estados_d = $statement->fetchAll();
+            }
+
+            // Obteniendo todas las cities del estado en session
+            if(isset($_SESSION['_CITY'])){
+                $sql_estado = "select * from city where sta_id = ". $_SESSION['_STATE'];
+                $statement  = $em->getConnection()->prepare($sql_estado);
+                                $statement->execute();
+                $citis = $statement->fetchAll();
+            }
+            if(isset($_country)){
+                $sql_estado = "select * from country where cou_id = ". $_SESSION['_COUNTRY'];
+                $statement  = $em->getConnection()->prepare($sql_estado);
+                                $statement->execute();
+                $countries = $statement->fetchAll();
+            }
+
+            $zoom = 1;
+        }else{
+            $sql_estado = "select * from state where sta_id = 1";
+            $statement  = $em->getConnection()->prepare($sql_estado);
+                            $statement->execute();
+            $estados_d= $statement->fetchAll();
+
+            $zoom = 0;
+        }
+
+
+
+        $state      = $em->getRepository('AppBundle:State')->findBy( array('cou' => $_country) );
+        $speciality = $em->getRepository('AppBundle:Speciality')->findAll();
+        $country    = $em->getRepository('AppBundle:Country')->findAll();
+
+        $RAW_QUERY  = "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,
+                        ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
+                        group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
+                        from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u
+            LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
+            LEFT JOIN state as s on s.sta_id = c.sta_id
+
+            LEFT JOIN user_has_speciality AS ues ON ues.usr_id = u.usr_id
+            LEFT JOIN speciality as e on e.sp_id = ues.sp_id
+            where md.md_active = 1 and ci.ci_lat != '' $_filter
+            group by u.usr_id ";
+        $statement  = $em->getConnection()->prepare($RAW_QUERY);
+                      $statement->execute();
+        $medic      = $statement->fetchAll();
+
+
+        /**
+        * @VAR $paginator \Knp\Component\Pager\Paginator
+        */
+        $paginator = $this->get('knp_paginator');
+                        $pagination = $paginator->paginate(
+                                $medic,
+                                $request->query->getInt('page', 1),
+                                50);
+
+        //return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries , 'estados_d' => $estados_d));
+
+        return $this->render('web/default/landing.html.twig' ,array('country'=> $country,'state'=> $state , 'cities'=>$citis , 'speciality' => $speciality , 'medic' => $pagination) );
     }
 
     public function contactusAction( Request $request ){

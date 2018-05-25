@@ -64,25 +64,99 @@
         </div>
         <div class="intro_search">
         	<div class="intro_search_content">
-            	<h2>Find Your Destination</h2>
+            	<h2>Find Here</h2>
             	<div class="search_form">
                     <form action="listing-grid-map.html" method="get">
 
                         <div class="form-group select">
-                            <select class="form-control">
-                                <option>What are you looking for?</option>
-                                <option>Real Estate</option>
-                                <option>Restaurant</option>
-                                <option>Real Estate</option>
-                                <option>Health & Fitness</option>
-                                <option>Beauty & Spas</option>
-                                <option>Hotels & Travel</option>
-                                <option>Automotive</option>
+                            <select class="form-control" id="category" name="category">
+                                <option>Doctors</option>
+                                <option>Hospital</option>
+                                <option>Clinic</option>
+                                <option>Pharmacy</option>
+                                <option>Social Welfare</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Location">
+
+                        <div class="form-group select">
+                            <select class="form-control" id="country" name="country">
+                                                {#
+                                                    {% if countries %}
+                                                        <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option>
+                                                    {% else %}
+                                                        <option value="0">Select Country</option>
+                                                    {% endif %}
+                                                 #}
+                                                <option value="0">Select Country</option>
+                                                {% for countries in country %}
+                                                    {% if app.request.query.get("country") == countries.couId %}
+                                                        <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
+                                                    {% else %}
+                                                        <option value="{{ countries.couId }}">{{ countries.couName }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                            </select>
                         </div>
+                        <div class="form-group select">
+                            <select class="form-control" id="state" name="state">
+                                                {#
+                                            {% if estados_d %}
+                                                <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option>
+                                            {% else %}
+                                                <option value="0">Select State</option>
+                                            {% endif %}
+                                            #}
+                                                <option value=""></option>
+                                                {% for states in state %}
+
+                                                    {# {% if states.staId != estados_d[0].sta_id %} #}
+                                                    {% if app.request.query.get("state") == states.staId %}
+                                                        <option value="{{ states.staId }}" selected="selected">{{ states.staName }}</option>
+                                                    {% else %}
+                                                        <option value="{{ states.staId }}">{{ states.staName }}</option>
+                                                    {% endif %}
+
+                                                {% endfor %}
+
+                                            </select>
+                        </div>
+
+                        <div class="form-group select">
+                            <select class="form-control" id="cities" name="city">
+                                                <option value=""></option>
+                                                {% if cities %}
+                                                    {% for city in cities %}
+                                                        {% if app.request.query.get("city") == city.cit_id %}
+                                                            <option value="{{ city.cit_id }}" selected="selected">{{ city.cit_name }}</option>
+                                                        {% else %}
+                                                            <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>
+                                                        {% endif %}
+
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                            </select>
+                        </div>
+
+                        <div class="form-group select">
+                            <div class="select">
+                                            Speciality:
+                                            <select class="form-control" id="speciality" name="speciality">
+                                                <option value=""></option>
+                                                {% for spe in speciality %}
+                                                    {% if app.request.query.get("speciality") == spe.spId %}
+                                                        <option value="{{ spe.spId }}" selected="selected">{{ spe.spName }}</option>
+                                                    {% else %}
+                                                        <option value="{{ spe.spId }}">{{ spe.spName }}</option>
+                                                    {% endif %}
+
+                                                {% endfor %}
+
+                                            </select>
+                        </div>
+                        <br>
+
                         <div class="form-group search_btn">
                             <input type="submit" value="Search" class="btn btn-block">
                         </div>
@@ -100,9 +174,9 @@
 <section id="listing_category" class="section-padding">
 	<div class="container">
     	<div class="section-header text-center">
-        	<h2>What are you interested in? </h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.</p>
+        	<h2>What We Do </h2>
+            <p>You will be part of the doctors directory most big of the world completing the nexts steps.</p>
+             <p>Registration Available for <b>USA, CANADA AND AUSTRALIA</b></p>
         </div>
     	<div id="category_slider2">
         	<div class="owl-carousel owl-theme">
@@ -110,9 +184,9 @@
                 	<a href="#">
     	            	<div class="category_icon">
                         	<span class="category_listing_n">20</span>
-                            <img src="assets/images/category-icon1.png" alt="image">
+                            <img src="{{ asset('bundles/web/template/Site/assets/images/doctors_1.png') }}" alt="image">
                         </div>
-	                    <p>Real Estate</p>
+	                    <p>Doctors</p>
                     </a>
                 </div>
 
@@ -120,9 +194,9 @@
                 	<a href="#">
     	            	<div class="category_icon">
                         	<span class="category_listing_n">32</span>
-                            <img src="assets/images/category-icon2.png" alt="image">
+                            <img src="{{ asset('bundles/web/template/Site/assets/images/hospital_1.png') }}" alt="image">
                         </div>
-	                    <p>Restaurant</p>
+	                    <p>Hospital</p>
                     </a>
                 </div>
 
@@ -130,9 +204,9 @@
                 	<a href="#">
     	            	<div class="category_icon">
                         	<span class="category_listing_n">18</span>
-                            <img src="assets/images/category-icon3.png" alt="image">
+                            <img src="{{ asset('bundles/web/template/Site/assets/images/clinic_1.png') }}" alt="image">
                         </div>
-	                    <p>Health & Fitness</p>
+	                    <p>Clinic</p>
                     </a>
                 </div>
 
@@ -140,9 +214,9 @@
                 	<a href="#">
     	            	<div class="category_icon">
                         	<span class="category_listing_n">15</span>
-                            <img src="assets/images/category-icon4.png" alt="image">
+                            <img src="{{ asset('bundles/web/template/Site/assets/images/pharmacy_1.png') }}" alt="image">
                         </div>
-                        <p>Beauty & Spas</p>
+                        <p>Pharmacy</p>
                     </a>
                 </div>
 
@@ -150,31 +224,12 @@
                 	<a href="#">
     	            	<div class="category_icon">
                         	<span class="category_listing_n">15</span>
-                            <img src="assets/images/category-icon5.png" alt="image">
+                            <img src="{{ asset('bundles/web/template/Site/assets/images/social_1.png') }}" alt="image">
                         </div>
-                        <p>Hotels & Travel</p>
+                        <p>social Welfare </p>
                     </a>
                 </div>
-
-                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#">
-    	            	<div class="category_icon">
-                        	<span class="category_listing_n">32</span>
-                            <img src="assets/images/category-icon6.png" alt="image">
-                        </div>
-	                    <p>Automotive</p>
-                    </a>
-                </div>
-
-                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#">
-    	            	<div class="category_icon">
-                        	<span class="category_listing_n">10</span>
-                            <img src="assets/images/category-icon7.png" alt="image">
-                        </div>
-	                    <p>Event</p>
-                    </a>
-                </div>
+  
             </div>
         </div>
     </div>
@@ -184,11 +239,10 @@
 
 <!-- How-it-Work -->
 <section id="how_it_work" class="section-padding parallex-bg">
-	<div class="container">
+	<div class="container" >
     	<div class="section-header text-center white-text div_zindex">
-        	<h2>Find Quick and Easy</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.</p>
+        	<h2 style="color:white;">3 Simple Steps </h2>
+            <p style="color:white;">You must be part of DoctorsBillboard to have a better presence in the world .</p>
         </div>
 
         <div class="row">
@@ -197,8 +251,8 @@
                 	<div class="icon_div">
                     	<i class="fa fa-map-marker"></i>
                     </div>
-                	<h5>Choose a location</h5>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                	<h5>Register</h5>
+                     <p>You Need complete the register fields.</p><br>
                 </div>
             </div>
 
@@ -207,8 +261,8 @@
                 	<div class="icon_div">
                     	<i class="fa fa-location-arrow"></i>
                     </div>
-                	<h5>Pick a category</h5>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                	<h5>Information</h5>
+                     <p>Fill up all the information about your medical specialty.</p><br>
                 </div>
             </div>
 
@@ -217,8 +271,8 @@
                 	<div class="icon_div">
                     	<i class="fa fa-smile-o"></i>
                     </div>
-                	<h5>Find what you want</h5>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                	<h5>Public</h5>
+                     <p>Your Doctor Profile Will have one position on the most big map for smart medics.</p>
                 </div>
             </div>
         </div>
@@ -232,111 +286,74 @@
 	<div class="container">
     	<div class="section-header text-center">
         	<h2>Featured Listings</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+            <p>You can have the following services inside of the big platform.</p>
         </div>
 
         <div id="popular_listing_slider">
         	<div class="owl-carousel owl-theme">
                 <div class="listing_wrap">
                     <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="assets/images/category-icon1.png" alt="icon-img"></a></span>
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/maps.png') }}" width="50px" alt="image"></a>
                     </div>
                     <div class="listing_info">
                         <div class="post_category">
-                            <a href="#">Real Estate</a>
+                            <a href="#">Global Profile</a>
                         </div>
-                        <h4><a href="#">The Morning Hotel</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                        <h4><a href="#">Your profile is available for all regions</a></h4>
 
                         <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                            <p>All Countries and Cities</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="listing_wrap">
                     <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="assets/images/category-icon2.png" alt="icon-img"></a></span>
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/gallery.png') }}" alt="image"></a>
                     </div>
                     <div class="listing_info">
                         <div class="post_category">
-                            <a href="#">Restaurant</a>
+                            <a href="#">Gallery</a>
                         </div>
-                        <h4><a href="#">Eating Restaurant</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                        <h4><a href="#">Create photo gallery about your profession</a></h4>
 
                         <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                            <p>Show your locale</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="listing_wrap">
                     <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="assets/images/category-icon4.png" alt="icon-img"></a></span>
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+           
+                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/schedule.png') }}" alt="image"></a>
                     </div>
                     <div class="listing_info">
                         <div class="post_category">
-                            <a href="#">Beauty & Spas</a>
+                            <a href="#">Schedule </a>
                         </div>
-                        <h4><a href="#">The Morning Hotel</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                        <h4><a href="#">Schedule available for your services</a></h4>
+
 
                         <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                            <p>Show your consulting schedule</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="listing_wrap">
                     <div class="listing_img">
-                        <span class="like_post"><i class="fa fa-bookmark-o"></i></span>
-                        <div class="listing_cate">
-                            <span class="cate_icon"><a href="#"><img src="assets/images/category-icon2.png" alt="icon-img"></a></span>
-                            <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span>
-                        </div>
-                        <a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/contact.png') }}" alt="image"></a>
                     </div>
                     <div class="listing_info">
                         <div class="post_category">
-                            <a href="#">Restaurant</a>
+                            <a href="#">Contact Information</a>
                         </div>
-                        <h4><a href="#">Blue Restaurant</a></h4>
-                        <p>5-star hotel with restaurant, Deluxe Rooms.</p>
+                        <h4><a href="#">Phones and Socials Networks available for contact you</a></h4>
+
 
                         <div class="listing_review_info">
-                            <p><span class="review_score">4.0/5</span>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i>
-                               <i class="fa fa-star active"></i> <i class="fa fa-star"></i>
-                               (5 Reviews) </p>
-                            <p class="listing_map_m"><i class="fa fa-map-marker"></i> Los Angeles</p>
+                            <p>Many point contacts you can set into application</p>
                         </div>
                     </div>
                 </div>
@@ -351,9 +368,8 @@
 <section id="pricing_table" class="section-padding parallex-bg">
 	<div class="container">
     	<div class="section-header white-text div_zindex text-center">
-        	<h2>Listing Packages</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.</p>
+        	<h2>Best Price Guranteed</h2>
+            <p>Select the one you prefer.</p>
         </div>
 
         <div class="row">
@@ -361,17 +377,70 @@
             	<div class="pricing_wrap">
                 	<div class="pricing_header">
                     	<h2>Basic</h2>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                        <p>1 Month</p>
                     </div>
                     <div class="plan_info">
-                    	<div class="plan_price">Free</div>
-                        <ul>
-                        	<li><span>One</span> Listing</li>
-                            <li><span>30 Days </span> Availability</li>
-                            <li><span>Standard </span> Listing</li>
-                            <li><span>Limited </span> Support</li>
-                        </ul>
-                        <a href="#" class="btn">Get Started</a>
+                    	<div class="plan_price">$25.00</div>
+                        
+                    <table class="table">
+                        <tr class="active">
+                            <td class="blue">
+                                Only for 1 Month
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="white">
+                                Visitor Counter
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Profile Information
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="white">
+                                Contact Information
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Academy Information
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="white">
+                                Ubication Map 
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Schedule Work
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="white">
+                                1 Socials Networks
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Speciality Medics
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="white">
+                                Gallery (2 photos)
+                            </td>
+                        </tr>                       
+                        
+                        <tr class="active">
+                            <td class="blue">
+                                Easy Contact Doctor
+                            </td>
+                        </tr>
+                    </table>
+                        <a href="register" class="btn">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -381,17 +450,70 @@
                 	<div class="pricing_header">
                     	<p class="popular_plan">Most Popular</p>
                     	<h2>Professional</h2>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                        <p>6 Months</p>
                     </div>
                     <div class="plan_info">
-                    	<div class="plan_price">$5.00</div>
-                        <ul>
-                        	<li><span>10</span> Listing</li>
-                            <li><span>90 Days </span> Availability</li>
-                            <li><span>Standard </span> Listing</li>
-                            <li><span>24/7 </span> Support</li>
-                        </ul>
-                        <a href="#" class="btn">Get Started</a>
+                    	<div class="plan_price">$100.00</div>
+                        <small>1 Month FREE</small>
+                        <table class="table">
+                        <tr class="active">
+                            <td class="white">
+                                6 Months
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="white">
+                                Visitor Counter
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Profile Information
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="white">
+                                Contact Information
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Academy Information
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="white">
+                                Map Ubication
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Schedule Work
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="white">
+                                4 Socials Networks
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Speciality Medics
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="white">
+                                Gallery (5 photos)
+                            </td>
+                        </tr>                       
+                        
+                        <tr class="active">
+                            <td class="blue">
+                                Easy Contact Doctor
+                            </td>
+                        </tr>
+                    </table>
+                        <a href="register" class="btn">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -400,17 +522,70 @@
             	<div class="pricing_wrap">
                 	<div class="pricing_header">
                     	<h2>Business</h2>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                        <p>12 Months</p>
                     </div>
                     <div class="plan_info">
-                    	<div class="plan_price">$16.00</div>
-                        <ul>
-                        	<li><span>Unlimited</span> Listing</li>
-                            <li><span>Unlimited Days </span> Availability</li>
-                            <li><span>Featured</span> Listing</li>
-                            <li><span>24/7 </span> Support</li>
-                        </ul>
-                        <a href="#" class="btn">Get Started</a>
+                    	<div class="plan_price">$150.00</div>
+                        <small>1 Month FREE</small>
+                        <table class="table">
+                        <tr class="active">
+                            <td class="white">
+                                1 Year
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td class="white">
+                                Visitor Counter
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Profile Information
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="white">
+                                Contact Information
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Academy Information
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="white">
+                                Map Ubication
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Schedule Work
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="white">
+                                Unlimited Socials Networks
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td class="blue">
+                                Speciality Medics
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="white">
+                                Gallery (8 photos)
+                            </td>
+                        </tr>                       
+                        
+                        <tr class="active">
+                            <td class="blue">
+                                Easy Contact Doctor
+                            </td>
+                        </tr>
+                    </table>
+                        <a href="register" class="btn">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -424,25 +599,23 @@
 <section id="latest_blog" class="section-padding">
 	<div class="container">
     	<div class="section-header text-center">
-        	<h2>Latest Articles and Tips</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.</p>
+        	<h2>Our Services are available only for this countries</h2>
+            <p>We have support custom for our customer.</p>
         </div>
 
         <div class="row">
         	<div class="col-md-4">
             	<div class="post_wrap">
                 	<div class="post_img">
-                    	<a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    	<a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/usa.png') }}" alt="image"></a>
                     </div>
                     <div class="post_info">
-                    	<div class="post_category">
-                        	<a href="#">Beauty & Spas</a>
-                        </div>
-                    	<h4><a href="#">The Standard Chunk.</a></h4>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+
+                    	<h4><a href="#">United State of America.</a></h4>
+                        <p>Many states with cities available for the world.</p>
                         <div class="post_meta">
-                        	<p>By: <a href="#">ElemoListing</a></p>
-                            <p>On: <a href="#">22 March, 2017</a></p>
+                        	<p>51 : <a href="#"> States</a></p>
+                            <p>29,639 : <a href="#"> Cities</a></p>
                         </div>
                     </div>
                 </div>
@@ -451,17 +624,15 @@
             <div class="col-md-4">
             	<div class="post_wrap">
                 	<div class="post_img">
-                    	<a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    	<a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/canada.png') }}" alt="image"></a>
                     </div>
                     <div class="post_info">
-                    	<div class="post_category">
-                        	<a href="#">Restaurant</a>
-                        </div>
-                    	<h4><a href="#">There are many variations.</a></h4>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+      
+                    	<h4><a href="#">Canada.</a></h4>
+                        <p>Many states with cities available for the world.</p>
                         <div class="post_meta">
-                        	<p>By: <a href="#">ElemoListing</a></p>
-                            <p>On: <a href="#">22 March, 2017</a></p>
+                        	<p>13 : <a href="#"> States</a></p>
+                            <p>1,709 : <a href="#"> Cities</a></p>
                         </div>
                     </div>
                 </div>
@@ -470,32 +641,72 @@
             <div class="col-md-4">
             	<div class="post_wrap">
                 	<div class="post_img">
-                    	<a href="#"><img src="assets/images/800x530.jpg" alt="image"></a>
+                    	<a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/ausrtralia.png') }}" alt="image"></a>
                     </div>
                     <div class="post_info">
-                    	<div class="post_category">
-                        	<a href="#">Real Estate</a>
-                        </div>
-                    	<h4><a href="#">All the Lorem Ipsum.</a></h4>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+ 
+                    	<h4><a href="#">Australia.</a></h4>
+                        <p>Many states with cities available for the world.</p>
                         <div class="post_meta">
-                        	<p>By: <a href="#">ElemoListing</a></p>
-                            <p>On: <a href="#">22 March, 2017</a></p>
+                        	<p>7 : <a href="#">States</a></p>
+                            <p>14,710 : <a href="#"> Cities</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="text-center">
-        	<a href="#" class="btn">Read More Articles</a>
-        </div>
+
 
     </div>
 </section>
 <!-- /Latest-Blog -->
 
+<section id="featured_listings" class="section-padding parallex-bg">
+    <div class="container">
+    <div class="form">
+      <!--FORM -->
+      <form action="contactus" class="form-horizontal" role="form" id="contactForm" method="post" name="contactForm">
+            
+            <div class="form-group">
+               
+                <div class="col-sm-12">
+                <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Name*">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                  
+                    <div class="col-sm-12">
+                      <input type="email" class="form-control input-lg" name="email" id="email" placeholder="Email*">
+                  </div>
+            </div>
+            
+            <div class="form-group">
+                  
+                    <div class="col-sm-12">
+                      <input type="text" class="form-control input-lg" name="phone" id="phone" placeholder="Phone">
+                  </div>
+            </div>
+            
+            <div class="form-group">
+                  
+                    <div class="col-sm-12">
+                      <textarea class="form-control input-lg" rows="10" name="message" id="message" placeholder="Message*"></textarea>
+                  </div>
+            </div>
+            
+            <div class="control-group submit center">
+               <input class="btn btn-lg btn-primary" type="submit" value="Submit">
+            </div>
 
+           </form>
+           
+           <p class="d-grey requi">* Required</p>
+      
+      </div>
+  </div>
+</section>
 
 {% endblock %}
 
@@ -505,10 +716,104 @@
     <script>
 
     $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('.grid').isotope({itemSelector: '.grid-item'});
 
 
 
-    });
+            $("#formSearch").submit(function () {
+                var country = $('#country').val();
+                //alert(country);
+                if (country > 0) {
+
+                } else {
+                    $.alert({icon: 'fa fa-warning', title: 'Error!', type: "red", content: 'Please use the filters'});
+                    return false;
+                }
+                //alert();
+            });
+
+            // States by Country
+            $('#country').change(function () {
+                var idSate = $(this).val();
+                getStates(idSate);
+
+            });
+
+            {% if app.request.query.get("country") == "" %}
+                var idSate = $('#country').val();
+                getStates(idSate);
+            {% endif %}
+
+            function getStates(idSate) {
+                if (idSate > 0) {
+                    $("#state").empty();
+                    $("#cities").empty().append("<option value=''>All</option>");
+                    $("#holder_loading").show();
+                    $.ajax({
+                        type: "post",
+                        url: "{{ path('web_get_country') }}",
+                        data: {
+                            id: idSate
+                        },
+                        error: function (data) {
+                            alert('Error : Load States');
+                        },
+                        success: function (data) {
+                            $("#state").append("<option value=''>All</option>");
+                            $.each(data, function (key, value) {
+                                $("#state").append("<option value=" + value.sta_id + ">" + value.sta_name + "</option>");
+                            });
+                            $("#holder_loading").hide();
+                        }
+                    });
+                }
+            }
+
+            $('#country').select2({dropdownCssClass: "myFont", placeholder: "Select a country", width: '100%'});
+
+            // cities by state
+            $('#state').change(function () {
+                var idSate = $(this).val();
+                getCities(idSate);
+            });
+
+            function getCities(idSate) {
+                if (idSate > 0) {
+                    $("#cities").empty();
+                    $("#holder_loading").show();
+                    $.ajax({
+                        type: "post",
+                        url: "{{ path('web_get_cities') }}",
+                        data: {
+                            id: idSate
+                        },
+                        error: function (data) {
+                            alert('Error : Load Cities');
+                        },
+                        success: function (data) {
+                            //var $this = $("#cities");
+                            //console.log(data);
+                            $("#cities").append("<option value=''></option>");
+                            $.each(data, function (key, value) {
+                                $("#cities").append("<option value=" + value.cit_id + ">" + value.cit_name + "</option>");
+                            });
+                            $("#cities").select2({dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%'});
+                            $("#holder_loading").hide();
+                        }
+                    });
+                }
+            }
+
+            $('#state').select2({dropdownCssClass: "myFont", placeholder: "Select a state", width: '100%'});
+            $("#cities").select2({dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%'});
+            $("#speciality").select2({dropdownCssClass: "myFont", placeholder: "Select speciality", width: '100%'});
+
+            //var vh = $("#holderInputsSearch").height();
+            //$("#btnSend").css({"height":(vh-3)+"px"});
+            //alert(vh);
+        });
 
     $(function () {
 
@@ -519,7 +824,8 @@
             function GooglMap() {
 
                 var ib = new InfoBox();
-                var test = ""; //{# {{ (medic.items|json_encode|raw) }}; #}
+                var test = {{ medic.items|json_encode|raw }};
+                console.log(test);
 
                 $(document).ready(function () {
                     $(".searchProfile").click(function () {
@@ -539,12 +845,10 @@
                 var locations = [];
 
                 $.each(test, function (k, v) {
+                    console.log(v.usr_id);
                     locations.push([
                         locationData('showProfile/' + v.usr_id, '{{ asset(' uploads / ') }}' + v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
-                        v.ci_lat,
-                        v.ci_lng,
-                        2,
-                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
+                        v.ci_lat,v.ci_lng,2,'<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
                     ])
                 })
 
