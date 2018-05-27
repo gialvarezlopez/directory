@@ -1,10 +1,20 @@
 {# app/Resources/views/Emails/registration.html.twig #}
-<h3>You did it! You registered!</h3>
+<h3>Message sent from doctorsbillboard.com!</h3>
 
-Hi {{ name }}! You're successfully registered.
+Hi {{ fullNameProflie }}! An user sent you a message.
 
-{# example, assuming you have a route named "login" #}
-To login, go to: <a href="">...</a>.
+<table>
+    <tr>
+        <td>User: {{ name }}</td>
+        <td>Email: {{ email }}</td>
+        <td>Message: {{ msg }}</td>
+    </tr>
+</table>
+
+If you want to update your information, you can access in the link below. 
+To login, go to: <a href="www.doctorsbillboard.com/login">www.doctorsbillboard.com/login</a>.
+
+If you want to disable the notifications click in "setting"
 
 Thanks!
 

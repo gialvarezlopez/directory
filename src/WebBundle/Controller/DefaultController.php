@@ -544,39 +544,87 @@ class DefaultController extends Controller
         $name = $request->get("name");
         $email = $request->get("email");
         $msg = $request->get("message");
-        
-        
-        $message = (new \Swift_Message('Hello Email'))
-        ->setFrom($email)
-        ->setTo('gialvarezlopez@gmail.com')
-        ->setBody(
-            $this->renderView(
-                // app/Resources/views/Emails/registration.html.twig
-                'web/default/contactEmail.html.twig',
-                array('name' => $name)
-            ),
-            'text/html'
-        )
+        $profileId = $request->get("profileId");
+
+        if ($request->isMethod('POST') && is_numeric($profileId) && is_numeric($profileId) > 0 )
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $oDetail = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array("usr"=>$profileId ) );
+            if( !$oDetail )
+            {
+                throw new NotFoundHttpException("Profile not found");
+            }
+
+            $fullNameProfile = $oDetail->getMdFirstName()." ".$oDetail->getMdMiddleName()." ".$oDetail->getMdFirstSurname()." ".$oDetail->getMdSecondSurname();
+            
+            //Get emails 
+            $RAW_QUERY  = "SELECT uhsn.usn_link FROM social_network sn
+                            INNER JOIN user_has_social_network uhsn ON sn.sn_id = uhsn.sn_id
+                            WHERE uhsn.usr_id = $profileId 
+                            AND sn.sn_key = 'email' AND uhsn.usn_active = 1";
+
+            $statement  = $em->getConnection()->prepare($RAW_QUERY);
+            $statement->execute();
+            $result    	= $statement->fetchAll();
+            
+            if ( count($result) > 0 )
+            {
+                $to = implode(",",$result[0]); //"emails split it per comma"
+            }else{
+                $to = $oDetail->getUsr()->getUsrEmail();
+            }
+            // the message
+            
+            $subject = "Contact Form";
+            // Always set content-type when sending HTML email
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $message = $msg;
+            
+            echo $viwe = $this->renderView( 'web/default/contactEmail.html.twig', 
+                array(
+                    'fullNameProflie'=>$fullNameProfile, 
+                    'name' => $name, 
+                    "email"=>$email,
+                    "msg"=>$msg
+                    ) 
+            );
+            // More headers
+            $headers .= "From: <$email>" . "\r\n";
+            //$headers .= 'Cc: myboss@example.com' . "\r\n";
+
+            mail($to,$subject,$message,$headers);
+            
             /*
-            * If you also want to include a plaintext version of the message
-            ->addPart(
-                $this->renderView(
-                    'Emails/registration.txt.twig',
-                    array('name' => $name)
-                ),
-                'text/plain'
-            )
+                $message = \Swift_Message::newInstance()//(new \Swift_Message('Hello Email'))
+                ->setFrom($email)
+                ->setTo('gialvarezlopez@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        // app/Resources/views/Emails/registration.html.twig
+                        'web/default/contactEmail.html.twig',
+                        array('name' => $name)
+                    ),
+                    'text/html'
+                )
+
+                ;
+                $this->get('mailer')->send($message);            
+                //$mailer->send($message);
+
+                // or, you can also fetch the mailer service this way
+                // $this->get('mailer')->send($message);
+
+                //return $this->render(...);
             */
-        ;
-        $this->get('mailer')->send($message);            
-        //$mailer->send($message);
-
-    // or, you can also fetch the mailer service this way
-    // $this->get('mailer')->send($message);
-
-    //return $this->render(...);
-
-        echo 1;
+            echo 1;
+        }
+        else
+        {        
+            throw new Exception('Error');
+        }
+        
         exit();
     }
 }
