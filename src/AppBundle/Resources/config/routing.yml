@@ -14,6 +14,10 @@ app_gallery:
         resource: "@AppBundle/Resources/config/routing/gallery.yml"
         prefix:   /backend/gallery
 
+app_review:
+        resource: "@AppBundle/Resources/config/routing/review.yml"
+        prefix:   /backend/review        
+
 app_pricing:
         resource: "@AppBundle/Resources/config/routing/pricing.yml"
         prefix:   /backend/pricing
