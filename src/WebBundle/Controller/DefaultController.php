@@ -645,12 +645,12 @@ class DefaultController extends Controller
 
             $mail = new PHPMailer();
             //$mail->isSMTP();                                      
-            $mail->Host = 'mail.doctorsbillboard.com';
-            $mail->SMTPAuth = true;                               
-            $mail->Username = 'info@doctorsbillboard.com';                
-            $mail->Password = '0vJlNeoPLdDf';                           
+            //$mail->Host = 'mail.doctorsbillboard.com';
+            //$mail->SMTPAuth = true;                               
+            //$mail->Username = 'info@doctorsbillboard.com';                
+            //$mail->Password = '';                           
             //$mail->SMTPSecure = 'tls';                            
-            $mail->Port = 25;                                   
+            //$mail->Port = 25;                                   
             //$mail->setFrom('acedmy@leewayweb.com', 'Leeway Academy');
 			$mail->setFrom($email, $name);
 
