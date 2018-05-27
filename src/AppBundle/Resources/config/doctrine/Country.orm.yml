@@ -19,6 +19,20 @@ AppBundle\Entity\Country:
             options:
                 fixed: false
             column: cou_name
+        staLat:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: sta_lat
+        staLng:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: sta_lng
         couActive:
             type: boolean
             nullable: true
