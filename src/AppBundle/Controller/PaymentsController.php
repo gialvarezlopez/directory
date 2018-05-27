@@ -25,27 +25,27 @@ class PaymentsController extends Controller
         //$galleries = $em->getRepository('AppBundle:Payer')->findBy( array("usr"=> $userId) );
 
         /*
-        $result = $this->getPayer();
-        if( count( $result) >0 ){
-            //already exits a record
+            $result = $this->getPayer();
+            if( count( $result) >0 ){
+                //already exits a record
 
-            //Is pending to pay
-            if( $result["days"] != 1 )
-            {
+                //Is pending to pay
+                if( $result["days"] != 1 )
+                {
+                    $urlPay = $this->generateUrl('payments_checkIn');
+                    return $this->redirect($urlPay);
+                }
+                else
+                {
+
+                    $url = $this->generateUrl('payments_checkIn' );
+                    return $this->redirect($url);
+                    exit();
+                }
+            }else{
                 $urlPay = $this->generateUrl('payments_checkIn');
                 return $this->redirect($urlPay);
             }
-            else
-            {
-
-                $url = $this->generateUrl('payments_checkIn' );
-                return $this->redirect($url);
-                exit();
-            }
-        }else{
-            $urlPay = $this->generateUrl('payments_checkIn');
-            return $this->redirect($urlPay);
-        }
         */
         $url = $this->generateUrl('payments_checkIn' );
         return $this->redirect($url);
@@ -77,8 +77,10 @@ class PaymentsController extends Controller
 
     public function restingDays($created, $deadline){
         $deadline = $deadline; //$result[0]['pay_deadline'];
-        $created = date('Y-m-d',strtotime($created)); 
-        $s = strtotime($deadline)-strtotime($created);  
+        //$created = date('Y-m-d',strtotime($created));
+        $current = date('Y-m-d'); 
+        //$s = strtotime($deadline)-strtotime($created); 
+        $s = strtotime($deadline)-strtotime($current);  
         $d = intval($s/86400);  
         $diferencia = $d;
         
