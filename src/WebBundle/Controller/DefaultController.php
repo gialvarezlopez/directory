@@ -576,13 +576,13 @@ class DefaultController extends Controller
             }
             // the message
             
-            $subject = "Contact Form";
+            $subject = "Contact Form - $name";
             // Always set content-type when sending HTML email
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            $message = $msg;
             
-            echo $viwe = $this->renderView( 'web/default/contactEmail.html.twig', 
+            
+            $view = $this->renderView( 'web/default/contactEmail.html.twig', 
                 array(
                     'fullNameProflie'=>$fullNameProfile, 
                     'name' => $name, 
@@ -590,11 +590,20 @@ class DefaultController extends Controller
                     "msg"=>$msg
                     ) 
             );
+            $message = $view;
             // More headers
             $headers .= "From: <$email>" . "\r\n";
             //$headers .= 'Cc: myboss@example.com' . "\r\n";
+            $headers .= "Reply-To: $email" . "\r\n";
 
-            mail($to,$subject,$message,$headers);
+            if( mail($to,$subject,$message,$headers) )
+            {
+                echo 1;
+            }
+            else
+            {
+                echo "Error";
+            }
             
             /*
                 $message = \Swift_Message::newInstance()//(new \Swift_Message('Hello Email'))
@@ -618,7 +627,7 @@ class DefaultController extends Controller
 
                 //return $this->render(...);
             */
-            echo 1;
+            
         }
         else
         {        
