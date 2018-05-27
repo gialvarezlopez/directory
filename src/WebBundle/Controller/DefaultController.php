@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 class DefaultController extends Controller
 {
     public function indexAction(Request $request)
@@ -562,39 +565,141 @@ class DefaultController extends Controller
         $name = $request->get("name");
         $email = $request->get("email");
         $msg = $request->get("message");
-        
-        
-        $message = (new \Swift_Message('Hello Email'))
-        ->setFrom($email)
-        ->setTo('gialvarezlopez@gmail.com')
-        ->setBody(
-            $this->renderView(
-                // app/Resources/views/Emails/registration.html.twig
-                'web/default/contactEmail.html.twig',
-                array('name' => $name)
-            ),
-            'text/html'
-        )
+        $profileId = $request->get("profileId");
+
+        if ($request->isMethod('POST') && is_numeric($profileId) && is_numeric($profileId) > 0 )
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $oDetail = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array("usr"=>$profileId ) );
+            if( !$oDetail )
+            {
+                throw new NotFoundHttpException("Profile not found");
+            }
+
+            $fullNameProfile = $oDetail->getMdFirstName()." ".$oDetail->getMdMiddleName()." ".$oDetail->getMdFirstSurname()." ".$oDetail->getMdSecondSurname();
+            
+            //Get emails 
+            $RAW_QUERY  = "SELECT uhsn.usn_link FROM social_network sn
+                            INNER JOIN user_has_social_network uhsn ON sn.sn_id = uhsn.sn_id
+                            WHERE uhsn.usr_id = $profileId 
+                            AND sn.sn_key = 'email' AND uhsn.usn_active = 1";
+
+            $statement  = $em->getConnection()->prepare($RAW_QUERY);
+            $statement->execute();
+            $result    	= $statement->fetchAll();
             /*
-            * If you also want to include a plaintext version of the message
-            ->addPart(
-                $this->renderView(
-                    'Emails/registration.txt.twig',
-                    array('name' => $name)
-                ),
-                'text/plain'
-            )
+            if ( count($result) > 0 )
+            {
+                $to = implode(",",$result[0]); //"emails split it per comma"
+            }else{
+                $to = $oDetail->getUsr()->getUsrEmail();
+            }
             */
-        ;
-        $this->get('mailer')->send($message);            
-        //$mailer->send($message);
+            /*
+            // the message
+            $subject = "Contact Form - $name";
+            // Always set content-type when sending HTML email
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            
+            
+            $view = $this->renderView( 'web/default/contactEmail.html.twig', 
+                array(
+                    'fullNameProflie'=>$fullNameProfile, 
+                    'name' => $name, 
+                    "email"=>$email,
+                    "msg"=>$msg
+                    ) 
+            );
+            $message = $view;
+            // More headers
+            $headers .= "From: <$email>" . "\r\n";
+            //$headers .= 'Cc: myboss@example.com' . "\r\n";
+            $headers .= "Reply-To: $email" . "\r\n";
 
-    // or, you can also fetch the mailer service this way
-    // $this->get('mailer')->send($message);
+            if( mail($to,$subject,$message,$headers) )
+            {
+                echo 1;
+            }
+            else
+            {
+                echo "Error";
+            }
+            */
+            /*
+                $message = \Swift_Message::newInstance()//(new \Swift_Message('Hello Email'))
+                ->setFrom($email)
+                ->setTo('gialvarezlopez@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        // app/Resources/views/Emails/registration.html.twig
+                        'web/default/contactEmail.html.twig',
+                        array('name' => $name)
+                    ),
+                    'text/html'
+                )
 
-    //return $this->render(...);
+                ;
+                $this->get('mailer')->send($message);            
+                //$mailer->send($message);
 
-        echo 1;
+                // or, you can also fetch the mailer service this way
+                // $this->get('mailer')->send($message);
+
+                //return $this->render(...);
+            */
+                 
+            
+                  
+            $view = $this->renderView( 'web/default/contactEmail.html.twig', 
+                array(
+                    'fullNameProflie'=>$fullNameProfile, 
+                    'name' => $name, 
+                    "email"=>$email,
+                    "msg"=>$msg
+                    ) 
+            );
+
+            $mail = new PHPMailer();
+            //$mail->isSMTP();                                      
+            //$mail->Host = 'mail.doctorsbillboard.com';
+            //$mail->SMTPAuth = true;                               
+            //$mail->Username = 'info@doctorsbillboard.com';                
+            //$mail->Password = '';                           
+            //$mail->SMTPSecure = 'tls';                            
+            //$mail->Port = 25;                                   
+            //$mail->setFrom('acedmy@leewayweb.com', 'Leeway Academy');
+			$mail->setFrom($email, $name);
+
+            if ( count($result) > 0 )
+            {
+                for( $i=0; $i < count($result); $i++)
+                {
+                    $mail->addAddress($result[$i]['usn_link']); 
+                }
+            }else{
+                $mail->addAddress($oDetail->getUsr()->getUsrEmail(), 'Juan Perez'); 
+            } 
+            
+            
+            //Content
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'Contact Form';
+            $mail->Body    =  $view;
+            $mail->AltBody = '';
+            if(!$mail->send()) {
+                echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
+            } else {
+                echo 1;
+            }        
+           
+        }
+        else
+        {        
+            throw new Exception('Error');
+        }
+        
         exit();
     }
 }

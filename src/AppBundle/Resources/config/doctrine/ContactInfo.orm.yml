@@ -8,6 +8,9 @@ AppBundle\Entity\ContactInfo:
         FK_contact_info_citi:
             columns:
                 - cit_id
+        FK_contact_info_category:
+            columns:
+                - cat_id
     id:
         ciId:
             type: integer
@@ -19,6 +22,13 @@ AppBundle\Entity\ContactInfo:
             generator:
                 strategy: IDENTITY
     fields:
+        ciCompany:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: ci_company
         ciPhone1:
             type: string
             nullable: true
@@ -73,14 +83,17 @@ AppBundle\Entity\ContactInfo:
             options:
                 default: CURRENT_TIMESTAMP
             column: ci_created
-        ciCompany:
-            type: string
-            nullable: false
-            length: 50
-            options:
-                fixed: false
-            column: ci_company
     manyToOne:
+        cat:
+            targetEntity: Category
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                cat_id:
+                    referencedColumnName: cat_id
+            orphanRemoval: false
         cit:
             targetEntity: City
             cascade: {  }

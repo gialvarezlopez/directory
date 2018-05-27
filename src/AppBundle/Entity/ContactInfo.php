@@ -346,4 +346,33 @@ class ContactInfo
     {
         return $this->ciCompany;
     }
+    /**
+     * @var \AppBundle\Entity\Category
+     */
+    private $cat;
+
+
+    /**
+     * Set cat
+     *
+     * @param \AppBundle\Entity\Category $cat
+     *
+     * @return ContactInfo
+     */
+    public function setCat(\AppBundle\Entity\Category $cat = null)
+    {
+        $this->cat = $cat;
+
+        return $this;
+    }
+
+    /**
+     * Get cat
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCat()
+    {
+        return $this->cat;
+    }
 }

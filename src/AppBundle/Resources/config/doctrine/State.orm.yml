@@ -23,6 +23,19 @@ AppBundle\Entity\State:
             options:
                 fixed: false
             column: sta_name
+        staActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: sta_active
+        staCode:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: sta_code
         staLat:
             type: string
             nullable: false
@@ -37,19 +50,6 @@ AppBundle\Entity\State:
             options:
                 fixed: false
             column: sta_lng
-        staActive:
-            type: boolean
-            nullable: true
-            options:
-                default: '1'
-            column: sta_active
-        staCode:
-            type: string
-            nullable: false
-            length: 50
-            options:
-                fixed: false
-            column: sta_code
     manyToOne:
         cou:
             targetEntity: Country
