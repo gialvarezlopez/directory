@@ -82,6 +82,18 @@ AppBundle\Entity\User:
             options:
                 default: '1'
             column: usr_active
+        usrNotificationContactForm:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: usr_notification_contact_form
+        usrNotificationPayment:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: usr_notification_payment
     manyToOne:
         cou:
             targetEntity: Country

@@ -19,6 +19,12 @@ AppBundle\Entity\Category:
             options:
                 fixed: false
             column: cat_name
+        catActive:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: cat_active
         catIcon:
             type: string
             nullable: false
@@ -26,10 +32,4 @@ AppBundle\Entity\Category:
             options:
                 fixed: false
             column: cat_icon
-        catActive:
-            type: boolean
-            nullable: false
-            options:
-                default: '1'
-            column: cat_active
     lifecycleCallbacks: {  }

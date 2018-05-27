@@ -380,4 +380,62 @@ class User implements UserInterface
     }
 
     //END AUTH
+    /**
+     * @var boolean
+     */
+    private $usrNotificationContactForm = '1';
+
+    /**
+     * @var boolean
+     */
+    private $usrNotificationPayment = '1';
+
+
+    /**
+     * Set usrNotificationContactForm
+     *
+     * @param boolean $usrNotificationContactForm
+     *
+     * @return User
+     */
+    public function setUsrNotificationContactForm($usrNotificationContactForm)
+    {
+        $this->usrNotificationContactForm = $usrNotificationContactForm;
+
+        return $this;
+    }
+
+    /**
+     * Get usrNotificationContactForm
+     *
+     * @return boolean
+     */
+    public function getUsrNotificationContactForm()
+    {
+        return $this->usrNotificationContactForm;
+    }
+
+    /**
+     * Set usrNotificationPayment
+     *
+     * @param boolean $usrNotificationPayment
+     *
+     * @return User
+     */
+    public function setUsrNotificationPayment($usrNotificationPayment)
+    {
+        $this->usrNotificationPayment = $usrNotificationPayment;
+
+        return $this;
+    }
+
+    /**
+     * Get usrNotificationPayment
+     *
+     * @return boolean
+     */
+    public function getUsrNotificationPayment()
+    {
+        return $this->usrNotificationPayment;
+    }
 }

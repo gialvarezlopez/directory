@@ -15,6 +15,8 @@ class SettingsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getUsrId();
 
+        $contactForm = $this->getUser()->getUsrNotificationContactForm();
+
         return $this->render('app/settings/index.html.twig', array(
             //'galleries' => $galleries,
         ));
@@ -56,6 +58,24 @@ class SettingsController extends Controller
                     $session->getFlashBag()->set('success', "Password changed successfully!");
                 }
             }
+        }
+        return $this->redirectToRoute('settings_show');
+    }
+
+    public function setNotificationsAction(Request $request)
+    {
+        $session = $request->getSession();
+        if($request->getMethod() == 'POST')
+        {
+            $contactForm = ( ($request->get('contactForm'))?1:0) ;
+            $payment = ( ($request->get('payment'))?1:0);
+            $user= $this->get('security.token_storage')->getToken()->getUser();
+            $user->setUsrNotificationContactForm( $contactForm);
+            $user->setUsrNotificationPayment( $payment );
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            $session->getFlashBag()->set('success', "Notifications updated successfully!");
         }
         return $this->redirectToRoute('settings_show');
     }

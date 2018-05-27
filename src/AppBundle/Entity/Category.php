@@ -110,4 +110,3 @@ class Category
         return $this->catActive;
     }
 }
-

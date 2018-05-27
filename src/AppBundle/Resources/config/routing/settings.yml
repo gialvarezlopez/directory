@@ -5,4 +5,8 @@ settings_show:
 settings_changepassword:
     path:   /changepassword
     defaults: { _controller: "AppBundle:Settings:changepassword" }
+
+settings_notifications:
+    path:   /notifications
+    defaults: { _controller: "AppBundle:Settings:setNotifications" }    
    

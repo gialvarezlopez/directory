@@ -19,6 +19,12 @@ AppBundle\Entity\Country:
             options:
                 fixed: false
             column: cou_name
+        couActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: cou_active
         staLat:
             type: string
             nullable: true
@@ -33,10 +39,4 @@ AppBundle\Entity\Country:
             options:
                 fixed: false
             column: sta_lng
-        couActive:
-            type: boolean
-            nullable: true
-            options:
-                default: '1'
-            column: cou_active
     lifecycleCallbacks: {  }
