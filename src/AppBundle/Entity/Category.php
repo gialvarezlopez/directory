@@ -18,6 +18,11 @@ class Category
     private $catName;
 
     /**
+     * @var string
+     */
+    private $catIcon;
+
+    /**
      * @var boolean
      */
     private $catActive = '1';
@@ -55,6 +60,30 @@ class Category
     public function getCatName()
     {
         return $this->catName;
+    }
+
+    /**
+     * Set catIcon
+     *
+     * @param string $catIcon
+     *
+     * @return Category
+     */
+    public function setCatIcon($catIcon)
+    {
+        $this->catIcon = $catIcon;
+
+        return $this;
+    }
+
+    /**
+     * Get catIcon
+     *
+     * @return string
+     */
+    public function getCatIcon()
+    {
+        return $this->catIcon;
     }
 
     /**

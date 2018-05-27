@@ -504,6 +504,7 @@ class DefaultController extends Controller
         $state      = $em->getRepository('AppBundle:State')->findBy( array('cou' => $_country) );
         $speciality = $em->getRepository('AppBundle:Speciality')->findAll();
         $country    = $em->getRepository('AppBundle:Country')->findAll();
+        $category   = $em->getRepository('AppBundle:Category')->findBy( array('catActive' => 1) );
 
         $RAW_QUERY  = "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,
                         ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
@@ -532,7 +533,7 @@ class DefaultController extends Controller
 
         //return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries , 'estados_d' => $estados_d));
 
-        return $this->render('web/default/landing.html.twig' ,array('country'=> $country,'state'=> $state , 'cities'=>$citis , 'speciality' => $speciality , 'medic' => $pagination , 'zoom' => $zoom ) );
+        return $this->render('web/default/landing.html.twig' ,array('country'=> $country,'state'=> $state , 'cities'=>$citis , 'speciality' => $speciality , 'medic' => $pagination , 'zoom' => $zoom , 'category'=> $category ) );
     }
 
     public function contactusAction( Request $request ){

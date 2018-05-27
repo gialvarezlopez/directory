@@ -73,11 +73,9 @@
                         <div class="form-group select">
                             <select class="form-control" id="category" name="category">
                                 <option value="0">Select Category</option>
-                                <option value="1">Doctors</option>
-                                <option value="2">Hospital</option>
-                                <option value="3">Clinic</option>
-                                <option value="4">Pharmacy</option>
-                                <option value="5">Social Welfare</option>
+                                {% for categories in category %}
+                                    <option value="{{ categories.catId }}">{{ categories.catName }}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
