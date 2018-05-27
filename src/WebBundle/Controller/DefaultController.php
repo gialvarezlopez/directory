@@ -644,7 +644,7 @@ class DefaultController extends Controller
             );
 
             $mail = new PHPMailer();
-            $mail->isSMTP();                                      
+            //$mail->isSMTP();                                      
             $mail->Host = 'mail.doctorsbillboard.com';
             $mail->SMTPAuth = true;                               
             $mail->Username = 'info@doctorsbillboard.com';                
@@ -652,6 +652,7 @@ class DefaultController extends Controller
             //$mail->SMTPSecure = 'tls';                            
             $mail->Port = 25;                                   
             //$mail->setFrom('acedmy@leewayweb.com', 'Leeway Academy');
+			$mail->setFrom($email, $name);
 
             if ( count($result) > 0 )
             {
@@ -666,9 +667,9 @@ class DefaultController extends Controller
             
             //Content
             $mail->isHTML(true);   // Set email format to HTML
-            $mail->Subject = 'Here is the subject';
-            $mail->Body    = 'This is the HTML message body <b>in bold!</b>'.$view;
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->Subject = 'Contact Form';
+            $mail->Body    =  $view;
+            $mail->AltBody = '';
             if(!$mail->send()) {
                 echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
             } else {
