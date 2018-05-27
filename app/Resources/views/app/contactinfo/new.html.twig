@@ -76,7 +76,7 @@
                                                         <select class="form-control select2" id="categoryId" name="categoryId">
                                                                  <option value="">empty</option>
                                                             {% for cat in categories %}
-                                                                {% if contactInfo[0].cat.catId == cat.catId %}
+                                                                {% if contactInfo[0].cat.catId is defined and contactInfo[0].cat.catId == cat.catId %}
                                                                     <option value="{{ cat.catId }}" selected="selected">{{ cat.catName }}</option>
                                                                 {% else %}
                                                                     <option value="{{ cat.catId }}">{{ cat.catName }}</option>      
