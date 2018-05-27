@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 class DefaultController extends Controller
 {
     public function indexAction(Request $request)
@@ -567,15 +570,16 @@ class DefaultController extends Controller
             $statement  = $em->getConnection()->prepare($RAW_QUERY);
             $statement->execute();
             $result    	= $statement->fetchAll();
-            
+            /*
             if ( count($result) > 0 )
             {
                 $to = implode(",",$result[0]); //"emails split it per comma"
             }else{
                 $to = $oDetail->getUsr()->getUsrEmail();
             }
+            */
+            /*
             // the message
-            
             $subject = "Contact Form - $name";
             // Always set content-type when sending HTML email
             $headers = "MIME-Version: 1.0" . "\r\n";
@@ -604,7 +608,7 @@ class DefaultController extends Controller
             {
                 echo "Error";
             }
-            
+            */
             /*
                 $message = \Swift_Message::newInstance()//(new \Swift_Message('Hello Email'))
                 ->setFrom($email)
@@ -627,7 +631,50 @@ class DefaultController extends Controller
 
                 //return $this->render(...);
             */
+                 
             
+                  
+            $view = $this->renderView( 'web/default/contactEmail.html.twig', 
+                array(
+                    'fullNameProflie'=>$fullNameProfile, 
+                    'name' => $name, 
+                    "email"=>$email,
+                    "msg"=>$msg
+                    ) 
+            );
+
+            $mail = new PHPMailer();
+            $mail->isSMTP();                                      
+            $mail->Host = 'mail.doctorsbillboard.com';
+            $mail->SMTPAuth = true;                               
+            $mail->Username = 'info@doctorsbillboard.com';                
+            $mail->Password = '0vJlNeoPLdDf';                           
+            //$mail->SMTPSecure = 'tls';                            
+            $mail->Port = 25;                                   
+            //$mail->setFrom('acedmy@leewayweb.com', 'Leeway Academy');
+
+            if ( count($result) > 0 )
+            {
+                for( $i=0; $i < count($result); $i++)
+                {
+                    $mail->addAddress($result[$i]['usn_link']); 
+                }
+            }else{
+                $mail->addAddress($oDetail->getUsr()->getUsrEmail(), 'Juan Perez'); 
+            } 
+            
+            
+            //Content
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'Here is the subject';
+            $mail->Body    = 'This is the HTML message body <b>in bold!</b>'.$view;
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            if(!$mail->send()) {
+                echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
+            } else {
+                echo 1;
+            }        
+           
         }
         else
         {        
