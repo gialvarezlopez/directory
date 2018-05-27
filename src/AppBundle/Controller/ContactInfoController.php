@@ -47,7 +47,7 @@ class ContactInfoController extends Controller
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getUsrId();
 
-        $countries = $em->getRepository('AppBundle:Country')->findAll();
+        $countries = $em->getRepository('AppBundle:Country')->findBy( array("couActive"=>1) );
         $socialNetworks = $em->getRepository('AppBundle:SocialNetwork')->findBy( array("snActive"=>1) );
 
         $oContactInfo = $em->getRepository('AppBundle:ContactInfo')->findBy( array("usr"=>$userId) );
@@ -111,6 +111,8 @@ class ContactInfoController extends Controller
 
         //$em->getRepository('AppBundle:City')->findBy( array("usr"=>$userId ) );
 
+        $oCategories = $em->getRepository('AppBundle:Category')->findBy( array( "catActive" => 1) );
+
 
         return $this->render('app/contactinfo/new.html.twig', array(
             //'contactInfo' => $contactInfo,
@@ -125,6 +127,7 @@ class ContactInfoController extends Controller
             "country_selected"=>$country_selected,
             "state_selected"=>$state_selected,
             "city_selected"=>$city_selected,
+            "categories"=>$oCategories,
         ));
     }
 
@@ -166,6 +169,7 @@ class ContactInfoController extends Controller
     public function saveDataContactInfoAction( Request $request ){
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getUsrId();
+        $categoryId = $request->get("categoryId");
         $company = $request->get("company"); 
         $lat = $request->get("lat"); 
         $lng = $request->get("lng");
@@ -191,6 +195,9 @@ class ContactInfoController extends Controller
             $info->setCiAddress($address);
             $info->setCiLat($lat);
             $info->setCiLng($lng);
+
+            $oCategory = $em->getRepository('AppBundle:Category')->findOneBy( array( "catId"=> $categoryId) );
+            $info->setCat($oCategory);
 
             $oUser = $em->getRepository('AppBundle:User')->findOneBy( array( "usrId"=> $userId) );
             $info->setUsr($oUser);

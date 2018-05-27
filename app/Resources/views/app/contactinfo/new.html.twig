@@ -20,7 +20,17 @@
 
 {% block content %}
 
-
+    <style>
+        .select2-selection__rendered {
+            line-height: 31px !important;
+        }
+        .select2-container .select2-selection--single {
+            height: 35px !important;
+        }
+        .select2-selection__arrow {
+            height: 34px !important;
+        }
+    </style>
     {#}
     {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -49,15 +59,37 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <div class="form_error">{# {{ form_errors(form.ciAddress)}} #}</div>
-                                                    <label for="" class=" control-label">Name : <span class="text-danger">*</span></label>
+                                                    <label for="" class=" control-label">Location Name : <span class="text-danger">*</span></label>
                                                     <div class="">
                                                         <input class="form-control" value="{{ contactInfo[0].ciCompany }}" id="company" name="company" autocomplete="off">
                                                     </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <div class="form_error">{# {{ form_errors(form.ciAddress)}} #}</div>
+                                                    <label for="" class=" control-label">Category : <span class="text-danger">*</span></label>
+                                                    <div class="">
+                                                        <select class="form-control select2" id="categoryId" name="categoryId">
+                                                                 <option value="">empty</option>
+                                                            {% for cat in categories %}
+                                                                {% if contactInfo[0].cat.catId == cat.catId %}
+                                                                    <option value="{{ cat.catId }}" selected="selected">{{ cat.catName }}</option>
+                                                                {% else %}
+                                                                    <option value="{{ cat.catId }}">{{ cat.catName }}</option>      
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">    
+
+                                        
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <div class="form_error">{# {{ form_errors(form.ciAddress)}} #}</div>
@@ -826,6 +858,7 @@
                 var city = $("#cities").val();
                 var country = $("#countries").val();
                 var state = $("#states").val();
+                var categoryId = $("#categoryId").val();
 				//var email = $("#email").val();
 				//var typeImage = $('input[name=radioTypeImage]:checked').val();
 
@@ -858,10 +891,7 @@
 				});
 
                 var mandatory = "";
-                if( company == "")
-                {
-                    mandatory = "Company";
-                }
+                
                 if( address == "")
                 {
                     mandatory = "address";
@@ -878,6 +908,16 @@
                 if( country == 0)
                 {
                     mandatory = "country";
+                }
+
+                if( categoryId == "")
+                {
+                    mandatory = "Select the category type";
+                }
+
+                if( company == "")
+                {
+                    mandatory = "Location Name";
                 }
 
                 //console.log(country);
@@ -918,7 +958,8 @@
 						    company:company, address: address,phone1: phone1,
 						    phone2:phone2,
 						    lat: lat, lng: lng,schedule: JSON.stringify(schedule),
-						    social_network: JSON.stringify(social_network), city: city
+						    social_network: JSON.stringify(social_network), city: city,
+                            categoryId: categoryId
 						},
 
 						error: function (data) {
