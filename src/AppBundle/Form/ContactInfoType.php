@@ -22,6 +22,7 @@ class ContactInfoType extends AbstractType
             //->add('ciLat')
             //->add('ciLng')
             ->add('ciActive')
+            //->add('cat')
             //->add('ciSchedule')
             //->add('ciCreated', 'datetime')
             //->add('cit')
