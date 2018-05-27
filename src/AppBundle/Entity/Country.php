@@ -18,6 +18,16 @@ class Country
     private $couName;
 
     /**
+     * @var string
+     */
+    private $staLat;
+
+    /**
+     * @var string
+     */
+    private $staLng;
+
+    /**
      * @var boolean
      */
     private $couActive = true;
@@ -55,6 +65,54 @@ class Country
     public function getCouName()
     {
         return $this->couName;
+    }
+
+    /**
+     * Set staLat
+     *
+     * @param string $staLat
+     *
+     * @return Country
+     */
+    public function setStaLat($staLat)
+    {
+        $this->staLat = $staLat;
+
+        return $this;
+    }
+
+    /**
+     * Get staLat
+     *
+     * @return string
+     */
+    public function getStaLat()
+    {
+        return $this->staLat;
+    }
+
+    /**
+     * Set staLng
+     *
+     * @param string $staLng
+     *
+     * @return Country
+     */
+    public function setStaLng($staLng)
+    {
+        $this->staLng = $staLng;
+
+        return $this;
+    }
+
+    /**
+     * Get staLng
+     *
+     * @return string
+     */
+    public function getStaLng()
+    {
+        return $this->staLng;
     }
 
     /**

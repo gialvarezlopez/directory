@@ -17,7 +17,9 @@
          #intro_map{
 
             padding-top: 0px;
-
+         }
+         .circleTotal{
+            background: grey;
          }
     </style>
 
@@ -66,15 +68,16 @@
         	<div class="intro_search_content">
             	<h2>Find Here</h2>
             	<div class="search_form">
-                    <form action="listing-grid-map.html" method="get">
+                    <form action="billboard" method="get">
 
                         <div class="form-group select">
                             <select class="form-control" id="category" name="category">
-                                <option>Doctors</option>
-                                <option>Hospital</option>
-                                <option>Clinic</option>
-                                <option>Pharmacy</option>
-                                <option>Social Welfare</option>
+                                <option value="0">Select Category</option>
+                                <option value="1">Doctors</option>
+                                <option value="2">Hospital</option>
+                                <option value="3">Clinic</option>
+                                <option value="4">Pharmacy</option>
+                                <option value="5">Social Welfare</option>
                             </select>
                         </div>
 
@@ -141,7 +144,7 @@
 
                         <div class="form-group select">
                             <div class="select">
-                                            Speciality:
+                                            
                                             <select class="form-control" id="speciality" name="speciality">
                                                 <option value=""></option>
                                                 {% for spe in speciality %}
@@ -176,14 +179,15 @@
     	<div class="section-header text-center">
         	<h2>What We Do </h2>
             <p>You will be part of the doctors directory most big of the world completing the nexts steps.</p>
-             <p>Registration Available for <b>USA, CANADA AND AUSTRALIA</b></p>
+             <p>Registration Available for <b>USA, CANADA AND AUSTRALIA</b> for the next services</p>
         </div>
     	<div id="category_slider2">
         	<div class="owl-carousel owl-theme">
             	<div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#">
+                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
-                        	<span class="category_listing_n">20</span>
+                        	<span class="category_listing_n circleTotal">20</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/doctors_1.png') }}" alt="image">
                         </div>
 	                    <p>Doctors</p>
@@ -191,9 +195,10 @@
                 </div>
 
                 <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#">
+                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
-                        	<span class="category_listing_n">32</span>
+                        	<span class="category_listing_n circleTotal">32</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/hospital_1.png') }}" alt="image">
                         </div>
 	                    <p>Hospital</p>
@@ -201,9 +206,10 @@
                 </div>
 
                 <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#">
+                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
-                        	<span class="category_listing_n">18</span>
+                        	<span class="category_listing_n circleTotal">18</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/clinic_1.png') }}" alt="image">
                         </div>
 	                    <p>Clinic</p>
@@ -211,9 +217,10 @@
                 </div>
 
                 <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#">
+                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
-                        	<span class="category_listing_n">15</span>
+                        	<span class="category_listing_n circleTotal">15</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/pharmacy_1.png') }}" alt="image">
                         </div>
                         <p>Pharmacy</p>
@@ -221,9 +228,10 @@
                 </div>
 
                 <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#">
+                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
-                        	<span class="category_listing_n">15</span>
+                        	<span class="category_listing_n circleTotal">15</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/social_1.png') }}" alt="image">
                         </div>
                         <p>social Welfare </p>
@@ -238,7 +246,7 @@
 
 
 <!-- How-it-Work -->
-<section id="how_it_work" class="section-padding parallex-bg">
+<section id="how_it_work" class="section-padding parallex-bg" style="background: #38ccff">
 	<div class="container" >
     	<div class="section-header text-center white-text div_zindex">
         	<h2 style="color:white;">3 Simple Steps </h2>
@@ -282,7 +290,7 @@
 <!-- /How-it-Work -->
 
 <!-- Featured-Listings -->
-<section id="featured_listings" class="section-padding">
+<section id="featured_listings" class="section-padding" >
 	<div class="container">
     	<div class="section-header text-center">
         	<h2>Featured Listings</h2>
@@ -365,11 +373,11 @@
 <!-- /Featured-Listings -->
 
 <!-- Pricing-Table -->
-<section id="pricing_table" class="section-padding parallex-bg">
+<section id="pricing_table" class="section-padding parallex-bg" style="background: #38ccff">
 	<div class="container">
     	<div class="section-header white-text div_zindex text-center">
-        	<h2>Best Price Guranteed</h2>
-            <p>Select the one you prefer.</p>
+        	<h2 style="color:white;">Best Price Guranteed</h2>
+            <p style="color:white;">Select the one you prefer.</p>
         </div>
 
         <div class="row">
@@ -381,7 +389,7 @@
                     </div>
                     <div class="plan_info">
                     	<div class="plan_price">$25.00</div>
-                        
+                        <b><small style="color:orange;">1 Month Free</small></b>
                     <table class="table">
                         <tr class="active">
                             <td class="blue">
@@ -454,7 +462,7 @@
                     </div>
                     <div class="plan_info">
                     	<div class="plan_price">$100.00</div>
-                        <small>1 Month FREE</small>
+                        <b><small style="color:orange;">1 Month Free</small></b>
                         <table class="table">
                         <tr class="active">
                             <td class="white">
@@ -526,7 +534,7 @@
                     </div>
                     <div class="plan_info">
                     	<div class="plan_price">$150.00</div>
-                        <small>1 Month FREE</small>
+                        <b><small style="color:orange;">1 Month Free</small></b>
                         <table class="table">
                         <tr class="active">
                             <td class="white">
@@ -611,11 +619,11 @@
                     </div>
                     <div class="post_info">
 
-                    	<h4><a href="#">United State of America.</a></h4>
-                        <p>Many states with cities available for the world.</p>
+                    	<h4><a href="#">United States of America</a></h4>
+                        <p>States with cities available for the world.</p>
                         <div class="post_meta">
-                        	<p>51 : <a href="#"> States</a></p>
-                            <p>29,639 : <a href="#"> Cities</a></p>
+                        	<p>States : <a href="#">51</a></p>
+                            <p>Cities : <a href="#">29,639</a></p>
                         </div>
                     </div>
                 </div>
@@ -628,11 +636,11 @@
                     </div>
                     <div class="post_info">
       
-                    	<h4><a href="#">Canada.</a></h4>
-                        <p>Many states with cities available for the world.</p>
+                    	<h4><a href="#">Canada</a></h4>
+                        <p>States with cities available for the world.</p>
                         <div class="post_meta">
-                        	<p>13 : <a href="#"> States</a></p>
-                            <p>1,709 : <a href="#"> Cities</a></p>
+                        	<p>States : <a href="#">13 </a></p>
+                            <p>Cities : <a href="#">1,709 </a></p>
                         </div>
                     </div>
                 </div>
@@ -645,11 +653,11 @@
                     </div>
                     <div class="post_info">
  
-                    	<h4><a href="#">Australia.</a></h4>
-                        <p>Many states with cities available for the world.</p>
+                    	<h4><a href="#">Australia</a></h4>
+                        <p>States with cities available for the world.</p>
                         <div class="post_meta">
-                        	<p>7 : <a href="#">States</a></p>
-                            <p>14,710 : <a href="#"> Cities</a></p>
+                        	<p>States : <a href="#">7</a></p>
+                            <p>Cities : <a href="#">14,710</a></p>
                         </div>
                     </div>
                 </div>
@@ -662,9 +670,12 @@
 </section>
 <!-- /Latest-Blog -->
 
-<section id="featured_listings" class="section-padding parallex-bg">
-    <div class="container">
-    <div class="form">
+<section id="pricing_table" class="section-padding parallex-bg" style="background: #f6f6f6 ;">
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="form">
       <!--FORM -->
       <form action="contactus" class="form-horizontal" role="form" id="contactForm" method="post" name="contactForm">
             
@@ -705,7 +716,11 @@
            <p class="d-grey requi">* Required</p>
       
       </div>
-  </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
 </section>
 
 {% endblock %}
@@ -719,7 +734,6 @@
             $('[data-toggle="tooltip"]').tooltip();
 
             $('.grid').isotope({itemSelector: '.grid-item'});
-
 
 
             $("#formSearch").submit(function () {
@@ -739,6 +753,15 @@
                 var idSate = $(this).val();
                 getStates(idSate);
 
+            });
+
+            //Detectando el cambio en categoria para ocultar filtros
+            $("#category").change(function(){
+                var id_category = $(this).val();
+                if(id_category == 1){
+
+                   
+                }
             });
 
             {% if app.request.query.get("country") == "" %}
@@ -847,7 +870,7 @@
                 $.each(test, function (k, v) {
                     console.log(v.usr_id);
                     locations.push([
-                        locationData('showProfile/' + v.usr_id, '{{ asset(' uploads / ') }}' + v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                        locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
                         v.ci_lat,v.ci_lng,2,'<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
                     ])
                 })
@@ -860,9 +883,9 @@
                     var zoomLevel = 9;
                 }
 
-                {# //if  ({{ zoom  }} == 1)  #}
-                if (1) {
-                   // console.log(3);
+                if  ({{ zoom  }} == 1)  
+                {
+  
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 6,
                         scrollwheel: true,
@@ -898,7 +921,7 @@
                 } else {
 
                     var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: zoomLevel,
+                        zoom: 5,
                         scrollwheel: true,
                         center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
                         mapTypeId: google.maps.MapTypeId.ROADMAP,

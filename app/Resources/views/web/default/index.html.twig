@@ -482,7 +482,7 @@
 
                 $.each(test, function (k, v) {
                     locations.push([
-                        locationData('showProfile/' + v.usr_id, '{{ asset(' uploads / ') }}' + v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                        locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
                         v.ci_lat,
                         v.ci_lng,
                         2,
@@ -499,9 +499,8 @@
                 }
 
                 if ({{ zoom }} == 1) {
-                    console.log(3);
                     var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 6,
+                        zoom: {{ mapaZoom }},
                         scrollwheel: true,
                         disableDefaultUI: true,
                         center: new google.maps.LatLng({{ estados_d[0].sta_lat }}, {{ estados_d[0].sta_lng }}),
@@ -829,7 +828,7 @@
                 $.each(test, function (k, v) {
 
                     locations.push([
-                        locationData('showProfile/' + v.usr_id, '{{ asset(' uploads / ') }}' + v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                        locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
                         v.ci_lat,
                         v.ci_lng,
                         2,
