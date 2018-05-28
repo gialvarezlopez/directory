@@ -9,7 +9,18 @@
         <meta name="description" content="">
 
         <title>{% block title_page %}Welcome{% endblock %}</title>
+        <meta name="description" content="{% block description_page %} {% endblock %}">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <meta property="og:title" content="{% block ogTitle %}{% endblock %}">
+        <meta property="og:description" content="{% block ogDescription %}{% endblock %}">
+        <meta property="og:image" content="{% block ogImage %}{% endblock %}">
+        <meta property="og:url" content="{% block ogUrl %}{% endblock %}">
+
+        <meta property="twitter:title" content="{% block twitterTitle %}{% endblock %}">
+        <meta property="twitter:description" content="{% block twitterDescription %}{% endblock %}">
+        <meta property="twitter:image" content="{% block twitterImage %}{% endblock %}">
+        <meta property="twitter:card" content="{% block twitterCard %}{% endblock %}">
 
         {% block stylesheets %}{% endblock %}
         

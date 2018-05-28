@@ -18,6 +18,7 @@ Loading
     z-index: 10000;
     background: rgba(0,0,0,0.3);
     display:none;
+    top:0px;
 }
 
 #bg_loading {

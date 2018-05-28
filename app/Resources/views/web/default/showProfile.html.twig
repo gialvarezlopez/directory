@@ -1,10 +1,20 @@
 {% extends 'web/base.html.twig' %}
 
-{% block title_page %}
-    DB || Dr.
-    {{ profile[0].md_first_name }}
-    {{ profile[0].md_first_surname }}
-{% endblock %}
+{% block title_page %}DB || Dr. {{ profile[0].md_first_name~" "~profile[0].md_first_surname }}{% endblock %}
+
+{% block description_page %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 150) ~ '...' }}{% endblock %}
+
+{% block ogTitle %}Dr. {{ profile[0].md_first_name~" "~profile[0].md_first_surname }}{% endblock %}
+{% block ogDescription %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 150) ~ '...' }}{% endblock %}
+{% block ogImage %}{% if profile[0].md_profile_image != "" %}{% if file_exists('uploads/' ~ profile[0].md_profile_image) %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~image('uploads/'~profile[0].md_profile_image).cropResize(250,250))|trim }}{% else %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250))|trim }}{% endif %}{% else %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250))|trim }}{% endif %}{% endblock %}
+{% block ogUrl %}{{url}}{% endblock %}
+
+{% block twitterTitle %}Dr. {{ profile[0].md_first_name~" "~profile[0].md_first_surname }}{% endblock %}
+{% block twitterDescription %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 150) ~ '...' }}{% endblock %}
+{% block twitterImage %}{% if profile[0].md_profile_image != "" %}{% if file_exists('uploads/' ~ profile[0].md_profile_image) %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~image('uploads/'~profile[0].md_profile_image).cropResize(250,250))|trim }}{% else %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250))|trim }}{% endif %}{% else %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250))|trim }}{% endif %}{% endblock %}
+{% block twitterCard %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 50) ~ '...' }}{% endblock %}
+
+
 
 {% block classbg %}
     listing-with-map-page
@@ -142,11 +152,14 @@
                                     </p>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div class="listing_message">
-                                        <a class="btn" data-toggle="modal" data-target="#message_modal">
-                                            <i class="fa fa-envelope-o"></i>
-                                            Send Message</a>
-                                    </div>
+                                    {% if showContactForm == 1 %}
+                                        <div class="listing_message">
+                                            <a class="btn" data-toggle="modal" data-target="#message_modal">
+                                                <i class="fa fa-envelope-o"></i>
+                                                Send Message
+                                            </a>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -690,7 +703,7 @@
 
                         $("#holder_loading").hide();
                         $.alert({icon: 'fa fa-check', title: 'Success', type: "green", content: 'The form was sent Ok!'});
-                        $('#message_modal').modal('hide')
+                        $('#message_modal').modal('hide');
                         $("#formSendMsg")[0].reset();
                     } else {
                         $("#holder_loading").hide();

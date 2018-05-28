@@ -8,7 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 use AppBundle\Entity\User;
+use AppBundle\Entity\UserResetPassword;
 use AppBundle\Form\UserType;
 
 class UserController extends Controller
@@ -48,6 +52,68 @@ class UserController extends Controller
             $urlFacebook = $helper->getLoginUrl("http://link.com/app_dev.php/fbcheck", $permissions);
             //echo ‘<a href=”‘ . $loginUrl . ‘”>Log in with Facebook!</a>’;die;
         */
+        $recoveryToken = $request->get('token');
+        if( $recoveryToken != "" )
+        {
+            $em = $this->getDoctrine()->getManager();
+            $oReset = $em->getRepository('AppBundle:UserResetPassword')->findOneBy( array("uspToken"=> $recoveryToken, "uspActive"=>1) );
+            //echo count($oReset);
+            if( $oReset )
+            {
+                $em->getConnection()->beginTransaction(); // suspend auto-commit
+                try {
+                    $userId = $oReset->getUsr()->getUsrId();
+                    $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrId"=> $userId, "usrActive"=>1) );
+                    if($oUser)
+                    {
+                        if( $oReset->getUsr()->getUsrForgotPassword() == 1 )
+                        {
+                            $oUser->setUsrForgotPassword(0);
+                            $oUser->setUsrPassword( $oReset->getUspNewPassword() );
+                            $em->persist($oUser);			
+                            $flush = $em->flush();
+
+                            if($flush == null )
+                            {
+                                $q = $em->createQuery('delete from AppBundle\Entity\UserResetPassword tb where tb.usr = '.$userId );
+                                $q->execute();
+
+
+
+                                $em->getConnection()->commit();
+                                $msg = "The token was validated successfully enter the new password and your email address, just remember to  change the password when you obtain access in the '<strong>setting</strong> menu'";
+                                $this->session->getFlashBag()->add("success", $msg);
+                                return $this->redirectToRoute('login');
+                            }
+                        }
+                        else
+                        {
+                            $msg = "The token is not valid";
+                            $this->session->getFlashBag()->add("error", $msg);
+                        }
+                        
+                    }
+                    else
+                    {
+                        $msg = "There was an error to try to validate the token, try again";
+                        $this->session->getFlashBag()->add("error", $msg);
+                    }
+                    
+                }
+                catch (Exception $e) {
+                    $em->getConnection()->rollBack();
+                    throw $e;
+                }
+            }
+            else
+            {
+                $msg = "The token no longer exists";
+                $this->session->getFlashBag()->add("error", $msg);
+            }
+
+            //$msg = "You have validated the new password, now you can access using the same email address and new password, just remember change it";
+            //$this->session->getFlashBag()->add("success", $msg);
+        }
 
         $urlGoogle = "";
         $urlFacebook = "";
@@ -68,7 +134,7 @@ class UserController extends Controller
 
     public function registerAction( Request $request)
     {
-        $this->sendEmailRegister("gialvarezlopez@gmail.com");
+        //$this->sendEmailRegister("gialvarezlopez@gmail.com");
         /*
             $client= new \Google_Client();
             $client->setApplicationName("medicdirectory");// to set app name
@@ -98,7 +164,7 @@ class UserController extends Controller
         //var_dump($form);
         if( $form->isSubmitted() )
         {
-            echo "sali";
+            //echo "sali";
             if( $form->isValid())
             {
                 //$user = new User();
@@ -166,36 +232,98 @@ class UserController extends Controller
     }
 
 
-    public function sendEmailRegister($email)
+    public function rememberPasswordAction( Request $request )
     {
+        $email = $request->get('email');
+        if( $request->isMethod('POST') && $email != "")
+        {
+            $em   = $this->getDoctrine()->getManager();
+            $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrEmail"=>$email ) );
+            if( $oUser )
+            {
+                $em->getConnection()->beginTransaction(); // suspend auto-commit
+                try {
+                    $token = str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789".uniqid());
+                    
+                    $q = $em->createQuery('delete from AppBundle\Entity\UserResetPassword tb where tb.usr = '.$oUser->getUsrId());
+                    $q->execute();
+                    
+                    $reset = new UserResetPassword();
+                    $reset->setUspToken($token);
+                    
+                    $tempPassword = str_shuffle("abcdefghijklmnopqrstuvwxyz");
+                    //Encripta el password del usuario
+				    $factory = $this->get("security.encoder_factory");
+				    $encoder = $factory->getEncoder($oUser);
+				    $newPassword = $encoder->encodePassword( $tempPassword, $oUser->getSalt() );
+				    //End 
+                    
+                    $reset->setUspNewPassword($newPassword);
+                    $reset->setUspCreated( new \Datetime("now") );
+                    $reset->setUspActive(1);
+                    $reset->setUsr($oUser);                    
+                    $em->persist($reset);
+                    $em->flush($reset);
 
-        //exit();
+                    $oUser->setUsrForgotPassword(1);
+                    $em->persist($oUser);
+                    $em->flush();
 
-       // if(!empty($email))
-       // {
-            $token = str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789".uniqid());
+                    $resSendEmail = $this->sendEmailRememberPassword($email, $token, $tempPassword);
+                    if( $resSendEmail == 1 )
+                    {
+                        $em->getConnection()->commit();
+                        echo 1;//$password;
+                    }else{
+                        echo "Error to try to send the email";
+                        $em->getConnection()->rollBack();
+                    }    
+                    
+                }
+                catch (Exception $e) {
+                    $em->getConnection()->rollBack();
+                    throw $e;
+                }
+                
+            }
+            else
+            {
+                echo 0;
+            }
+            
+        }
+        else
+        {
+            throw new Exception('Error');
+        }
+        exit();
+    }
 
+    public function sendEmailRememberPassword($email, $token, $tempPassword)
+    {
+        if( isset($email) && $email !== "" )
+        {
+            $view = $this->renderView('app/emailTemplates/remeberPassword.html.twig', 
+                array(
+                    'token'=>$token, 
+                    'password' => $tempPassword,
+                    ) 
+            );
 
-            $this_is = 'this is';
-            $the_message = ' the message of the email';
-            $mailer = $this->get('mailer');
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject('The Subject for this Message')
-                ->setFrom($this->container->getParameter('mailer_user'))
-                ->setTo('any_account_name@any_domain.whatever')
-                ->setBody(
-                    $this->renderView(
-                        // templates/emails/registration.html.twig
-                        'app/emails/registration.html.twig',
-                        array('token' => $token)
-                    ),
-                    'text/html'
-                )
-            ;
-            $mailer->send($message);
-
-        
+            $mail = new PHPMailer();
+            $mail->setFrom("support@doctorsbillboard.com");
+            $mail->addAddress($email); 
+            //Content
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'Password Reset';
+            $mail->Body    =  $view;
+            $mail->AltBody = '';
+            if(!$mail->send()) {
+                echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
+            } else {
+                return 1;
+            }    
+        }
     }
 
     public function getRedirect()

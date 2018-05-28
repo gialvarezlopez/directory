@@ -46,5 +46,9 @@ login_check:
 logout:
         path: /logout
 
+rememberPassword:
+        path: /rememberPassword
+        defaults: { _controller: "AppBundle:User:rememberPassword" }                
+
                
 

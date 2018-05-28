@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -168,6 +169,8 @@ class DefaultController extends Controller
             {
                 throw new NotFoundHttpException("Page not found");
             }
+
+            $showContactForm = $oUser->getUsrNotificationContactForm();
             //Obtain Social Network
             $oListMySocialNetworks = $em->getRepository('AppBundle:UserHasSocialNetwork')->findBy( array("usr"=>$id_profile, "usnActive"=>1),array('sn' => 'ASC') );
         }
@@ -233,6 +236,14 @@ class DefaultController extends Controller
 
         $this->ViewsProfiles( $request , $id_profile );
 
+        $link = $this->generateUrl(
+            'web_show_profile', [
+                'id'=>$id_profile
+            ],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        //echo $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         return $this->render('web/default/showProfile.html.twig',
              array( 
                  'profile' => $profile ,
@@ -240,7 +251,9 @@ class DefaultController extends Controller
                  "hoy" => $hoy, 
                  'gallery' => $gallery , 
                  //'social_network' => $social_network, 
-                 "oListMySocialNetworks"=>$oListMySocialNetworks
+                 "oListMySocialNetworks"=>$oListMySocialNetworks,
+                 "showContactForm" =>$showContactForm,
+                 "url"=>$link,
                 )
             );
     }
@@ -680,7 +693,7 @@ class DefaultController extends Controller
                     $mail->addAddress($result[$i]['usn_link']); 
                 }
             }else{
-                $mail->addAddress($oDetail->getUsr()->getUsrEmail(), 'Juan Perez'); 
+                $mail->addAddress($oDetail->getUsr()->getUsrEmail()); 
             } 
             
             

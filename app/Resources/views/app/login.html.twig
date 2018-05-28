@@ -36,8 +36,16 @@
 {% block classbg %}
 {% endblock %} 
 {% block body_page %}
+    <div id="holder_loading">
+            <div id="bg_loading">
+                <div class="cssload-container">
+                    <div class="cssload-speeding-wheel"></div>
+                </div>
+            </div>
+        </div>
+    {% block content %}
 
-
+    {% endblock %}
 {% endblock %}
 
 {% block javascripts %}

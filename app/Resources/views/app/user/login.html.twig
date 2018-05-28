@@ -13,7 +13,7 @@
     login-page
 {% endblock %}
 
-{% block body_page %}
+{% block content %}
 
     {#
     {% if app.user != null %}
@@ -25,9 +25,25 @@
     {% endif %}
     #}
 
-    <div class="login-box">
+
+  <div class="login-box">
+  {#  Check the notifications #}
+    <div class="containerx">
+      <div class="rowx">
+        <div class="col-lg-12x">
+          {% set created = 0 %}
+              {% for message in app.session.flashbag().get("success") %}
+                  <div class="alert alert-success"><i class="fa fa-check-circle-o" aria-hidden="true"></i> {{message|raw}}</div>
+              {% endfor %}
+              {% for message in app.session.flashbag().get("error") %}
+                  <div class="alert alert-danger"><i class="fa fa-times" aria-hidden="true"></i> {{message|raw}} </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {# End notifications #}
   <div class="login-logo">
-    <a href="../../index2.html"><b>Doctors</b> Billboard</a>
+    <a href="{{ path('web_homepage') }}"><b>Doctors</b> Billboard</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -73,13 +89,39 @@
     </div>
     <!-- /.social-auth-links -->
 
-    <a href="#">I forgot my password</a><br>
+    <a href="#" data-toggle="modal" data-target="#message_modal">I forgot my password</a><hr>
     <a href="{{ path('register') }}" class="text-center">Register a new membership</a>
 
   </div>
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
+
+<!-- Send-Message -->
+<div id="message_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+      <h3 class="modal-title">Remember password</h3>
+      </div>
+      <div class="modal-body">
+      <form action="#" method="get" name="formSendMsg" id="formSendMsg">
+          Enter your email:
+          <div class="form-group">
+              <input type="email" class="form-control" id="inputRememberEmail" name="inputRememberEmail" placeholder="" autocomplete="off" required="required">
+          </div>
+          <div class="form-group">
+              <input value="Send Now" class="btn btn-block" type="submit">
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Send-Message -->
+
 {% endblock %}
 
 {% block codejs %}
@@ -89,6 +131,45 @@ $(function () {
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' /* optional */
+    });
+
+    $("#formSendMsg").submit(function(event){
+      var email = $.trim($("#inputRememberEmail").val());
+      if( email == "" )
+      {
+        $.alert({icon: 'fa fa-times', title: 'Info!', content: 'Enter a valid email', type: 'red', typeAnimated: true});
+        return false;
+      }
+      event.preventDefault();
+      $("#holder_loading").show();
+      $.ajax({
+          type: "POST",
+          url: "{{ path('rememberPassword') }}",
+          data: {
+                email: email,
+            },
+            error: function (data) {
+                    $("#holder_loading").hide();
+                    $.alert({icon: 'fa fa-times', title: 'Info!', content: 'An error occurred while trying to send the form ', type: 'red', typeAnimated: true});
+            },
+            success: function (data) {
+              $("#holder_loading").hide();
+              switch(data)
+              {
+                case "1":
+                  $('#message_modal').modal('hide');
+                  $.alert({icon: 'fa fa-check', title: 'Success', type: "green", content: '<strong>The new password was sent successfully!</strong><br> In a couple of minutes you will receive an email with your new password'});
+                  $("#formSendMsg")[0].reset();
+                break;
+                case "0":
+                  $.alert({icon: 'fa fa-times', title: 'Info!', content: 'Email was not found', type: 'red', typeAnimated: true});
+                break;
+                default:
+                  $.alert({icon: 'fa fa-times', title: 'Info!', content: 'An error occurred while trying to send the form', type: 'red', typeAnimated: true});
+                break;
+              }
+            }
+      });
     });
   });
 </script>

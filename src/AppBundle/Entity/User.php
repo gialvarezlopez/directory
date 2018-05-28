@@ -438,4 +438,33 @@ class User implements UserInterface
     {
         return $this->usrNotificationPayment;
     }
+    /**
+     * @var boolean
+     */
+    private $usrForgotPassword = '0';
+
+
+    /**
+     * Set usrForgotPassword
+     *
+     * @param boolean $usrForgotPassword
+     *
+     * @return User
+     */
+    public function setUsrForgotPassword($usrForgotPassword)
+    {
+        $this->usrForgotPassword = $usrForgotPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get usrForgotPassword
+     *
+     * @return boolean
+     */
+    public function getUsrForgotPassword()
+    {
+        return $this->usrForgotPassword;
+    }
 }

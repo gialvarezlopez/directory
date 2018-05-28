@@ -64,6 +64,12 @@ AppBundle\Entity\User:
             options:
                 fixed: false
             column: usr_token_confirmation
+        usrForgotPassword:
+            type: boolean
+            nullable: true
+            options:
+                default: '0'
+            column: usr_forgot_password
         usrCreated:
             type: datetime
             nullable: true
