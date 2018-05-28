@@ -3288,7 +3288,7 @@ p.listing_like a {
 	width:70%;
 }
 .intro_search{
-	background-image:url(../images/630x940.jpg);
+	/*background-image:url(../images/find_filters.png);*/
 	background-size: cover;
     position: absolute;
     right: 0px;

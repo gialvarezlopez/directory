@@ -126,6 +126,26 @@
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
                                     <div class="form-groupx divForm" style="">
                                         <div class="select">
+                                            Category:
+                                            <select class="form-control" id="category" name="category">
+                                                <option value=""></option>
+                                                {% for categories in category %}
+                                                    {% if app.request.query.get("category") == categories.catId %}
+                                                        <option value="{{ categories.catId }}" selected="selected">{{ categories.catName }}</option>
+                                                    {% else %}
+                                                        <option value="{{ categories.catId }}">{{ categories.catName }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
+                                    <div class="form-groupx divForm" style="">
+                                        <div class="select">
                                             Country:
                                             <select class="form-control" id="country" name="country">
                                                 {#
@@ -299,7 +319,7 @@
                                 <div class="listing_info">
                                     <!-- <div class="post_category"> <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a> </div>-->
                                     <h6>
-                                        <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">Dr.
+                                        <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
                                             {{ m.md_first_name }}
                                             {{ m.md_first_surname }}</a>
                                     </h6>
@@ -370,6 +390,8 @@
                 }
                 //alert();
             });
+
+            //Ocultando filtros
 
             // States by Country
             $('#country').change(function () {
@@ -486,7 +508,7 @@
                         v.ci_lat,
                         v.ci_lng,
                         2,
-                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
+                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+' "></i>'
                     ])
                 })
 
@@ -832,7 +854,7 @@
                         v.ci_lat,
                         v.ci_lng,
                         2,
-                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
+                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+'"></i>'
                     ])
 
                 })

@@ -21,6 +21,34 @@
          .circleTotal{
             background: grey;
          }
+
+         .not-active {
+          pointer-events: none;
+          cursor: default;
+          text-decoration: none;
+          color: black;
+        }
+
+
+
+        .select2-selection__rendered {
+            width: 100%;
+            line-height: 31px !important;
+        }
+        .select2-container .select2-selection--single {
+            height: 35px !important;
+        }
+        .select2-selection__arrow {
+            height: 34px !important;
+        }
+
+        .custom{
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            height: 15px;
+            text-align: center;
+        }
     </style>
 
 {#
@@ -66,11 +94,12 @@
         </div>
         <div class="intro_search">
         	<div class="intro_search_content">
-            	<h2>Find Here</h2>
-            	<div class="search_form">
-                    <form action="billboard" method="get">
 
-                        <div class="form-group select">
+            	<h2> Find Here <i class="fa fa-map-marker"></i></h2>
+            	<div class="search_formx" style="padding: 5%;">
+                    <form action="{{ path('web_homepage')}}" method="get">
+
+                        <div class="form-group selectz">
                             <select class="form-control" id="category" name="category">
                                 <option value="0">Select Category</option>
                                 {% for categories in category %}
@@ -99,6 +128,7 @@
 
                                             </select>
                         </div>
+
                         <div class="form-group select">
                             <select class="form-control" id="state" name="state">
                                                 {#
@@ -182,7 +212,7 @@
     	<div id="category_slider2">
         	<div class="owl-carousel owl-theme">
             	<div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">20</span>
@@ -193,7 +223,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 </div>
 
                 <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">32</span>
@@ -204,7 +234,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 </div>
 
                 <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">18</span>
@@ -215,7 +245,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 </div>
 
                 <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">15</span>
@@ -226,7 +256,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 </div>
 
                 <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">15</span>
@@ -255,7 +285,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
         	<div class="col-md-4">
             	<div class="steps_wrap">
                 	<div class="icon_div">
-                    	<i class="fa fa-map-marker"></i>
+                    	<i class="fa fa-pencil"></i>
                     </div>
                 	<h5>Register</h5>
                      <p>You Need complete the register fields.</p><br>
@@ -265,7 +295,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
             <div class="col-md-4">
             	<div class="steps_wrap">
                 	<div class="icon_div">
-                    	<i class="fa fa-location-arrow"></i>
+                    	<i class="fa fa-map-marker"></i>
                     </div>
                 	<h5>Information</h5>
                      <p>Fill up all the information about your medical specialty.</p><br>
@@ -292,20 +322,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
 	<div class="container">
     	<div class="section-header text-center">
         	<h2>Featured Listings</h2>
-            <p>You can have the following services inside of the big platform.</p>
+            <p>You can have the following services inside of the platform.</p>
         </div>
 
         <div id="popular_listing_slider">
         	<div class="owl-carousel owl-theme">
                 <div class="listing_wrap">
                     <div class="listing_img">
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/maps.png') }}" width="50px" alt="image"></a>
+                        <a href="#" class="not-active"><img src="{{ asset('bundles/web/template/Site/assets/images/maps.png') }}" class="not-active" width="50px" alt="image"></a>
                     </div>
                     <div class="listing_info">
                         <div class="post_category">
-                            <a href="#">Global Profile</a>
+                            <a href="#" class="not-active">Global Profile</a>
                         </div>
-                        <h4><a href="#">Your profile is available for all regions</a></h4>
+                        <h4><a href="#" class="not-active">Your profile is available for all regions</a></h4>
 
                         <div class="listing_review_info">
                             <p>All Countries and Cities</p>
@@ -315,13 +345,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
 
                 <div class="listing_wrap">
                     <div class="listing_img">
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/gallery.png') }}" alt="image"></a>
+                        <a href="#" class="not-active"><img src="{{ asset('bundles/web/template/Site/assets/images/gallery.png') }}" alt="image"></a>
                     </div>
                     <div class="listing_info">
                         <div class="post_category">
-                            <a href="#">Gallery</a>
+                            <a href="#" class="not-active">Gallery</a>
                         </div>
-                        <h4><a href="#">Create photo gallery about your profession</a></h4>
+                        <h4><a href="#"  class="not-active">Create photo gallery about your profession</a></h4>
 
                         <div class="listing_review_info">
                             <p>Show your locale</p>
@@ -332,13 +362,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 <div class="listing_wrap">
                     <div class="listing_img">
            
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/schedule.png') }}" alt="image"></a>
+                        <a href="#" class="not-active"><img src="{{ asset('bundles/web/template/Site/assets/images/schedule.png') }}" alt="image"></a>
                     </div>
                     <div class="listing_info">
                         <div class="post_category">
-                            <a href="#">Schedule </a>
+                            <a href="#" class="not-active">Schedule </a>
                         </div>
-                        <h4><a href="#">Schedule available for your services</a></h4>
+                        <h4><a href="#" class="not-active">Schedule available for your services</a></h4>
 
 
                         <div class="listing_review_info">
@@ -348,14 +378,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 </div>
 
                 <div class="listing_wrap">
-                    <div class="listing_img">
-                        <a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/contact.png') }}" alt="image"></a>
+                    <div class="listing_img" class="">
+                        <a href="#" class="not-active"><img src="{{ asset('bundles/web/template/Site/assets/images/contact.png') }}" alt="image"></a>
                     </div>
                     <div class="listing_info">
                         <div class="post_category">
-                            <a href="#">Contact Information</a>
+                            <a href="#" class="not-active">Contact Information</a>
                         </div>
-                        <h4><a href="#">Phones and Socials Networks available for contact you</a></h4>
+                        <h4><a href="#" class="not-active">Phones and Socials Networks available for contact you</a></h4>
 
 
                         <div class="listing_review_info">
@@ -865,11 +895,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 }
                 var locations = [];
 
-                $.each(test, function (k, v) {
-                    console.log(v.usr_id);
+                $.each(test, function (k, v) {    
+                    console.log('{{ asset('bundles/web/template/Site/assets/images/') }}'+v.cat_icon);
                     locations.push([
                         locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
-                        v.ci_lat,v.ci_lng,2,'<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/doctor.jpg') }} "></i>'
+                        v.ci_lat,v.ci_lng,2,'<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+'"></i>'
                     ])
                 })
 

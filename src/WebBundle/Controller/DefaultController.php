@@ -37,6 +37,7 @@ class DefaultController extends Controller
         $countries  = 0;
         $estados_d  = 0;
         $mapaZoom   = 0;
+        $category   = 0;
 
         $busqueda['_STATE'] =0;
         $busqueda['_CITY']  =0;
@@ -47,7 +48,6 @@ class DefaultController extends Controller
         $sUsuarios = '';
         
         if (( $_state!="" ) or ( $_city!="" ) or ( $_speciality!="" ) or ( $_country!="" )) {
-
             $_SESSION['_STATE']     = $_state;
             $_SESSION['_CITY']      = $_city;
             $_SESSION['_SPECI']     = $_speciality;
@@ -69,11 +69,12 @@ class DefaultController extends Controller
                 $_filter .= ' and ues.sp_id ='.$_speciality;
             }
             if ($_country != 0){
-                
                     $sql_estado = "select * from country where cou_id = ". $_country;
                     $statement  = $em->getConnection()->prepare($sql_estado);
                                     $statement->execute();
                     $estados_d= $statement->fetchAll();
+
+                    $_filter .= ' and cou.cou_id ='. $_country ;
 
                     $mapaZoom = 4;
             }
@@ -102,6 +103,9 @@ class DefaultController extends Controller
                                 $statement->execute();
                 $countries = $statement->fetchAll();
             }
+            if(isset($_GET['category']) and $_GET['category']!='' ){
+                $_filter .= ' and ca.cat_id ='. $_GET['category'] ;
+            }
 
             $zoom = 1;
 
@@ -121,9 +125,10 @@ class DefaultController extends Controller
         $state 	    = $em->getRepository('AppBundle:State')->findBy( array('cou' => $_country) );
         $speciality = $em->getRepository('AppBundle:Speciality')->findAll();
         $country    = $em->getRepository('AppBundle:Country')->findAll();
+        $category    = $em->getRepository('AppBundle:Category')->findAll();
 
         $RAW_QUERY	= "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,
-                        ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
+                        ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,ca.cat_icon,
                         group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
                         from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
@@ -131,6 +136,8 @@ class DefaultController extends Controller
 
 			LEFT JOIN user_has_speciality AS ues ON ues.usr_id = u.usr_id
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
+            LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
+            LEFT JOIN country as cou ON cou.cou_id = u.cou_id
             where md.md_active = 1 and ci.ci_lat != '' $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
@@ -148,7 +155,7 @@ class DefaultController extends Controller
                                 9);
 
 
-        return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries , 'estados_d' => $estados_d , 'mapaZoom'=> $mapaZoom ));
+        return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries , 'estados_d' => $estados_d , 'mapaZoom'=> $mapaZoom , 'category'=>$category ));
     }
 
     public function showProfileAction( Request $request){
@@ -186,6 +193,7 @@ class DefaultController extends Controller
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
             LEFT JOIN state as s on s.sta_id = c.sta_id
             LEFT JOIN speciality as e on e.usr_id = u.usr_id
+            LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
             where u.usr_id = ". $id_profile ."
             group by u.usr_id";
 
@@ -510,6 +518,8 @@ class DefaultController extends Controller
             $estados_d= $statement->fetchAll();
 
             $zoom = 0;
+
+            //$_filter .= ' and ca.cat_id = 1';
         }
 
 
@@ -519,7 +529,7 @@ class DefaultController extends Controller
         $country    = $em->getRepository('AppBundle:Country')->findAll();
         $category   = $em->getRepository('AppBundle:Category')->findBy( array('catActive' => 1) );
 
-        $RAW_QUERY  = "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,
+        $RAW_QUERY  = "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,ca.cat_icon,
                         ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
                         group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
                         from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u
@@ -528,6 +538,7 @@ class DefaultController extends Controller
 
             LEFT JOIN user_has_speciality AS ues ON ues.usr_id = u.usr_id
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
+            LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
             where md.md_active = 1 and ci.ci_lat != '' $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
