@@ -47,15 +47,16 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
+    {{ include('app/user/iconsCountries.html.twig') }}
     <p class="login-box-msg">Sign in to start your session</p>
 
     <form action="{{ path('login_check') }}" method="post">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email" name="_username" value="{{ last_username }}">
+        <input type="email" class="form-control" placeholder="Email" name="_username" value="{{ last_username }}" required="required">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="_password">
+        <input type="password" class="form-control" placeholder="Password" name="_password" required="required">
         <input type="hidden" name="_taget_path" value="/login" >
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
