@@ -22,7 +22,7 @@
 
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>Doctors</b> Billboard</a>
+    <a href="{{ path('web_homepage') }}"><b>Doctors</b> Billboard</a>
   </div>
 
   <div class="register-box-body">
@@ -74,12 +74,14 @@
         <!-- /.col -->
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+          <br>
         </div>
         <!-- /.col -->
       </div>
      <!-- </form>-->
      {{ form_end(form) }}
 
+    {#
     <div class="social-auth-links text-center">
       <p>- OR -</p>
       <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
@@ -87,6 +89,7 @@
       <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
         Google+</a>
     </div>
+    #}
 
     <a href="{{ path('login') }}" class="text-center">I already have a membership</a>
   </div>
