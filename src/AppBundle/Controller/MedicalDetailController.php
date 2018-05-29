@@ -176,28 +176,28 @@ class MedicalDetailController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
             $specialities = $editForm['extraSpeciality']->getData();
-            if( count($specialities) > 0)
-            {
+            
                 $q = $em->createQuery("DELETE FROM AppBundle\Entity\UserHasSpeciality tb WHERE tb.usr=".$userId);
                 $q->execute();
                 $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrId"=> $userId) );
-                
-                foreach( $specialities as $value )
+                if( count($specialities) > 0)
                 {
-                    $uhs = new UserHasSpeciality();
-                    $uhs->setUsr($oUser);
-                    
-                    $oSp = $em->getRepository('AppBundle:Speciality')->findOneBy( array("spId"=> $value->getSpId()) );
-                    $uhs->setSp($oSp);
-
-                    $em->persist($uhs);
-                    $flush = $em->flush();
-                    if( $flush == null )
+                    foreach( $specialities as $value )
                     {
-                        //echo 1;
+                        $uhs = new UserHasSpeciality();
+                        $uhs->setUsr($oUser);
+                        
+                        $oSp = $em->getRepository('AppBundle:Speciality')->findOneBy( array("spId"=> $value->getSpId()) );
+                        $uhs->setSp($oSp);
+
+                        $em->persist($uhs);
+                        $flush = $em->flush();
+                        if( $flush == null )
+                        {
+                            //echo 1;
+                        }
                     }
                 }
-            }
 
             // Recogemos el fichero
             $file=$editForm['mdProfileImage']->getData();
