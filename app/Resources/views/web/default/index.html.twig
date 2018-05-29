@@ -323,12 +323,21 @@
                                     <!-- <div class="post_category"> <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a> </div>-->
                                     <h6>
                                         <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
-                                            {{ m.md_first_name }}
-                                            {{ m.md_first_surname }}</a>
+                                            {% if m.cat_id == 1 %}
+                                                {{ m.md_first_name }}
+                                                {{ m.md_first_surname }}
+                                            {% else %}
+                                                {{ m.ci_company }}
+                                            {% endif %}
+                                        </a>
                                     </h6>
 
                                     <p class="itemSpecialities">
-                                        {{ m.esp }}
+                                        {% if m.cat_id == 1 %}
+                                            {{ m.esp }}
+                                        {% else %}
+                                            <br>
+                                        {% endif %}
                                     </p>
 
                                     <div class="listing_review_info">
@@ -506,13 +515,23 @@
                 var locations = [];
 
                 $.each(test, function (k, v) {
-                    locations.push([
-                        locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
-                        v.ci_lat,
-                        v.ci_lng,
-                        2,
-                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+' "></i>'
-                    ])
+                    if(v.cat_id == 1){
+                        locations.push([
+                            locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                            v.ci_lat,
+                            v.ci_lng,
+                            2,
+                            '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+' "></i>'
+                        ])
+                    }else{
+                        locations.push([
+                            locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.ci_company , v.ci_phone1, '5.0', '23'),
+                            v.ci_lat,
+                            v.ci_lng,
+                            2,
+                            '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+' "></i>'
+                        ])
+                    }
                 })
 
                 var mapZoomAttr = $('#map').attr('data-map-zoom');
@@ -851,15 +870,23 @@
                 var locations = [];
 
                 $.each(test, function (k, v) {
-
-                    locations.push([
-                        locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
-                        v.ci_lat,
-                        v.ci_lng,
-                        2,
-                        '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+'"></i>'
-                    ])
-
+                    if( v.cat_id ==1){
+                        locations.push([
+                            locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                            v.ci_lat,
+                            v.ci_lng,
+                            2,
+                            '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+'"></i>'
+                        ])
+                    }else{
+                        locations.push([
+                            locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.ci_company , v.ci_phone1, '5.0', '23'),
+                            v.ci_lat,
+                            v.ci_lng,
+                            2,
+                            '<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+'"></i>'
+                        ])
+                    }
                 })
 
                 var mapZoomAttr = $('#map').attr('data-map-zoom');

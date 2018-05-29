@@ -128,7 +128,7 @@ class DefaultController extends Controller
         $category    = $em->getRepository('AppBundle:Category')->findAll();
 
         $RAW_QUERY	= "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,
-                        ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,ca.cat_icon,
+                        ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,ca.cat_icon,ca.cat_id,ci.ci_company,
                         group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
                         from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
@@ -530,7 +530,7 @@ class DefaultController extends Controller
         $category   = $em->getRepository('AppBundle:Category')->findBy( array('catActive' => 1) );
 
         $RAW_QUERY  = "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,ca.cat_icon,
-                        ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,
+                        ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,ca.cat_id,ci.ci_company,
                         group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
                         from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u
             LEFT JOIN medical_detail as md on u.usr_id = md.usr_id left join contact_info as ci on ci.usr_id = u.usr_id left join city as c on c.cit_id = ci.cit_id
