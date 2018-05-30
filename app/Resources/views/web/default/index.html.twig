@@ -64,6 +64,9 @@
             line-height: normal !important;
             margin-bottom: 0;
         }
+        .select2-selection__placeholder{
+            font-size: 12px;
+        }
 
         .select2-selection--multiple {
             overflow: hidden !important;
@@ -105,6 +108,71 @@
          .footer_bottom {
               text-align: left;
          }
+
+         #holderGrid{
+             position:relative;
+         }
+
+        /*Search*/
+         #holderBtnSearch{
+             display: table; 
+             width:35px;
+             height:30px;
+             background: #09B1EB;
+             color:#FFF;
+             cursor:pointer;
+             z-index:10;
+             position:absolute;
+             
+         }
+         #holderIconSearch{
+            display: table-cell;
+            vertical-align: middle;
+            text-align:center;
+         }
+         #holderCloseIconSearch{
+             /*display:none;*/
+         }
+
+        
+
+        .search_wrap{
+            position:absolute;
+            width:100%;
+            left:-105%;
+            z-index: 9;
+            top:0px;
+           box-shadow: 0px 1px 10px 1px rgba(119, 119, 119, 0.45);
+            -moz-box-shadow: 0px 1px 10px 1px rgba(119, 119, 119, 0.45);
+            -webkit-box-shadow: 0px 1px 10px 1px rgba(119, 119, 119, 0.45);
+        }
+
+        .title-search{
+            background:#117793;
+            color:#FFF;
+            text-align:center;
+            padding:10px;
+            margin-bottom:5px;
+        }
+        .infoInputSearch{
+            font-size:12px;
+        }
+
+        .rowFilters{
+            padding:5px 2px 2px 2px;
+            margin-left: 45px;
+            position:absolute;
+        }
+
+        span.zoom-minus, span.zoom-plus{
+            font-size: 19px !important;
+            cursor:pointer;
+            margin-left:10px;
+        }
+
+        .leaflet-control-zoom{
+            padding-top: 60px;
+        }
     </style>
 
     <!-- Listings -->
@@ -119,157 +187,11 @@
 
         </div>
 
-        <div class="search_wrap">
-            <div class="search_form">
-                <form action="" method="get" id="formSearch">
+        {# {{ include('web/default/search.html.twig', { 'article': article }) }} #}
+        
 
-                    <div class="row">
-                        <div class="col-lg-9 col-md-8 col-sm-9">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
-                                    <div class="form-groupx divForm" style="">
-                                        <div class="select">
-                                            Category:
-                                            <select class="form-control" id="category" name="category">
-                                                <option value=""></option>
-                                                {% for categories in category %}
-                                                    {% if app.request.query.get("category") == categories.catId %}
-                                                        <option value="{{ categories.catId }}" selected="selected">{{ categories.catName }}</option>
-                                                    {% else %}
-                                                        <option value="{{ categories.catId }}">{{ categories.catName }}</option>
-                                                    {% endif %}
-                                                {% endfor %}
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
-                                    <div class="form-groupx divForm" style="">
-                                        <div class="select">
-                                            Country:
-                                            <select class="form-control" id="country" name="country">
-                                                {#
-                                                    {% if countries %}
-                                                        <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option>
-                                                    {% else %}
-                                                        <option value="0">Select Country</option>
-                                                    {% endif %}
-                                                    #}
-                                                <option value=""></option>
-                                                {% for countries in country %}
-                                                    {% if app.request.query.get("country") == countries.couId %}
-                                                        <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
-                                                    {% else %}
-                                                        <option value="{{ countries.couId }}">{{ countries.couName }}</option>
-                                                    {% endif %}
-                                                {% endfor %}
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
-                                    <div class="form-groupx divForm" style="">
-                                        <div class="select">
-                                            State:
-                                            <select class="form-control" id="state" name="state">
-                                                {#
-                                            {% if estados_d %}
-                                                <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option>
-                                            {% else %}
-                                                <option value="0">Select State</option>
-                                            {% endif %}
-                                            #}
-                                                <option value=""></option>
-                                                {% for states in state %}
-
-                                                    {# {% if states.staId != estados_d[0].sta_id %} #}
-                                                    {% if app.request.query.get("state") == states.staId %}
-                                                        <option value="{{ states.staId }}" selected="selected">{{ states.staName }}</option>
-                                                    {% else %}
-                                                        <option value="{{ states.staId }}">{{ states.staName }}</option>
-                                                    {% endif %}
-
-                                                {% endfor %}
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
-                                    <div class="form-groupx divForm" style="">
-                                        <div class="select">
-                                            City:
-                                            <select class="form-control" id="cities" name="city">
-                                                <option value=""></option>
-                                                {% if cities %}
-                                                    {% for city in cities %}
-                                                        {% if app.request.query.get("city") == city.cit_id %}
-                                                            <option value="{{ city.cit_id }}" selected="selected">{{ city.cit_name }}</option>
-                                                        {% else %}
-                                                            <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>
-                                                        {% endif %}
-
-                                                    {% endfor %}
-                                                {% endif %}
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xm-6">
-                                    <div class="form-groupx divForm" style="">
-                                        <div class="select">
-                                            Speciality:
-                                            <select class="form-control" id="speciality" name="speciality">
-                                                <option value=""></option>
-                                                {% for spe in speciality %}
-                                                    {% if app.request.query.get("speciality") == spe.spId %}
-                                                        <option value="{{ spe.spId }}" selected="selected">{{ spe.spName }}</option>
-                                                    {% else %}
-                                                        <option value="{{ spe.spId }}">{{ spe.spName }}</option>
-                                                    {% endif %}
-
-                                                {% endfor %}
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-sm-3 col-xm-3">
-                            <br>
-                            <div class="btn-group" role="group" aria-label="...">
-                                <button type="submit" class="btn btn-default" id="btnSend">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search</button>
-                                    {% if app.request.query.get("country") > 0 %}
-                                        <a href="{{ path('web_homepage') }}" class="btn btn-danger" id="cleanSearch" data-toggle="tooltip" title="Clear Filters">
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                        </a>
-                                    {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    {#
-                    <div style="float:left; width: 80%;" id="holderInputsSearch"></div>
-                    <div class="" style="float:left; width: 20%;">
-                        <br>
-                        <div class="btn_groupx" style=""></div>
-
-                    </div>
-                    #}
-
-                </form>
-            </div>
-        </div>
-
-        <div class="container">
+        <div class="container" id="holderGrid">
+            {{ include('web/default/search.html.twig') }}
             <div class="listing_header">
                 <h6>
                     {% if medic | length %}
@@ -383,6 +305,31 @@
     <script>
 
         $(function () {
+
+            $("#holderBtnSearch").on("click",function(){
+                var left = "0px";
+                var holder = $("#holderIconSearch");
+                if( holder.hasClass("btnOpen"))
+                {
+                    holder.removeClass("btnOpen").addClass("btnClose").html('<i class="fa fa-window-close" aria-hidden="true"></i>');
+                    
+                }
+                else
+                {
+                    holder.removeClass("btnClose").addClass("btnOpen").html('<i class="fa fa-search" aria-hidden="true"></i>');
+                    left = "-105%";
+                }
+                
+                $(".search_wrap").animate({"left":left},100);
+            });
+
+            /*
+            $("#holderBtnSearch").on("click",function(){
+                $(".search_wrap").animate({"left":"0px"},500);
+                $("#holderCloseIconSearch").show();
+            });
+            */
+
             $('[data-toggle="tooltip"]').tooltip();
 
             $('.grid').isotope({itemSelector: '.grid-item'});
@@ -477,6 +424,7 @@
                 }
             }
 
+            $('#category').select2({dropdownCssClass: "myFont", placeholder: "Select a category", width: '100%'});
             $('#state').select2({dropdownCssClass: "myFont", placeholder: "Select a state", width: '100%'});
             $("#cities").select2({dropdownCssClass: "myFont", placeholder: "Select a city", width: '100%'});
             $("#speciality").select2({dropdownCssClass: "myFont", placeholder: "Select speciality", width: '100%'});
@@ -510,7 +458,7 @@
                 }
 
                 function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
-                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
+                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span><div class="text-right"><span class="zoom-minus"><i class="fa fa-search-minus" aria-hidden="true"></i></span> <span class="zoom-plus"><i class="fa fa-search-plus" aria-hidden="true"></i></span></div>' + '</div>' + '<div class="listing-content">' + '</div>')
                 }
                 var locations = [];
 
@@ -655,9 +603,31 @@
                             map.panTo(latLng);
                             map.panBy(0, -180);
                             google.maps.event.addListener(ib, 'domready', function () {
+                                //var c = map.zoom;
+                                var newZoom = 17;
                                 $('.map-popup-close').click(function (e) {
                                     e.preventDefault();
                                     ib.close();
+                                    //$(this).find(".zoom").show();
+                                });
+                                $(".map-post-des-m .zoom-plus").click(function(e){
+                                    //map.setZoom(17);
+                                    if( newZoom < 22)
+                                    {
+                                        newZoom = newZoom + 1;
+                                        map.setZoom(newZoom);
+                                        map.setCenter(latLng);
+                                        console.log("alert"+newZoom);
+                                        //newZoom = 17;
+                                    }
+                                });
+                                $(".map-post-des-m .zoom-minus").click(function(e){
+                                    map.setCenter(latLng);
+                                    if( newZoom > 0 ){
+                                        newZoom = newZoom - 1;
+                                        map.setZoom(newZoom);
+                                        console.log("alert"+newZoom);
+                                    }
                                 });
                             });
                         }
@@ -865,7 +835,7 @@
                 var test = {{ medic.items|json_encode|raw }};
 
                 function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
-                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
+                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span><div class="text-right"><span class="zoom-minus"><i class="fa fa-search-minus" aria-hidden="true"></i></span> <span class="zoom-plus"><i class="fa fa-search-plus" aria-hidden="true"></i></span></div>' + '</div>' + '<div class="listing-content">' + '</div>')
                 }
                 var locations = [];
 
@@ -983,6 +953,25 @@
                                 ib.close();
                                 $('.map-marker-container').removeClass('clicked infoBox-opened');
                             });
+                            $(".map-post-des-m .zoom-plus").click(function(e){
+                                    //map.setZoom(17);
+                                    if( newZoom < 22)
+                                    {
+                                        newZoom = newZoom + 1;
+                                        map.setZoom(newZoom);
+                                        map.setCenter(latLng);
+                                        console.log("alert"+newZoom);
+                                        //newZoom = 17;
+                                    }
+                                });
+                                $(".map-post-des-m .zoom-minus").click(function(e){
+                                    map.setCenter(latLng);
+                                    if( newZoom > 0 ){
+                                        newZoom = newZoom - 1;
+                                        map.setZoom(newZoom);
+                                        console.log("alert"+newZoom);
+                                    }
+                                });
                         });
 
                     } else {
@@ -1008,6 +997,25 @@
                                 $('.map-popup-close').click(function (e) {
                                     e.preventDefault();
                                     ib.close();
+                                });
+                                $(".map-post-des-m .zoom-plus").click(function(e){
+                                    //map.setZoom(17);
+                                    if( newZoom < 22)
+                                    {
+                                        newZoom = newZoom + 1;
+                                        map.setZoom(newZoom);
+                                        map.setCenter(latLng);
+                                        console.log("alert"+newZoom);
+                                        //newZoom = 17;
+                                    }
+                                });
+                                $(".map-post-des-m .zoom-minus").click(function(e){
+                                    map.setCenter(latLng);
+                                    if( newZoom > 0 ){
+                                        newZoom = newZoom - 1;
+                                        map.setZoom(newZoom);
+                                        console.log("alert"+newZoom);
+                                    }
                                 });
                             });
                         }

@@ -19,7 +19,7 @@
             padding-top: 0px;
          }
          .circleTotal{
-            background: grey;
+           /* background: grey;  */
          }
 
          .not-active {
@@ -29,8 +29,22 @@
           color: black;
         }
 
+        .select2-results__option,
+        .select2-selection__choice,
+        .select2-selection__choice__remove {
+            font-size: 12px;
+            line-height: normal !important;
+            margin-bottom: 0;
+        }
+        .select2-selection__placeholder{
+            font-size: 12px;
+        }
 
-
+        .select2-selection--multiple {
+            overflow: hidden !important;
+            height: auto !important;
+        }
+    
         .select2-selection__rendered {
             width: 100%;
             line-height: 31px !important;
@@ -41,13 +55,26 @@
         .select2-selection__arrow {
             height: 34px !important;
         }
-
+          
         .custom{
             width: 100%;
             padding: 5px;
             border-radius: 5px;
             height: 15px;
             text-align: center;
+        }
+
+        .pt15{
+           padding-top:15px;
+        }
+
+        .pbinput{
+            padding-bottom:5px;
+        }
+        span.zoom-minus, span.zoom-plus{
+            font-size: 19px !important;
+            cursor:pointer;
+            margin-left:10px;
         }
     </style>
 
@@ -98,98 +125,107 @@
             	<h2> Find Here <i class="fa fa-map-marker"></i></h2>
             	<div class="search_formx" style="padding: 5%;">
                     <form action="{{ path('web_homepage')}}" method="get">
+                        <div class="row">
 
-                        <div class="form-group selectz">
-                            <select class="form-control" id="category" name="category">
-                                <option value="0">Select Category</option>
-                                {% for categories in category %}
-                                    <option value="{{ categories.catId }}">{{ categories.catName }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pbinput">
+                                <select class="form-control" id="category" name="category">
+                                    <option value="0">Select Category</option>
+                                    {% for categories in category %}
+                                        <option value="{{ categories.catId }}">{{ categories.catName }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
 
-                        <div class="form-group select">
-                            <select class="form-control" id="country" name="country">
-                                                {#
-                                                    {% if countries %}
-                                                        <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option>
-                                                    {% else %}
-                                                        <option value="0">Select Country</option>
-                                                    {% endif %}
-                                                 #}
-                                                <option value="0">Select Country</option>
-                                                {% for countries in country %}
-                                                    {% if app.request.query.get("country") == countries.couId %}
-                                                        <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
-                                                    {% else %}
-                                                        <option value="{{ countries.couId }}">{{ countries.couName }}</option>
-                                                    {% endif %}
-                                                {% endfor %}
-
-                                            </select>
-                        </div>
-
-                        <div class="form-group select">
-                            <select class="form-control" id="state" name="state">
-                                                {#
-                                            {% if estados_d %}
-                                                <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option>
-                                            {% else %}
-                                                <option value="0">Select State</option>
-                                            {% endif %}
-                                            #}
-                                                <option value=""></option>
-                                                {% for states in state %}
-
-                                                    {# {% if states.staId != estados_d[0].sta_id %} #}
-                                                    {% if app.request.query.get("state") == states.staId %}
-                                                        <option value="{{ states.staId }}" selected="selected">{{ states.staName }}</option>
-                                                    {% else %}
-                                                        <option value="{{ states.staId }}">{{ states.staName }}</option>
-                                                    {% endif %}
-
-                                                {% endfor %}
-
-                                            </select>
-                        </div>
-
-                        <div class="form-group select">
-                            <select class="form-control" id="cities" name="city">
-                                                <option value=""></option>
-                                                {% if cities %}
-                                                    {% for city in cities %}
-                                                        {% if app.request.query.get("city") == city.cit_id %}
-                                                            <option value="{{ city.cit_id }}" selected="selected">{{ city.cit_name }}</option>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pbinput">
+                                <select class="form-control" id="country" name="country">
+                                                    {#
+                                                        {% if countries %}
+                                                            <option value="{{ countries[0].cou_id }}">{{ countries[0].cou_name }}</option>
                                                         {% else %}
-                                                            <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>
+                                                            <option value="0">Select Country</option>
+                                                        {% endif %}
+                                                    #}
+                                                    <option value="0">Select Country</option>
+                                                    {% for countries in country %}
+                                                        {% if app.request.query.get("country") == countries.couId %}
+                                                            <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
+                                                        {% else %}
+                                                            <option value="{{ countries.couId }}">{{ countries.couName }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                </select>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pbinput">
+                                <select class="form-control" id="state" name="state">
+                                                    {#
+                                                {% if estados_d %}
+                                                    <option value="{{ estados_d[0].sta_id }}">{{ estados_d[0].sta_name }}</option>
+                                                {% else %}
+                                                    <option value="0">Select State</option>
+                                                {% endif %}
+                                                #}
+                                                    <option value=""></option>
+                                                    {% for states in state %}
+
+                                                        {# {% if states.staId != estados_d[0].sta_id %} #}
+                                                        {% if app.request.query.get("state") == states.staId %}
+                                                            <option value="{{ states.staId }}" selected="selected">{{ states.staName }}</option>
+                                                        {% else %}
+                                                            <option value="{{ states.staId }}">{{ states.staName }}</option>
                                                         {% endif %}
 
                                                     {% endfor %}
-                                                {% endif %}
 
-                                            </select>
-                        </div>
+                                                </select>
+                            </div>
 
-                        <div class="form-group select">
-                            <div class="select">
-                                            
-                                            <select class="form-control" id="speciality" name="speciality">
-                                                <option value=""></option>
-                                                {% for spe in speciality %}
-                                                    {% if app.request.query.get("speciality") == spe.spId %}
-                                                        <option value="{{ spe.spId }}" selected="selected">{{ spe.spName }}</option>
-                                                    {% else %}
-                                                        <option value="{{ spe.spId }}">{{ spe.spName }}</option>
+                            <div class="col-lg-6 col-md6 col-sm-6 col-xs-12 pbinput">
+                                <select class="form-control" id="cities" name="city">
+                                                    <option value=""></option>
+                                                    {% if cities %}
+                                                        {% for city in cities %}
+                                                            {% if app.request.query.get("city") == city.cit_id %}
+                                                                <option value="{{ city.cit_id }}" selected="selected">{{ city.cit_name }}</option>
+                                                            {% else %}
+                                                                <option value="{{ city.cit_id }}">{{ city.cit_name }}</option>
+                                                            {% endif %}
+
+                                                        {% endfor %}
                                                     {% endif %}
 
-                                                {% endfor %}
+                                                </select>
+                            </div>
 
-                                            </select>
-                        </div>
-                        <br>
+                             <div class="col-lg-12 ">
 
-                        <div class="form-group search_btn">
-                            <input type="submit" value="Search" class="btn btn-block">
+                                <div class="pbinput">
+                                                
+                                    <select class="form-control" id="speciality" name="speciality">
+                                        <option value=""></option>
+                                        {% for spe in speciality %}
+                                            {% if app.request.query.get("speciality") == spe.spId %}
+                                                <option value="{{ spe.spId }}" selected="selected">{{ spe.spName }}</option>
+                                            {% else %}
+                                                <option value="{{ spe.spId }}">{{ spe.spName }}</option>
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+
+                                <div class="pbinput search_btn">
+                                    <input type="submit" value="Search" class="btn btn-block">
+                                </div>
+
+                             </div>    
+                            <div class="">
+                                
+                            <br>
+
+                            
                         </div>
                     </form>
                 </div>
@@ -210,10 +246,9 @@
              <p>Registration Available for <b>USA, CANADA AND AUSTRALIA</b> for the next services</p>
         </div>
     	<div id="category_slider2">
-        	<div class="owl-carousel owl-theme">
-            	<div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
+        	<div class="owl-carousel owl-themex">
+            	<div class="item thumbnail" style=" ">
+                	<a  class="not-active" style="">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">20</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/doctors_1.png') }}" alt="image">
@@ -222,42 +257,38 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                     </a>
                 </div>
 
-                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
+                <div class="item" style="">
+                	<a  class="not-active" style="">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">32</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/hospital_1.png') }}" alt="image">
                         </div>
-	                    <p>Hospital</p>
+	                    <p>Hospitals</p>
                     </a>
                 </div>
 
-                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
+                <div class="item" style="">
+                	<a class="not-active" style="">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">18</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/clinic_1.png') }}" alt="image">
                         </div>
-	                    <p>Clinic</p>
+	                    <p>Clinics</p>
                     </a>
                 </div>
 
-                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
+                <div class="item" style="">
+                	<a  class="not-active" style="">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">15</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/pharmacy_1.png') }}" alt="image">
                         </div>
-                        <p>Pharmacy</p>
+                        <p>Pharmacies</p>
                     </a>
                 </div>
 
-                <div class="item" style="background-image:url(assets/images/400x530.jpg);">
-                	<a href="#" class="not-active" style="background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );">
+                <div class="item" style="">
+                	<a class="not-active" style="">
     	            	<div class="category_icon">
                         	<span class="category_listing_n circleTotal">15</span>
                             <img src="{{ asset('bundles/web/template/Site/assets/images/social_1.png') }}" alt="image">
@@ -640,10 +671,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
         </div>
 
         <div class="row">
-        	<div class="col-md-4">
+        	<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             	<div class="post_wrap">
-                	<div class="post_img">
-                    	<a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/usa.png') }}" alt="image"></a>
+                	<div class="post_img text-center pt15">
+                    	<img src="{{ asset('bundles/web/template/Site/assets/images/usa.png') }}" alt="United States of America">
                     </div>
                     <div class="post_info">
 
@@ -657,10 +688,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             	<div class="post_wrap">
-                	<div class="post_img">
-                    	<a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/canada.png') }}" alt="image"></a>
+                	<div class="post_img text-center pt15">
+                    	<img src="{{ asset('bundles/web/template/Site/assets/images/canada.png') }}" alt="Canada">
                     </div>
                     <div class="post_info">
       
@@ -674,10 +705,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
             	<div class="post_wrap">
-                	<div class="post_img">
-                    	<a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/ausrtralia.png') }}" alt="image"></a>
+                	<div class="post_img text-center pt15">
+                    	<img src="{{ asset('bundles/web/template/Site/assets/images/ausrtralia.png') }}" alt="Australia">
                     </div>
                     <div class="post_info">
  
@@ -775,6 +806,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 }
                 //alert();
             });
+
+            $('#category').select2({dropdownCssClass: "myFont", placeholder: "Select a category", width: '100%'});
 
             // States by Country
             $('#country').change(function () {
@@ -891,7 +924,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                 }
 
                 function locationData(locationURL, locationImg, locationTitle, locationAddress, locationRating, locationRatingCounter) {
-                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span>' + '</div>' + '<div class="listing-content">' + '</div>')
+                    return ('' + '<div class="map-popup-close"><i class="fa fa-times"></i></div>' + '<hr><a href="' + locationURL + '" class="map-post-thumb-m" target="_blank">' + '<img src="' + locationImg + '" width="100%" height="" alt="">' + '</a>' + '<div class="map-post-des-m">' + '<h5>' + '<a href="' + locationURL + '" target="_blank">' + locationTitle + '</a>' + '</h5>' + '<span><i class="fa fa-phone"></i> ' + locationAddress + '</span><div class="text-right"><span class="zoom-minus"><i class="fa fa-search-minus" aria-hidden="true"></i></span> <span class="zoom-plus"><i class="fa fa-search-plus" aria-hidden="true"></i></span></div>' + '</div>' + '<div class="listing-content">' + '</div>')
                 }
                 var locations = [];
 
@@ -923,7 +956,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
   
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 6,
-                        scrollwheel: true,
+                        scrollwheel: false,
                         disableDefaultUI: true,
                         {% if estados_d[0].sta_lat is defined and estados_d[0].sta_lng is defined %}
                             center: new google.maps.LatLng({{ estados_d[0].sta_lat }}, {{ estados_d[0].sta_lng }}),
@@ -939,7 +972,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                         fullscreenControl: false,
                         navigationControl: false,
                         streetViewControl: false,
-                        animation: google.maps.Animation.BOUNCE,
+                        animation: google.maps.Animation.DROP,
                         gestureHandling: 'cooperative',
                         styles: [
                             {
@@ -957,7 +990,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
 
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 5,
-                        scrollwheel: true,
+                        scrollwheel: false,
                         center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
                         mapTypeId: google.maps.MapTypeId.ROADMAP,
                         zoomControl: false,
@@ -967,7 +1000,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                         fullscreenControl: false,
                         navigationControl: false,
                         streetViewControl: false,
-                        animation: google.maps.Animation.BOUNCE,
+                        animation: google.maps.Animation.DROP,
                         gestureHandling: 'cooperative',
                         styles: [
                             {
@@ -981,6 +1014,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                             }
                         ]
                     });
+
+                    
                 }
 
                 var boxText = document.createElement("div");
@@ -1038,14 +1073,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                             map.panTo(latLng);
                             map.panBy(0, -180);
                             google.maps.event.addListener(ib, 'domready', function () {
+                                //var c = map.zoom;
+                                var newZoom = 17;
                                 $('.map-popup-close').click(function (e) {
                                     e.preventDefault();
                                     ib.close();
+                                    //$(this).find(".zoom").show();
+                                });
+                                $(".map-post-des-m .zoom-plus").click(function(e){
+                                    //map.setZoom(17);
+                                    if( newZoom < 22)
+                                    {
+                                        newZoom = newZoom + 1;
+                                        map.setZoom(newZoom);
+                                        map.setCenter(latLng);
+                                        console.log("alert"+newZoom);
+                                        //newZoom = 17;
+                                    }
+                                });
+                                $(".map-post-des-m .zoom-minus").click(function(e){
+                                    map.setCenter(latLng);
+                                    if( newZoom > 0 ){
+                                        newZoom = newZoom - 1;
+                                        map.setZoom(newZoom);
+                                        console.log("alert"+newZoom);
+                                    }
                                 });
                             });
+                            
                         }
                     })(overlay, i));
                 }
+
+
 
                 var options = {
                     imagePath: 'images/',
@@ -1149,6 +1209,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                     panControl: false,
                     navigationControl: false,
                     streetViewControl: false,
+                    //gestureHandling: 'cooperative',
                     styles: [
                         {
                             "featureType": "landscape",
@@ -1213,6 +1274,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                     div.className = 'map-marker-container';
                     div.innerHTML = '<div class="marker-container">' + '<div class="marker-card">' + '<div class="front face">' + self.markerIco + '</div>' + self.markerIco + '</div>' + '</div>' + '</div>'
                     google.maps.event.addDomListener(div, "click", function (event) {
+                        //alert();
                         $('.map-marker-container').removeClass('clicked infoBox-opened');
                         google.maps.event.trigger(self, "click");
                         $(this).addClass('clicked infoBox-opened');
@@ -1229,6 +1291,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', end
                     div.style.top = (point.y) + 'px';
                 }
             };
+
+            
 
             CustomMarker.prototype.remove = function () {
                 if (this.div) {
