@@ -617,7 +617,7 @@
                                         newZoom = newZoom + 1;
                                         map.setZoom(newZoom);
                                         map.setCenter(latLng);
-                                        console.log("alert"+newZoom);
+                                        //console.log("alert"+newZoom);
                                         //newZoom = 17;
                                     }
                                 });
@@ -626,7 +626,7 @@
                                     if( newZoom > 0 ){
                                         newZoom = newZoom - 1;
                                         map.setZoom(newZoom);
-                                        console.log("alert"+newZoom);
+                                        //console.log("alert"+newZoom);
                                     }
                                 });
                             });
@@ -947,7 +947,10 @@
                         boxText.innerHTML = locations[i][0];
                         ib.open(map, overlay);
                         currentInfobox = locations[i][3];
+
+                        var latLng = new google.maps.LatLng(locations[i][1], locations[i][2]);
                         google.maps.event.addListener(ib, 'domready', function () {
+                            var newZoom = 17;
                             $('.map-popup-close').click(function (e) {
                                 e.preventDefault();
                                 ib.close();
@@ -960,7 +963,7 @@
                                         newZoom = newZoom + 1;
                                         map.setZoom(newZoom);
                                         map.setCenter(latLng);
-                                        console.log("alert"+newZoom);
+                                        //console.log("alert"+newZoom);
                                         //newZoom = 17;
                                     }
                                 });
@@ -969,7 +972,7 @@
                                     if( newZoom > 0 ){
                                         newZoom = newZoom - 1;
                                         map.setZoom(newZoom);
-                                        console.log("alert"+newZoom);
+                                        //console.log("alert"+newZoom);
                                     }
                                 });
                         });
@@ -994,6 +997,7 @@
                             map.panTo(latLng);
                             map.panBy(0, -180);
                             google.maps.event.addListener(ib, 'domready', function () {
+                                var newZoom = 17;
                                 $('.map-popup-close').click(function (e) {
                                     e.preventDefault();
                                     ib.close();
@@ -1005,16 +1009,17 @@
                                         newZoom = newZoom + 1;
                                         map.setZoom(newZoom);
                                         map.setCenter(latLng);
-                                        console.log("alert"+newZoom);
+                                        //console.log("alert"+newZoom);
                                         //newZoom = 17;
                                     }
                                 });
                                 $(".map-post-des-m .zoom-minus").click(function(e){
+                                    alert();
                                     map.setCenter(latLng);
                                     if( newZoom > 0 ){
                                         newZoom = newZoom - 1;
                                         map.setZoom(newZoom);
-                                        console.log("alert"+newZoom);
+                                        //console.log("alert"+newZoom);
                                     }
                                 });
                             });
