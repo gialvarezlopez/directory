@@ -731,6 +731,14 @@
 
 <section id="pricing_table" class="section-padding parallex-bg" style="background: #f6f6f6 ;">
     <div class="container" >
+        {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success" name="{{message}}"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Success</div>
+            {% endfor %}
+            {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger" name="{{message}}"><i class="fa fa-times" aria-hidden="true"></i> Error </div>
+        {% endfor %}
+        {# End notifications #}
+
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
@@ -741,21 +749,21 @@
             <div class="form-group">
                
                 <div class="col-sm-12">
-                <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Name*">
+                <input type="text" class="form-control input-lg" name="name" id="name" required placeholder="Name*">
                 </div>
             </div>
             
             <div class="form-group">
                   
                     <div class="col-sm-12">
-                      <input type="email" class="form-control input-lg" name="email" id="email" placeholder="Email*">
+                      <input type="email" class="form-control input-lg" name="email" required id="email" placeholder="Email*">
                   </div>
             </div>
             
             <div class="form-group">
                   
                     <div class="col-sm-12">
-                      <input type="text" class="form-control input-lg" name="phone" id="phone" placeholder="Phone">
+                      <input type="text" class="form-control input-lg" name="phone" required id="phone" placeholder="Phone">
                   </div>
             </div>
             
@@ -790,6 +798,16 @@
     <script>
 
     $(function () {
+
+        if($('.alert-success').attr('name') == 1){
+
+            $('html, body').animate({
+                scrollTop: $("#contactForm").offset().top
+            }, 2000);
+
+            $(this).remove();
+
+        }
             $('[data-toggle="tooltip"]').tooltip();
 
             $('.grid').isotope({itemSelector: '.grid-item'});

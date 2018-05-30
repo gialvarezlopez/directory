@@ -19,6 +19,11 @@ use PHPMailer\PHPMailer\Exception;
 
 class DefaultController extends Controller
 {
+
+    public function __construct() {
+        $this->session = new Session();
+    }
+
     public function indexAction(Request $request)
     {
         $em     = $this->getDoctrine()->getManager();
@@ -580,9 +585,19 @@ class DefaultController extends Controller
             $contactus->setConCreate( new \DateTime("now") );
 
             $em->merge($contactus);
-            $em->flush();
-        }
-        return $this->render('web/default/landing.html.twig');
+            //$em->flush();
+
+            $flush = $em->flush();
+            if($flush == null){
+                $success = 1;
+                $this->session->getFlashBag()->add("success",$success);
+            }else{
+                $error = 0;
+                $this->session->getFlashBag()->add("error",$error);
+            }          
+        } 
+
+        return $this->redirectToRoute("web_landing");
 
     }
 
