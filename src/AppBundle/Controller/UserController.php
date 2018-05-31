@@ -54,9 +54,11 @@ class UserController extends Controller
         */
         $recoveryToken = $request->get('token');
         $tokenConfirmation = $request->get('tokenConfirmation');
+
+        $em = $this->getDoctrine()->getManager();
         if( $recoveryToken != "" && !isset($tokenConfirmation) )
         {
-            $em = $this->getDoctrine()->getManager();
+           
             $oReset = $em->getRepository('AppBundle:UserResetPassword')->findOneBy( array("uspToken"=> $recoveryToken, "uspActive"=>1) );
             //echo count($oReset);
             if( $oReset )
@@ -79,8 +81,6 @@ class UserController extends Controller
                             {
                                 $q = $em->createQuery('delete from AppBundle\Entity\UserResetPassword tb where tb.usr = '.$userId );
                                 $q->execute();
-
-
 
                                 $em->getConnection()->commit();
                                 $msg = "The token was validated successfully enter the new password and your email address, just remember to  change the password when you obtain access in the '<strong>setting</strong> menu'";

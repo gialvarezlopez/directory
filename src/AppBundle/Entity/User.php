@@ -2,11 +2,14 @@
 
 namespace AppBundle\Entity;
 use \Symfony\Component\Security\Core\User\UserInterface;
+use \Symfony\Component\Security\Core\User\AdvancedUserInterface;
+
 
 /**
  * User
  */
-class User implements UserInterface
+//class User implements UserInterface
+class User implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer
@@ -467,4 +470,56 @@ class User implements UserInterface
     {
         return $this->usrForgotPassword;
     }
+
+
+
+    //===============================================================
+    //Campo extra para valir
+    //===============================================================
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->usrStatus;
+    }
+
+    // serialize and unserialize must be updated - see below
+    public function serialize()
+    {
+        
+        return serialize(array(
+            // ...
+            $this->usrStatus,
+            $this->usrId,
+            $this->usrEmail,
+        ));
+        
+    }
+    public function unserialize($serialized)
+    {
+        
+        list (
+            // ...
+            $this->usrStatus,
+            $this->usrId,
+            $this->usrEmail,
+        ) = unserialize($serialized);
+        
+    }
+    //===============================================================
+    //Fin campo extra
+    //===============================================================
 }
