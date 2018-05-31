@@ -148,6 +148,7 @@ $(function () {
       $.ajax({
           type: "POST",
           url: "{{ path('rememberPassword') }}",
+          dataType:'json',
           data: {
                 email: email,
             },
@@ -157,20 +158,25 @@ $(function () {
             },
             success: function (data) {
               $("#holder_loading").hide();
-              switch(data)
+              //console.log(jQuery.parseJSON(JSON.stringify(data)))
+              data = jQuery.parseJSON(JSON.stringify(data));
+              switch( parseInt(data.key) )
               {
-                case "1":
+                case 1:
                   $('#message_modal').modal('hide');
-                  $.alert({icon: 'fa fa-check', title: 'Success', type: "green", content: "<strong>The new password was sent successfully!</strong><br> In a couple of minutes you will receive an email with your new password, it's possible the email show up in spam"});
+                  var title = 'Success';
+                  var type = "green";
+                  var icon = "fa fa-check";
+                  //$.alert({icon: 'fa fa-check', title: 'Success', type: "green", content: "<strong>The new password was sent successfully!</strong><br> In a couple of minutes you will receive an email with your new password, it's possible the email show up in spam"});
                   $("#formSendMsg")[0].reset();
                 break;
-                case "0":
-                  $.alert({icon: 'fa fa-times', title: 'Info!', content: 'Email was not found', type: 'red', typeAnimated: true});
-                break;
-                default:
-                  $.alert({icon: 'fa fa-times', title: 'Info!', content: 'An error occurred while trying to send the form', type: 'red', typeAnimated: true});
+                case 2:
+                  var title = 'Info!';
+                  var type = "red";
+                  var icon = "fa fa-times";
                 break;
               }
+              $.alert({icon: icon, title: title , content: data.value, type: type, typeAnimated: true});
             }
       });
     });

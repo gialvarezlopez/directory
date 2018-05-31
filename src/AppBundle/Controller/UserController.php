@@ -56,7 +56,7 @@ class UserController extends Controller
         $tokenConfirmation = $request->get('tokenConfirmation');
 
         $em = $this->getDoctrine()->getManager();
-        if( $recoveryToken != "" && !isset($tokenConfirmation) )
+        if( $recoveryToken != "" && !isset($tokenConfirmation))
         {
            
             $oReset = $em->getRepository('AppBundle:UserResetPassword')->findOneBy( array("uspToken"=> $recoveryToken, "uspActive"=>1) );
@@ -69,11 +69,13 @@ class UserController extends Controller
                     $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrId"=> $userId, "usrActive"=>1) );
                     if($oUser)
                     {
+                        
                         if( $oReset->getUsr()->getUsrForgotPassword() == 1 )
                         {
                             $oUser->setUsrForgotPassword(0);
                             $oUser->setUsrPassword( $oReset->getUspNewPassword() );
                             $oUser->setUsrUpdated( new \datetime("now") );
+                            //$oUser->setUsrStatus(1);
                             $em->persist($oUser);			
                             $flush = $em->flush();
 
@@ -119,18 +121,11 @@ class UserController extends Controller
 
         if( $tokenConfirmation != "" && !isset($recoveryToken) )
         {
-            $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrTokenConfirmation"=> $tokenConfirmation, "usrActive"=>1, "usrStatus"=>0) );
-            if( $oUser )
+            $confirm = $this->setTokenConfirmation( $tokenConfirmation );
+            if($confirm == 1 )
             {
-                $oUser->setUsrStatus(1);
-                $oUser->setUsrUpdated( new \datetime("now") );
-                $em->persist($oUser);			
-                $flush = $em->flush();
-                if($flush == null )
-                {
-                    $msg = "User validation confirmed successfully, now you can login";
-                    $this->session->getFlashBag()->add("success", $msg);
-                }
+                $msg = "User validation confirmed successfully, now you can login";
+                $this->session->getFlashBag()->add("success", $msg);
             }
         }
 
@@ -149,6 +144,26 @@ class UserController extends Controller
             "urlFacebook" => $urlFacebook
         ));
         //return $this->render("AppBundle:user:login.html.twig");
+    }
+
+    public function setTokenConfirmation( $tokenConfirmation )
+    {
+        if( $tokenConfirmation != "" )
+        {
+            $em   = $this->getDoctrine()->getManager();
+            $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrTokenConfirmation"=> $tokenConfirmation, "usrActive"=>1, "usrStatus"=>0) );
+            if( $oUser )
+            {
+                $oUser->setUsrStatus(1);
+                $oUser->setUsrUpdated( new \datetime("now") );
+                $em->persist($oUser);			
+                $flush = $em->flush();
+                if($flush == null )
+                {
+                    return 1;
+                }
+            }
+        }    
     }
 
     public function registerAction( Request $request)
@@ -296,54 +311,80 @@ class UserController extends Controller
             $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrEmail"=>$email ) );
             if( $oUser )
             {
-                $em->getConnection()->beginTransaction(); // suspend auto-commit
-                try {
-                    $token = str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789".uniqid());
+                if( $oUser->getUsrStatus() == 0 )
+                {
                     
-                    $q = $em->createQuery('delete from AppBundle\Entity\UserResetPassword tb where tb.usr = '.$oUser->getUsrId());
-                    $q->execute();
-                    
-                    $reset = new UserResetPassword();
-                    $reset->setUspToken($token);
-                    
-                    $tempPassword = str_shuffle("abcdefghijklmnopqrstuvwxyz");
-                    //Encripta el password del usuario
-				    $factory = $this->get("security.encoder_factory");
-				    $encoder = $factory->getEncoder($oUser);
-				    $newPassword = $encoder->encodePassword( $tempPassword, $oUser->getSalt() );
-				    //End 
-                    
-                    $reset->setUspNewPassword($newPassword);
-                    $reset->setUspCreated( new \Datetime("now") );
-                    $reset->setUspActive(1);
-                    $reset->setUsr($oUser);                    
-                    $em->persist($reset);
-                    $em->flush($reset);
-
-                    $oUser->setUsrForgotPassword(1);
-                    $em->persist($oUser);
-                    $em->flush();
-
-                    $resSendEmail = $this->sendEmailRememberPassword($email, $token, $tempPassword);
-                    if( $resSendEmail == 1 )
+                    if( $oUser->getUsrStatus() == 0 )
                     {
-                        $em->getConnection()->commit();
-                        echo 1;//$password;
-                    }else{
-                        echo "Error to try to send the email";
-                        $em->getConnection()->rollBack();
-                    }    
-                    
+                        $confirm = $this->sendEmailNewUserConfirmation($oUser->getUsrEmail(), $oUser->getUsrTokenConfirmation() );
+                        if( $confirm == 1 )
+                        {
+                            $key = 1;
+                            $content = "This user has pending the confirmation token when the username was registered for the first time, it is possible the email show up in spam, this can take a little bit minutes";
+                        }
+                        else
+                        {
+                            $key = 0;
+                            $content = "An error has occurred";
+                        }
+                        
+                        return new JsonResponse( array("key"=>$key, "value"=>$content) ); // 2nd param to get as array
+                    }
                 }
-                catch (Exception $e) {
-                    $em->getConnection()->rollBack();
-                    throw $e;
+                else
+                {
+                    $em->getConnection()->beginTransaction(); // suspend auto-commit
+                    try {
+                        $token = str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789".uniqid());
+                        
+                        $q = $em->createQuery('delete from AppBundle\Entity\UserResetPassword tb where tb.usr = '.$oUser->getUsrId());
+                        $q->execute();
+                        
+                        $reset = new UserResetPassword();
+                        $reset->setUspToken($token);
+                        
+                        $tempPassword = str_shuffle("abcdefghijklmnopqrstuvwxyz");
+                        //Encripta el password del usuario
+                        $factory = $this->get("security.encoder_factory");
+                        $encoder = $factory->getEncoder($oUser);
+                        $newPassword = $encoder->encodePassword( $tempPassword, $oUser->getSalt() );
+                        //End 
+                        
+                        $reset->setUspNewPassword($newPassword);
+                        $reset->setUspCreated( new \Datetime("now") );
+                        $reset->setUspActive(1);
+                        $reset->setUsr($oUser);                    
+                        $em->persist($reset);
+                        $em->flush($reset);
+
+                        $oUser->setUsrForgotPassword(1);
+                        $em->persist($oUser);
+                        $em->flush();
+
+                        $resSendEmail = $this->sendEmailRememberPassword($email, $token, $tempPassword);
+                        if( $resSendEmail == 1 )
+                        {
+                            $em->getConnection()->commit();
+                            $key = 1;//$password;
+                            $content = "The new password was sent successfully! In a couple of minutes you will receive an email with your new password, it is possible the email show up in spam";
+                        }else{
+                            $key = 0;//$password;
+                            $content = "Error to try to send the email";
+                            $em->getConnection()->rollBack();
+                        } 
+                        return new JsonResponse( array("key"=>$key, "value"=>$content) ); // 2nd param to get as array   
+                        
+                    }
+                    catch (Exception $e) {
+                        $em->getConnection()->rollBack();
+                        throw $e;
+                    }
                 }
                 
             }
             else
             {
-                echo 0;
+                return new JsonResponse( array("key"=>0, "value"=>"Email was not found") ); // 2nd param to get as array   
             }
             
         }
