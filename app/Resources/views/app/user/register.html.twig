@@ -1,5 +1,9 @@
 {% extends 'app/login.html.twig' %}
 
+{% block title_page %}
+    New User Registration
+{% endblock %}
+
 {% block header %}
     <h1>Login</h1>
 {% endblock %}
@@ -21,6 +25,22 @@
     #}
 
 <div class="register-box">
+
+  {#  Check the notifications #}
+    <div class="containerx">
+      <div class="rowx">
+        <div class="col-lg-12x">
+          {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle-o" aria-hidden="true"></i> {{message|raw}}</div>
+          {% endfor %}
+          {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-times" aria-hidden="true"></i> {{message|raw}} </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {# End notifications #}
+
   <div class="register-logo">
     <a href="{{ path('web_homepage') }}"><b>Doctors</b> Billboard</a>
     

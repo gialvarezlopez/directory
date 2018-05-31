@@ -31,12 +31,12 @@
     <div class="containerx">
       <div class="rowx">
         <div class="col-lg-12x">
-          {% set created = 0 %}
-              {% for message in app.session.flashbag().get("success") %}
-                  <div class="alert alert-success"><i class="fa fa-check-circle-o" aria-hidden="true"></i> {{message|raw}}</div>
-              {% endfor %}
-              {% for message in app.session.flashbag().get("error") %}
-                  <div class="alert alert-danger"><i class="fa fa-times" aria-hidden="true"></i> {{message|raw}} </div>
+
+          {% for message in app.session.flashbag().get("success") %}
+            <div class="alert alert-success"><i class="fa fa-check-circle-o" aria-hidden="true"></i> {{message|raw}}</div>
+          {% endfor %}
+          {% for message in app.session.flashbag().get("error") %}
+            <div class="alert alert-danger"><i class="fa fa-times" aria-hidden="true"></i> {{message|raw}} </div>
           {% endfor %}
         </div>
       </div>
@@ -161,7 +161,7 @@ $(function () {
               {
                 case "1":
                   $('#message_modal').modal('hide');
-                  $.alert({icon: 'fa fa-check', title: 'Success', type: "green", content: '<strong>The new password was sent successfully!</strong><br> In a couple of minutes you will receive an email with your new password'});
+                  $.alert({icon: 'fa fa-check', title: 'Success', type: "green", content: "<strong>The new password was sent successfully!</strong><br> In a couple of minutes you will receive an email with your new password, it's possible the email show up in spam"});
                   $("#formSendMsg")[0].reset();
                 break;
                 case "0":

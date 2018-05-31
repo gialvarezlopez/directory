@@ -53,7 +53,8 @@ class UserController extends Controller
             //echo ‘<a href=”‘ . $loginUrl . ‘”>Log in with Facebook!</a>’;die;
         */
         $recoveryToken = $request->get('token');
-        if( $recoveryToken != "" )
+        $tokenConfirmation = $request->get('tokenConfirmation');
+        if( $recoveryToken != "" && !isset($tokenConfirmation) )
         {
             $em = $this->getDoctrine()->getManager();
             $oReset = $em->getRepository('AppBundle:UserResetPassword')->findOneBy( array("uspToken"=> $recoveryToken, "uspActive"=>1) );
@@ -70,6 +71,7 @@ class UserController extends Controller
                         {
                             $oUser->setUsrForgotPassword(0);
                             $oUser->setUsrPassword( $oReset->getUspNewPassword() );
+                            $oUser->setUsrUpdated( new \datetime("now") );
                             $em->persist($oUser);			
                             $flush = $em->flush();
 
@@ -113,6 +115,23 @@ class UserController extends Controller
 
             //$msg = "You have validated the new password, now you can access using the same email address and new password, just remember change it";
             //$this->session->getFlashBag()->add("success", $msg);
+        }
+
+        if( $tokenConfirmation != "" && !isset($recoveryToken) )
+        {
+            $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrTokenConfirmation"=> $tokenConfirmation, "usrActive"=>1, "usrStatus"=>0) );
+            if( $oUser )
+            {
+                $oUser->setUsrStatus(1);
+                $oUser->setUsrUpdated( new \datetime("now") );
+                $em->persist($oUser);			
+                $flush = $em->flush();
+                if($flush == null )
+                {
+                    $msg = "User validation confirmed successfully, now you can login";
+                    $this->session->getFlashBag()->add("success", $msg);
+                }
+            }
         }
 
         $urlGoogle = "";
@@ -167,60 +186,96 @@ class UserController extends Controller
             //echo "sali";
             if( $form->isValid())
             {
-                //$user = new User();
-                //$user->setUsername($form->get("username")->getData());
                 $email = $form->get("usrEmail")->getData();
-                $user->setUsrEmail($email);
-                
-                $user->setCou($form->get("cou")->getData());
-				
-				//Encripta el password del usuario
-				$factory = $this->get("security.encoder_factory");
-				$encoder = $factory->getEncoder($user);
-				$password = $encoder->encodePassword( $form->get("usrPassword")->getData(), $user->getSalt() );
-				//End 
-				
-				$user->setUsrPassword( $password );
-				$user->setUsrRole("ROLE_USER");
-                $user->setUsrCreated(new \DateTime());
-                $user->setUsrUpdated(null);
-				$em = $this->getDoctrine()->getManager();
-				$em->persist($user);
-				$flush = $em->flush();
-				
-				if ($flush == null ){
-                    $status = "Use was created successfuly";
-                    
-                    //==================================
-                    //Loggin after register
-                    //==================================
-                    
-                        $providerKey = 'main'; // your firewall name
-                        $token = new UsernamePasswordToken($user, $password, $providerKey, $user->getRoles());
-                        $this->get('security.token_storage')->setToken($token);
-                        $this->get("session")->set("_security_main", serialize($token));
-                    
-                    //end
+                $em = $this->getDoctrine()->getManager();
+                $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrEmail"=>$email ) );
+                if( !$oUser ) //No exists the email in DB
+                {
+                    $em->getConnection()->beginTransaction(); // suspend auto-commit
+                    try
+                    {
+                        //$user = new User();
+                        //$user->setUsername($form->get("username")->getData());
+                        
+                        $user->setUsrEmail($email);
+                        
+                        $user->setCou($form->get("cou")->getData());
+                        
+                        //Encripta el password del usuario
+                        $factory = $this->get("security.encoder_factory");
+                        $encoder = $factory->getEncoder($user);
+                        $password = $encoder->encodePassword( $form->get("usrPassword")->getData(), $user->getSalt() );
+                        //End 
+                        
+                        $user->setUsrPassword( $password );
+                        $user->setUsrRole("ROLE_USER");
+                        $user->setUsrCreated(new \DateTime());
+                        $user->setUsrUpdated(null);
 
-                    $url = $this->generateUrl('gallery_index');
-                    return $this->redirect($url);
-                   
+                        //token creation
+                        $token = str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789".uniqid());
+                        $user->setUsrStatus(0);
+                        $user->setUsrTokenConfirmation($token);
 
-					$this->sendEmailRegister($email);
-					
-				}else{
-					$status = "There was an error";
-				} 
+                        //$em = $this->getDoctrine()->getManager();
+                        $em->persist($user);
+                        $flush = $em->flush();
+                        
+                       
+                            
+                            //Send an email confirmation
+                            //$this->sendEmailNewUserConfirmation ($email, $token);
+                            //return $this->redirectToRoute("payments_info");
+
+                            //This code will be no longer in use
+                            /*
+                                //==================================
+                                //Loggin after register
+                                //==================================
+                                    $providerKey = 'main'; // your firewall name
+                                    $token = new UsernamePasswordToken($user, $password, $providerKey, $user->getRoles());
+                                    $this->get('security.token_storage')->setToken($token);
+                                    $this->get("session")->set("_security_main", serialize($token));
+                                //end
+                                $url = $this->generateUrl('gallery_index');
+                                return $this->redirect($url);
+                            */
+
+                        $res = $this->sendEmailNewUserConfirmation($email, $token);
+                        if( $res == 1 )
+                        {
+                            
+                            $em->getConnection()->commit();
+                            $typeMsg = "success";
+                            $status = "To validate the user creation it was sent you an email confirmation, it's possible the email show up in spam, this can take a little bit minutes";
+                            $this->session->getFlashBag()->add($typeMsg, $status);
+                            return $this->redirectToRoute("login");
+                        }
+                        else
+                        {
+                            $typeMsg = "error";
+                            $status = "There was an error to create the user";
+                            $this->session->getFlashBag()->add($typeMsg, $status);
+                        }
+                        
+                    }
+                    catch (Exception $e) {
+                        $em->getConnection()->rollBack();
+                        throw $e;
+                    }
+                }
+                else
+                {
+                    $typeMsg = "error";
+                    $status = "Error: Username already exists";
+                    $this->session->getFlashBag()->add($typeMsg, $status);
+                } 
 
 			}else{
-				$status = "The form is not valid";
-
+                $typeMsg = "error";
+                $status = "The form is not valid";
+                $this->session->getFlashBag()->add($typeMsg, $status);
 			}
-
-            $this->session->getFlashBag()->add("status",$status);
-            echo $status;
-            exit("sali");
-			//return $this->redirectToRoute("lips_login");
 		}
 
         return $this->render('app/user/register.html.twig', array(
@@ -326,8 +381,30 @@ class UserController extends Controller
         }
     }
 
-    public function getRedirect()
+    public function sendEmailNewUserConfirmation ($email, $token )
     {
-        
+        if( isset($email) && $email !== "" )
+        {
+            $view = $this->renderView('app/emailTemplates/registerConfirmation.html.twig', 
+                array(
+                    'token'=>$token, 
+                    //'password' => $tempPassword,
+                    ) 
+            );
+
+            $mail = new PHPMailer();
+            $mail->setFrom("support@doctorsbillboard.com");
+            $mail->addAddress($email); 
+            //Content
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'New User Confirmation';
+            $mail->Body    =  $view;
+            $mail->AltBody = '';
+            if(!$mail->send()) {
+                echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
+            } else {
+                return 1;
+            }    
+        }
     }
 }

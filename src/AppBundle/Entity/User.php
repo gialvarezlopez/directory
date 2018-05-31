@@ -36,7 +36,7 @@ class User implements UserInterface
     /**
      * @var boolean
      */
-    private $usrEstatus = false;
+    private $usrStatus = false;
 
     /**
      * @var string
@@ -176,27 +176,27 @@ class User implements UserInterface
     }
 
     /**
-     * Set usrEstatus
+     * Set usrStatus
      *
-     * @param boolean $usrEstatus
+     * @param boolean $usrStatus
      *
      * @return User
      */
-    public function setUsrEstatus($usrEstatus)
+    public function setUsrStatus($usrStatus)
     {
-        $this->usrEstatus = $usrEstatus;
+        $this->usrStatus = $usrStatus;
 
         return $this;
     }
 
     /**
-     * Get usrEstatus
+     * Get usrStatus
      *
      * @return boolean
      */
-    public function getUsrEstatus()
+    public function getUsrStatus()
     {
-        return $this->usrEstatus;
+        return $this->usrStatus;
     }
 
     /**

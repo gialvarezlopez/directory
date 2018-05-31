@@ -51,12 +51,12 @@ AppBundle\Entity\User:
             options:
                 fixed: false
             column: usr_role
-        usrEstatus:
+        usrStatus:
             type: boolean
             nullable: true
             options:
                 default: '0'
-            column: usr_estatus
+            column: usr_status
         usrTokenConfirmation:
             type: string
             nullable: true
