@@ -108,7 +108,7 @@ class DefaultController extends Controller
                                 $statement->execute();
                 $countries = $statement->fetchAll();
             }
-            if(isset($_GET['category']) and $_GET['category']!='' ){
+            if(isset($_GET['category']) and $_GET['category']!='' and $_GET['category']!=0 ){
                 $_filter .= ' and ca.cat_id ='. $_GET['category'] ;
             }
 

@@ -256,7 +256,12 @@
 
                                     <p class="itemSpecialities">
                                         {% if m.cat_id == 1 %}
-                                            {{ m.esp }}
+                                            {% if m.esp != null %}
+                                                {{ m.esp }}
+                                            {% else %}
+                                                <br>
+                                            {% endif %}
+                                            
                                         {% else %}
                                             <br>
                                         {% endif %}

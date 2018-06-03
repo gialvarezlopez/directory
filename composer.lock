@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f20899abaeda4ba907b242a46842c84e",
     "content-hash": "f8a5d488a9a7baa808ad6d243a4f8fb5",
     "packages": [
         {
@@ -61,7 +60,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2018-03-29 19:57:20"
+            "time": "2018-03-29T19:57:20+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -129,7 +128,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2015-08-31 12:32:49"
+            "time": "2015-08-31T12:32:49+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -199,7 +198,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2017-07-22 12:49:21"
+            "time": "2017-07-22T12:49:21+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -265,7 +264,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2015-04-14 22:21:58"
+            "time": "2015-04-14T22:21:58+00:00"
         },
         {
             "name": "doctrine/common",
@@ -338,7 +337,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2016-11-30 16:50:46"
+            "time": "2016-11-30T16:50:46+00:00"
         },
         {
             "name": "doctrine/dbal",
@@ -409,7 +408,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-07-22 20:44:48"
+            "time": "2017-07-22T20:44:48+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -494,7 +493,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2018-04-19 14:07:39"
+            "time": "2018-04-19T14:07:39+00:00"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -582,7 +581,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2017-10-12 17:23:29"
+            "time": "2017-10-12T17:23:29+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -649,7 +648,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06 14:35:42"
+            "time": "2015-11-06T14:35:42+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -703,7 +702,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14 21:17:01"
+            "time": "2015-06-14T21:17:01+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -757,7 +756,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2014-09-09T13:34:57+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -833,7 +832,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2017-12-17 02:57:51"
+            "time": "2017-12-17T02:57:51+00:00"
         },
         {
             "name": "facebook/graph-sdk",
@@ -891,7 +890,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2018-02-14 23:24:51"
+            "time": "2018-02-14T23:24:51+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -937,7 +936,7 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2017-06-27 22:17:23"
+            "time": "2017-06-27T22:17:23+00:00"
         },
         {
             "name": "google/apiclient",
@@ -996,20 +995,20 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-11-03 01:19:53"
+            "time": "2017-11-03T01:19:53+00:00"
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.59",
+            "version": "v0.61",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "1dbfb1e7ff596c9fe17f4ba8e6a74bb073adbe0f"
+                "reference": "f7221039fda179b3f5096a6272b38706f2a6fcd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/1dbfb1e7ff596c9fe17f4ba8e6a74bb073adbe0f",
-                "reference": "1dbfb1e7ff596c9fe17f4ba8e6a74bb073adbe0f",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/f7221039fda179b3f5096a6272b38706f2a6fcd0",
+                "reference": "f7221039fda179b3f5096a6272b38706f2a6fcd0",
                 "shasum": ""
             },
             "require": {
@@ -1033,7 +1032,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-05-14 00:23:02"
+            "time": "2018-05-26T00:23:39+00:00"
         },
         {
             "name": "google/auth",
@@ -1080,7 +1079,7 @@
                 "google",
                 "oauth2"
             ],
-            "time": "2018-04-06 19:26:30"
+            "time": "2018-04-06T19:26:30+00:00"
         },
         {
             "name": "gregwar/cache",
@@ -1123,7 +1122,7 @@
                 "file-system",
                 "system"
             ],
-            "time": "2016-09-23 08:16:04"
+            "time": "2016-09-23T08:16:04+00:00"
         },
         {
             "name": "gregwar/image",
@@ -1175,7 +1174,7 @@
                 "gd",
                 "image"
             ],
-            "time": "2018-01-31 17:40:17"
+            "time": "2018-01-31T17:40:17+00:00"
         },
         {
             "name": "gregwar/image-bundle",
@@ -1183,19 +1182,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gregwar/ImageBundle.git",
-                "reference": "080ebc41d0c0619b2d1f9403f1b582e892e0c3f1"
+                "reference": "3a77e24c8c40f178eb4f4f7cfca55eb0b8ace09f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/ImageBundle/zipball/080ebc41d0c0619b2d1f9403f1b582e892e0c3f1",
-                "reference": "080ebc41d0c0619b2d1f9403f1b582e892e0c3f1",
+                "url": "https://api.github.com/repos/Gregwar/ImageBundle/zipball/3a77e24c8c40f178eb4f4f7cfca55eb0b8ace09f",
+                "reference": "3a77e24c8c40f178eb4f4f7cfca55eb0b8ace09f",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
                 "gregwar/image": "2.*",
                 "php": ">=5.3.3",
-                "symfony/framework-bundle": "^2.3 || ^3.0",
+                "symfony/framework-bundle": "^2.3 || ^3.0 || ^4.0",
                 "twig/twig": "^1.12 || ^2.0"
             },
             "require-dev": {
@@ -1229,7 +1228,7 @@
                 "image",
                 "symfony"
             ],
-            "time": "2018-02-26 15:43:22"
+            "time": "2018-05-17T18:58:49+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1294,7 +1293,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2018-04-22 15:46:56"
+            "time": "2018-04-22T15:46:56+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1345,7 +1344,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20 10:07:11"
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -1410,7 +1409,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20 17:10:46"
+            "time": "2017-03-20T17:10:46+00:00"
         },
         {
             "name": "imagine/imagine",
@@ -1468,7 +1467,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2017-05-16 10:31:22"
+            "time": "2017-05-16T10:31:22+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1519,7 +1518,7 @@
             "keywords": [
                 "parameters management"
             ],
-            "time": "2018-02-13 18:05:56"
+            "time": "2018-02-13T18:05:56+00:00"
         },
         {
             "name": "ircmaxell/random-lib",
@@ -1574,7 +1573,7 @@
                 "random-numbers",
                 "random-strings"
             ],
-            "time": "2016-09-07 15:52:06"
+            "time": "2016-09-07T15:52:06+00:00"
         },
         {
             "name": "ircmaxell/security-lib",
@@ -1620,7 +1619,7 @@
             ],
             "description": "A Base Security Library",
             "homepage": "https://github.com/ircmaxell/SecurityLib",
-            "time": "2015-03-20 14:31:23"
+            "time": "2015-03-20T14:31:23+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1670,7 +1669,7 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2014-01-12 16:20:24"
+            "time": "2014-01-12T16:20:24+00:00"
         },
         {
             "name": "knplabs/knp-components",
@@ -1743,7 +1742,7 @@
                 "pager",
                 "paginator"
             ],
-            "time": "2018-04-03 12:20:48"
+            "time": "2018-04-03T12:20:48+00:00"
         },
         {
             "name": "knplabs/knp-paginator-bundle",
@@ -1805,7 +1804,7 @@
                 "paginator",
                 "symfony"
             ],
-            "time": "2018-05-16 12:15:58"
+            "time": "2018-05-16T12:15:58+00:00"
         },
         {
             "name": "knpuniversity/oauth2-client-bundle",
@@ -1859,7 +1858,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2018-04-23 18:06:01"
+            "time": "2018-04-23T18:06:01+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -1922,7 +1921,7 @@
                 "oauth2",
                 "single sign on"
             ],
-            "time": "2016-07-28 13:20:43"
+            "time": "2016-07-28T13:20:43+00:00"
         },
         {
             "name": "league/oauth2-facebook",
@@ -1973,7 +1972,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2017-07-22 01:43:12"
+            "time": "2017-07-22T01:43:12+00:00"
         },
         {
             "name": "liip/imagine-bundle",
@@ -2074,7 +2073,7 @@
                 "symfony",
                 "transformation"
             ],
-            "time": "2017-09-09 03:53:30"
+            "time": "2017-09-09T03:53:30+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2152,7 +2151,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-06-19 01:22:40"
+            "time": "2017-06-19T01:22:40+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2200,7 +2199,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-04-04 21:24:14"
+            "time": "2018-04-04T21:24:14+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -2266,7 +2265,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2018-03-27 13:49:45"
+            "time": "2018-03-27T13:49:45+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -2358,7 +2357,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2018-04-15 16:55:05"
+            "time": "2018-04-15T16:55:05+00:00"
         },
         {
             "name": "psr/cache",
@@ -2404,7 +2403,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/http-message",
@@ -2454,7 +2453,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -2501,7 +2500,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2553,7 +2552,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2017-08-25 16:55:44"
+            "time": "2017-08-25T16:55:44+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2623,7 +2622,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2017-12-14 19:03:23"
+            "time": "2017-12-14T19:03:23+00:00"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -2668,7 +2667,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2018-02-28 22:10:01"
+            "time": "2018-02-28T22:10:01+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2722,7 +2721,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2018-01-23 07:37:21"
+            "time": "2018-01-23T07:37:21+00:00"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2782,7 +2781,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2017-01-02 19:04:26"
+            "time": "2017-01-02T19:04:26+00:00"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -2840,7 +2839,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-25 14:53:50"
+            "time": "2018-04-25T14:53:50+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2899,7 +2898,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26 10:06:28"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "symfony/polyfill-php56",
@@ -2955,7 +2954,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26 10:06:28"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "symfony/polyfill-php70",
@@ -3014,7 +3013,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26 10:06:28"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "symfony/polyfill-util",
@@ -3066,7 +3065,7 @@
                 "polyfill",
                 "shim"
             ],
-            "time": "2018-04-26 10:06:28"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -3125,7 +3124,7 @@
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2017-10-19 01:06:41"
+            "time": "2017-10-19T01:06:41+00:00"
         },
         {
             "name": "symfony/symfony",
@@ -3255,7 +3254,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-07-30 09:10:53"
+            "time": "2016-07-30T09:10:53+00:00"
         },
         {
             "name": "twig/twig",
@@ -3320,7 +3319,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-03-20 04:25:58"
+            "time": "2018-03-20T04:25:58+00:00"
         }
     ],
     "packages-dev": [
@@ -3376,20 +3375,20 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2017-12-07 15:36:41"
+            "time": "2017-12-07T15:36:41+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.4.9",
+            "version": "v3.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "7470518370113785f67a7fd8e6e1667661e88805"
+                "reference": "63cdae00a75862fa543b765ba63d55f6b6397d0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/7470518370113785f67a7fd8e6e1667661e88805",
-                "reference": "7470518370113785f67a7fd8e6e1667661e88805",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/63cdae00a75862fa543b765ba63d55f6b6397d0c",
+                "reference": "63cdae00a75862fa543b765ba63d55f6b6397d0c",
                 "shasum": ""
             },
             "require": {
@@ -3442,7 +3441,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2018-04-30 15:36:51"
+            "time": "2018-05-16T12:49:49+00:00"
         }
     ],
     "aliases": [],
