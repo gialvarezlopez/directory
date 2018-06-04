@@ -191,7 +191,7 @@ class DefaultController extends Controller
             throw new NotFoundHttpException("Page not found");
         }
 
-        $RAW_QUERY  = "select  u.usr_id, md.md_first_name,  ci.ci_company,ci.ci_schedule,md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, md.md_profile_description, md.md_academic_training,md.md_professional_experience,md.md_courses_seminars,md.md_aditional_information,
+        $RAW_QUERY  = "select  u.usr_id, md.md_first_name,  ci.ci_company,ci.ci_schedule,md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code, md.md_profile_description, ca.cat_id,ci.ci_company,md.md_academic_training,md.md_professional_experience,md.md_courses_seminars,md.md_aditional_information,
                         ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1, ci.ci_phone2,u.usr_email,
                         group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
                         from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u

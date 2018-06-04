@@ -123,9 +123,16 @@
                         {% endif %}
                     </div>
                     <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
-                        <h2 class="colorSky">Dr.
-                            {{ profile[0].md_first_name }}
-                            {{ profile[0].md_first_surname }}</h2>
+                        <h2 class="colorSky">
+                            
+                            {% if profile[0].cat_id == 1 %}
+                                {{ profile[0].md_first_name }}
+                                {{ profile[0].md_first_surname }}
+                            {% else %}
+                                {{ profile[0].ci_company }}
+                            {% endif %}
+
+                        </h2>
                         <div class="">
                             <hr class="double">
                             <div class="row">
