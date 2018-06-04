@@ -16,12 +16,12 @@ app_gallery:
 
 app_review:
         resource: "@AppBundle/Resources/config/routing/review.yml"
-        prefix:   /backend/review        
+        prefix:   /backend/review
 
 app_pricing:
         resource: "@AppBundle/Resources/config/routing/pricing.yml"
         prefix:   /backend/pricing
-        
+
 app_socialnetwork:
         resource: "@AppBundle/Resources/config/routing/socialnetwork.yml"
         prefix:   /backend/socialnetwork
@@ -30,17 +30,21 @@ app_settings:
         resource: "@AppBundle/Resources/config/routing/settings.yml"
         prefix:   /backend/settings
 
+app_setProfileImage:
+        resource: "@AppBundle/Resources/config/routing/setProfileImage.yml"
+        prefix:   /backend/setprofileimage
+
 app_payments:
         resource: "@AppBundle/Resources/config/routing/payments.yml"
-        prefix:   /backend/payments        
-        
+        prefix:   /backend/payments
+
 register:
         path: /register
-        defaults: { _controller: "AppBundle:User:register" }        
+        defaults: { _controller: "AppBundle:User:register" }
 login:
         path: /login
         defaults: { _controller: "AppBundle:User:login" }
-         
+
 login_check:
         path: /login_check
 logout:
@@ -48,7 +52,7 @@ logout:
 
 rememberPassword:
         path: /rememberPassword
-        defaults: { _controller: "AppBundle:User:rememberPassword" }                
+        defaults: { _controller: "AppBundle:User:rememberPassword" }
 
-               
+
 

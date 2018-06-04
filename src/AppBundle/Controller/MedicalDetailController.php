@@ -20,7 +20,7 @@ class MedicalDetailController extends Controller
      */
     public function indexAction()
     {
-        
+
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getUsrId();
         $oMedical = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "usr"=> $userId) );
@@ -77,12 +77,12 @@ class MedicalDetailController extends Controller
                 $q = $em->createQuery("DELETE FROM AppBundle\Entity\UserHasSpeciality tb WHERE tb.usr=".$userId);
                 $q->execute();
                 $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrId"=> $userId) );
-                
+
                 foreach( $specialities as $value )
                 {
                     $uhs = new UserHasSpeciality();
                     $uhs->setUsr($oUser);
-                    
+
                     $oSp = $em->getRepository('AppBundle:Speciality')->findOneBy( array("spId"=> $value->getSpId()) );
                     $uhs->setSp($oSp);
 
@@ -109,7 +109,7 @@ class MedicalDetailController extends Controller
                 $medicalDetail->setMdProfileImage($file_name);
             }
             $oUser = $em->getRepository('AppBundle:User')->findOneBy( array( "usrId"=> $userId) );
-            $medicalDetail->setUsr($oUser);    
+            $medicalDetail->setUsr($oUser);
 
             $em->persist($medicalDetail);
             $em->flush();
@@ -155,11 +155,11 @@ class MedicalDetailController extends Controller
             }
         }else{
             return $this->redirectToRoute('medicaldetail_new');
-        }   
+        }
 
         $currentImage = "";
         $oCurrentImage = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "mdId"=> $id) );
-                
+
         if($oCurrentImage){
             if( $oCurrentImage->getMdProfileImage() )
             {
@@ -167,7 +167,7 @@ class MedicalDetailController extends Controller
             }
         }
 
-        
+
 
         $deleteForm = $this->createDeleteForm($medicalDetail);
         $editForm = $this->createForm('AppBundle\Form\MedicalDetailType', $medicalDetail);
@@ -176,7 +176,7 @@ class MedicalDetailController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
             $specialities = $editForm['extraSpeciality']->getData();
-            
+
                 $q = $em->createQuery("DELETE FROM AppBundle\Entity\UserHasSpeciality tb WHERE tb.usr=".$userId);
                 $q->execute();
                 $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrId"=> $userId) );
@@ -186,7 +186,7 @@ class MedicalDetailController extends Controller
                     {
                         $uhs = new UserHasSpeciality();
                         $uhs->setUsr($oUser);
-                        
+
                         $oSp = $em->getRepository('AppBundle:Speciality')->findOneBy( array("spId"=> $value->getSpId()) );
                         $uhs->setSp($oSp);
 
@@ -250,7 +250,7 @@ class MedicalDetailController extends Controller
             $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrId"=> $userId) );
             $sp->setUsr($oUser);
             $sp->setSpCreated(new \DateTime());
-            $em->persist($sp);			
+            $em->persist($sp);
             $flush = $em->flush();
         }
     }
@@ -280,7 +280,7 @@ class MedicalDetailController extends Controller
         }
 
         return $this->render('app/medicaldetail/profileImage.html.twig', array("image"=>$image,"max"=>$max,"iClass"=>$iClass));
-        
+
     }
 
     /**
