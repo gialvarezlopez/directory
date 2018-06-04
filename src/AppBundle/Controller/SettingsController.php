@@ -16,7 +16,6 @@ class SettingsController extends Controller
         $userId = $this->getUser()->getUsrId();
 
         $contactForm = $this->getUser()->getUsrNotificationContactForm();
-
         return $this->render('app/settings/index.html.twig', array(
             //'galleries' => $galleries,
         ));
@@ -24,13 +23,13 @@ class SettingsController extends Controller
 
     public function changepasswordAction(Request $request) {
         $session = $request->getSession();
-        
+
         if($request->getMethod() == 'POST') {
             $old_pwd = $request->get('currentPass');
             $new_pwd = $request->get('newPass');
             $repeatPass = $request->get("repeatPass");
             //echo $user = $this->getUser();
-            
+
             $user= $this->get('security.token_storage')->getToken()->getUser();
             //$user->getPassword();
 

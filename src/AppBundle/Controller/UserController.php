@@ -19,7 +19,7 @@ class UserController extends Controller
 {
 
     private $session;
-	
+
 	public function __construct() {
 		$this->session = new Session();
 	}
@@ -58,7 +58,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         if( $recoveryToken != "" && !isset($tokenConfirmation))
         {
-           
+
             $oReset = $em->getRepository('AppBundle:UserResetPassword')->findOneBy( array("uspToken"=> $recoveryToken, "uspActive"=>1) );
             //echo count($oReset);
             if( $oReset )
@@ -69,14 +69,14 @@ class UserController extends Controller
                     $oUser = $em->getRepository('AppBundle:User')->findOneBy( array("usrId"=> $userId, "usrActive"=>1) );
                     if($oUser)
                     {
-                        
+
                         if( $oReset->getUsr()->getUsrForgotPassword() == 1 )
                         {
                             $oUser->setUsrForgotPassword(0);
                             $oUser->setUsrPassword( $oReset->getUspNewPassword() );
                             $oUser->setUsrUpdated( new \datetime("now") );
                             //$oUser->setUsrStatus(1);
-                            $em->persist($oUser);			
+                            $em->persist($oUser);
                             $flush = $em->flush();
 
                             if($flush == null )
@@ -95,14 +95,14 @@ class UserController extends Controller
                             $msg = "The token is not valid";
                             $this->session->getFlashBag()->add("error", $msg);
                         }
-                        
+
                     }
                     else
                     {
                         $msg = "There was an error to try to validate the token, try again";
                         $this->session->getFlashBag()->add("error", $msg);
                     }
-                    
+
                 }
                 catch (Exception $e) {
                     $em->getConnection()->rollBack();
@@ -132,7 +132,7 @@ class UserController extends Controller
         $urlGoogle = "";
         $urlFacebook = "";
 
-        $authenticationUtils = $this->get("security.authentication_utils"); 
+        $authenticationUtils = $this->get("security.authentication_utils");
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -156,14 +156,14 @@ class UserController extends Controller
             {
                 $oUser->setUsrStatus(1);
                 $oUser->setUsrUpdated( new \datetime("now") );
-                $em->persist($oUser);			
+                $em->persist($oUser);
                 $flush = $em->flush();
                 if($flush == null )
                 {
                     return 1;
                 }
             }
-        }    
+        }
     }
 
     public function registerAction( Request $request)
@@ -184,15 +184,15 @@ class UserController extends Controller
         */
 
         /*
-            $authenticationUtils = $this->get("security.authentication_utils"); 
+            $authenticationUtils = $this->get("security.authentication_utils");
             //$authenticationUtils = $this->get("security.authentication.manager");
             $error = $authenticationUtils->getLastAuthenticationError();
             $lastUsername = $authenticationUtils->getLastUsername();
         */
-        
+
         $user = new User();
         //Crea un usuario nuevo
-		
+
 		$form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         //var_dump($form);
@@ -211,17 +211,17 @@ class UserController extends Controller
                     {
                         //$user = new User();
                         //$user->setUsername($form->get("username")->getData());
-                        
+
                         $user->setUsrEmail($email);
-                        
+
                         $user->setCou($form->get("cou")->getData());
-                        
+
                         //Encripta el password del usuario
                         $factory = $this->get("security.encoder_factory");
                         $encoder = $factory->getEncoder($user);
                         $password = $encoder->encodePassword( $form->get("usrPassword")->getData(), $user->getSalt() );
-                        //End 
-                        
+                        //End
+
                         $user->setUsrPassword( $password );
                         $user->setUsrRole("ROLE_USER");
                         $user->setUsrCreated(new \DateTime());
@@ -235,9 +235,9 @@ class UserController extends Controller
                         //$em = $this->getDoctrine()->getManager();
                         $em->persist($user);
                         $flush = $em->flush();
-                        
-                       
-                            
+
+
+
                             //Send an email confirmation
                             //$this->sendEmailNewUserConfirmation ($email, $token);
                             //return $this->redirectToRoute("payments_info");
@@ -259,7 +259,7 @@ class UserController extends Controller
                         $res = $this->sendEmailNewUserConfirmation($email, $token);
                         if( $res == 1 )
                         {
-                            
+
                             $em->getConnection()->commit();
                             $typeMsg = "success";
                             $status = "To validate the user creation it was sent you an email confirmation, it's possible the email show up in spam, this can take a little bit minutes";
@@ -272,7 +272,7 @@ class UserController extends Controller
                             $status = "There was an error to create the user";
                             $this->session->getFlashBag()->add($typeMsg, $status);
                         }
-                        
+
                     }
                     catch (Exception $e) {
                         $em->getConnection()->rollBack();
@@ -284,7 +284,7 @@ class UserController extends Controller
                     $typeMsg = "error";
                     $status = "Error: Username already exists";
                     $this->session->getFlashBag()->add($typeMsg, $status);
-                } 
+                }
 
 			}else{
                 $typeMsg = "error";
@@ -313,7 +313,7 @@ class UserController extends Controller
             {
                 if( $oUser->getUsrStatus() == 0 )
                 {
-                    
+
                     if( $oUser->getUsrStatus() == 0 )
                     {
                         $confirm = $this->sendEmailNewUserConfirmation($oUser->getUsrEmail(), $oUser->getUsrTokenConfirmation() );
@@ -327,7 +327,7 @@ class UserController extends Controller
                             $key = 0;
                             $content = "An error has occurred";
                         }
-                        
+
                         return new JsonResponse( array("key"=>$key, "value"=>$content) ); // 2nd param to get as array
                     }
                 }
@@ -336,24 +336,24 @@ class UserController extends Controller
                     $em->getConnection()->beginTransaction(); // suspend auto-commit
                     try {
                         $token = str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789".uniqid());
-                        
+
                         $q = $em->createQuery('delete from AppBundle\Entity\UserResetPassword tb where tb.usr = '.$oUser->getUsrId());
                         $q->execute();
-                        
+
                         $reset = new UserResetPassword();
                         $reset->setUspToken($token);
-                        
-                        $tempPassword = str_shuffle("abcdefghijklmnopqrstuvwxyz");
+
+                        $tempPassword = str_shuffle("abcdefgh0123456789");
                         //Encripta el password del usuario
                         $factory = $this->get("security.encoder_factory");
                         $encoder = $factory->getEncoder($oUser);
                         $newPassword = $encoder->encodePassword( $tempPassword, $oUser->getSalt() );
-                        //End 
-                        
+                        //End
+
                         $reset->setUspNewPassword($newPassword);
                         $reset->setUspCreated( new \Datetime("now") );
                         $reset->setUspActive(1);
-                        $reset->setUsr($oUser);                    
+                        $reset->setUsr($oUser);
                         $em->persist($reset);
                         $em->flush($reset);
 
@@ -371,22 +371,22 @@ class UserController extends Controller
                             $key = 0;//$password;
                             $content = "Error to try to send the email";
                             $em->getConnection()->rollBack();
-                        } 
-                        return new JsonResponse( array("key"=>$key, "value"=>$content) ); // 2nd param to get as array   
-                        
+                        }
+                        return new JsonResponse( array("key"=>$key, "value"=>$content) ); // 2nd param to get as array
+
                     }
                     catch (Exception $e) {
                         $em->getConnection()->rollBack();
                         throw $e;
                     }
                 }
-                
+
             }
             else
             {
-                return new JsonResponse( array("key"=>0, "value"=>"Email was not found") ); // 2nd param to get as array   
+                return new JsonResponse( array("key"=>0, "value"=>"Email was not found") ); // 2nd param to get as array
             }
-            
+
         }
         else
         {
@@ -399,16 +399,23 @@ class UserController extends Controller
     {
         if( isset($email) && $email !== "" )
         {
-            $view = $this->renderView('app/emailTemplates/remeberPassword.html.twig', 
+            $view = $this->renderView('app/emailTemplates/remeberPassword.html.twig',
                 array(
-                    'token'=>$token, 
+                    'token'=>$token,
                     'password' => $tempPassword,
-                    ) 
+                    )
             );
 
             $mail = new PHPMailer();
-            $mail->setFrom("support@doctorsbillboard.com");
-            $mail->addAddress($email); 
+
+            $mail->SMTPAuth = true;
+			$mail->Host = $this->getParameter('mailer_host'); // A RELLENAR. Aquí pondremos el SMTP a utilizar. Por ej. mail.midominio.com
+			$mail->Username = $this->getParameter('mailer_user'); // A RELLENAR. Email de la cuenta de correo. ej.info@midominio.com La cuenta de correo debe ser creada previamente.
+			$mail->Password = $this->getParameter('mailer_password'); // A RELLENAR. Aqui pondremos la contraseña de la cuenta de correo
+			$mail->Port = $this->getParameter('mailer_port'); // Puerto de conexión al servidor de envio.
+
+            $mail->setFrom("support@doctorsbillboard.com","Support");
+            $mail->addAddress($email);
             //Content
             $mail->isHTML(true);   // Set email format to HTML
             $mail->Subject = 'Password Reset';
@@ -418,7 +425,7 @@ class UserController extends Controller
                 echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
             } else {
                 return 1;
-            }    
+            }
         }
     }
 
@@ -426,16 +433,23 @@ class UserController extends Controller
     {
         if( isset($email) && $email !== "" )
         {
-            $view = $this->renderView('app/emailTemplates/registerConfirmation.html.twig', 
+            $view = $this->renderView('app/emailTemplates/registerConfirmation.html.twig',
                 array(
-                    'token'=>$token, 
+                    'token'=>$token,
                     //'password' => $tempPassword,
-                    ) 
+                    )
             );
 
             $mail = new PHPMailer();
-            $mail->setFrom("support@doctorsbillboard.com");
-            $mail->addAddress($email); 
+
+            $mail->SMTPAuth = true;
+			$mail->Host = $this->getParameter('mailer_host'); // A RELLENAR. Aquí pondremos el SMTP a utilizar. Por ej. mail.midominio.com
+			$mail->Username = $this->getParameter('mailer_user'); // A RELLENAR. Email de la cuenta de correo. ej.info@midominio.com La cuenta de correo debe ser creada previamente.
+			$mail->Password = $this->getParameter('mailer_password'); // A RELLENAR. Aqui pondremos la contraseña de la cuenta de correo
+			$mail->Port = $this->getParameter('mailer_port'); // Puerto de conexión al servidor de envio.
+
+            $mail->setFrom("support@doctors billboard","Support");
+            $mail->addAddress($email);
             //Content
             $mail->isHTML(true);   // Set email format to HTML
             $mail->Subject = 'New User Confirmation';
@@ -445,7 +459,7 @@ class UserController extends Controller
                 echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
             } else {
                 return 1;
-            }    
+            }
         }
     }
 }
