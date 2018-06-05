@@ -11,7 +11,7 @@ if (session_status() == PHP_SESSION_NONE) { session_start(); } //PHP >= 5.4.0
 //$aResPayment = $oDataPayment->getPayment_methods($getOneItem = FALSE, $bActives = FALSE,  $site= FALSE );
 
 //print_r($aResPayment);
-$is_sanbox =  1;//$aResPayment['paypal'][2]['is_sanbox'];
+$is_sanbox =  0;//$aResPayment['paypal'][2]['is_sanbox'];
 //$paypal_url= "content/paypal-express/process.php?paypal=checkout";//( $is_sanbox == 1)?'https://www.sandbox.paypal.com/cgi-bin/webscr':'https://www.paypal.com/cgi-bin/webscr'; // Test Paypal API URL 
 
 // sandbox or live
