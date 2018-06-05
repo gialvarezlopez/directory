@@ -143,7 +143,7 @@ class DefaultController extends Controller
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
             LEFT JOIN country as cou ON cou.cou_id = u.cou_id
-            where md.md_active = 1 and ci.ci_lat != '' $_filter
+            where u.usr_show = 1 and ci.ci_lat != '' $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();
@@ -544,7 +544,7 @@ class DefaultController extends Controller
             LEFT JOIN user_has_speciality AS ues ON ues.usr_id = u.usr_id
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
-            where md.md_active = 1 and ci.ci_lat != '' $_filter
+            where u.usr_show = 1 and ci.ci_lat != '' $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
                       $statement->execute();
@@ -559,8 +559,6 @@ class DefaultController extends Controller
                                 $medic,
                                 $request->query->getInt('page', 1),
                                 50);
-
-        //return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries , 'estados_d' => $estados_d));
 
         return $this->render('web/default/landing.html.twig' ,array('country'=> $country,'state'=> $state , 'cities'=>$citis , 'speciality' => $speciality , 'medic' => $pagination , 'zoom' => $zoom , 'category'=> $category ) );
     }
