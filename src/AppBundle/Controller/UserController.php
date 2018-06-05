@@ -314,22 +314,20 @@ class UserController extends Controller
                 if( $oUser->getUsrStatus() == 0 )
                 {
 
-                    if( $oUser->getUsrStatus() == 0 )
-                    {
-                        $confirm = $this->sendEmailNewUserConfirmation($oUser->getUsrEmail(), $oUser->getUsrTokenConfirmation() );
-                        if( $confirm == 1 )
-                        {
-                            $key = 1;
-                            $content = "This user has pending the confirmation token when the username was registered for the first time, it is possible the email show up in spam, this can take a little bit minutes";
-                        }
-                        else
-                        {
-                            $key = 0;
-                            $content = "An error has occurred";
-                        }
 
-                        return new JsonResponse( array("key"=>$key, "value"=>$content) ); // 2nd param to get as array
+                    $confirm = $this->sendEmailNewUserConfirmation($oUser->getUsrEmail(), $oUser->getUsrTokenConfirmation() );
+                    if( $confirm == 1 )
+                    {
+                        $key = 1;
+                        $content = "This user has pending the confirmation token when the username was registered for the first time, it is possible the email show up in spam, this can take a little bit minutes";
                     }
+                    else
+                    {
+                        $key = 0;
+                        $content = "An error has occurred";
+                    }
+
+                    return new JsonResponse( array("key"=>$key, "value"=>$content) ); // 2nd param to get as array
                 }
                 else
                 {
@@ -414,7 +412,7 @@ class UserController extends Controller
 			$mail->Password = $this->getParameter('mailer_password'); // A RELLENAR. Aqui pondremos la contraseña de la cuenta de correo
 			$mail->Port = $this->getParameter('mailer_port'); // Puerto de conexión al servidor de envio.
 
-            $mail->setFrom("support@doctorsbillboard.com","Support");
+            $mail->setFrom("support@doctorsbillboard.com","DoctorsBillboard");
             $mail->addAddress($email);
             //Content
             $mail->isHTML(true);   // Set email format to HTML
@@ -448,7 +446,7 @@ class UserController extends Controller
 			$mail->Password = $this->getParameter('mailer_password'); // A RELLENAR. Aqui pondremos la contraseña de la cuenta de correo
 			$mail->Port = $this->getParameter('mailer_port'); // Puerto de conexión al servidor de envio.
 
-            $mail->setFrom("support@doctors billboard","Support");
+            $mail->setFrom("support@doctorsbillboard.com","DoctorsBillboard");
             $mail->addAddress($email);
             //Content
             $mail->isHTML(true);   // Set email format to HTML
