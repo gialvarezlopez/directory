@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "f8a5d488a9a7baa808ad6d243a4f8fb5",
@@ -999,16 +999,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.61",
+            "version": "v0.62",
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client-services.git",
-                "reference": "f7221039fda179b3f5096a6272b38706f2a6fcd0"
+                "reference": "a3c342e711aaf61f83b1ef9de7a6685446a409e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/f7221039fda179b3f5096a6272b38706f2a6fcd0",
-                "reference": "f7221039fda179b3f5096a6272b38706f2a6fcd0",
+                "url": "https://api.github.com/repos/google/google-api-php-client-services/zipball/a3c342e711aaf61f83b1ef9de7a6685446a409e7",
+                "reference": "a3c342e711aaf61f83b1ef9de7a6685446a409e7",
                 "shasum": ""
             },
             "require": {
@@ -1032,7 +1032,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2018-05-26T00:23:39+00:00"
+            "time": "2018-05-31T00:23:15+00:00"
         },
         {
             "name": "google/auth",

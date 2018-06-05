@@ -168,4 +168,3 @@ class UserResetPassword
         return $this->usr;
     }
 }
-

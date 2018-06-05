@@ -22,13 +22,6 @@ AppBundle\Entity\ContactInfo:
             generator:
                 strategy: IDENTITY
     fields:
-        ciCompany:
-            type: string
-            nullable: false
-            length: 50
-            options:
-                fixed: false
-            column: ci_company
         ciPhone1:
             type: string
             nullable: true
@@ -83,6 +76,13 @@ AppBundle\Entity\ContactInfo:
             options:
                 default: CURRENT_TIMESTAMP
             column: ci_created
+        ciCompany:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: ci_company
     manyToOne:
         cat:
             targetEntity: Category

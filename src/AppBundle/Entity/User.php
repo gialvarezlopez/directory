@@ -522,4 +522,33 @@ class User implements AdvancedUserInterface, \Serializable
     //===============================================================
     //Fin campo extra
     //===============================================================
+    /**
+     * @var boolean
+     */
+    private $usrShow = '1';
+
+
+    /**
+     * Set usrShow
+     *
+     * @param boolean $usrShow
+     *
+     * @return User
+     */
+    public function setUsrShow($usrShow)
+    {
+        $this->usrShow = $usrShow;
+
+        return $this;
+    }
+
+    /**
+     * Get usrShow
+     *
+     * @return boolean
+     */
+    public function getUsrShow()
+    {
+        return $this->usrShow;
+    }
 }

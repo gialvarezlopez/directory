@@ -64,12 +64,6 @@ AppBundle\Entity\User:
             options:
                 fixed: false
             column: usr_token_confirmation
-        usrForgotPassword:
-            type: boolean
-            nullable: true
-            options:
-                default: '0'
-            column: usr_forgot_password
         usrCreated:
             type: datetime
             nullable: true
@@ -88,6 +82,12 @@ AppBundle\Entity\User:
             options:
                 default: '1'
             column: usr_active
+        usrForgotPassword:
+            type: boolean
+            nullable: true
+            options:
+                default: '0'
+            column: usr_forgot_password
         usrNotificationContactForm:
             type: boolean
             nullable: true
@@ -100,6 +100,12 @@ AppBundle\Entity\User:
             options:
                 default: '1'
             column: usr_notification_payment
+        usrShow:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: usr_show
     manyToOne:
         cou:
             targetEntity: Country
