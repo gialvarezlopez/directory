@@ -4843,7 +4843,8 @@ p {
   }
   #textLogo{
     display: block;
-    padding:5px 0px 10px 0px;
+    padding:5px 0px 10px 10px;
+	margin-left:-30px;
   }
 }
 
