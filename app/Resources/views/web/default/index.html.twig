@@ -472,8 +472,8 @@
         $(function () {
 
             /*-------------------------------------------------------------------------------
-        Googl-Map
-    -------------------------------------------------------------------------------*/
+                Googl-Map
+            -------------------------------------------------------------------------------*/
 
             function GooglMap() {
 
@@ -757,7 +757,7 @@
 
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                     window.addEventListener("orientationchange", function() {
-                        alert(window.orientation);
+                        //alert(window.orientation);
                         google.maps.event.addDomListener(window, 'resize', GooglMap);
                     }, false);
                 }
