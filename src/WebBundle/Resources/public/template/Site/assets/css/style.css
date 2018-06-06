@@ -1479,7 +1479,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   position:relative;
 }
 #category_slider2 .item:after{
-  background:#113D4C; 
+  background:#113D4C;
   content: "";
   height: 100%;
   left: 0;
@@ -2339,7 +2339,9 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 }
 .listing-with-map-page .navbar.navbar-default {
 	background:#111;
-	border:0px;
+  border:0px;
+  position: relative;
+  z-index:999;
 }
 .listing-with-map-page .navbar.navbar-default.navbar-fixed-top.affix-top {
 	position:relative;
@@ -2369,7 +2371,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   font-size: 21px;
 }
 .listing-with-map-page .listing_info {
-  padding: 18px 17px 0;
+  padding: 5px 17px 0;
 }
 .listing-with-map-page .grid_view .listing_wrap {
   margin: 0 auto 30px;
@@ -4151,8 +4153,9 @@ h2 {
   font-size: 38px;
 }
 .navbar-header {
-  float: none;
+  /*float: none;*/
   text-align: center;
+
 }
 .navbar.navbar-default {
   padding: 10px 0;
@@ -4556,6 +4559,10 @@ h2 {
 .footer_about, .footer_style_4 .footer_widgets{ padding:50px 10%;}
 }
 
+.navbar-brand{
+  height: auto !important;
+}
+
 
 @media (max-width:600px) {
 h1 {
@@ -4826,5 +4833,17 @@ p {
 
 }
 
-
+#textLogo{
+  display: none;
+  color: #fff;
+}
+@media only screen and (max-width: 468px) {
+  #imgLogo{
+    display: none;
+  }
+  #textLogo{
+    display: block;
+    padding:5px 0px 10px 0px;
+  }
+}
 
