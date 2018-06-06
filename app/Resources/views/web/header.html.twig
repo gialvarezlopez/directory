@@ -1,15 +1,17 @@
 <!-- Header -->
 <header id="header">
-    <nav class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="10">
+    <!-- <nav class="navbar navbar-default navbar-fixed-top" data-spy="affix" data-offset-top="10"> -->
+    <nav class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
-            <div class="logo"> <a href="{{ path('web_homepage') }}"><img src="{{ asset('bundles/web/template/Site/assets/images/logo.png') }}" alt="image" style=" height: 30px;"/></a> </div>
+            {# <div class="logo"> <a href="{{ path('web_homepage') }}"><img src="{{ asset('bundles/web/template/Site/assets/images/logo.png') }}" alt="image" style=" height: 30px;"/></a> </div> #}
             <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="{{ path('web_homepage') }}"><img src="{{ asset('bundles/web/template/Site/assets/images/logo.png') }}" alt="image" style=" height: 30px;"/></a>
           </div>
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="nav navbar-nav">

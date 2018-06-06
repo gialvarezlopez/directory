@@ -44,7 +44,7 @@
             overflow: hidden !important;
             height: auto !important;
         }
-    
+
         .select2-selection__rendered {
             width: 100%;
             line-height: 31px !important;
@@ -55,7 +55,7 @@
         .select2-selection__arrow {
             height: 34px !important;
         }
-          
+
         .custom{
             width: 100%;
             padding: 5px;
@@ -124,12 +124,12 @@
 
             	<h2> Find Here <i class="fa fa-map-marker"></i></h2>
             	<div class="search_formx" style="padding: 5%;">
-                    <form action="{{ path('web_homepage')}}" method="get">
+                    <form action="{{ path('web_homepage')}}" method="get" id="formFilters" name="formFilters">
                         <div class="row">
 
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pbinput">
                                 <select class="form-control" id="category" name="category">
-                                    <option value="0">Select Category</option>
+                                    <option value="">Select Category</option>
                                     {% for categories in category %}
                                         <option value="{{ categories.catId }}">{{ categories.catName }}</option>
                                     {% endfor %}
@@ -145,7 +145,7 @@
                                                             <option value="0">Select Country</option>
                                                         {% endif %}
                                                     #}
-                                                    <option value="0">Select Country</option>
+                                                    <option value="">Select Country</option>
                                                     {% for countries in country %}
                                                         {% if app.request.query.get("country") == countries.couId %}
                                                             <option value="{{ countries.couId }}" selected="selected">{{ countries.couName }}</option>
@@ -200,8 +200,8 @@
 
                              <div class="col-lg-12 ">
 
-                                <div class="pbinput">
-                                                
+                                <div class="pbinput" style="display:none">
+
                                     <select class="form-control" id="speciality" name="speciality">
                                         <option value=""></option>
                                         {% for spe in speciality %}
@@ -220,12 +220,12 @@
                                     <input type="submit" value="Search" class="btn btn-block">
                                 </div>
 
-                             </div>    
+                             </div>
                             <div class="">
-                                
+
                             <br>
 
-                            
+
                         </div>
                     </form>
                 </div>
@@ -296,7 +296,7 @@
                         <p>social Welfare </p>
                     </a>
                 </div>
-  
+
             </div>
         </div>
     </div>
@@ -392,7 +392,7 @@
 
                 <div class="listing_wrap">
                     <div class="listing_img">
-           
+
                         <a href="#" class="not-active"><img src="{{ asset('bundles/web/template/Site/assets/images/schedule.png') }}" alt="image"></a>
                     </div>
                     <div class="listing_info">
@@ -477,7 +477,7 @@
                         </tr>
                         <tr>
                             <td class="white">
-                                Ubication Map 
+                                Ubication Map
                             </td>
                         </tr>
                         <tr class="active">
@@ -499,8 +499,8 @@
                             <td class="white">
                                 Gallery (2 photos)
                             </td>
-                        </tr>                       
-                        
+                        </tr>
+
                         <tr class="active">
                             <td class="blue">
                                 Easy Contact Doctor
@@ -572,8 +572,8 @@
                             <td class="white">
                                 Gallery (5 photos)
                             </td>
-                        </tr>                       
-                        
+                        </tr>
+
                         <tr class="active">
                             <td class="blue">
                                 Easy Contact Doctor
@@ -599,7 +599,7 @@
                             <td class="white">
                                 1 Year
                             </td>
-                        </tr>                        
+                        </tr>
                         <tr>
                             <td class="white">
                                 Visitor Counter
@@ -644,8 +644,8 @@
                             <td class="white">
                                 Gallery (8 photos)
                             </td>
-                        </tr>                       
-                        
+                        </tr>
+
                         <tr class="active">
                             <td class="blue">
                                 Easy Contact Doctor
@@ -694,7 +694,7 @@
                     	<img src="{{ asset('bundles/web/template/Site/assets/images/canada.png') }}" alt="Canada">
                     </div>
                     <div class="post_info">
-      
+
                     	<h4><a href="#">Canada</a></h4>
                         <p>States with cities available for the world.</p>
                         <div class="post_meta">
@@ -711,7 +711,7 @@
                     	<img src="{{ asset('bundles/web/template/Site/assets/images/ausrtralia.png') }}" alt="Australia">
                     </div>
                     <div class="post_info">
- 
+
                     	<h4><a href="#">Australia</a></h4>
                         <p>States with cities available for the world.</p>
                         <div class="post_meta">
@@ -745,43 +745,43 @@
                 <div class="form">
       <!--FORM -->
       <form action="contactus" class="form-horizontal" role="form" id="contactForm" method="post" name="contactForm">
-            
+
             <div class="form-group">
-               
+
                 <div class="col-sm-12">
                 <input type="text" class="form-control input-lg" name="name" id="name" required placeholder="Name*">
                 </div>
             </div>
-            
+
             <div class="form-group">
-                  
+
                     <div class="col-sm-12">
                       <input type="email" class="form-control input-lg" name="email" required id="email" placeholder="Email*">
                   </div>
             </div>
-            
+
             <div class="form-group">
-                  
+
                     <div class="col-sm-12">
                       <input type="text" class="form-control input-lg" name="phone" required id="phone" placeholder="Phone">
                   </div>
             </div>
-            
+
             <div class="form-group">
-                  
+
                     <div class="col-sm-12">
                       <textarea class="form-control input-lg" rows="10" name="message" id="message" placeholder="Message*"></textarea>
                   </div>
             </div>
-            
+
             <div class="control-group submit center">
                <input class="btn btn-lg btn-primary" type="submit" value="Submit">
             </div>
 
            </form>
-           
+
            <p class="d-grey requi">* Required</p>
-      
+
       </div>
             </div>
             <div class="col-md-4">
@@ -798,6 +798,20 @@
     <script>
 
     $(function () {
+
+
+        $("#category").on("change",function(){
+            var cat = $(this).val();
+            if( cat != 1 )
+            {
+                $("speciality").prop('selectedIndex',0);
+                $("#speciality").closest("div").hide();
+            }
+            else
+            {
+                $("#speciality").closest("div").show();
+            }
+        });
 
         if($('.alert-success').attr('name') == 1){
 
@@ -839,7 +853,7 @@
                 var id_category = $(this).val();
                 if(id_category == 1){
 
-                   
+
                 }
             });
 
@@ -946,7 +960,7 @@
                 }
                 var locations = [];
 
-                $.each(test, function (k, v) {    
+                $.each(test, function (k, v) {
                     if(v.cat_id == 1){
                         locations.push([
                             locationData('showProfile/'+v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
@@ -958,7 +972,7 @@
                             v.ci_lat,v.ci_lng,2,'<i class="im-icon"><img src="{{ asset('bundles/web/template/Site/assets/images/')}}'+v.cat_icon+'"></i>'
                         ])
                     }
-                    
+
                 })
 
                 var mapZoomAttr = $('#map').attr('data-map-zoom');
@@ -969,9 +983,9 @@
                     var zoomLevel = 9;
                 }
 
-                if  ({{ zoom  }} == 1)  
+                if  ({{ zoom  }} == 1)
                 {
-  
+
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 6,
                         scrollwheel: false,
@@ -1033,7 +1047,7 @@
                         ]
                     });
 
-                    
+
                 }
 
                 var boxText = document.createElement("div");
@@ -1118,7 +1132,7 @@
                                     }
                                 });
                             });
-                            
+
                         }
                     })(overlay, i));
                 }
@@ -1310,7 +1324,7 @@
                 }
             };
 
-            
+
 
             CustomMarker.prototype.remove = function () {
                 if (this.div) {

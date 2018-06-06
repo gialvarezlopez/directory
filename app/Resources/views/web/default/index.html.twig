@@ -1,7 +1,7 @@
 {% extends 'web/base.html.twig' %}
 
 {% block title_page %}
-    DB || Find your medics
+    DB || Directory
 {% endblock %}
 
 {% block classbg %}
@@ -22,7 +22,7 @@
             cursor: pointer;
         }
         .listing_info {
-            margin-top: -10px;
+
             position: relative;
         }
         .listing_img {
@@ -46,9 +46,40 @@
             padding: 0 10px;
         }
 
-        @media (max-width:768px) {
+        /*@media (max-width:768px) {*/
+        @media(max-width:1200px) {
             .grid-item {
                 width: 50%;
+            }
+        }
+
+        @media (max-width:900px) {
+            .grid-item {
+                width: 50%;
+            }
+        }
+
+        @media (max-width:650px) {
+            .grid-item {
+                width: 100%;
+            }
+        }
+
+        @media only screen and (max-width: 900px) {
+            .grid-item {
+                width: 50%;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            .grid-item {
+                width: 50%;
+            }
+        }
+
+        @media only screen and (max-width: 468px) {
+            .grid-item {
+                width: 100%;
             }
         }
 
@@ -71,14 +102,6 @@
         .select2-selection--multiple {
             overflow: hidden !important;
             height: auto !important;
-        }
-
-        .divForm {
-            /*
-        float: left;
-        width: 33.3%;
-        padding: 0 3px;
-        */
         }
 
         /* Make Select2 boxes match Bootstrap3 heights: */
@@ -115,7 +138,7 @@
 
         /*Search*/
          #holderBtnSearch{
-             display: table; 
+             display: table;
              width:35px;
              height:30px;
              background: #09B1EB;
@@ -123,7 +146,7 @@
              cursor:pointer;
              z-index:10;
              position:absolute;
-             
+
          }
          #holderIconSearch{
             display: table-cell;
@@ -134,7 +157,7 @@
              /*display:none;*/
          }
 
-        
+
 
         .search_wrap{
             position:absolute;
@@ -188,7 +211,7 @@
         </div>
 
         {# {{ include('web/default/search.html.twig', { 'article': article }) }} #}
-        
+
 
         <div class="container" id="holderGrid">
             {{ include('web/default/search.html.twig') }}
@@ -211,87 +234,89 @@
             </div>
             #}
             </div>
+            <div class="row ">
+                <div class="grid">
+                    {% if medic | length %}
+                        {% for m in medic %}
 
-            <div class="row grid">
-                {% if medic | length %}
-                    {% for m in medic %}
-
-                        <div class="col-md-6x col-lg-4x grid_colx show_listingx grid-item">
-                            <div class="items-list listing_wrap " data-marker-id="1">
-                                <div class="listing_img" style="height: 300px;">
-                                    <a href="#" class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}">
-                                        <span class="like_post">
-                                            <i class="fa fa-map-marker"></i></span></a>
-                                    <!-- <div class="listing_cate"> <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span> <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span> </div> -->
-                                    {% if m.md_profile_image != "" %}
-                                        {% if file_exists('uploads/' ~ m.md_profile_image) %}
-                                            {% set imgPerfil = "uploads/" ~ m.md_profile_image %}
-                                            <a href=" {{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
-                                                <div class="text-center"><img src="{{ image(imgPerfil).cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
-                                            </a>
+                            <div class="col-md-6x col-lg-4x grid_colx show_listingx grid-item">
+                                <div class="items-list listing_wrap " data-marker-id="1">
+                                    {# <div class="listing_img" style="height: 300px;"> #}
+                                    <div class="listing_img">
+                                        <a href="#" class="searchProfile" id="{{ m.ci_lat}}" name="{{ m.ci_lng }}">
+                                            <span class="like_post">
+                                                <i class="fa fa-map-marker"></i></span></a>
+                                        <!-- <div class="listing_cate"> <span class="cate_icon"><a href="#"><img src="{{ asset('bundles/web/template/Site/assets/images/category-icon5.png') }} " alt="icon-img"></a></span> <span class="listing_like"><a href="#"><i class="fa fa-heart-o"></i></a></span> </div> -->
+                                        {% if m.md_profile_image != "" %}
+                                            {% if file_exists('uploads/' ~ m.md_profile_image) %}
+                                                {% set imgPerfil = "uploads/" ~ m.md_profile_image %}
+                                                <a href=" {{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                                    <div class="text-center"><img src="{{ image(imgPerfil).cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
+                                                </a>
+                                            {% else %}
+                                                <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                                    <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
+                                                </a>
+                                            {% endif %}
                                         {% else %}
                                             <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
                                                 <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
                                             </a>
                                         {% endif %}
-                                    {% else %}
-                                        <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
-                                            <div class="text-center"><img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image"></div>
-                                        </a>
-                                    {% endif %}
 
-                                </div>
-                                <div class="listing_info">
-                                    <!-- <div class="post_category"> <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a> </div>-->
-                                    <h6>
-                                        <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                    </div>
+                                    <div class="listing_info">
+                                        <!-- <div class="post_category"> <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a> </div>-->
+                                        <h6>
+                                            <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                                {% if m.cat_id == 1 %}
+                                                    {{ m.md_first_name }}
+                                                    {{ m.md_first_surname }}
+                                                {% else %}
+                                                    {{ m.ci_company }}
+                                                {% endif %}
+                                            </a>
+                                        </h6>
+
+                                        <p class="itemSpecialities">
                                             {% if m.cat_id == 1 %}
-                                                {{ m.md_first_name }}
-                                                {{ m.md_first_surname }}
-                                            {% else %}
-                                                {{ m.ci_company }}
-                                            {% endif %}
-                                        </a>
-                                    </h6>
+                                                {% if m.esp != null %}
+                                                    {{ m.esp }}
+                                                {% else %}
+                                                    <br>
+                                                {% endif %}
 
-                                    <p class="itemSpecialities">
-                                        {% if m.cat_id == 1 %}
-                                            {% if m.esp != null %}
-                                                {{ m.esp }}
                                             {% else %}
                                                 <br>
                                             {% endif %}
-                                            
-                                        {% else %}
-                                            <br>
-                                        {% endif %}
-                                    </p>
-
-                                    <div class="listing_review_info">
-
-                                        <p>
-                                            <span class="review_score">
-                                                <i class="fa fa-eye"></i>
-                                                {{ m.total }}
-                                            </span>
-                                            <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star"></i> (5 Reviews)-->
                                         </p>
-                                        <p class="listing_map_m">
-                                            <i class="fa fa-map-marker"></i>
-                                            {{ m.cit_name }}
-                                            /{{ m.sta_name }}</p>
+
+                                        <div class="listing_review_info">
+
+                                            <p>
+                                                <span class="review_score">
+                                                    <i class="fa fa-eye"></i>
+                                                    {{ m.total }}
+                                                </span>
+                                                <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star"></i> (5 Reviews)-->
+                                            </p>
+                                            <p class="listing_map_m">
+                                                <i class="fa fa-map-marker"></i>
+                                                {{ m.cit_name }}
+                                                /{{ m.sta_name }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-md-6 col-lg-4 grid_col show_listingx">
+                            {# No Data Found. #}
                         </div>
+                    {% endif %}
 
-                    {% endfor %}
-                {% else %}
-                    <div class="col-md-6 col-lg-4 grid_col show_listingx">
-                        {# No Data Found. #}
-                    </div>
-                {% endif %}
-
+                </div>
             </div>
             <nav class="pagination_nav">
                 <div class="navigation text-center">
@@ -317,14 +342,14 @@
                 if( holder.hasClass("btnOpen"))
                 {
                     holder.removeClass("btnOpen").addClass("btnClose").html('<i class="fa fa-window-close" aria-hidden="true"></i>');
-                    
+
                 }
                 else
                 {
                     holder.removeClass("btnClose").addClass("btnOpen").html('<i class="fa fa-search" aria-hidden="true"></i>');
                     left = "-105%";
                 }
-                
+
                 $(".search_wrap").animate({"left":left},100);
             });
 
@@ -337,7 +362,12 @@
 
             $('[data-toggle="tooltip"]').tooltip();
 
-            $('.grid').isotope({itemSelector: '.grid-item'});
+            $('.grid').isotope({
+                layoutMode: 'masonry',
+                itemSelector: '.grid-item',
+                // options for masonry layout mode
+
+            });
 
             {% if medic|length == 0 %}
                 $("#footer").addClass("fixedBottom")
@@ -498,7 +528,7 @@
                 if ({{ zoom }} == 1) {
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: {{ mapaZoom }},
-                        scrollwheel: true,
+                        scrollwheel: false,
                         disableDefaultUI: true,
                         center: new google.maps.LatLng({{ estados_d[0].sta_lat }}, {{ estados_d[0].sta_lng }}),
                         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -527,7 +557,7 @@
 
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: zoomLevel,
-                        scrollwheel: true,
+                        scrollwheel: false,
                         center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
                         mapTypeId: google.maps.MapTypeId.ROADMAP,
                         zoomControl: false,
@@ -717,7 +747,7 @@
                     }
                 }
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    map.setOptions({draggable: false});
+                    map.setOptions({draggable: true, scrollwheel : false});
                 }
             }
 
@@ -873,7 +903,7 @@
 
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: zoomLevel,
-                    scrollwheel: true,
+                    scrollwheel: false,
                     disableDefaultUI: true,
                     center: new google.maps.LatLng(lat, lng),
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -1084,7 +1114,7 @@
                     }
                 }
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    map.setOptions({draggable: false});
+                    map.setOptions({draggable: true, scrollwheel : false});
                 }
             }
         });
