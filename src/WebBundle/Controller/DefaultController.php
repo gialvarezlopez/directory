@@ -51,7 +51,7 @@ class DefaultController extends Controller
 
         //$sBusqueda = $request->query->get('b');
         $sUsuarios = '';
-        
+
         if (( $_state!="" ) or ( $_city!="" ) or ( $_speciality!="" ) or ( $_country!="" )) {
             $_SESSION['_STATE']     = $_state;
             $_SESSION['_CITY']      = $_city;
@@ -132,7 +132,7 @@ class DefaultController extends Controller
         $country    = $em->getRepository('AppBundle:Country')->findAll();
         $category    = $em->getRepository('AppBundle:Category')->findAll();
 
-        $RAW_QUERY	= "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,
+         $RAW_QUERY	= "select  u.usr_id, md.md_first_name, md.md_first_surname,c.cit_name,s.sta_name,md.md_profile_image,s.sta_code,
                         ci.ci_lat,ci.ci_lng,ci.ci_address,ci.ci_phone1,ca.cat_icon,ca.cat_id,ci.ci_company,
                         group_concat(e.sp_name SEPARATOR ', ') as esp, (select count(*) as totla
                         from user_views as userV where userV.vis_usu_id = u.usr_id ) as total from user as u
@@ -143,7 +143,7 @@ class DefaultController extends Controller
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
             LEFT JOIN country as cou ON cou.cou_id = u.cou_id
-            where u.usr_show = 1 and ci.ci_lat != '' $_filter
+            where ci.ci_lat != '' AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ) >= CURDATE() $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();
@@ -199,12 +199,17 @@ class DefaultController extends Controller
             LEFT JOIN state as s on s.sta_id = c.sta_id
             LEFT JOIN speciality as e on e.usr_id = u.usr_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
-            where u.usr_id = ". $id_profile ."
+            where u.usr_id = ". $id_profile . " AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ) >= CURDATE()
             group by u.usr_id";
 
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
                       $statement->execute();
         $profile      = $statement->fetchAll();
+
+        if( count($profile) == 0 )
+        {
+            throw new NotFoundHttpException("User is not available");
+        }
 
         //Obtain gallery
 
@@ -213,7 +218,7 @@ class DefaultController extends Controller
                           $statement->execute();
         $gallery        = $statement->fetchAll();
 
-        
+
         /*
             $RAW_Social     = "select * from user_has_social_network usn left join social_network as sn on
                                 usn.sn_id = sn.sn_id where usr_id =".$id_profile;
@@ -258,12 +263,12 @@ class DefaultController extends Controller
 
         //echo $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         return $this->render('web/default/showProfile.html.twig',
-             array( 
+             array(
                  'profile' => $profile ,
-                 "horario" => $horaDias, 
-                 "hoy" => $hoy, 
-                 'gallery' => $gallery , 
-                 //'social_network' => $social_network, 
+                 "horario" => $horaDias,
+                 "hoy" => $hoy,
+                 'gallery' => $gallery ,
+                 //'social_network' => $social_network,
                  "oListMySocialNetworks"=>$oListMySocialNetworks,
                  "showContactForm" =>$showContactForm,
                  "url"=>$link,
@@ -387,7 +392,7 @@ class DefaultController extends Controller
 
     public function rangos($arr)
     {
-        
+
         $pros = 1;
         $total = count($arr);
         $cadena = "";
@@ -406,7 +411,7 @@ class DefaultController extends Controller
                 {
                     if( $res != 60 )
                     {
-                        // 12-hour time to 24-hour time 
+                        // 12-hour time to 24-hour time
                         //$time_in_24_hour_format  = date("H:i", strtotime("1:30 PM"));
 
                         $cadena .= " <i>to</i> ". $this->renderHours($arr[$i]);// date('ga', strtotime($arr[$i])  );
@@ -436,13 +441,13 @@ class DefaultController extends Controller
     {
         $horaInicial=$horaInicial;//"14:00";
         $minutoAnadir=60;
-        
+
         $segundos_horaInicial=strtotime($horaInicial);
-        
+
         $segundos_minutoAnadir=$minutoAnadir*60;
-        
+
         $nuevaHora=date("H:i",$segundos_horaInicial+$segundos_minutoAnadir);
-        
+
         return date('ga', strtotime($nuevaHora)  );
     }
 
@@ -592,8 +597,8 @@ class DefaultController extends Controller
             }else{
                 $error = 0;
                 $this->session->getFlashBag()->add("error",$error);
-            }          
-        } 
+            }
+        }
 
         return $this->redirectToRoute("web_landing");
 
@@ -616,11 +621,11 @@ class DefaultController extends Controller
             }
 
             $fullNameProfile = $oDetail->getMdFirstName()." ".$oDetail->getMdMiddleName()." ".$oDetail->getMdFirstSurname()." ".$oDetail->getMdSecondSurname();
-            
-            //Get emails 
+
+            //Get emails
             $RAW_QUERY  = "SELECT uhsn.usn_link FROM social_network sn
                             INNER JOIN user_has_social_network uhsn ON sn.sn_id = uhsn.sn_id
-                            WHERE uhsn.usr_id = $profileId 
+                            WHERE uhsn.usr_id = $profileId
                             AND sn.sn_key = 'email' AND uhsn.usn_active = 1";
 
             $statement  = $em->getConnection()->prepare($RAW_QUERY);
@@ -640,15 +645,15 @@ class DefaultController extends Controller
             // Always set content-type when sending HTML email
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            
-            
-            $view = $this->renderView( 'web/default/contactEmail.html.twig', 
+
+
+            $view = $this->renderView( 'web/default/contactEmail.html.twig',
                 array(
-                    'fullNameProflie'=>$fullNameProfile, 
-                    'name' => $name, 
+                    'fullNameProflie'=>$fullNameProfile,
+                    'name' => $name,
                     "email"=>$email,
                     "msg"=>$msg
-                    ) 
+                    )
             );
             $message = $view;
             // More headers
@@ -679,7 +684,7 @@ class DefaultController extends Controller
                 )
 
                 ;
-                $this->get('mailer')->send($message);            
+                $this->get('mailer')->send($message);
                 //$mailer->send($message);
 
                 // or, you can also fetch the mailer service this way
@@ -687,26 +692,26 @@ class DefaultController extends Controller
 
                 //return $this->render(...);
             */
-                 
-            
-                  
-            $view = $this->renderView( 'web/default/contactEmail.html.twig', 
+
+
+
+            $view = $this->renderView( 'web/default/contactEmail.html.twig',
                 array(
-                    'fullNameProflie'=>$fullNameProfile, 
-                    'name' => $name, 
+                    'fullNameProflie'=>$fullNameProfile,
+                    'name' => $name,
                     "email"=>$email,
                     "msg"=>$msg
-                    ) 
+                    )
             );
 
             $mail = new PHPMailer();
-            //$mail->isSMTP();                                      
+            //$mail->isSMTP();
             //$mail->Host = 'mail.doctorsbillboard.com';
-            //$mail->SMTPAuth = true;                               
-            //$mail->Username = 'info@doctorsbillboard.com';                
-            //$mail->Password = '';                           
-            //$mail->SMTPSecure = 'tls';                            
-            //$mail->Port = 25;                                   
+            //$mail->SMTPAuth = true;
+            //$mail->Username = 'info@doctorsbillboard.com';
+            //$mail->Password = '';
+            //$mail->SMTPSecure = 'tls';
+            //$mail->Port = 25;
             //$mail->setFrom('acedmy@leewayweb.com', 'Leeway Academy');
 			$mail->setFrom($email, $name);
 
@@ -714,13 +719,13 @@ class DefaultController extends Controller
             {
                 for( $i=0; $i < count($result); $i++)
                 {
-                    $mail->addAddress($result[$i]['usn_link']); 
+                    $mail->addAddress($result[$i]['usn_link']);
                 }
             }else{
-                $mail->addAddress($oDetail->getUsr()->getUsrEmail()); 
-            } 
-            
-            
+                $mail->addAddress($oDetail->getUsr()->getUsrEmail());
+            }
+
+
             //Content
             $mail->isHTML(true);   // Set email format to HTML
             $mail->Subject = 'Contact Form';
@@ -730,14 +735,14 @@ class DefaultController extends Controller
                 echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
             } else {
                 echo 1;
-            }        
-           
+            }
+
         }
         else
-        {        
+        {
             throw new Exception('Error');
         }
-        
+
         exit();
     }
 }

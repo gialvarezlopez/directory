@@ -526,11 +526,27 @@
                 }
 
                 if ({{ zoom }} == 1) {
+                    {% set lat = 0 %}
+                    {% set log = 1 %}
+                    {% if medic | length %}
+                            {% set lat = estados_d[0].sta_lat %}
+                            {% set log = estados_d[0].sta_lng %}
+                    {% else %}
+                            {% for c in country %}
+                                {% if c.couId ==  app.request.get('country') %}
+                                    {% set lat = c.staLat %}
+                                    {% set log = c.staLng %}
+                                {% endif %}
+                            {% endfor %}
+                     {% endif %}
+
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: {{ mapaZoom }},
                         scrollwheel: false,
                         disableDefaultUI: true,
-                        center: new google.maps.LatLng({{ estados_d[0].sta_lat }}, {{ estados_d[0].sta_lng }}),
+
+                        center: new google.maps.LatLng({{ lat }}, {{ log }}),
+
                         mapTypeId: google.maps.MapTypeId.ROADMAP,
                         zoomControl: false,
                         mapTypeControl: false,
