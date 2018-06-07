@@ -143,7 +143,7 @@ class DefaultController extends Controller
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
             LEFT JOIN country as cou ON cou.cou_id = u.cou_id
-            where ci.ci_lat != '' AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ) >= CURDATE() $_filter
+            where ci.ci_lat != '' AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE() $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();
@@ -199,7 +199,7 @@ class DefaultController extends Controller
             LEFT JOIN state as s on s.sta_id = c.sta_id
             LEFT JOIN speciality as e on e.usr_id = u.usr_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
-            where u.usr_id = ". $id_profile . " AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ) >= CURDATE()
+            where u.usr_id = ". $id_profile . " AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE()
             group by u.usr_id";
 
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
