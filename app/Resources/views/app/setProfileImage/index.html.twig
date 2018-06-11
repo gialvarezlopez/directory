@@ -15,26 +15,57 @@
 
 
 {% block header %}
-        <h1>Set my profile image</h1>
+        <h1>Profile image</h1><hr>
 {% endblock %}
 
 {% block content %}
 
+<style>
+#holderNewImage{
+    display:none;
+}
+</style>
+
+{#  Check the notifications #}
+{% set created = 0 %}
+{% for message in app.session.flashbag().get("success") %}
+    <div class="alert alert-success"><i class="fa fa-check-circle-o" aria-hidden="true"></i> {{message}}</div>
+{% endfor %}
+{% for message in app.session.flashbag().get("error") %}
+    <div class="alert alert-danger"><i class="fa fa-times" aria-hidden="true"></i> {{message}} </div>
+{% endfor %}
+{# End notifications #}
 
 <div class="row">
-	  		<div class="col-md-4 text-center">
-				<div id="upload-image"></div>
-	  		</div>
-	  		<div class="col-md-4">
-				<strong>Select Image:</strong>
-				<br/>
-				<input type="file" id="images">
-				<br/>
-				<button class="btn btn-success cropped_image">Upload Image</button>
-	  		</div>
-	  		<div class="col-md-4 crop_preview">
-				<div id="upload-image-i"></div>
-	  		</div>
+	<div class="col-md-4">
+        <h4>Current Image Profile/Logo</h4>
+        
+        <div id="upload-image-i">
+            {% if file_exists( 'uploads/'~image ) and image != "" %}
+                <img src="{{ image('uploads/'~image).cropResize(250,250) }}" class="img-thumbnail">
+            {% else %}
+                <div class="alert alert-info">You don't have profile image, please select one</div>
+                <div class="text-center">
+                    <img src="{{ image('bundles/web/template/Site/assets/images/pindingProfileImage.png').cropResize(250,250)  }} " class="demo" style="max-width: 100%;" alt="image">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="checkbox"><label for="newImage"><h4><input type="checkbox" id="newImage" name="newImage">  Select New Image</h4></label></div>
+        <div id="holderNewImage">
+            
+            <div>
+                <input type="file" id="images">
+                </div>  
+                <div id="upload-image"></div>
+                <button class="btn btn-success cropped_image">Upload Image</button>
+            </div>
+        </div>
+        
+    <div>
+        
+    </div> 
 </div>
 {% endblock %}
 
@@ -42,18 +73,29 @@
     <script>
         //$(document).on("ready", function(){
         $(function () {
+
+            $( '#newImage' ).on( 'click', function() {
+                if( $(this).is(':checked') ){
+                    // Hacer algo si el checkbox ha sido seleccionado
+                    $("#holderNewImage").show();
+                } else {
+                     $("#holderNewImage").hide();
+                }
+            });
+
+
             // initialize with defaults
 
             $image_crop = $('#upload-image').croppie({
                 enableExif: true,
                 viewport: {
-                    width: 200,
-                    height: 200,
+                    width: 275,
+                    height: 275,
                     type: 'square'
                 },
                 boundary: {
-                    width: 300,
-                    height: 300
+                    width: 350,
+                    height: 350
                 }
             });
             $('#images').on('change', function () {
@@ -118,13 +160,27 @@
                     type: 'canvas',
                     size: 'viewport'
                 }).then(function (response) {
+                    $("#holder_loading").show(); 
                     $.ajax({
-                        url: "http://coderszine.com/demo/crop-image-and-upload-using-jquery-and-php/upload.php",
+                        //url: "http://coderszine.com/demo/crop-image-and-upload-using-jquery-and-php/upload.php",
+                        url: "{{ path('setProfileImage_upload') }}",
                         type: "POST",
                         data: {"image":response},
                         success: function (data) {
-                            html = '<img src="' + response + '" />';
-                            $("#upload-image-i").html(html);
+                            if(data == 1 )
+                            {
+                                html = '<img src="' + response + '" />';
+                                $("#upload-image-i").html(html);
+                                location.reload();
+                            }else{
+                                $("#holder_loading").hide(); 
+                                $.alert({
+                                    icon: 'fa fa-warning',
+                                    title: 'Alert!',
+                                    type: "red",
+                                    content: 'There was an error!',
+                                });
+                            }
                         }
                     });
                 });

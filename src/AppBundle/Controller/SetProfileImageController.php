@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+//use \Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * MedicalDetail controller.
@@ -11,6 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class SetProfileImageController extends Controller
 {
+    public function getUploadRootDir()
+	{
+		// the absolute directory path where uploaded
+		// documents should be saved
+		return  $this->get('kernel')->getRootDir().'/../web/uploads/'; //__DIR__.'/../../../web/uploads/';
+	}
     /**
      * Lists all MedicalDetail entities.
      *
@@ -20,64 +27,101 @@ class SetProfileImageController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getUsrId();
-        //$oMedical = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "usr"=> $userId) );
-
+        $oMedical = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "usr"=> $userId) );
+        if( $oMedical )
+        {
+            $image = $oMedical->getMdProfileImage();
+        }
+        else
+        {
+            $image = "";
+        }    
         return $this->render('app/setProfileImage/index.html.twig', array(
-            //'medicalDetails' => $medicalDetails,
+            'image' => $image,
         ));
     }
 
-
-
-    public function profileImageAction(Request $request, $max = null, $iClass = null)
+    public function uploadAction( Request $request )
     {
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getUsrId();
-        $oInfo = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "usr"=> $userId) );
-        $image = "";
-        if( $oInfo &&  $oInfo->getMdProfileImage() != "")
+        
+        $croped_image =  $categoryId = $request->get("image");
+        if( isset($croped_image) && $croped_image != "" && $request->isMethod('post') )
         {
-            $image = $oInfo->getMdProfileImage();
+            try
+            {
+                $oMedical = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "usr"=> $userId) );
+
+                if( $oMedical && $oMedical->getMdProfileImage() != "" )
+                {
+                    $oldImage = $oMedical->getMdProfileImage();
+                }
+
+                list($type, $croped_image) = explode(';', $croped_image);
+                list(, $croped_image)      = explode(',', $croped_image);
+                $croped_image = base64_decode($croped_image);
+                $image_name = uniqid().time().'.png';
+                // upload cropped image to server 
+                if( file_put_contents($this->getUploadRootDir().$image_name, $croped_image) )
+                {
+                    $oMedical->setMdProfileImage($image_name);
+                    $em->persist($oMedical);
+                    $flush = $em->flush();
+                    if( $flush == null)
+                    {
+                        if( isset($oldImage) && $oldImage != "" )
+                        {
+                            $this->fileExist( $this->getUploadRootDir().$oldImage);
+                            $status = "Image was uploaded successfully";
+                            $session->getFlashBag()->add("success", $status);
+                            echo 1;
+                        }
+                    }
+                    else
+                    {
+                        $this->fileExist( $this->getUploadRootDir().$oMedical->getMdProfileImage());
+                        echo 0;
+                    }
+                    
+                }
+                else
+                {
+                    
+                }
+
+                
+            }
+            catch (\Exception $e)
+            {
+                throw $e;
+                //echo ($e->getMessage());
+            }
         }
-
-        return $this->render('app/medicaldetail/profileImage.html.twig', array("image"=>$image,"max"=>$max,"iClass"=>$iClass));
-
-    }
-
-    /**
-     * Deletes a MedicalDetail entity.
-     *
-     */
-    public function deleteAction(Request $request, MedicalDetail $medicalDetail)
-    {
-        $form = $this->createDeleteForm($medicalDetail);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $image = $medicalDetail->getMdProfileImage();
-            @unlink( __DIR__.'/../../../web/uploads/'.$image);
-            $em->remove($medicalDetail);
-            $em->flush();
+        else
+        {
+            throw new Exception('Error');
         }
-
-        return $this->redirectToRoute('medicaldetail_index');
+        exit();
     }
 
-    /**
-     * Creates a form to delete a MedicalDetail entity.
-     *
-     * @param MedicalDetail $medicalDetail The MedicalDetail entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(MedicalDetail $medicalDetail)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('medicaldetail_delete', array('id' => $medicalDetail->getMdId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
+	
+	
+	public function fileExist($path)
+	{
+		if( !empty($path) )
+		{
+			$fullPath = $path;
+			$file_exists = file_exists($fullPath);
+			if( $file_exists )
+			{
+				@unlink($fullPath);
+			}else{
+                echo "fileexiste";
+            }
+		}		
+	}
+	
+
 }

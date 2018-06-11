@@ -21,7 +21,7 @@ class MedicalDetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('mdProfileImage', FileType::class, array( "label"=>"Foto","required"=>"", "attr"=>array( "class"=>"form-name form-control" ), "data_class" => null ))
+            //->add('mdProfileImage', FileType::class, array( "label"=>"Foto","required"=>"", "attr"=>array( "class"=>"form-name form-control" ), "data_class" => null ))
             ->add('mdProfileDescription')
             ->add('mdAcademicTraining')
             ->add('mdProfessionalExperience')

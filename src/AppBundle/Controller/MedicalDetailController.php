@@ -95,19 +95,21 @@ class MedicalDetailController extends Controller
                 }
             }
 
-            // Recogemos el fichero
-            $file=$form['mdProfileImage']->getData();
-            if( $file != "")
-            {
-                // Sacamos la extensión del fichero
-                $ext=$file->guessExtension();
-                // Le ponemos un nombre al fichero
-                $file_name=time().".".$ext;
-                // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
-                $file->move("uploads", $file_name);
-                // Establecemos el nombre de fichero en el atributo de la entidad
-                $medicalDetail->setMdProfileImage($file_name);
-            }
+            /*
+                // Recogemos el fichero
+                $file=$form['mdProfileImage']->getData();
+                if( $file != "")
+                {
+                    // Sacamos la extensión del fichero
+                    $ext=$file->guessExtension();
+                    // Le ponemos un nombre al fichero
+                    $file_name=time().".".$ext;
+                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
+                    $file->move("uploads", $file_name);
+                    // Establecemos el nombre de fichero en el atributo de la entidad
+                    $medicalDetail->setMdProfileImage($file_name);
+                }
+            */
             $oUser = $em->getRepository('AppBundle:User')->findOneBy( array( "usrId"=> $userId) );
             $medicalDetail->setUsr($oUser);
 
@@ -157,16 +159,17 @@ class MedicalDetailController extends Controller
             return $this->redirectToRoute('medicaldetail_new');
         }
 
-        $currentImage = "";
-        $oCurrentImage = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "mdId"=> $id) );
+        /*
+            $currentImage = "";
+            $oCurrentImage = $em->getRepository('AppBundle:MedicalDetail')->findOneBy( array( "mdId"=> $id) );
 
-        if($oCurrentImage){
-            if( $oCurrentImage->getMdProfileImage() )
-            {
-                $currentImage = $oCurrentImage->getMdProfileImage();
+            if($oCurrentImage){
+                if( $oCurrentImage->getMdProfileImage() )
+                {
+                    $currentImage = $oCurrentImage->getMdProfileImage();
+                }
             }
-        }
-
+        */
 
 
         $deleteForm = $this->createDeleteForm($medicalDetail);
@@ -198,23 +201,25 @@ class MedicalDetailController extends Controller
                         }
                     }
                 }
-
-            // Recogemos el fichero
-            $file=$editForm['mdProfileImage']->getData();
-            if( $file != "")
-            {
-                // Sacamos la extensión del fichero
-                $ext=$file->guessExtension();
-                // Le ponemos un nombre al fichero
-                $file_name=time().".".$ext;
-                // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
-                $file->move("uploads", $file_name);
-                // Establecemos el nombre de fichero en el atributo de la entidad
-                $medicalDetail->setMdProfileImage($file_name);
-                @unlink( __DIR__.'/../../../web/uploads/'.$currentImage);
-            }else{
-                $medicalDetail->setMdProfileImage($currentImage);
-            }
+            
+            /*    
+                // Recogemos el fichero
+                $file=$editForm['mdProfileImage']->getData();
+                if( $file != "")
+                {
+                    // Sacamos la extensión del fichero
+                    $ext=$file->guessExtension();
+                    // Le ponemos un nombre al fichero
+                    $file_name=time().".".$ext;
+                    // Guardamos el fichero en el directorio uploads que estará en el directorio /web del framework
+                    $file->move("uploads", $file_name);
+                    // Establecemos el nombre de fichero en el atributo de la entidad
+                    $medicalDetail->setMdProfileImage($file_name);
+                    @unlink( __DIR__.'/../../../web/uploads/'.$currentImage);
+                }else{
+                    $medicalDetail->setMdProfileImage($currentImage);
+                }
+            */
             $em->persist($medicalDetail);
             $em->flush();
             //exit();

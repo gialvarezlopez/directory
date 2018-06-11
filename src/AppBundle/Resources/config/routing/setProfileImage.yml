@@ -4,6 +4,6 @@ setProfileImage_show:
 
 
 
-setProfileImage_update:
-    path:   /update
-    defaults: { _controller: "AppBundle:SetProfileImage:update" }
+setProfileImage_upload:
+    path:   /upload
+    defaults: { _controller: "AppBundle:SetProfileImage:upload" }

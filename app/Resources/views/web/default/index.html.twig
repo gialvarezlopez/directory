@@ -41,10 +41,12 @@
             background: #2F3B59;
         }
 
+        /*
         .grid-item {
             width: 33%;
             padding: 0 10px;
         }
+        */
 
         /*@media (max-width:768px) {*/
         @media(max-width:1200px) {
@@ -239,7 +241,7 @@
                     {% if medic | length %}
                         {% for m in medic %}
 
-                            <div class="col-md-6x col-lg-4x grid_colx show_listingx grid-item">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  grid_colx show_listingx grid-item">
                                 <div class="items-list listing_wrap " data-marker-id="1">
                                     {# <div class="listing_img" style="height: 300px;"> #}
                                     <div class="listing_img">
@@ -362,12 +364,13 @@
 
             $('[data-toggle="tooltip"]').tooltip();
 
+            /*
             $('.grid').isotope({
                 layoutMode: 'masonry',
                 itemSelector: '.grid-item',
-                // options for masonry layout mode
-
+                // options for masonry layout mod
             });
+            */
 
             {% if medic|length == 0 %}
                // $("#footer").addClass("fixedBottom")
