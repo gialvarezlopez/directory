@@ -612,7 +612,7 @@
                     var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: zoomLevel,
                         scrollwheel: false,
-                        center: new google.maps.LatLng(38.46581101942668, -97.67327016328125),
+                        center: new google.maps.LatLng({{ currentUserLat }}, {{currentUserLng}}),
                         mapTypeId: google.maps.MapTypeId.ROADMAP,
                         zoomControl: false,
                         mapTypeControl: false,

@@ -39,4 +39,11 @@ AppBundle\Entity\Country:
             options:
                 fixed: false
             column: sta_lng
+        isoCode:
+            type: string
+            nullable: false
+            length: 2
+            options:
+                fixed: false
+            column: iso_code
     lifecycleCallbacks: {  }

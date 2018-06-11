@@ -143,4 +143,33 @@ class Country
     {
         return $this->couName;
     }
+    /**
+     * @var string
+     */
+    private $isoCode;
+
+
+    /**
+     * Set isCode
+     *
+     * @param string $isoCode
+     *
+     * @return Country
+     */
+    public function setIsoCode($isoCode)
+    {
+        $this->isoCode = $isoCode;
+
+        return $this;
+    }
+
+    /**
+     * Get isoCode
+     *
+     * @return string
+     */
+    public function getIsoCode()
+    {
+        return $this->isoCode;
+    }
 }

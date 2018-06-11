@@ -94,7 +94,7 @@ liip_imagine :
 
                 # create a 2px black border: center the thumbnail on a black background
                 # 4px larger to create a 2px border around the final image
-                background : { size : [124, 94], position : center, color : '#000000' }    
+                background : { size : [124, 94], position : center, color : '#000000' }
 gregwar_image:
     throw_exception: true
 
@@ -108,4 +108,4 @@ knp_paginator:
         distinct:               true       # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig     # sliding pagination controls template
-        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig  
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig

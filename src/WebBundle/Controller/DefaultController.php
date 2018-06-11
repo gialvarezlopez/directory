@@ -17,6 +17,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Include GeoIp2 Classes
+use GeoIp2\Database\Reader;
+use GeoIp2\Exception\AddressNotFoundException;
+
 class DefaultController extends Controller
 {
 
@@ -143,7 +147,7 @@ class DefaultController extends Controller
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
             LEFT JOIN country as cou ON cou.cou_id = u.cou_id
-            where ci.ci_lat != '' AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE() $_filter
+            WHERE u.usr_active = 1 AND ci.ci_lat != '' AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE() $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
         			  $statement->execute();
@@ -160,7 +164,92 @@ class DefaultController extends Controller
                                 9);
 
 
-        return $this->render('web/default/index.html.twig', array('country'=> $country,'state'=> $state , 'medic' => $pagination, 'speciality' => $speciality , 'zoom' => $zoom , 'stateDatos' => $stado_lat_lng  , 'filters' => $busqueda , 'cities'=>$citis , 'countries' => $countries , 'estados_d' => $estados_d , 'mapaZoom'=> $mapaZoom , 'category'=>$category ));
+        $geo = $this->geoIP();
+        if( is_object($geo)  && $geo != "" )
+        {
+            $isoCode = strtoupper($geo->country->isoCode);
+        }
+        else
+        {
+            $isoCode = "US";
+        }
+
+        $cur = $this->currentLatLngUser( $isoCode );
+        $currentUserLat = $cur["lat"];
+        $currentUserLng = $cur["lng"];
+
+        return $this->render('web/default/index.html.twig', array(
+                'country'=> $country,
+                'state'=> $state ,
+                'medic' => $pagination,
+                'speciality' => $speciality ,
+                'zoom' => $zoom ,
+                'stateDatos' => $stado_lat_lng  ,
+                'filters' => $busqueda ,
+                'cities'=>$citis ,
+                'countries' => $countries ,
+                'estados_d' => $estados_d ,
+                'mapaZoom'=> $mapaZoom ,
+                'category'=>$category,
+                "currentUserLat" => $currentUserLat,
+                "currentUserLng" => $currentUserLng
+            )
+        );
+    }
+
+    public function geoIP()
+    {
+        //https://ourcodeworld.com/articles/read/693/how-to-detect-the-city-country-and-locale-from-a-visitor-s-ip-using-the-free-geolite-database-in-symfony-3
+
+        //IS CODE
+        //http://kirste.userpage.fu-berlin.de/diverse/doc/ISO_3166.html
+
+        // Declare the path to the GeoLite2-City.mmdb file (database)
+        $GeoLiteDatabasePath = $this->get('kernel')->getRootDir() . '/../web/GeoLite2-City/GeoLite2-City.mmdb';
+
+        // Create an instance of the Reader of GeoIp2 and provide as first argument
+        // the path to the database file
+        $reader = new Reader($GeoLiteDatabasePath);
+
+        try{
+            // if you are in the production environment you can retrieve the
+            // user's IP with $request->getClientIp()
+            // Note that in a development environment 127.0.0.1 will
+            // throw the AddressNotFoundException
+
+            //var_dump($reader);
+            // In this example, use a fixed IP address in Minnesota
+
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $record = $reader->city($ip);
+
+        } catch (AddressNotFoundException $ex) {
+            // Couldn't retrieve geo information from the given IP
+            //return new Response("It wasn't possible to retrieve information about the providen IP");
+            return false;
+        }
+
+        //return new JsonResponse($record);
+        return $record;
+    }
+
+    public function currentLatLngUser( $isoCode )
+    {
+        $em  = $this->getDoctrine()->getManager();
+
+        $currentUserLat = "38.46581101942668";
+        $currentUserLng = "-97.67327016328125";
+        if( $isoCode != "" )
+        {
+            $result  =  $em->getRepository('AppBundle:Country')->findOneBy( array('isoCode' => $isoCode ) );
+            if( $result )
+            {
+                $currentUserLat = $result->getStaLat();
+                $currentUserLng =  $result->getStaLng();
+            }
+        }
+
+        return array("lat"=>$currentUserLat,"lng"=>$currentUserLng);
     }
 
     public function showProfileAction( Request $request){
@@ -199,7 +288,7 @@ class DefaultController extends Controller
             LEFT JOIN state as s on s.sta_id = c.sta_id
             LEFT JOIN speciality as e on e.usr_id = u.usr_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
-            where u.usr_id = ". $id_profile . " AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE()
+            WHERE u.usr_active = 1 AND u.usr_id = ". $id_profile . " AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE()
             group by u.usr_id";
 
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
@@ -549,7 +638,7 @@ class DefaultController extends Controller
             LEFT JOIN user_has_speciality AS ues ON ues.usr_id = u.usr_id
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
-            where ci.ci_lat != '' AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE() $_filter
+            WHERE u.usr_active = 1 AND ci.ci_lat != '' AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE() $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
                       $statement->execute();
@@ -565,7 +654,22 @@ class DefaultController extends Controller
                                 $request->query->getInt('page', 1),
                                 50);
 
-        return $this->render('web/default/landing.html.twig' ,array('country'=> $country,'state'=> $state , 'cities'=>$citis , 'speciality' => $speciality , 'medic' => $pagination , 'zoom' => $zoom , 'category'=> $category ) );
+        $geo = $this->geoIP();
+        if( is_object($geo)  && $geo != "" )
+        {
+            $isoCode = strtoupper($geo->country->isoCode);
+        }
+        else
+        {
+            $isoCode = "US";
+        }
+
+        $cur = $this->currentLatLngUser( $isoCode );
+        $currentUserLat = $cur["lat"];
+        $currentUserLng = $cur["lng"];
+
+        return $this->render('web/default/landing.html.twig' ,array('country'=> $country,'state'=> $state , 'cities'=>$citis , 'speciality' => $speciality , 'medic' => $pagination , 'zoom' => $zoom , 'category'=> $category, "currentUserLat" => $currentUserLat,
+        "currentUserLng" => $currentUserLng ) );
     }
 
     public function contactusAction( Request $request ){
