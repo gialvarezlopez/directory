@@ -101,7 +101,7 @@
                                     {% else %}
                                         {# {% set diferencia = date( pay.payDeadLine|date("Y-m-d") ).diff(date( pay.payCreated|date("Y-m-d") )) %} #}
                                         {% set diferencia = date( pay.payDeadLine|date("Y-m-d") ).diff( date('now') ) %}
-                                        {% set diasRestantes = diferencia.days + 2 %}
+                                        {% set diasRestantes = diferencia.days + 1 %}
                                     {% endif %}
 
 
