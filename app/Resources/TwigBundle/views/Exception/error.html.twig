@@ -1,0 +1,42 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title_page %}
+    Oops! Something went wrong
+{% endblock %}
+
+{% block classbg %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <hr>
+                    <h4 class="alert alert-info">Oops! Something went wrong.</h4>
+                    {# ejemplo de parte de la página que sólo se muestra a usuario identificado #}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {# ... #}
+                    {% endif %}
+
+                    {% if exception.message %}
+                        <div class="alert alert-warning">{{ exception.message }}</div>
+                    {% endif %}
+
+                    <p>We are fixing it! Please come back in a while.</p>
+                    <p>
+                        The requested page could not be located. Checkout for any URL misspelling or <a href="{{ path('web_homepage') }}">Back Home</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block codejs %}
+    <script>
+    </script>
+{% endblock %}

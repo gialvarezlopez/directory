@@ -203,6 +203,9 @@
         }
     </style>
 
+
+
+
     <!-- Listings -->
     <section id="ElemoListing_with_map">
         <div class="ElemoListing_map">
@@ -310,9 +313,9 @@
                                                     <i class="fa fa-map-marker"></i>
                                                     {{ m.cit_name }}
                                                     /{{ m.sta_name }}</p>
-                                                <div class="clear"></div>        
+                                                <div class="clear"></div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -345,7 +348,7 @@
 
         $(function () {
 
-            
+
             function setHight(elem){
                 var big = 0;
                 $(elem).each(function(){
@@ -531,9 +534,11 @@
                 var locations = [];
 
                 $.each(test, function (k, v) {
+                    var pathUrl = "{{ url('web_show_profile',{id:'===textReplace'}) }}";
+                    pathUrl = pathUrl.replace('===textReplace', v.usr_id );
                     if(v.cat_id == 1){
                         locations.push([
-                            locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                            locationData( pathUrl, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
                             v.ci_lat,
                             v.ci_lng,
                             2,
@@ -541,7 +546,7 @@
                         ])
                     }else{
                         locations.push([
-                            locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.ci_company , v.ci_phone1, '5.0', '23'),
+                            locationData( pathUrl, '{{ asset('uploads/') }}'+v.md_profile_image, v.ci_company , v.ci_phone1, '5.0', '23'),
                             v.ci_lat,
                             v.ci_lng,
                             2,
@@ -935,9 +940,11 @@
                 var locations = [];
 
                 $.each(test, function (k, v) {
+                    var pathUrl = "{{ url('web_show_profile',{id:'===textReplace'}) }}";
+                    pathUrl = pathUrl.replace('===textReplace', v.usr_id );
                     if( v.cat_id ==1){
                         locations.push([
-                            locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
+                            locationData(pathUrl, '{{ asset('uploads/') }}'+v.md_profile_image, v.md_first_name + ' ' + v.md_first_surname, v.ci_phone1, '5.0', '23'),
                             v.ci_lat,
                             v.ci_lng,
                             2,
@@ -945,7 +952,7 @@
                         ])
                     }else{
                         locations.push([
-                            locationData('showProfile/' + v.usr_id, '{{ asset('uploads/') }}'+v.md_profile_image, v.ci_company , v.ci_phone1, '5.0', '23'),
+                            locationData(pathUrl, '{{ asset('uploads/') }}'+v.md_profile_image, v.ci_company , v.ci_phone1, '5.0', '23'),
                             v.ci_lat,
                             v.ci_lng,
                             2,

@@ -179,7 +179,7 @@ class DefaultController extends Controller
 
             if(!$oUser)
             {
-                throw new NotFoundHttpException("Page not found");
+                throw new NotFoundHttpException("Record not found");
             }
 
             $showContactForm = $oUser->getUsrNotificationContactForm();
@@ -208,7 +208,7 @@ class DefaultController extends Controller
 
         if( count($profile) == 0 )
         {
-            throw new NotFoundHttpException("User is not available");
+            throw new NotFoundHttpException("Profile is not available");
         }
 
         //Obtain gallery

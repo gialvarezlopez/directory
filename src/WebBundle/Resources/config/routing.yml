@@ -13,7 +13,7 @@ web_get_country:
   methods:  POST
 
 web_show_profile:
-  path:     /showProfile/{id}
+  path:     /profile/{id}
   defaults: { _controller: "WebBundle:Default:showProfile" }
   methods:  GET
 
