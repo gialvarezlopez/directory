@@ -549,7 +549,7 @@ class DefaultController extends Controller
             LEFT JOIN user_has_speciality AS ues ON ues.usr_id = u.usr_id
             LEFT JOIN speciality as e on e.sp_id = ues.sp_id
             LEFT JOIN category AS ca ON ca.cat_id = ci.cat_id
-            where u.usr_show = 1 and ci.ci_lat != '' $_filter
+            where ci.ci_lat != '' AND ( SELECT pay_deadline FROM payer WHERE pay_deadline >= CURDATE() AND usr_id = u.usr_id ORDER BY pay_deadline DESC LIMIT 1 ) >= CURDATE() $_filter
             group by u.usr_id ";
         $statement  = $em->getConnection()->prepare($RAW_QUERY);
                       $statement->execute();
