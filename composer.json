@@ -29,7 +29,6 @@
         "knplabs/knp-paginator-bundle": "^2.7",
 		"gregwar/image-bundle": "dev-master",
         "phpmailer/phpmailer": "^6.0",
-        "maxmind/geoip": "^1.1",
         "geoip2/geoip2": "^2.9"
     },
     "require-dev": {
