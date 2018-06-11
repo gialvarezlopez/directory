@@ -41,6 +41,9 @@
             background: #2F3B59;
         }
 
+        .clear{
+            clear:both;
+        }
         /*
         .grid-item {
             width: 33%;
@@ -269,43 +272,47 @@
                                     </div>
                                     <div class="listing_info">
                                         <!-- <div class="post_category"> <a href="#">{{ m.cit_name }} /{{ m.sta_code }} </a> </div>-->
-                                        <h6>
-                                            <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
-                                                {% if m.cat_id == 1 %}
-                                                    {{ m.md_first_name }}
-                                                    {{ m.md_first_surname }}
-                                                {% else %}
-                                                    {{ m.ci_company }}
-                                                {% endif %}
-                                            </a>
-                                        </h6>
+                                        <div class="containerInfo">
+                                            <h6>
+                                                <a href="{{ path ('web_show_profile',{'id': m.usr_id }) }}" target="_blank">
+                                                    {% if m.cat_id == 1 %}
+                                                        {{ m.md_first_name }}
+                                                        {{ m.md_first_surname }}
+                                                    {% else %}
+                                                        {{ m.ci_company }}
+                                                    {% endif %}
+                                                </a>
+                                            </h6>
 
-                                        <p class="itemSpecialities">
-                                            {% if m.cat_id == 1 %}
-                                                {% if m.esp != null %}
-                                                    {{ m.esp }}
+                                            <p class="itemSpecialities">
+                                                {% if m.cat_id == 1 %}
+                                                    {% if m.esp != null %}
+                                                        {{ m.esp }}
+                                                    {% else %}
+                                                        <br>
+                                                    {% endif %}
+
                                                 {% else %}
                                                     <br>
                                                 {% endif %}
-
-                                            {% else %}
-                                                <br>
-                                            {% endif %}
-                                        </p>
-
-                                        <div class="listing_review_info">
-
-                                            <p>
-                                                <span class="review_score">
-                                                    <i class="fa fa-eye"></i>
-                                                    {{ m.total }}
-                                                </span>
-                                                <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star"></i> (5 Reviews)-->
                                             </p>
-                                            <p class="listing_map_m">
-                                                <i class="fa fa-map-marker"></i>
-                                                {{ m.cit_name }}
-                                                /{{ m.sta_name }}</p>
+                                        </div>
+                                        <div class="listing_review_info">
+                                            <div class="containerFooter">
+                                                <p>
+                                                    <span class="review_score">
+                                                        <i class="fa fa-eye"></i>
+                                                        {{ m.total }}
+                                                    </span>
+                                                    <!--<i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star active"></i> <i class="fa fa-star"></i> (5 Reviews)-->
+                                                </p>
+                                                <p class="listing_map_m">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    {{ m.cit_name }}
+                                                    /{{ m.sta_name }}</p>
+                                                <div class="clear"></div>        
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -337,6 +344,29 @@
     <script>
 
         $(function () {
+
+            
+            function setHight(elem){
+                var big = 0;
+                $(elem).each(function(){
+                    var item = parseInt($(this).height());
+
+                    if( item > big){
+                        big = item;
+                    }
+
+                    //console.log(big);
+                });
+
+                $(elem).css("height", big+"px");
+            }
+
+            setHight(".containerInfo");
+            setHight(".containerFooter");
+            $( window ).resize(function(){
+                setHight(".containerInfo");
+                setHight(".containerFooter");
+            });
 
             $("#holderBtnSearch").on("click",function(){
                 var left = "0px";
