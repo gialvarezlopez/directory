@@ -1,15 +1,15 @@
 {% extends 'web/base.html.twig' %}
 
-{% block title_page %}DB || Dr. {{ profile[0].md_first_name~" "~profile[0].md_first_surname }}{% endblock %}
+{% block title_page %}Dr. {{ (profile[0].md_first_name~" "~profile[0].md_first_surname)|title }} - Doctors Billboard{% endblock %}
 
 {% block description_page %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 150) ~ '...' }}{% endblock %}
 
-{% block ogTitle %}Dr. {{ profile[0].md_first_name~" "~profile[0].md_first_surname }}{% endblock %}
+{% block ogTitle %}Dr. {{ (profile[0].md_first_name~" "~profile[0].md_first_surname)|title }}{% endblock %}
 {% block ogDescription %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 150) ~ '...' }}{% endblock %}
 {% block ogImage %}{% if profile[0].md_profile_image != "" %}{% if file_exists('uploads/' ~ profile[0].md_profile_image) %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~asset('uploads/'~profile[0].md_profile_image))|trim }}{% else %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~asset('bundles/web/template/Site/assets/images/pindingProfileImage.png'))|trim }}{% endif %}{% else %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~asset('bundles/web/template/Site/assets/images/pindingProfileImage.png'))|trim }}{% endif %}{% endblock %}
 {% block ogUrl %}{{url}}{% endblock %}
 
-{% block twitterTitle %}Dr. {{ profile[0].md_first_name~" "~profile[0].md_first_surname }}{% endblock %}
+{% block twitterTitle %}Dr. {{ (profile[0].md_first_name~" "~profile[0].md_first_surname)|title }}{% endblock %}
 {% block twitterDescription %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 150) ~ '...' }}{% endblock %}
 {% block twitterImage %}{% if profile[0].md_profile_image != "" %}{% if file_exists('uploads/' ~ profile[0].md_profile_image) %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~asset('uploads/'~profile[0].md_profile_image))|trim }}{% else %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~asset('bundles/web/template/Site/assets/images/pindingProfileImage.png'))|trim }}{% endif %}{% else %}{{ (app.request.scheme ~'://' ~ app.request.httpHost ~asset('bundles/web/template/Site/assets/images/pindingProfileImage.png'))|trim }}{% endif %}{% endblock %}
 {% block twitterCard %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 50) ~ '...' }}{% endblock %}
