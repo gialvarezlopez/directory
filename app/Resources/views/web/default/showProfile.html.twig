@@ -1,5 +1,7 @@
 {% extends 'web/base.html.twig' %}
 
+{% block keyword %}{{ (profile[0].md_first_name~" "~profile[0].md_first_surname)|title }}{% endblock %}
+
 {% block title_page %}Dr. {{ (profile[0].md_first_name~" "~profile[0].md_first_surname)|title }} - Doctors Billboard{% endblock %}
 
 {% block description_page %}{{ ((profile[0].md_profile_description|striptags)|trim)|slice(0, 150) ~ '...' }}{% endblock %}
@@ -30,26 +32,6 @@
         .circle{
             border-radius: 50%;
         }
-        /*
-        .ratio {
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
-
-            height: 0;
-            padding-bottom: 100%;
-            position: relative;
-            width: 100%;
-        }
-        .img-circle {
-            border-radius: 50%;
-        }
-        .img-responsive {
-            display: block;
-            height: auto;
-            max-width: 100%;
-        }
-        */
         .thumbnail-location a{
             border: solid 1px #ccc;
             width: 72px;
