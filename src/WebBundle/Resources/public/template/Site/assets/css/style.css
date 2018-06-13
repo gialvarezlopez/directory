@@ -1407,7 +1407,8 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 	border-top:#232323 solid 1px;
 }
 .footer_bottom p {
-	margin:0 auto;
+  margin:0 auto;
+  font-size: 12px !important;
 }
 .follow_us ul, .footer_nav ul {
 	padding:0px;
@@ -2681,7 +2682,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
   text-align: center;
 }
 .infoBox h5{
-  font-size: 16px !important; 
+  font-size: 16px !important;
 
 }
 #singlemap {
@@ -4095,7 +4096,7 @@ h3 {
   padding:20px 15px 15px;
 }
 .footer_bottom p {
-  font-size: 15px;
+  font-size: 12px;
 }
 .facts_info p span {
   font-size: 50px;

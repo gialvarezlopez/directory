@@ -54,4 +54,4 @@
 .idea
 
 #paypal
-/src/paypal-express/config.php
+/src/Services/paypal-express/config.php
