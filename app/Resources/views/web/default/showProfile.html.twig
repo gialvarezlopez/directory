@@ -86,8 +86,8 @@
             <div class="div_zindex white-textx">
                 <div class="row">
                     <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12" style="text-align:center">
-                        
-                        
+
+
                         {% if profile[0].md_profile_image != "" %}
                             {% if file_exists('uploads/' ~ profile[0].md_profile_image) %}
                                 {# <div class="ratio img-responsive img-circle" style="background-image: url({{ asset('uploads/'~profile[0].md_profile_image) }});"></div> #}
@@ -103,7 +103,7 @@
                     </div>
                     <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
                         <h2 class="colorSky">
-                            
+
                             {% if profile[0].cat_id == 1 %}
                                 {{ profile[0].md_first_name }}
                                 {{ profile[0].md_first_surname }}

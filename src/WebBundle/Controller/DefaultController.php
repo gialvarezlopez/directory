@@ -106,7 +106,7 @@ class DefaultController extends Controller
                 $citis = $statement->fetchAll();
 
             }
-            if(isset($_country)){
+            if(isset($_country) && is_numeric($_country)){
                 $sql_estado = "select * from country where cou_id = ". $_SESSION['_COUNTRY'];
                 $statement  = $em->getConnection()->prepare($sql_estado);
                                 $statement->execute();
