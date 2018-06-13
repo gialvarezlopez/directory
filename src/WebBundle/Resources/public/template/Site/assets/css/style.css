@@ -1409,6 +1409,7 @@ header .navbar-default .navbar-nav li ul.children ul.children {
 .footer_bottom p {
   margin:0 auto;
   font-size: 12px !important;
+  line-height: normal !important
 }
 .follow_us ul, .footer_nav ul {
 	padding:0px;

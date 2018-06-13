@@ -105,6 +105,13 @@
              position:relative;
          }
 
+         .show{
+             display:block;
+         }
+         .hide{
+             display:none;
+         }
+
         /*Search*/
          #holderBtnSearch{
              display: table;
@@ -136,6 +143,7 @@
             left:-105%;
             z-index: 9;
             top:0px;
+            display:none;
            box-shadow: 0px 1px 10px 1px rgba(119, 119, 119, 0.45);
             -moz-box-shadow: 0px 1px 10px 1px rgba(119, 119, 119, 0.45);
             -webkit-box-shadow: 0px 1px 10px 1px rgba(119, 119, 119, 0.45);
@@ -397,11 +405,13 @@
                 var holder = $("#holderIconSearch");
                 if( holder.hasClass("btnOpen"))
                 {
+                    $(".search_wrap").removeClass("open").addClass("show");
                     holder.removeClass("btnOpen").addClass("btnClose").html('<i class="fa fa-window-close" aria-hidden="true"></i>');
 
                 }
                 else
                 {
+                    $(".search_wrap").removeClass("show").addClass("open");
                     holder.removeClass("btnClose").addClass("btnOpen").html('<i class="fa fa-search" aria-hidden="true"></i>');
                     left = "-105%";
                 }
