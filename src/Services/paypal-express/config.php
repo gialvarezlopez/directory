@@ -11,7 +11,7 @@ if (session_status() == PHP_SESSION_NONE) { session_start(); } //PHP >= 5.4.0
 //$aResPayment = $oDataPayment->getPayment_methods($getOneItem = FALSE, $bActives = FALSE,  $site= FALSE );
 
 //print_r($aResPayment);
-$is_sanbox =  1;//$aResPayment['paypal'][2]['is_sanbox'];
+$is_sanbox =  0;//$aResPayment['paypal'][2]['is_sanbox'];
 //$paypal_url= "content/paypal-express/process.php?paypal=checkout";//( $is_sanbox == 1)?'https://www.sandbox.paypal.com/cgi-bin/webscr':'https://www.paypal.com/cgi-bin/webscr'; // Test Paypal API URL
 
 // sandbox or live
@@ -28,9 +28,9 @@ if(PPL_MODE=='sandbox'){
 }
 else{
 	//Production
-	define('PPL_API_USER', 'gialvarezlopez-facilitator_api1.gmail.com');
-	define('PPL_API_PASSWORD', '4VHL94VJYXQ5BBNL');
-	define('PPL_API_SIGNATURE', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AbnaPDBzJsIvrpBjcMv95gKlRMcq');
+	define('PPL_API_USER', 'gialvarezlopez_api1.gmail.com');
+	define('PPL_API_PASSWORD', 'JJC93QL39KW24738');
+	define('PPL_API_SIGNATURE', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AjTBnGCDfr.c4bSWAjvXLVQTwozX');
 }
 
 define('PPL_LANG', 'ES');
